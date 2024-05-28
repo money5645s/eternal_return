@@ -1,0 +1,30 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "item/custom_gui/map",
+		"particle": "item/custom_gui/map"
+	},
+	"elements": [
+		{
+			"from": [-8, -10, 6],
+			"to": [32, 30, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, 14, 6]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"east": {"uv": [0, 0, 0, 7.5], "texture": "#0"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 0, 7.5], "texture": "#0"},
+				"up": {"uv": [7.25, 0, 0, 0], "texture": "#0"},
+				"down": {"uv": [7.25, 0, 0, 0], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"gui": {
+			"rotation": [0, -55.5, 0],
+			"translation": [80, 0, -1],
+			"scale": [4, 4, 4]
+		}
+	}
+}

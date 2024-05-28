@@ -1,0 +1,15 @@
+team add jackie
+team add nicky
+team add luke
+team add mai
+team add shou
+team add charlotte
+team add aya
+
+team modify jackie prefix ["",{"text":" [ ","color":"light_purple"},{"text":"재키","color":"yellow"},{"text":" ] ","color":"light_purple"}]
+team modify nicky prefix ["",{"text":" [ ","color":"light_purple"},{"text":"니키","color":"yellow"},{"text":" ] ","color":"light_purple"}]
+team modify luke prefix ["",{"text":" [ ","color":"light_purple"},{"text":"루크","color":"yellow"},{"text":" ] ","color":"light_purple"}]
+team modify mai prefix ["",{"text":" [ ","color":"light_purple"},{"text":"마이","color":"yellow"},{"text":" ] ","color":"light_purple"}]
+team modify shou prefix ["",{"text":" [ ","color":"light_purple"},{"text":"쇼우","color":"yellow"},{"text":" ] ","color":"light_purple"}]
+team modify charlotte prefix ["",{"text":" [ ","color":"light_purple"},{"text":"샬럿","color":"yellow"},{"text":" ] ","color":"light_purple"}]
+team modify aya prefix ["",{"text":" [ ","color":"light_purple"},{"text":"아야","color":"yellow"},{"text":" ] ","color":"light_purple"}]

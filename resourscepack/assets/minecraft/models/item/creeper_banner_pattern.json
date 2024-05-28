@@ -1,0 +1,20 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "item/creeper_banner_pattern"
+	},
+	"overrides": [
+		{"predicate": {"custom_model_data":1}, "model": "item/custom/jumppad/1"},
+		{"predicate": {"custom_model_data":2}, "model": "item/custom/jumppad/2"},
+		{"predicate": {"custom_model_data":3}, "model": "item/custom/jumppad/3"},
+		{"predicate": {"custom_model_data":4}, "model": "item/custom/jumppad/4"},
+		{"predicate": {"custom_model_data":5}, "model": "item/custom/jumppad/5"},
+		{"predicate": {"custom_model_data":6}, "model": "item/custom/jumppad/6"},
+		{"predicate": {"custom_model_data":7}, "model": "item/custom/jumppad/7"},
+		{"predicate": {"custom_model_data":8}, "model": "item/custom/jumppad/8"},
+		{"predicate": {"custom_model_data":9}, "model": "item/custom/jumppad/non"},
+		{"predicate": {"custom_model_data":10}, "model": "item/custom/kiosk"},
+		{"predicate": {"custom_model_data":11}, "model": "item/custom/hyperloop"}
+
+	]
+}

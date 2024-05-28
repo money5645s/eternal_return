@@ -1,0 +1,77 @@
+{
+	"providers": [
+		{
+			"type":"space",
+			"advances":{
+				"-":-1,
+				"+":1,
+				"=":-172,
+				"*":0.1,
+				"#":7
+			}
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/health/health.png",
+			"ascent": 9,
+			"height": 32,
+			"chars": ["\u3a00\u3a01\u3a02\u3a03"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/area/all_area.png",
+			"ascent": 252,
+			"height": 252,
+			"chars": ["\u3a04"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/area/1.png",
+			"ascent": 192,
+			"height": 252,
+			"chars": ["\u3a05"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/area/2.png",
+			"ascent": 202,
+			"height": 252,
+			"chars": ["\u3a06"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/area/3.png",
+			"ascent": 212,
+			"height": 252,
+			"chars": ["\u3a07"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/area/4.png",
+			"ascent": 222,
+			"height": 252,
+			"chars": ["\u3a08"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/area/5.png",
+			"ascent": 232,
+			"height": 252,
+			"chars": ["\u3a09"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/area/6.png",
+			"ascent": 242,
+			"height": 252,
+			"chars": ["\u3a10"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/area/7.png",
+			"ascent": 252,
+			"height": 252,
+			"chars": ["\u3a11"]
+		}
+	]
+}
