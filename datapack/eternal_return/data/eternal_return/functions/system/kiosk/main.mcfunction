@@ -3,6 +3,9 @@
 execute as @e[tag=kiosk,tag=interaction,tag=!be_use] at @s on target run tag @p[distance=..1.3] add open_kiosk
 execute as @e[tag=kiosk,tag=interaction,tag=!be_use] if data entity @s interaction run tag @s add be_use
 
+# 채팅창 클릭 허용
+scoreboard players enable @a[tag=open_kiosk] ChatClick
+
 ## 키오스크 페이지
 execute as @a[tag=open_kiosk] at @s run function eternal_return:system/kiosk/display
 
