@@ -7,6 +7,7 @@ scoreboard objectives add hp health {"text":"♥","color":"red"}
 # 쿨타임
 scoreboard objectives add CT1 dummy
 scoreboard objectives add CT2 dummy
+scoreboard objectives add SC dummy
 
 # 정수
 scoreboard objectives add NUM dummy

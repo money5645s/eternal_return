@@ -16,19 +16,19 @@ execute as @a[scores={charlotteskill=40..}] run scoreboard players reset @s char
 
 ## 샬럿 스킬 쿨타임
 execute as @a[tag=charlottecool] run scoreboard players add @s charlottecool 1
-execute as @a[scores={charlottecool=540}] run tellraw @s ["",{"text":"3초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
-execute as @a[scores={charlottecool=560}] run tellraw @s ["",{"text":"2초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
-execute as @a[scores={charlottecool=580}] run tellraw @s ["",{"text":"1초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
-execute as @a[scores={charlottecool=600}] run tellraw @s ["",{"text":"스킬 사용 가능!","color":"aqua"}]
-execute as @a[scores={charlottecool=600..}] run item replace entity @s container.4 with carrot_on_a_stick
-execute as @a[scores={charlottecool=600..}] run tag @s remove charlottecool
-execute as @a[scores={charlottecool=600..}] run scoreboard players reset @s charlottecool
+execute as @a[scores={SC=540}] run tellraw @s ["",{"text":"3초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
+execute as @a[scores={SC=560}] run tellraw @s ["",{"text":"2초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
+execute as @a[scores={SC=580}] run tellraw @s ["",{"text":"1초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
+execute as @a[scores={SC=600}] run tellraw @s ["",{"text":"스킬 사용 가능!","color":"aqua"}]
+execute as @a[scores={SC=600..}] run item replace entity @s container.4 with carrot_on_a_stick
+execute as @a[scores={SC=600..}] run tag @s remove charlottecool
+execute as @a[scores={SC=600..}] run scoreboard players reset @s SC
 
 ## 샬럿 태그 제거 했을 때 관련 태그 제거
 execute as @a[tag=charlotteskill] unless entity @s[tag=charlotte] run tag @s remove charlotteskill
 execute as @a[tag=charlottecool] unless entity @s[tag=charlotte] run tag @s remove charlottecool
-execute as @a[scores={charlottecool=1..}] unless entity @s[tag=charlotte] run item replace entity @s container.4 with carrot_on_a_stick
-execute as @a[scores={charlottecool=1..}] unless entity @s[tag=charlotte] run scoreboard players reset @s charlottecool
+execute as @a[scores={SC=1..}] unless entity @s[tag=charlotte] run item replace entity @s container.4 with carrot_on_a_stick
+execute as @a[scores={SC=1..}] unless entity @s[tag=charlotte] run scoreboard players reset @s SC
 execute as @a[scores={charlotteskill=1..}] unless entity @s[tag=charlotte] run scoreboard players reset @s charlotteskill
 
 ## 샬럿 태그 보유 시 팀 가입

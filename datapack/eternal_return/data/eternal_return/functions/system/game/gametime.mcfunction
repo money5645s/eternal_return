@@ -1,7 +1,7 @@
 ## 금지구역 지정
 scoreboard players add @s gametime 1
 execute if score @s gametime matches 1 run function eternal_return:system/game/area
-execute if score @s gametime matches 1 run function eternal_return:system/game/start_armor_set
+execute if score @s gametime matches 1 run function eternal_return:system/item/start_armor_set
 execute if score @s gametime matches 1 run function eternal_return:system/stone/stonearea
 execute if score @s gametime matches 1 run tag @e[tag=r] add r1
 execute if score @s gametime matches 1 run tag @e[tag=st] add st1
