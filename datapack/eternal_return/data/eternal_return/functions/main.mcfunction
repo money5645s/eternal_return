@@ -59,6 +59,8 @@ function eternal_return:system/character/mai
 function eternal_return:system/character/shou
 function eternal_return:system/character/charlotte
 function eternal_return:system/character/aya
+function eternal_return:system/character/yohan
+function eternal_return:system/character/heart
 
 function eternal_return:system/player/rightclick
 function eternal_return:system/player/damagetaken

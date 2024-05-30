@@ -16,17 +16,16 @@ execute as @a[scores={ayaskill=30..}] run scoreboard players reset @s ayaskill
 
 ## 아야 스킬 쿨타임
 execute as @a[tag=ayacool] run scoreboard players add @s SC 1
-execute as @a[scores={SC=240}] run tellraw @s ["",{"text":"3초 후 패시브 스킬이 활성화 됩니다.","color":"yellow"}]
-execute as @a[scores={SC=260}] run tellraw @s ["",{"text":"2초 후 패시브 스킬이 활성화 됩니다.","color":"yellow"}]
-execute as @a[scores={SC=280}] run tellraw @s ["",{"text":"1초 후 패시브 스킬이 활성화 됩니다.","color":"yellow"}]
-execute as @a[scores={SC=300}] run tellraw @s ["",{"text":"패시브 활성화!","color":"aqua"}]
-execute as @a[scores={SC=300..}] run tag @s remove ayacool
-execute as @a[scores={SC=300..}] run scoreboard players reset @s SC
+execute as @a[tag=aya,scores={SC=240}] run tellraw @s ["",{"text":"3초 후 패시브 스킬이 활성화 됩니다.","color":"yellow"}]
+execute as @a[tag=aya,scores={SC=260}] run tellraw @s ["",{"text":"2초 후 패시브 스킬이 활성화 됩니다.","color":"yellow"}]
+execute as @a[tag=aya,scores={SC=280}] run tellraw @s ["",{"text":"1초 후 패시브 스킬이 활성화 됩니다.","color":"yellow"}]
+execute as @a[tag=aya,scores={SC=300}] run tellraw @s ["",{"text":"패시브 활성화!","color":"aqua"}]
+execute as @a[tag=aya,scores={SC=300..}] run tag @s remove ayacool
+execute as @a[tag=aya,scores={SC=300..}] run scoreboard players reset @s SC
 
 ## 아야 태그 제거 했을 때 관련 태그 제거
 execute as @a[tag=ayaskill] unless entity @s[tag=aya] run tag @s remove ayaskill
 execute as @a[tag=ayacool] unless entity @s[tag=aya] run tag @s remove ayacool
-execute as @a[scores={SC=1..}] unless entity @s[tag=aya] run scoreboard players reset @s SC
 execute as @a[scores={ayaskill=1..}] unless entity @s[tag=aya] run scoreboard players reset @s ayaskill
 
 ## 아야 태그 보유 시 팀 가입
