@@ -3,8 +3,8 @@
 # 범위 안에서 우클릭 할때
 execute as @e[tag=tree,distance=..3] on target run tag @s add get_tree
 # 범위를 벗어날 때
-execute as @e[tag=tree] at @s if entity @a[distance=3..10] run data remove entity @s interaction
-execute as @e[tag=tree] at @s run tag @a[distance=3..10] remove get_tree
+execute as @e[tag=tree] at @s if entity @p[distance=3..10] run data remove entity @s interaction
+execute as @e[tag=tree] at @s run tag @p[distance=3..10] remove get_tree
 
 # 스코어 추가
 scoreboard players add @s[tag=get_tree,scores={CT2=..3}] CT2 1

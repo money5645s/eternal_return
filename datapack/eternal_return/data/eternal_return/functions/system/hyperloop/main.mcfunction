@@ -12,6 +12,7 @@ scoreboard players enable @a[tag=open_hyperloop,tag=!loop] ChatClick
 # 하이퍼루프에서 멀어질 때
 execute if entity @s[tag=open_hyperloop,tag=!loop] if entity @e[tag=hyperloop,tag=interaction,distance=2..10] run function df_library:window/resetchat
 execute if entity @s[tag=open_hyperloop] if entity @e[tag=hyperloop,tag=interaction,distance=2..10] run tag @s remove open_hyperloop
+
 execute if entity @e[tag=hyperloop,tag=interaction,distance=2..10] run tag @s remove loop
 execute if entity @e[tag=hyperloop,tag=interaction,distance=2..10] run tag @s add cancel_loading
 execute if entity @e[tag=hyperloop,tag=interaction,distance=2..10] run scoreboard players set @s ChatClick 0
@@ -19,8 +20,8 @@ execute if entity @e[tag=hyperloop,tag=interaction,distance=2..10] run scoreboar
 
 ## 위치 선정 후
 # 스코어보드
-scoreboard players add @a[tag=open_hyperloop,tag=loop,scores={CT1=..120}] CT1 1
-scoreboard players set @a[tag=!loop] CT1 0
+scoreboard players add @s[tag=open_hyperloop,tag=loop,scores={CT1=..120}] CT1 1
+scoreboard players set @s[tag=!loop] CT1 0
 
 
 # 워프 취소 시
