@@ -15,3 +15,5 @@ execute positioned -504 82 663 run function eternal_return:system/hyperloop/summ
 execute positioned -436 82 507 run function eternal_return:system/hyperloop/summon {rotation:-90}
 # 성당
 execute positioned -538 82 414 run function eternal_return:system/hyperloop/summon {rotation:-90}
+# 공장
+execute positioned -577 82 328 run function eternal_return:system/hyperloop/summon {rotation:-90}

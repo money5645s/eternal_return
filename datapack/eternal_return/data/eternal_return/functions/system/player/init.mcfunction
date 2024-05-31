@@ -3,9 +3,10 @@ scoreboard objectives add player_id dummy
 
 # 스토리지 생성
 data remove storage minecraft:player_data players
-data merge storage player_data {players:[],temp:[{id_temp:0},{armor_temp:0},{sec:0,uuid:0}]}
+data modify storage player_data players set value []
+data modify storage player_data temp set value [{id:0},{armor:0},{index:""},{},{text:''}]
 
-# 플레이어 스코어및 태그 지우기
+# 플레이어 스코어 및 태그 지우기
 tag @a remove player_id
 scoreboard players reset @a player_id
 # 플레이어 아이디 카운트 초기화

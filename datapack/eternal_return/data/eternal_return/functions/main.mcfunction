@@ -1,7 +1,7 @@
 ##> 함수 반복문
-
+tag @a[tag=!player] add player
 ## 플레이어
-function eternal_return:system/player/main
+execute as @a[tag=player] at @s run function eternal_return:system/player/main
 ## 채팅 클릭
 execute as @a[tag=player_id] at @s run function eternal_return:system/trigger/main
 
@@ -13,7 +13,14 @@ function eternal_return:system/kiosk/main
 # 점프패드
 function eternal_return:system/jumppad/main
 # 하이퍼 루프
-function eternal_return:system/hyperloop/main
+execute as @a[tag=player_id] at @s run function eternal_return:system/hyperloop/main
+# 생명의 나무
+execute as @a[tag=player] at @s run function eternal_return:system/tree_of_life/main
+# 맵
+function eternal_return:system/map/main
+# 액션바
+execute as @a[tag=player] run function eternal_return:system/actionbar/main
+
 
 
 ## 맵
@@ -38,13 +45,7 @@ function eternal_return:system/game/last_area
 function eternal_return:system/game/daytimer
 function eternal_return:system/game/credit
 
-# 생명의 나무
-function eternal_return:system/tree_of_life/tree
-function eternal_return:system/tree_of_life/cemetery_tree
-function eternal_return:system/tree_of_life/forest_tree
-function eternal_return:system/tree_of_life/hotel_tree
-function eternal_return:system/tree_of_life/stream_tree
-function eternal_return:system/tree_of_life/temple_tree
+
 
 # 운석
 function eternal_return:system/stone/stonearea1

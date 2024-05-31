@@ -4,7 +4,7 @@ execute as @a at @s if block ~ ~ ~ tall_grass run tag @s add bush
 # 갑옷 정보 저장
 execute as @a[tag=bush,tag=!saveing_armor] at @s run function eternal_return:system/bush/save_armor
 # 입었던 갑옷 만큼의 기초방어력 부여
-execute as @a[tag=bush,tag=!saveing_armor] store result storage player_data temp[1].armor_temp float 1 run attribute @s generic.armor get
+execute as @a[tag=bush,tag=!saveing_armor] store result storage player_data temp[1].armor float 1 run attribute @s generic.armor get
 execute as @a[tag=bush,tag=!saveing_armor] at @s run function eternal_return:system/bush/give_armor with storage player_data temp[1]
 # 깁옷 슬롯 비우기
 execute as @a[tag=bush,tag=!saveing_armor] at @s run function eternal_return:system/bush/clear_armor
