@@ -21,3 +21,5 @@ scoreboard objectives add charlotteskill dummy
 scoreboard objectives add ayaskill dummy
 scoreboard objectives add yohanskill dummy
 scoreboard objectives add heartskill dummy
+scoreboard objectives add yukiskill dummy
+scoreboard objectives add yukir dummy
