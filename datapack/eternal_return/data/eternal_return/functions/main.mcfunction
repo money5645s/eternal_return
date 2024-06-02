@@ -26,10 +26,9 @@ execute as @a[tag=player] run function eternal_return:system/actionbar/main
 ## 맵
 function eternal_return:system/map/main
 
-#> 하이퍼루프 함수 (eternal_return:hyper_loop)
-#execute if entity @a[tag=hyper_loop] as @a[tag=hyper_loop] at @s run function eternal_return:hyper_loop/main
-#execute as @a[tag=!hyper_loop, tag=choosing_hyper_loop] run bossbar set minecraft:hud_5 name [{"text":""}]
-#execute as @a[tag=!hyper_loop, tag=choosing_hyper_loop] run tag @s remove choosing_hyper_loop
+#> 하이퍼루프 함수 eternal_return:maps/hyper_loop
+execute as @a if entity @a[tag=hyper_loop] at @s run function eternal_return:maps/hyper_loop/main
+execute as @a if entity @a[tag=!hyper_loop, tag=choosing_hyper_loop] run function eternal_return:maps/hyper_loop/reset
 
 # 플레이어 제외 엔티티 업데이트
 #execute as @e[type=!player] run function eternal_return:entity/main
