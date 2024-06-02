@@ -9,6 +9,7 @@ team add happy
 team add yohan
 team add heart
 team add yuki
+team add hyunwoo
 
 team modify jackie prefix ["",{"text":" [ ","color":"light_purple"},{"text":"재키","color":"yellow"},{"text":" ] ","color":"light_purple"}]
 team modify nicky prefix ["",{"text":" [ ","color":"light_purple"},{"text":"니키","color":"yellow"},{"text":" ] ","color":"light_purple"}]
@@ -21,3 +22,4 @@ team modify happy prefix ["",{"text":" [ ","color":"light_purple"},{"text":"해�
 team modify yohan prefix ["",{"text":" [ ","color":"light_purple"},{"text":"요한","color":"yellow"},{"text":" ] ","color":"light_purple"}]
 team modify heart prefix ["",{"text":" [ ","color":"light_purple"},{"text":"하트","color":"yellow"},{"text":" ] ","color":"light_purple"}]
 team modify yuki prefix ["",{"text":" [ ","color":"light_purple"},{"text":"유키","color":"yellow"},{"text":" ] ","color":"light_purple"}]
+team modify hyunwoo prefix ["",{"text":" [ ","color":"light_purple"},{"text":"현우","color":"yellow"},{"text":" ] ","color":"light_purple"}]
