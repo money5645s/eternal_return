@@ -42,10 +42,6 @@ scoreboard players operation #x0 ER.sys -= #y ER.sys
 scoreboard players operation #x1 ER.sys -= #y ER.sys
 scoreboard players operation #x1 ER.sys *= #x0 ER.sys
 
-$scoreboard players set #max_x ER.sys $(dot1_X)
-$scoreboard players set #min_x ER.sys $(dot2_X)
-execute if score #max_x ER.sys < #min_x ER.sys run scoreboard players operation #max_x ER.sys >< #min_x ER.sys
-
 $scoreboard players set #max_y ER.sys $(dot1_Y)
 $scoreboard players set #min_y ER.sys $(dot2_Y)
 execute if score #max_y ER.sys < #min_y ER.sys run scoreboard players operation #max_y ER.sys >< #min_y ER.sys
