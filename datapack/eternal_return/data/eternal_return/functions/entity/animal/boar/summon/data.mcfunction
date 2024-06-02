@@ -7,11 +7,14 @@
 #>SUMMON ENTITY
 #>좀비 소환
 $summon minecraft:zombie ~$(dx) ~$(dy) ~$(dz) {          \
-        Tags:["this","ER.animal.root"],\
+        Tags:["this","ER.animal.root"],                  \
         NoAI:1b,                                         \
         Silent:1b,                                       \
         Invulnerable:1b,                                 \
+        DeathTime:18,                                    \
+        ArmorItems:[{},{},{},{id:"minecraft:stone_button",count:1}],\
         CustomName:'{"color":"green","text":"[ER][ER.animal.root boar]"}',\
+        HasVisualFire:0b,PersistenceRequired:1b,         \
         Attributes:[                                     \
             {Name:generic.scale,Base:1},                 \
             {Name:generic.attack_damage,Base:0},         \
@@ -24,6 +27,7 @@ $summon ghast ~$(dx) ~$(dy) ~$(dz) {\
         NoAI:1b,\
         Silent:1b,\
         Health:1000f,\
+        DeathTime:18,\
         Attributes:[\
             {Name:generic.max_health,Base:1000},\
             {Name:generic.scale,Base:0.7}\

@@ -59,12 +59,12 @@ execute if entity @s[tag= ER.optimized] at @s \
 
 
 
-#> HP > 0
-execute if score #this.HP ER.sys matches 1.. run function eternal_return:entity/animal/boar/script/alive_behav
 
 #> HP <= 0
 execute if score #this.HP ER.sys matches ..0 run function eternal_return:entity/animal/boar/script/death_behav
 
+#> HP > 0
+execute if score #this.HP ER.sys matches 1.. run function eternal_return:entity/animal/boar/script/alive_behav
 
 
 

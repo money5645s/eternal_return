@@ -23,8 +23,6 @@
 
 
 
-execute as @e[tag=this, tag= ER.animal.HPbar ] run kill @s
-execute as @e[tag=this, tag= ER.animal.hitbox] run kill @s
 execute as @e[tag=this, tag= ER.animal.model ] run function animated_java:animal_boar/remove/this
 kill @s
     

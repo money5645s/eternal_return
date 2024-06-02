@@ -10,12 +10,12 @@
 
 #> function eternal_return:maps/hyper_loop/cursor_in_place/gas_station
 
-function eternal_return:maps/hyper_loop/cursor_in_place/get_line {dot1_X:168, dot1_Y:48, dot2_X:144, dot2_Y:24, laser_length:200}
-function eternal_return:maps/hyper_loop/cursor_in_place/get_line {dot1_X:144, dot1_Y:24, dot2_X:136, dot2_Y:36, laser_length:200}
-function eternal_return:maps/hyper_loop/cursor_in_place/get_line {dot1_X:136, dot1_Y:36, dot2_X:144, dot2_Y:44, laser_length:200}
-function eternal_return:maps/hyper_loop/cursor_in_place/get_line {dot1_X:144, dot1_Y:44, dot2_X:124, dot2_Y:64, laser_length:200}
-function eternal_return:maps/hyper_loop/cursor_in_place/get_line {dot1_X:124, dot1_Y:64, dot2_X:138, dot2_Y:78, laser_length:200}
-function eternal_return:maps/hyper_loop/cursor_in_place/get_line {dot1_X:138, dot1_Y:78, dot2_X:168, dot2_Y:48, laser_length:200}
+function eternal_return:maps/hyper_loop/cursor_in_place/dot_in_poly {dot1_X:168, dot1_Y:48, dot2_X:144, dot2_Y:24, laser_length:200}
+function eternal_return:maps/hyper_loop/cursor_in_place/dot_in_poly {dot1_X:144, dot1_Y:24, dot2_X:136, dot2_Y:36, laser_length:200}
+function eternal_return:maps/hyper_loop/cursor_in_place/dot_in_poly {dot1_X:136, dot1_Y:36, dot2_X:144, dot2_Y:44, laser_length:200}
+function eternal_return:maps/hyper_loop/cursor_in_place/dot_in_poly {dot1_X:144, dot1_Y:44, dot2_X:124, dot2_Y:64, laser_length:200}
+function eternal_return:maps/hyper_loop/cursor_in_place/dot_in_poly {dot1_X:124, dot1_Y:64, dot2_X:138, dot2_Y:78, laser_length:200}
+function eternal_return:maps/hyper_loop/cursor_in_place/dot_in_poly {dot1_X:138, dot1_Y:78, dot2_X:168, dot2_Y:48, laser_length:200}
 
 execute if score #cnt ER.sys matches 0 run return 0
 scoreboard players set #temp ER.sys 2

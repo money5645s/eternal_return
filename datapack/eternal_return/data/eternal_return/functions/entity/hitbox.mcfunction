@@ -10,7 +10,7 @@ execute unless score #this.HP ER.health matches 1000 run scoreboard players oper
 
 execute store result storage minecraft:temp temp.HP int 1 run scoreboard players get @s ER.health
 
-#> 사망 시 0만 띄우기 (음수값 띄우기 방지)
+#> 사망 시 제거 (음수값 띄우기 방지)
 execute if score @s ER.health matches ..0 on passengers if entity @s[tag=ER.animal.HPbar] run data modify entity @s text set value '[{"text":"[   "},{"text":"0"},{"text":"   ]"}]'
 
 #> HP 바 폰트로 표시

@@ -3,17 +3,6 @@
 #>   function eternal_return:maps/hyper_loop/show_selected
 #
 
-#gas station 시계 방향으로 확인 (input : posOfCursor)  
-#순서대로 d1, d2, dx, dy
-#(168,48) (146,26) 22,22
-#(146,26) (134,34) 22,22
-#(134,34) (144,44) 20,20
-#(144,44) (124,64) 22,22
-#(124,64) (138,78) 14,14  
-#(138,78) (168,48) 10,10
-#return 1 or 0
-
-
 
 execute at @s unless entity @s[tag=choosing_hyper_loop] run function eternal_return:maps/hyper_loop/show
 
@@ -61,6 +50,9 @@ scoreboard players operation #rotY ER.sys *= #temp ER.sys
 scoreboard players add #rotX ER.sys 130
 scoreboard players add #rotY ER.sys 154
 
+execute if score #rotX ER.sys matches 226.. run scoreboard players set #rotX ER.sys 226
+execute if score #rotY ER.sys matches 256.. run scoreboard players set #rotY ER.sys 256
+
 
 execute store result storage minecraft:temp coord.x int 1 run scoreboard players get #rotX ER.sys
 execute store result storage minecraft:temp coord.y int 1 run scoreboard players get #rotY ER.sys
@@ -80,6 +72,10 @@ beach:"white",hotel:"white",yanggung:"white",gas_station:"white",school:"white",
 #execute at @s if score #rotX ER.sys matches ..-90 run tp @s ~ ~ ~ 0 ~
 
 
+#> 모래사장
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/beach run \
+    data modify storage minecraft:temp temp.beach set value "blue"
+
 ##> 주유소
 execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/gas_station run \
     data modify storage minecraft:temp temp.gas_station set value "blue"
@@ -92,12 +88,72 @@ execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loo
 execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/yanggung run \
     data modify storage minecraft:temp temp.yanggung set value "blue"
 
+#> 학교
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/school run \
+    data modify storage minecraft:temp temp.school set value "blue"
+
+#> 호텔
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/hotel run \
+    data modify storage minecraft:temp temp.hotel set value "blue"
+
+#> 소방서
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/fire run \
+    data modify storage minecraft:temp temp.fire set value "blue"
+
+#> 경찰서
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/police run \
+    data modify storage minecraft:temp temp.police set value "blue"
+
+#> 절
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/jul run \
+    data modify storage minecraft:temp temp.jul set value "blue"
+
+#> 숲
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/forest run \
+    data modify storage minecraft:temp temp.forest set value "blue"
+
+#> 연못
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/pond run \
+    data modify storage minecraft:temp temp.pond set value "blue"
+
+#> 개울
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/stream run \
+    data modify storage minecraft:temp temp.stream set value "blue"
+
+#> 묘지
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/graveyard run \
+    data modify storage minecraft:temp temp.graveyard set value "blue"
+
+#> 병원
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/hospital run \
+    data modify storage minecraft:temp temp.hospital set value "blue"
+
+#> 고급 주택가
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/village run \
+    data modify storage minecraft:temp temp.village set value "blue"
+
+#> 성당
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/cathedral run \
+    data modify storage minecraft:temp temp.cathedral set value "blue"
+
+#> 창고
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/storage run \
+    data modify storage minecraft:temp temp.storage set value "blue"
+
+#> 항구
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/port run \
+    data modify storage minecraft:temp temp.port set value "blue"
+
+#> 공장
+execute if score #cnt ER.sys matches 0 if function eternal_return:maps/hyper_loop/cursor_in_place/factory run \
+    data modify storage minecraft:temp temp.factory set value "blue"
+
 scoreboard players set #cnt ER.sys 0
 
 #title TDanfung actionbar [{"nbt":"Rotation","entity":"@s"}]
-title TDanfung actionbar [{"nbt":"temp.mouseX","storage":"minecraft:temp"},{"text":"  "},{"nbt":"temp.mouseY","storage":"minecraft:temp"}]
 
 function eternal_return:maps/hyper_loop/show_selected with storage minecraft:temp temp
+title TDanfung actionbar [{"nbt":"temp.mouseX","storage":"minecraft:temp"},{"text":"  "},{"nbt":"temp.mouseY","storage":"minecraft:temp"}]
 
 
 data remove storage minecraft:temp temp

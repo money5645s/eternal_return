@@ -11,10 +11,12 @@
 #                
 #===================================================================================================
 
+#> this.AI : false
+execute if score #this.AI ER.sys matches 0 run function eternal_return:entity/animal/boar/script/if_ai/false
+
 #> this.AI : true
 execute if score #this.AI ER.sys matches 1 run function eternal_return:entity/animal/boar/script/if_ai/true
 
-#> this.AI : false
-execute if score #this.AI ER.sys matches 0 run function eternal_return:entity/animal/boar/script/if_ai/false
+
 
 
