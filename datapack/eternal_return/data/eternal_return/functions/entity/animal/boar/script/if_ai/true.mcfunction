@@ -92,8 +92,11 @@ execute if score #MotionExist ER.sys matches 1 run execute as @e[\
     tag= this] run function animated_java:animal_boar/animations/move/play
 
 
+execute on target run tag @s add this.target
 
 #>모델 및 엔티티 시선처리
-execute as @e[tag= this, tag= ER.animal.model] at @s facing entity @p[distance=0..20,sort=nearest] feet run tp @s ~ ~ ~ ~ 0
+execute as @e[tag= this, tag= ER.animal.model] at @s facing entity @e[limit=1,tag=this.target] feet run tp @s ~ ~ ~ ~ 0
 #>공격 지시 마커 제거
 execute if entity @e[tag= this, tag= ER.animal.attackDetection] run kill @e[tag= this, tag= ER.animal.attackDetection]
+
+tag @e[tag=this.target] remove this.target

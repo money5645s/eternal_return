@@ -3,13 +3,13 @@
 
 
 
-
-
 #> 야생동물 스폰 포인트 제어
-execute if entity @s[tag= ER.spawn.animal] run function eternal_return:entity/animal_spawn/main
+execute if entity @s[tag= ER.spawn.animal] at @s if entity @p[distance=..20] run function eternal_return:entity/animal_spawn/main
+
 
 #> 히트박스
 execute if entity @s[tag= ER.animal.hitbox] if score @s ER.health matches 1.. run function eternal_return:entity/hitbox
+
 
 #> 야생동물 스크립트
 # 멧돼지

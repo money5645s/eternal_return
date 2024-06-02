@@ -60,27 +60,10 @@ tag @e[tag=this] add ER.animal
 # 아이디 부여
 function df_library:id/set_id
 
-#아이디 리턴해서 시전자에게 append 알고리즘
-# 아이디를 temp 스토리지로 넣는다
-# temp 스토리지에 넣은 아이디를 목적지 스토리지에 append 한다.
-scoreboard players operation #temp df_id = @e[tag=this,limit=1] df_id
-execute store result storage df_temp temp.id int 1 run scoreboard players get #temp df_id
-data modify storage df_temp temp.Pos set from entity @e[tag=this, tag=ER.animal.root, limit=1] Pos
-data modify entity @s ArmorItems[3].components."minecraft:custom_data".animal append from storage minecraft:df_temp temp
-data remove storage df_temp temp
+#> 아이디 저장
+function eternal_return:entity/animal_spawn/store_id
 
-
-
-
-
-
-
-## Debug
-execute as @e[tag=this] run say summoned
-
-
-
+#> this 태그 제거
 tag @e[tag=this] remove this
-
 
 

@@ -4,11 +4,16 @@
 
 
 #> animal 배열 회전해서 top 값 업데이트
-data modify entity @s ArmorItems[3].components."minecraft:custom_data".animal append from entity @s ArmorItems[3].components."minecraft:custom_data".animal[0]
-data remove entity @s ArmorItems[3].components."minecraft:custom_data".animal[0]
+data modify storage minecraft:temp temp.animal append from storage minecraft:temp temp.animal[0]
+data remove storage minecraft:temp temp.animal[0]
+
 
 #> 모든 ER.animal의 엔티티의 id와 이 아머 스탠드가 보유한 아이디와 모두 비교 -> 하나라도 있으면 bool 값 1로 ->
-execute store result score #this.id ER.sys run data get entity @s ArmorItems[3].components."minecraft:custom_data".animal[0].id
+execute store result score #this.id ER.sys run data get storage minecraft:temp temp.animal[0].id
+
+#> find animal root 
+#   input  : 모든 ER.animal.root, ER.animal.hitbox
+#   output : ER.animal.root[tag=this], ER.animal.hitbox[tag=this], isExist = {0 or 1}
 execute as @e[tag=ER.animal.root] if score @s df_id = #this.id ER.sys run function eternal_return:entity/animal_spawn/find_animal_root
 
 #=========================================================================================
@@ -29,10 +34,7 @@ execute if score #isExist ER.sys matches 1 at @s run \
 #> 엔티티가 없다면
 # 만약 없다면 제거
 execute if score #isExist ER.sys matches 0 run \
-    data remove entity @s ArmorItems[3].components."minecraft:custom_data".animal[0]
-
-
-
+    data remove storage minecraft:temp temp.animal[0]
 
 
 scoreboard players set #isExist ER.sys 0
