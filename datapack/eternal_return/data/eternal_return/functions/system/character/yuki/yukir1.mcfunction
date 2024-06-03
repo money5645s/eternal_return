@@ -22,4 +22,4 @@ summon minecraft:area_effect_cloud ^-1 ^ ^3 {Tags:["yukir1"]}
 summon minecraft:area_effect_cloud ^-2 ^ ^3 {Tags:["yukir1"]}
 summon minecraft:area_effect_cloud ^1 ^ ^4 {Tags:["yukir1"]}
 summon minecraft:area_effect_cloud ^-1 ^ ^4 {Tags:["yukir1"]}
-summon minecraft:marker ^ ^ ^1 {Tags:["yukir11"]}
+summon minecraft:marker ^ ^ ^-0.0001 {Tags:["yukir11"]}

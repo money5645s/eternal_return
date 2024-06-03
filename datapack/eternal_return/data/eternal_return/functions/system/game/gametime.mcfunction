@@ -123,7 +123,7 @@ execute as @s[scores={gametime=21..1200,bosstime=1..1200,daysecond=10..}] run bo
 execute as @s[scores={gametime=21..1200,bosstime=1..1200,daysecond=0..9}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"1일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"text":"0","color":"gold"},{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=21..1200,bosstime=1..1200,daysecond=10..}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"1일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=1,bosstime=1}] run bossbar set boss:timer color yellow
-execute as @s[scores={gametime=1}] run time set day
+execute as @s[scores={gametime=1}] run scoreboard players set daycycle daycycle 0
 execute as @s[scores={gametime=1}] run effect give @a[tag=player] glowing 3 3 true
 execute as @s[scores={bosstime=1}] run bossbar set boss:timer players @a
 execute as @s[scores={gametime=1,bosstime=1}] run bossbar set boss:timer max 1200
@@ -133,7 +133,7 @@ execute as @s[scores={gametime=1201..2400,bosstime=1..1200,daysecond=10..}] run 
 execute as @s[scores={gametime=1201..2400,bosstime=1..1200,daysecond=0..9}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"1일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"text":"0","color":"dark_purple"},{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=1201..2400,bosstime=1..1200,daysecond=10..}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"1일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=1201,bosstime=1}] run bossbar set boss:timer color purple
-execute as @s[scores={gametime=1190}] run time set midnight
+execute as @s[scores={gametime=1190}] run scoreboard players set daycycle daycycle 1
 execute as @s[scores={gametime=1201}] run effect give @a[tag=player] blindness 3 3 true
 
 execute as @s[scores={gametime=2401..3600,bosstime=1..1200,daysecond=0..9}] run bossbar set boss:timer name ["",{"text":"2일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"text":"0","color":"gold"},{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
@@ -141,15 +141,15 @@ execute as @s[scores={gametime=2401..3600,bosstime=1..1200,daysecond=10..}] run 
 execute as @s[scores={gametime=2401..3600,bosstime=1..1200,daysecond=0..9}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"2일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"text":"0","color":"gold"},{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=2401..3600,bosstime=1..1200,daysecond=10..}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"2일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=2401,bosstime=1}] run bossbar set boss:timer color yellow
-execute as @s[scores={gametime=2390}] run time set day
-execute as @s[scores={gametime=2041}] run effect give @a[tag=player] glowing 3 3 true
+execute as @s[scores={gametime=2390}] run scoreboard players set daycycle daycycle 0
+execute as @s[scores={gametime=2401}] run effect give @a[tag=player] glowing 3 3 true
 
 execute as @s[scores={gametime=3601..4800,bosstime=1..1200,daysecond=0..9}] run bossbar set boss:timer name ["",{"text":"2일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"text":"0","color":"dark_purple"},{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=3601..4800,bosstime=1..1200,daysecond=10..}] run bossbar set boss:timer name ["",{"text":"2일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=3601..4800,bosstime=1..1200,daysecond=0..9}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"2일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"text":"0","color":"dark_purple"},{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=3601..4800,bosstime=1..1200,daysecond=10..}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"2일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=3601,bosstime=1}] run bossbar set boss:timer color purple
-execute as @s[scores={gametime=3590}] run time set midnight
+execute as @s[scores={gametime=3590}] run scoreboard players set daycycle daycycle 1
 execute if score @s gametime matches 3601 run effect give @a[tag=player] blindness 3 3 true
 
 execute as @s[scores={gametime=4801..6000,bosstime=1..1200,daysecond=0..9}] run bossbar set boss:timer name ["",{"text":"3일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"text":"0","color":"gold"},{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
@@ -157,7 +157,7 @@ execute as @s[scores={gametime=4801..6000,bosstime=1..1200,daysecond=10..}] run 
 execute as @s[scores={gametime=4801..6000,bosstime=1..1200,daysecond=0..9}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"3일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"text":"0","color":"gold"},{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=4801..6000,bosstime=1..1200,daysecond=10..}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"3일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=4801,bosstime=1}] run bossbar set boss:timer color yellow
-execute as @s[scores={gametime=4790}] run time set day
+execute as @s[scores={gametime=4790}] run scoreboard players set daycycle daycycle 0
 execute if score @s gametime matches 4801 run effect give @a[tag=player] glowing 3 3 true
 
 execute as @s[scores={gametime=6001..7200,bosstime=1..1200,daysecond=0..9}] run bossbar set boss:timer name ["",{"text":"3일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"text":"0","color":"dark_purple"},{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
@@ -165,7 +165,7 @@ execute as @s[scores={gametime=6001..7200,bosstime=1..1200,daysecond=10..}] run 
 execute as @s[scores={gametime=6001..7200,bosstime=1..1200,daysecond=0..9}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"3일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"text":"0","color":"dark_purple"},{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=6001..7200,bosstime=1..1200,daysecond=10..}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"3일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=6001,bosstime=1}] run bossbar set boss:timer color purple
-execute as @s[scores={gametime=5990}] run time set midnight
+execute as @s[scores={gametime=5990}] run scoreboard players set daycycle daycycle 1
 execute if score @s gametime matches 6001 run effect give @a[tag=player] blindness 3 3 true
 
 execute as @s[scores={gametime=7201..8400,bosstime=1..1200,daysecond=0..9}] run bossbar set boss:timer name ["",{"text":"4일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"text":"0","color":"gold"},{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
@@ -173,7 +173,7 @@ execute as @s[scores={gametime=7201..8400,bosstime=1..1200,daysecond=10..}] run 
 execute as @s[scores={gametime=7201..8400,bosstime=1..1200,daysecond=0..9}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"4일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"text":"0","color":"gold"},{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=7201..8400,bosstime=1..1200,daysecond=10..}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"4일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=7201,bosstime=1}] run bossbar set boss:timer color yellow
-execute as @s[scores={gametime=7190}] run time set day
+execute as @s[scores={gametime=7190}] run scoreboard players set daycycle daycycle 0
 execute if score @s gametime matches 7201 run effect give @a[tag=player] glowing 3 3 true
 
 execute as @s[scores={gametime=8401..9600,bosstime=1..1200,daysecond=0..9}] run bossbar set boss:timer name ["",{"text":"4일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"text":"0","color":"dark_purple"},{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
@@ -181,7 +181,7 @@ execute as @s[scores={gametime=8401..9600,bosstime=1..1200,daysecond=10..}] run 
 execute as @s[scores={gametime=8401..9600,bosstime=1..1200,daysecond=0..9}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"4일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"text":"0","color":"dark_purple"},{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=8401..9600,bosstime=1..1200,daysecond=10..}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"4일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=8401,bosstime=1}] run bossbar set boss:timer color purple
-execute as @s[scores={gametime=8390}] run time set midnight
+execute as @s[scores={gametime=8390}] run scoreboard players set daycycle daycycle 1
 execute if score @s gametime matches 8401 run effect give @a[tag=player] blindness 3 3 true
 
 execute as @s[scores={gametime=9601..,bosstime=1}] run bossbar set boss:timer max 600
@@ -190,7 +190,7 @@ execute as @s[scores={gametime=9601..10200,bosstime=1..1200,daysecond=10..}] run
 execute as @s[scores={gametime=9601..10200,bosstime=1..1200,daysecond=0..9}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"5일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"text":"0","color":"gold"},{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=9601..10200,bosstime=1..1200,daysecond=10..}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"5일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=9601,bosstime=1}] run bossbar set boss:timer color yellow
-execute as @s[scores={gametime=9590}] run time set day
+execute as @s[scores={gametime=9590}] run scoreboard players set daycycle daycycle 0
 execute if score @s gametime matches 9601 run effect give @a[tag=player] glowing 3 3 true
 
 execute as @s[scores={gametime=10201..10800,bosstime=1..1200,daysecond=0..9}] run bossbar set boss:timer name ["",{"text":"5일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"text":"0","color":"dark_purple"},{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
@@ -198,7 +198,7 @@ execute as @s[scores={gametime=10201..10800,bosstime=1..1200,daysecond=10..}] ru
 execute as @s[scores={gametime=10201..10800,bosstime=1..1200,daysecond=0..9}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"5일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"text":"0","color":"dark_purple"},{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=10201..10800,bosstime=1..1200,daysecond=10..}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"5일차 밤 ","color":"dark_purple"},"/ ",{"text":"0","color": "dark_purple"},{"score":{"name":"@s","objective":"dayminute"},"color": "dark_purple"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "dark_purple"}]
 execute as @s[scores={gametime=10201,bosstime=1}] run bossbar set boss:timer color purple
-execute as @s[scores={gametime=10190}] run time set night
+execute as @s[scores={gametime=10190}] run scoreboard players set daycycle daycycle 1
 execute if score @s gametime matches 10201 run effect give @a[tag=player] blindness 3 3 true
 
 execute as @s[scores={gametime=10801..,bosstime=1..1200,daysecond=0..9}] run bossbar set boss:timer name ["",{"text":"6일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"text":"0","color":"gold"},{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
@@ -206,5 +206,5 @@ execute as @s[scores={gametime=10801..,bosstime=1..1200,daysecond=10..}] run bos
 execute as @s[scores={gametime=10801..,bosstime=1..1200,daysecond=0..9}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"6일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"text":"0","color":"gold"},{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=10801..,bosstime=1..1200,daysecond=10..}] if score @s dayminute matches 1.. run bossbar set boss:timer name ["",{"text":"6일차 낮 ","color":"gold"},"/ ",{"text":"0","color": "gold"},{"score":{"name":"@s","objective":"dayminute"},"color": "gold"}," : ",{"score":{"name":"@s","objective":"daysecond"},"color": "gold"}]
 execute as @s[scores={gametime=10801,bosstime=1}] run bossbar set boss:timer color yellow
-execute as @s[scores={gametime=10790}] run time set day
+execute as @s[scores={gametime=10790}] run scoreboard players set daycycle daycycle 0
 execute if score @s gametime matches 10801 run effect give @a[tag=player] glowing 3 3 true

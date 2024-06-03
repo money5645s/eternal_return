@@ -7,6 +7,7 @@ scoreboard objectives add daytime dummy
 scoreboard objectives add daysecond dummy
 scoreboard objectives add dayminute dummy
 scoreboard objectives add noarea dummy
+scoreboard objectives add daycycle dummy
 
 ## 캐릭 관련 스코어보드
 scoreboard objectives add happybullet dummy
@@ -24,3 +25,4 @@ scoreboard objectives add heartskill dummy
 scoreboard objectives add yukiskill dummy
 scoreboard objectives add yukir dummy
 scoreboard objectives add hyunwooskill dummy
+scoreboard objectives add danielskill dummy

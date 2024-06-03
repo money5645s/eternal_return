@@ -3,6 +3,9 @@ execute as @a[tag=aya,scores={dmgtaken=0..},tag=!ayacool] run tag @s add ayaskil
 execute as @a[tag=aya,scores={dmgtaken=0..},tag=!ayacool] at @s run playsound minecraft:entity.wither.death player @a ~ ~ ~ 1 2
 execute as @a[tag=aya,scores={dmgtaken=0..}] run tag @s add ayacool
 
+## 스킬 사용 이펙트
+execute as @a[tag=aya,scores={dmgtaken=0..},tag=!ayacool] at @s run function eternal_return:system/character/particle/main
+
 ## 아야 스킬 효과
 execute as @a[tag=ayaskill] run scoreboard players add @s ayaskill 1
 execute as @a[scores={ayaskill=1}] run effect give @s absorption infinite 0 true

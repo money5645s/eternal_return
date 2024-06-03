@@ -2,6 +2,9 @@
 execute as @a[tag=jackie,scores={jackiekill=1..}] run tag @s add jackieskill
 execute as @a[tag=jackie,scores={jackiekill=1..}] at @s run playsound minecraft:entity.wither.death player @a ~ ~ ~ 1 2
 
+## 스킬 사용 이펙트
+execute as @a[tag=jackie,scores={jackiekill=1..}] at @s run function eternal_return:system/character/particle/main
+
 ## 재키 스킬 효과
 execute as @a[tag=jackie,tag=jackieskill] run scoreboard players add @s jackieskill 1
 execute as @a[tag=jackie,tag=jackieskill] run effect give @s strength 1 1 true

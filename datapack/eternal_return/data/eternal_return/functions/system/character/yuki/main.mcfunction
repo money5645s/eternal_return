@@ -5,11 +5,13 @@ execute as @a[tag=yuki,scores={right=1..}] run item replace entity @s weapon.mai
 execute as @a[tag=yuki,scores={right=1..}] at @s run playsound minecraft:entity.wither.death player @a ~ ~ ~ 1 2
 execute as @a[tag=yuki,scores={right=1..}] at @s run tp @s ~ ~ ~ ~ 0
 
+## 스킬 사용 이펙트
+execute as @a[tag=yuki,scores={right=1..}] at @s run function eternal_return:system/character/particle/main
+
 ## 당근 낚싯대 F 방지
 function eternal_return:system/character/carrot_stick_f
 
 ## 유키 스킬 효과 1
-execute as @a[tag=yukiskill] run effect give @s slowness infinite 100 true
 execute as @a[tag=yukiskill] run scoreboard players add @s yukiskill 1
 
 ## 유키 화무십일홍 범위 표시
@@ -17,7 +19,8 @@ execute as @a[scores={yukiskill=1}] at @s run function eternal_return:system/cha
 
 execute as @e[tag=yukir1] at @s run particle minecraft:dust{color:[1,1,1],scale:1} ~ ~1 ~ 0.5 0.1 0.5 0.05 50
 
-execute as @a[scores={yukiskill=1..19}] at @s facing entity @e[tag=yukir11,limit=1,sort=nearest] eyes run tp @s ~ ~ ~ ~ 0
+execute if entity @a[scores={yukiskill=1}] as @e[tag=yukir11] at @s run tp @s ~ ~ ~ facing entity @a[tag=yukiskill,limit=1,sort=nearest]
+execute as @a[tag=yukiskill] at @s facing entity @e[tag=yukir11] eyes run tp @s @e[tag=yukir11,limit=1,sort=nearest]
 execute as @a[scores={yukiskill=20}] at @s run kill @e[tag=yukir11,limit=1,sort=nearest]
 
 ## 유키 화무십일홍 공격

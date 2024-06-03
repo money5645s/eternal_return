@@ -4,6 +4,9 @@ execute as @a[tag=hyunwoo,scores={right=1..}] run tag @s add hyunwoocool
 execute as @a[tag=hyunwoo,scores={right=1..}] run item replace entity @s weapon.mainhand with barrier
 execute as @a[tag=hyunwoo,scores={right=1..}] at @s run playsound minecraft:entity.wither.death player @a ~ ~ ~ 1 2
 
+## 스킬 사용 이펙트
+execute as @a[tag=hyunwoo,scores={right=1..}] at @s run function eternal_return:system/character/particle/main
+
 ## 당근 낚싯대 F 방지
 function eternal_return:system/character/carrot_stick_f
 
@@ -24,13 +27,12 @@ execute as @a[tag=hyunwooskill,scores={hyunwooskill=9}] at @s if block ^ ^ ^1 ai
 execute as @a[tag=hyunwooskill,scores={hyunwooskill=10}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
 execute as @a[tag=hyunwooskill,scores={hyunwooskill=11}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
 execute as @a[tag=hyunwooskill,scores={hyunwooskill=12}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill] at @s run particle dust{color:[0.702,0.322,0.106],scale:1} ~ ~1 ~ 0.5 0.5 0.5 0 10 force
+execute as @a[tag=hyunwooskill] at @s run particle dust{color:[0.702,0.322,0.106],scale:1} ~ ~1 ~ 0.5 0.5 0.5 0 20 force
 
 ## 현우 스킬 효과 (맞은 애 같이 돌진)
 execute as @a[tag=hyunwooskill] at @s run tag @e[tag=!hyunwooskill,distance=..1] add hyunwooskill1
 execute as @e[tag=hyunwooskill1] at @s run tp @s @e[tag=hyunwooskill,limit=1,sort=nearest]
-execute as @a[tag=hyunwooskill] at @s unless block ^ ^ ^1 air run effect give @e[tag=hyunwooskill1,distance=..1] slowness 2 100 true
-execute as @a[tag=hyunwooskill] at @s unless block ^ ^ ^1 air at @e[tag=hyunwooskill1,distance=..1] run particle minecraft:electric_spark ~ ~1 ~ 0.5 0.5 0.5 0.05 50
+execute as @a[tag=hyunwooskill] at @s unless block ^ ^ ^1 air run tag @e[tag=hyunwooskill1,distance=..1] add stun
 
 ## 현우 스킬 맞은 애 효과 제거
 execute as @a[tag=hyunwooskill] at @s unless block ^ ^ ^1 air run tag @s remove hyunwooskill1
@@ -47,13 +49,13 @@ execute as @a[scores={hyunwooskill=12..}] run scoreboard players reset @s hyunwo
 
 ## 현우 스킬 쿨타임
 execute as @a[tag=hyunwoocool] run scoreboard players add @s SC 1
-execute as @a[tag=hyunwoo,scores={SC=40}] run tellraw @s ["",{"text":"3초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
-execute as @a[tag=hyunwoo,scores={SC=60}] run tellraw @s ["",{"text":"2초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
-execute as @a[tag=hyunwoo,scores={SC=80}] run tellraw @s ["",{"text":"1초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
-execute as @a[tag=hyunwoo,scores={SC=100}] run tellraw @s ["",{"text":"스킬 사용 가능!","color":"aqua"}]
-execute as @a[tag=hyunwoo,scores={SC=100..}] run item replace entity @s container.4 with carrot_on_a_stick
-execute as @a[tag=hyunwoo,scores={SC=100..}] run tag @s remove hyunwoocool
-execute as @a[tag=hyunwoo,scores={SC=100..}] run scoreboard players reset @s SC
+execute as @a[tag=hyunwoo,scores={SC=180}] run tellraw @s ["",{"text":"3초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
+execute as @a[tag=hyunwoo,scores={SC=200}] run tellraw @s ["",{"text":"2초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
+execute as @a[tag=hyunwoo,scores={SC=220}] run tellraw @s ["",{"text":"1초 후 스킬을 다시 사용할 수 있습니다.","color":"yellow"}]
+execute as @a[tag=hyunwoo,scores={SC=240}] run tellraw @s ["",{"text":"스킬 사용 가능!","color":"aqua"}]
+execute as @a[tag=hyunwoo,scores={SC=240..}] run item replace entity @s container.4 with carrot_on_a_stick
+execute as @a[tag=hyunwoo,scores={SC=240..}] run tag @s remove hyunwoocool
+execute as @a[tag=hyunwoo,scores={SC=240..}] run scoreboard players reset @s SC
 
 ## 현우 태그 제거 했을 때 관련 태그 제거
 execute as @a[tag=hyunwooskill] unless entity @s[tag=hyunwoo] run tag @s remove hyunwooskill

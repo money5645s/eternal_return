@@ -4,6 +4,9 @@ execute as @a[tag=nickyskill] run scoreboard players add @s nickyskill 1
 execute as @a[scores={nickyskill=1}] at @s run playsound minecraft:entity.wither.death player @a ~ ~ ~ 1 2
 execute as @a[tag=nicky,scores={hp=9..}] run tag @s remove nickyskill
 
+## 스킬 사용 이펙트
+execute as @a[scores={nickyskill=1}] at @s run function eternal_return:system/character/particle/main
+
 ## 니키 스킬 효과
 execute as @a[tag=nickyskill] run effect give @s strength 1 0 true
 execute as @a[tag=nickyskill] at @s run particle minecraft:angry_villager ~ ~ ~ 0.3 0.3 0.3 0.1 1 force

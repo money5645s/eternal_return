@@ -2,6 +2,9 @@
 execute as @a[tag=luke,scores={lukekill=1..}] run tag @s add lukeskill
 execute as @a[tag=luke,scores={lukekill=1..}] at @s run playsound minecraft:entity.wither.death player @a ~ ~ ~ 1 2
 
+## 스킬 사용 이펙트
+execute as @a[tag=luke,scores={lukekill=1..}] at @s run function eternal_return:system/character/particle/main
+
 ## 루크 스킬 효과
 execute as @a[tag=luke,tag=lukeskill] run effect give @s instant_health 1 10 true
 execute as @a[tag=luke,tag=lukeskill] at @s run particle minecraft:happy_villager ~ ~1 ~ 0.5 0.5 0.5 0.1 15 force

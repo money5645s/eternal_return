@@ -66,6 +66,13 @@ function eternal_return:system/character/yohan
 function eternal_return:system/character/heart
 function eternal_return:system/character/yuki/main
 function eternal_return:system/character/hyunwoo/main
+function eternal_return:system/character/daniel
 
 function eternal_return:system/player/rightclick
 function eternal_return:system/player/damagetaken
+
+## CC기
+function eternal_return:system/character/stun/main
+
+## 낮밤 변경
+function eternal_return:system/game/daycycle

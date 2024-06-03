@@ -1,7 +1,8 @@
 kill @e[tag=gametime]
 execute unless entity @e[tag=gametime] run bossbar remove boss:timer
 execute unless entity @e[tag=gametime] run kill @e[tag=r1]
-execute unless entity @e[tag=gametime] run time set day
+execute unless entity @e[tag=gametime] run effect clear @a
+execute unless entity @e[tag=gametime] run scoreboard players set daycycle daycycle 0
 execute unless entity @e[tag=gametime] run kill @e[tag=lastarea1]
 execute unless entity @e[tag=gametime] run setblock -518 83 592 air
 execute unless entity @e[tag=gametime] run setblock -572 85 471 air

@@ -4,6 +4,9 @@ execute as @a[tag=charlotte,scores={right=1..}] run tag @s add charlottecool
 execute as @a[tag=charlotte,scores={right=1..}] run item replace entity @s weapon.mainhand with barrier
 execute as @a[tag=charlotte,scores={right=1..}] at @s run playsound minecraft:entity.wither.death player @a ~ ~ ~ 1 2
 
+## 스킬 사용 이펙트
+execute as @a[tag=charlotte,scores={right=1..}] at @s run function eternal_return:system/character/particle/main
+
 ## 당근 낚싯대 F 방지
 function eternal_return:system/character/carrot_stick_f
 
