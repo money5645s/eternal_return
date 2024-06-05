@@ -26,3 +26,5 @@ scoreboard objectives add yukiskill dummy
 scoreboard objectives add yukir dummy
 scoreboard objectives add hyunwooskill dummy
 scoreboard objectives add danielskill dummy
+scoreboard objectives add lauraskill dummy
+scoreboard objectives add lauram dummy

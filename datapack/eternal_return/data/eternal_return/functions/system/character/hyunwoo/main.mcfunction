@@ -15,18 +15,8 @@ execute as @a[tag=hyunwooskill] run scoreboard players add @s hyunwooskill 1
 execute as @a[tag=hyunwooskill,scores={hyunwooskill=1}] at @s run tp @s ^ ^ ^ ~ 0
 execute as @a[tag=hyunwooskill,scores={hyunwooskill=1}] at @s run summon marker ^ ^ ^13 {Tags:["hyunwoom"]}
 execute as @a[scores={hyunwooskill=1..12}] at @s facing entity @e[tag=hyunwoom,limit=1,sort=nearest] eyes run tp @s ~ ~ ~ ~ 0
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=1}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=2}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=3}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=4}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=5}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=6}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=7}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=8}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=9}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=10}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=11}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
-execute as @a[tag=hyunwooskill,scores={hyunwooskill=12}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
+execute as @a[tag=hyunwooskill,scores={hyunwooskill=1..12}] at @s if block ^ ^ ^1 air run tp @s ^ ^ ^0.5
+execute as @a[tag=hyunwooskill,scores={hyunwooskill=1..12}] at @s if block ^ ^ ^1 short_grass run tp @s ^ ^ ^0.5
 execute as @a[tag=hyunwooskill] at @s run particle dust{color:[0.702,0.322,0.106],scale:1} ~ ~1 ~ 0.5 0.5 0.5 0 20 force
 
 ## 현우 스킬 효과 (맞은 애 같이 돌진)
@@ -39,9 +29,9 @@ execute as @a[tag=hyunwooskill] at @s unless block ^ ^ ^1 air run tag @s remove 
 execute as @a[scores={hyunwooskill=12..}] at @s run tag @e[distance=..1,tag=hyunwooskill1] remove hyunwooskill1
 
 ## 현우 스킬 효과 제거
-execute as @a[tag=hyunwooskill] at @s unless block ^ ^ ^1 air run kill @e[tag=hyunwoom,limit=1,sort=nearest]
-execute as @a[tag=hyunwooskill] at @s unless block ^ ^ ^1 air run scoreboard players reset @s hyunwooskill
-execute as @a[tag=hyunwooskill] at @s unless block ^ ^ ^1 air run tag @s remove hyunwooskill
+execute as @a[tag=hyunwooskill] at @s unless block ^ ^ ^1 air unless block ^ ^ ^1 short_grass run kill @e[tag=hyunwoom,limit=1,sort=nearest]
+execute as @a[tag=hyunwooskill] at @s unless block ^ ^ ^1 air unless block ^ ^ ^1 short_grass run scoreboard players reset @s hyunwooskill
+execute as @a[tag=hyunwooskill] at @s unless block ^ ^ ^1 air unless block ^ ^ ^1 short_grass run tag @s remove hyunwooskill
 execute as @a[scores={hyunwooskill=12..}] run kill @e[tag=hyunwoom,limit=1,sort=nearest]
 execute as @a[scores={hyunwooskill=12..}] run tag @s remove hyunwooskill
 execute as @a[scores={hyunwooskill=12..}] run scoreboard players reset @s hyunwooskill
