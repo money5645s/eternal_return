@@ -12,6 +12,7 @@ team add yuki
 team add hyunwoo
 team add daniel
 team add laura
+team add lenox
 
 team modify jackie prefix ["",{"text":" [ ","color":"light_purple"},{"text":"재키","color":"yellow"},{"text":" ] ","color":"light_purple"}]
 team modify nicky prefix ["",{"text":" [ ","color":"light_purple"},{"text":"니키","color":"yellow"},{"text":" ] ","color":"light_purple"}]
@@ -27,3 +28,4 @@ team modify yuki prefix ["",{"text":" [ ","color":"light_purple"},{"text":"유�
 team modify hyunwoo prefix ["",{"text":" [ ","color":"light_purple"},{"text":"현우","color":"yellow"},{"text":" ] ","color":"light_purple"}]
 team modify daniel prefix ["",{"text":" [ ","color":"light_purple"},{"text":"다니엘","color":"yellow"},{"text":" ] ","color":"light_purple"}]
 team modify laura prefix ["",{"text":" [ ","color":"light_purple"},{"text":"라우라","color":"yellow"},{"text":" ] ","color":"light_purple"}]
+team modify lenox prefix ["",{"text":" [ ","color":"light_purple"},{"text":"레녹스","color":"yellow"},{"text":" ] ","color":"light_purple"}]

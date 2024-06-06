@@ -68,8 +68,10 @@ function eternal_return:system/character/yuki/main
 function eternal_return:system/character/hyunwoo/main
 function eternal_return:system/character/daniel
 function eternal_return:system/character/laura/main
+function eternal_return:system/character/lenox/main
 
 function eternal_return:system/player/rightclick
+function eternal_return:system/player/damagegive
 function eternal_return:system/player/damagetaken
 
 ## CC기
