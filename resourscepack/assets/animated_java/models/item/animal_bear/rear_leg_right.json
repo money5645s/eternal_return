@@ -1,6 +1,6 @@
 {
 	"textures": {
-		"0": "animated_java:item/animal_bear/texture"
+		"0": "animated_java:item/animal_bear/bear"
 	},
 	"elements": [
 		{
@@ -19,7 +19,7 @@
 				"axis": "y",
 				"origin": [
 					15.92,
-					5.029999999999998,
+					5.03,
 					22.85
 				]
 			},

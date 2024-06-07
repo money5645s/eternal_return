@@ -1,18 +1,18 @@
 {
 	"textures": {
-		"0": "animated_java:item/animal_bear/texture"
+		"0": "animated_java:item/animal_bear/bear"
 	},
 	"elements": [
 		{
 			"from": [
 				-3.9124999999999996,
 				-3.1374999999999993,
-				-2.3750000000000036
+				-2.375
 			],
 			"to": [
 				19.9125,
 				19.1375,
-				18.375
+				18.375000000000004
 			],
 			"rotation": {
 				"angle": 0,
@@ -20,7 +20,7 @@
 				"origin": [
 					8.25,
 					8,
-					3.9999999999999964
+					4
 				]
 			},
 			"faces": {
