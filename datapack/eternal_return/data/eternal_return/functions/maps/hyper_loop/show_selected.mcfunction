@@ -47,11 +47,9 @@ $bossbar set minecraft:hud_5 name [\
     {"font":"minecraft:x_transform",    "text":"\u4058"},\
     {"font":"minecraft:map/storage",    "text":"\u4196","color":"$(storage)"},\
     {"font":"minecraft:x_transform",    "text":"\u1108"},\
-    \
     {"font":"minecraft:x_transform",    "text":"\u4$(mouseX)"},\
     {"font":"minecraft:map/icon",       "text":"\u1$(mouseY)","color":"#4e5c24"},\
     {"font":"minecraft:x_transform",    "text":"\u1$(mouseX)"},\
-    \
     {"font":"minecraft:x_transform",    "text":"\u4$(PlayerX)"},\
     {"font":"minecraft:map/icon",       "text":"\u1$(PlayerY)","color":"#4e5c24"},\
     {"font":"minecraft:x_transform",    "text":"\u1$(PlayerX)"},\
