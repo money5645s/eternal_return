@@ -147,6 +147,90 @@
 				"custom_model_data": 24
 			},
 			"model": "animated_java:item/animal_bear/rear_body"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 25
+			},
+			"model": "animated_java:item/animal_wolf/rear_leg_right_under"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 26
+			},
+			"model": "animated_java:item/animal_wolf/rear_leg_left"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 27
+			},
+			"model": "animated_java:item/animal_wolf/right_leg_left_under"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 28
+			},
+			"model": "animated_java:item/animal_wolf/rear_leg_right"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 29
+			},
+			"model": "animated_java:item/animal_wolf/tale"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 30
+			},
+			"model": "animated_java:item/animal_wolf/rear_body"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 31
+			},
+			"model": "animated_java:item/animal_wolf/head"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 32
+			},
+			"model": "animated_java:item/animal_wolf/talon_left"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 33
+			},
+			"model": "animated_java:item/animal_wolf/front_leg_left_under"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 34
+			},
+			"model": "animated_java:item/animal_wolf/front_leg_left"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 35
+			},
+			"model": "animated_java:item/animal_wolf/talon_right"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 36
+			},
+			"model": "animated_java:item/animal_wolf/front_leg_right_under"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 37
+			},
+			"model": "animated_java:item/animal_wolf/front_leg_right"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 38
+			},
+			"model": "animated_java:item/animal_wolf/front_body"
 		}
 	],
 	"animated_java": {
@@ -180,6 +264,24 @@
 					22,
 					23,
 					24
+				]
+			},
+			"animal_wolf": {
+				"used_ids": [
+					25,
+					26,
+					27,
+					28,
+					29,
+					30,
+					31,
+					32,
+					33,
+					34,
+					35,
+					36,
+					37,
+					38
 				]
 			}
 		}
