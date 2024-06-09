@@ -1,20 +1,22 @@
 
 #> function eternal_return:entity/main
 
+#execute if entity @s[type= minecraft:arrow] at @s run function eternal_return:entity/arrow_pen
+
+execute if entity @s[tag=!ER] run return 0
 
 #> 야생동물 스폰 포인트 제어
-execute if entity @s[tag= ER.spawn.animal] at @s if entity @p[distance=..40] run function eternal_return:entity/animal_spawn/main
-
+execute if entity @s[type=! minecraft:item_display, tag= ER.spawn.animal] at @s if entity @p[distance=..40] run function eternal_return:entity/animal_spawn/main
 
 #> 히트박스
-execute if entity @s[tag= ER.animal.hitbox] if score @s ER.health matches 1.. run function eternal_return:entity/hitbox
-execute if entity @s[tag= ER.animal.hitbox] if score @s ER.health matches ..0 run function eternal_return:entity/remove_hitbox
+execute if entity @s[type= minecraft:ghast, tag= ER.animal.hitbox] if score @s ER.health matches 1.. run function eternal_return:entity/hitbox
+execute if entity @s[type= minecraft:ghast, tag= ER.animal.hitbox] if score @s ER.health matches ..0 run function eternal_return:entity/remove_hitbox
 
 
 #> 야생동물 스크립트
 # 멧돼지
-execute if entity @s[tag= ER.animal.root ,tag= ER.animal.boar] run function eternal_return:entity/animal/boar/script/main
+execute if entity @s[type= minecraft:zombie, tag= ER.animal.root ,tag= ER.animal.boar] run function eternal_return:entity/animal/boar/script/main
 # 곰
-execute if entity @s[tag= ER.animal.root ,tag= ER.animal.bear] run function eternal_return:entity/animal/bear/script/main
-
-
+execute if entity @s[type= minecraft:zombie, tag= ER.animal.root ,tag= ER.animal.bear] run function eternal_return:entity/animal/bear/script/main
+# 늑대
+execute if entity @s[type= minecraft:zombie, tag= ER.animal.root ,tag= ER.animal.wolf] run function eternal_return:entity/animal/wolf/script/main

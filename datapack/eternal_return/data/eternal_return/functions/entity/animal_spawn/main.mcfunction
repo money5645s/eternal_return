@@ -13,13 +13,12 @@ execute unless data storage minecraft:temp temp.animal run scoreboard players se
 
 
 #>쿨타임 다 돌면 + 모두 사망하면 + 플레이어가 근처에 있으면 + 소환
-#맷돼지
-execute if score #HasNoID df_id matches 1 at @s[tag=ER.spawn.animal.boar] if entity @p[distance=0..20] run \
-    function eternal_return:entity/animal/boar/summon/this
-#
-execute if score #HasNoID df_id matches 1 at @s[tag=ER.spawn.animal.bear] if entity @p[distance=0..20] run \
-    function eternal_return:entity/animal/bear/summon/this
-
+# 맷돼지
+execute if score #HasNoID df_id matches 1 at @s[tag=ER.spawn.animal.boar] if entity @p[distance=0..20] run function eternal_return:entity/animal/boar/summon/this
+# 곰
+execute if score #HasNoID df_id matches 1 at @s[tag=ER.spawn.animal.bear] if entity @p[distance=0..20] run function eternal_return:entity/animal/bear/summon/this
+# 곰
+execute if score #HasNoID df_id matches 1 at @s[tag=ER.spawn.animal.wolf] if entity @p[distance=0..20] run function eternal_return:entity/animal/wolf/summon/this
 
 #> 소환 전용 엔티티에게 데이터 입력
 data modify entity @s ArmorItems[3].components."minecraft:custom_data".animal set from storage minecraft:temp temp.animal

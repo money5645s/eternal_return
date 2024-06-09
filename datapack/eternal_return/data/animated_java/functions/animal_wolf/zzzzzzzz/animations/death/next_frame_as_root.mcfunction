@@ -1,0 +1,1 @@
+function animated_java:animal_wolf/zzzzzzzz/animations/death/tick_animation

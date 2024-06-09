@@ -58,7 +58,7 @@ ride @e[tag= this, tag= ER.animal.HPbar, limit= 1] mount @e[tag= this, tag= ER.a
 #> 공통 태그 부여
 tag @e[tag=this] add ER.animal.boar
 tag @e[tag=this] add ER.animal
-
+tag @e[tag=this] add ER
 
 
 # 아이디 부여
