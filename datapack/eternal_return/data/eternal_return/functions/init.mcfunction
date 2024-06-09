@@ -1,4 +1,15 @@
 ## 스코어보드 생성
+
+say Start Install EternalRetrun Beta ...
+
+
+##system values
+scoreboard objectives add ER.sys dummy
+scoreboard objectives add ER.health dummy
+scoreboard objectives add df_id dummy
+scoreboard objectives add ER.cooltime dummy
+
+
 scoreboard objectives add Cradit dummy
 scoreboard objectives add ChatClick trigger
 scoreboard objectives add shift minecraft.custom:minecraft.sneak_time
@@ -16,6 +27,6 @@ scoreboard objectives add NUM dummy
 # 플레이어 기본 설정
 function eternal_return:system/player/init
 # 보스바 기본 설정
-function eternal_return:system/bossbar/initfunction eternal_return:system/bossbar/init
+function eternal_return:system/bossbar/init
 # 액션바 기본 설정
 function eternal_return:system/actionbar/init
