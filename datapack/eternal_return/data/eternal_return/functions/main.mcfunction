@@ -31,7 +31,7 @@ execute as @a if entity @a[tag=hyper_loop] at @s run function eternal_return:map
 execute as @a if entity @a[tag=!hyper_loop, tag=choosing_hyper_loop] run function eternal_return:maps/hyper_loop/reset
 
 # 플레이어 제외 엔티티 업데이트
-execute as @e[type=!player] run function eternal_return:entity/main
+#execute as @e[type=!player] run function eternal_return:entity/main
 
 ##> 디버그
 function eternal_return:debug
@@ -69,6 +69,9 @@ function eternal_return:system/character/hyunwoo/main
 function eternal_return:system/character/daniel
 function eternal_return:system/character/laura/main
 function eternal_return:system/character/lenox/main
+function eternal_return:system/character/vianca/main
+function eternal_return:system/character/sissela/main
+function eternal_return:system/character/silvia/main
 
 function eternal_return:system/player/rightclick
 function eternal_return:system/player/damagegive

@@ -16,6 +16,7 @@ scoreboard objectives add happyright minecraft.used:minecraft.carrot_on_a_stick
 scoreboard objectives add happyreload dummy
 scoreboard objectives add jackieskill dummy
 scoreboard objectives add jackiekill playerKillCount
+scoreboard objectives add nickyskill dummy
 scoreboard objectives add credittime dummy
 scoreboard objectives add shou dummy
 scoreboard objectives add charlotteskill dummy
@@ -28,3 +29,7 @@ scoreboard objectives add hyunwooskill dummy
 scoreboard objectives add danielskill dummy
 scoreboard objectives add lauraskill dummy
 scoreboard objectives add lauram dummy
+scoreboard objectives add lenoxskill dummy
+scoreboard objectives add viancaskill dummy
+scoreboard objectives add sisselaskill dummy
+scoreboard objectives add visit dummy
