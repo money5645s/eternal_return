@@ -33,21 +33,16 @@ $summon ghast ~$(dx) ~$(dy) ~$(dz) {\
             ]\
         }
 
+# 체력바 소환
 $summon text_display ~$(dx) ~$(dy) ~$(dz) {\
         Tags:["this","ER.animal.HPbar"],\
         CustomNameVisible:0b,\
         billboard:"center",\
-        text:'{"text":"test.HPshow \\n test.HPbar"}'}
+        text:'{"text":"test.HPshow \\n test.HPbar \\n If you are seeing this massage, that means animal/<this_animal>/main is not working"}'}
 
-#> 안 보이게 하기
-effect give @e[tag= this, tag= ER.animal.root  ] invisibility infinite 1 true
-effect give @e[tag= this, tag= ER.animal.hitbox] invisibility infinite 1 true
 
-#> 체력값 
-scoreboard players set @e[tag= this, tag= ER.animal.root  ] ER.health 100
-scoreboard players set @e[tag= this, tag= ER.animal.hitbox] ER.health 100
 
-#> 곰 모델 소환
+#> 모델 소환
 #   tag : ER.animal.model
 execute as @e[  tag= ER.animal.root,tag=this] at @s run function animated_java:animal_wolf/summon
 execute as @e[  tag= aj.animal_wolf.root] if score @s aj.id = .aj.last_id aj.id run tag @s add this
@@ -55,8 +50,17 @@ tag @e[tag=this,tag= aj.animal_wolf.root] add ER.animal.model
 ride @e[tag= this, tag= ER.animal.model, limit= 1] mount @e[tag= this, tag= ER.animal.root, limit= 1]
 ride @e[tag= this, tag= ER.animal.HPbar, limit= 1] mount @e[tag= this, tag= ER.animal.hitbox, limit= 1]
 
+#> 안 보이게 하기
+effect give @e[tag= this, tag= ER.animal.root  ] invisibility infinite 1 true
+effect give @e[tag= this, tag= ER.animal.hitbox] invisibility infinite 1 true
+
+#================================================[야생동물 설정]================================================
+#> 체력값 
+scoreboard players operation @e[tag= this, tag= ER.animal.root  ] ER.health = #ER.animal.wolf.health ER.sys
+scoreboard players operation @e[tag= this, tag= ER.animal.hitbox] ER.health = #ER.animal.wolf.health ER.sys
+#> 스킬 쿨타임
+scoreboard players operation @e[tag =this, tag= ER.animal.root  ] ER.cooltime = #ER.animal.wolf.cooltime ER.sys
 #> 공통 태그 부여
-#   tag : ER.animal.wolf
 tag @e[tag=this] add ER.animal.wolf
 tag @e[tag=this] add ER.animal
 tag @e[tag=this] add ER

@@ -34,6 +34,22 @@ scoreboard players set #ER.place.cathedral ER.sys 15
 scoreboard players set #ER.place.storage ER.sys 16
 scoreboard players set #ER.place.port ER.sys 17
 scoreboard players set #ER.place.factory ER.sys 18
+
+#> 야생동물 체력 및 공격력 설정
+#멧돼지
+scoreboard players set #ER.animal.boar.health ER.sys 15
+scoreboard players set #ER.animal.boar.attack ER.sys 4
+scoreboard players set #ER.animal.boar.cooltime ER.sys 120
+#곰
+scoreboard players set #ER.animal.bear.health ER.sys 45
+scoreboard players set #ER.animal.bear.attack ER.sys 6
+scoreboard players set #ER.animal.bear.cooltime ER.sys 120
+#늑대
+scoreboard players set #ER.animal.wolf.health ER.sys 25
+scoreboard players set #ER.animal.wolf.attack ER.sys 4
+scoreboard players set #ER.animal.wolf.cooltime ER.sys 120
+
+
 scoreboard objectives add ER.health dummy
 scoreboard objectives add ER.coolTime dummy
 scoreboard objectives add df_id dummy

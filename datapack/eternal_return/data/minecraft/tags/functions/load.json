@@ -1,5 +1,6 @@
 {
     "values":[
-        "eternal_return:load"
+        "eternal_return:load",
+        "eternal_return:init"
     ]
 }

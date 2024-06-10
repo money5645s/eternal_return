@@ -30,8 +30,11 @@ function eternal_return:system/map/main
 execute as @a if entity @a[tag=hyper_loop] at @s run function eternal_return:maps/hyper_loop/main
 execute as @a if entity @a[tag=!hyper_loop, tag=choosing_hyper_loop] run function eternal_return:maps/hyper_loop/reset
 
+
 # 플레이어 제외 엔티티 업데이트
-#execute as @e[type=!player] run function eternal_return:entity/main
+execute as @e[type=!player,tag=ER] run function eternal_return:entity/main
+# 플레이어 엔티티 에딧 모드 진입
+execute as @a[gamemode= creative] at @s run function eternal_return:entity/animal_spawn/point/main
 
 ##> 디버그
 function eternal_return:debug

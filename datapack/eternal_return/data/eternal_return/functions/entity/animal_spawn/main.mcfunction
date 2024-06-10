@@ -2,7 +2,7 @@
 #> function eternal_return:entity/animal_spawn/main
 #>                                            /remove_id
 
-data modify storage minecraft:temp temp.animal set from entity @s ArmorItems[3].components."minecraft:custom_data".animal
+$data modify storage minecraft:temp temp.animal set from entity @s $(nbt).animal
 
 
 #현재 야생동물 중 해당하는 아이디가 없는 경우 아이디 제거
@@ -21,7 +21,7 @@ execute if score #HasNoID df_id matches 1 at @s[tag=ER.spawn.animal.bear] if ent
 execute if score #HasNoID df_id matches 1 at @s[tag=ER.spawn.animal.wolf] if entity @p[distance=0..20] run function eternal_return:entity/animal/wolf/summon/this
 
 #> 소환 전용 엔티티에게 데이터 입력
-data modify entity @s ArmorItems[3].components."minecraft:custom_data".animal set from storage minecraft:temp temp.animal
+$data modify entity @s $(nbt).animal set from storage minecraft:temp temp.animal
 #title TDanfung actionbar [{"nbt":"temp.animal[0]","storage":"minecraft:temp"}]
 
 scoreboard players set #HasNoID df_id 0

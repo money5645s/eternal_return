@@ -37,15 +37,8 @@
 #>        사망()
 #>
 #=================================================================================================== 
-
 #>  function eternal_return:entity/animal/wolf/script/main
-#>  function eternal_return:entity/animal/wolf/script/attack
-#>  function eternal_return:entity/animal/wolf/script/show_model
-#>  function eternal_return:entity/animal/wolf/script/alive_behav
-#>  function eternal_return:entity/animal/wolf/script/death_behav
-#>  function eternal_return:entity/animal/wolf/script/optimize/disable_model
-#>  function eternal_return:entity/animal/wolf/script/optimize/enable_model
-#>  function eternal_return:entity/animal/hitbox
+#>  function eternal_return:entity/animal/wolf/script/skill
 #
 #   Tags
 #>  ER.animal.hitbox
@@ -86,20 +79,18 @@ execute unless entity @s[nbt={NoAI:1b}] run scoreboard players set #this.AI ER.s
 
 
 #> 최적화 [엔티티 쇼 / 노쇼]
-execute if entity @s[tag= !ER.optimized] at @s \
-        unless entity @p[distance=..20] run \
-        execute as @e[tag= this, tag= ER.animal.model] run function eternal_return:entity/animal/wolf/script/optimize/disable_model
-
-execute if entity @s[tag= ER.optimized] at @s \
-        if entity @p[distance=..20                   ] run function eternal_return:entity/animal/wolf/script/optimize/enable_model
+function eternal_return:entity/animal/class/optimize/main {animal:"wolf",distance: 30}
 
 
 #> 엔티티의 행동
 #> HP > 0
-execute if score #this.HP ER.sys matches 1.. run function eternal_return:entity/animal/wolf/script/alive_behav
+execute if score #this.HP ER.sys matches 1.. if score #this.AI ER.sys matches 0 run function eternal_return:entity/animal/class/ready {animal:"wolf"}
+execute if score #this.HP ER.sys matches 1.. if score #this.AI ER.sys matches 1 run function eternal_return:entity/animal/class/behav {animal:"wolf",damage: 5}
+
+
 
 #> HP <= 0
-execute if score #this.HP ER.sys matches ..0 run function eternal_return:entity/animal/wolf/script/death_behav
+execute if score #this.HP ER.sys matches ..0 run function eternal_return:entity/animal/class/death {animal : "wolf"}
 
 
 # 히트박스 위치 조정

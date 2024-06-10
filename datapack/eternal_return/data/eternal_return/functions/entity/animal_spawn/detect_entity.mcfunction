@@ -26,10 +26,9 @@ execute as @e[tag=ER.animal.root] if score @s df_id = #this.id ER.sys run functi
 
 
 #> 엔티티가 존재한다면
-# 맨 위의 값을 맨 뒤로 옮겨서 다음 값을 top으로 설정
+#제자리로 복귀
 execute if score #isExist ER.sys matches 1 at @s run \
     function eternal_return:entity/animal_spawn/if_exist {Radius : 20}
-
 
 #> 엔티티가 없다면
 # 만약 없다면 제거
