@@ -16,6 +16,7 @@ team add lenox
 team add vianca
 team add sissela
 team add silvia
+team add isol
 
 team modify jackie prefix ["",{"text":" [ ","color":"light_purple"},{"text":"재키","color":"yellow"},{"text":" ] ","color":"light_purple"}]
 team modify nicky prefix ["",{"text":" [ ","color":"light_purple"},{"text":"니키","color":"yellow"},{"text":" ] ","color":"light_purple"}]
@@ -35,3 +36,4 @@ team modify lenox prefix ["",{"text":" [ ","color":"light_purple"},{"text":"레�
 team modify vianca prefix ["",{"text":" [ ","color":"light_purple"},{"text":"비앙카","color":"yellow"},{"text":" ] ","color":"light_purple"}]
 team modify sissela prefix ["",{"text":" [ ","color":"light_purple"},{"text":"시셀라","color":"yellow"},{"text":" ] ","color":"light_purple"}]
 team modify silvia prefix ["",{"text":" [ ","color":"light_purple"},{"text":"실비아","color":"yellow"},{"text":" ] ","color":"light_purple"}]
+team modify isol prefix ["",{"text":" [ ","color":"light_purple"},{"text":"아이솔","color":"yellow"},{"text":" ] ","color":"light_purple"}]

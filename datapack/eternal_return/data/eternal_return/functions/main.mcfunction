@@ -75,6 +75,7 @@ function eternal_return:system/character/lenox/main
 function eternal_return:system/character/vianca/main
 function eternal_return:system/character/sissela/main
 function eternal_return:system/character/silvia/main
+function eternal_return:system/character/isol/main
 
 function eternal_return:system/player/rightclick
 function eternal_return:system/player/damagegive
