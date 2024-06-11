@@ -14,7 +14,7 @@ execute store result score #this.id ER.sys run data get storage minecraft:temp t
 #> find animal root 
 #   input  : 모든 ER.animal.root, ER.animal.hitbox
 #   output : ER.animal.root[tag=this], ER.animal.hitbox[tag=this], isExist = {0 or 1}
-execute as @e[tag=ER.animal.root] if score @s df_id = #this.id ER.sys run function eternal_return:entity/animal_spawn/find_animal_root
+execute as @e[tag=ER.animal.root] if score @s df_id = #this.id ER.sys run function eternal_return:entity/animal_spawn/is_exist
 
 #=========================================================================================
 #   
@@ -27,13 +27,11 @@ execute as @e[tag=ER.animal.root] if score @s df_id = #this.id ER.sys run functi
 
 #> 엔티티가 존재한다면
 #제자리로 복귀
-execute if score #isExist ER.sys matches 1 at @s run \
-    function eternal_return:entity/animal_spawn/if_exist {Radius : 20}
+execute if score #isExist ER.sys matches 1 at @s run function eternal_return:entity/animal_spawn/get_back/main {Radius : 20}
 
 #> 엔티티가 없다면
 # 만약 없다면 제거
-execute if score #isExist ER.sys matches 0 run \
-    data remove storage minecraft:temp temp.animal[0]
+execute if score #isExist ER.sys matches 0 run data remove storage minecraft:temp temp.animal[0]
 
 
 scoreboard players set #isExist ER.sys 0

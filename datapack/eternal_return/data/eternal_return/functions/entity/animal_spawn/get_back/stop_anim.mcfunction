@@ -1,6 +1,6 @@
     
-# function eternal_return:entity/animal_spawn/remove_id
-# function eternal_return:entity/animal_spawn/if_exist
+# function eternal_return:entity/animal_spawn/main
+# function eternal_return:entity/animal_spawn/stop_anim
 
 data modify entity @s NoAI set value 1b
 execute as @e[tag= this, tag= ER.animal.hitbox] run scoreboard players operation @s ER.health = #this.MaxHP ER.health

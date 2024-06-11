@@ -1,61 +1,15 @@
 
-#> 곰의 스크립트
-#===================================================================================================
-#> 야생동물 기본 로직
-#
-#>if 체력 > 0  :
-#>        if AI = 0 :
-#>               if 현재 체력 < 최대 체력 :
-#>                   AI = 1
-#>                   준비 애니메이션 종료()
-#>                   스킬 발동()
-#>                   쿨타임 = this.MaxCool
-#>
-#>               if  체력 = 최대 체력 & 플레이어가 근처에 있을 때:
-#>                   준비 애니메이션()
-#>
-#>        if AI = 1 :
-#>               if  준비 애니메이션 중 == true :
-#>                       준비 애니메이션 종료()
-#>
-#>               if 모션이 존재하면 & 움직이는 중 == false :
-#>                       움직이기()
-#>               else if 모션이 존재 == false & 움직이는 중 == true:
-#>                       움직이기 중지()
-#>
-#>               if 플레이어가 전방에 존재 시 :
-#>                       if 쿨타임 조건 == false & 공격 중 == false:
-#>                               움직이기 중지() 
-#>                               모션 제거()
-#>                               공격하기()
-#>                       else if 쿨타임 조건 == true & 스킬 발동 중 == false:
-#>                               움직이기 중지()
-#>                               모션 제거()
-#>                               스킬 발동()
-#>                               쿨타임 = this.MaxCool
-#>if 체력 <=0  :
-#>        사망()
-#>
-#=================================================================================================== 
+#> 멧돼지의 스크립트
 
+#=================================================================================================== 
 #>  function eternal_return:entity/animal/boar/script/main
-#>  function eternal_return:entity/animal/boar/script/attack
-#>  function eternal_return:entity/animal/boar/script/show_model
-#>  function eternal_return:entity/animal/boar/script/alive_behav
-#>  function eternal_return:entity/animal/boar/script/death_behav
-#>  function eternal_return:entity/animal/boar/script/optimize/disable_model
-#>  function eternal_return:entity/animal/boar/script/optimize/enable_model
-#>  function eternal_return:entity/animal/hitbox
-#
+#>  function eternal_return:entity/animal/boar/script/skill
 #   Tags
 #>  ER.animal.hitbox
 #>  ER.animal.root
 #>  ER.animal.model
 #>  ER.animal.boar
-#>  ER.optimized
-#
-#>  
-#                
+#>  ER.optimized 
 #===================================================================================================
 
 
