@@ -1,5 +1,5 @@
 # 인덱스 스코어 할당
-$scoreboard players set #$(id).loading.index1 CT1 1
+$scoreboard players set #$(id).loading.index CT1 1
 ## 로딩바 개인 스토리지로 받아오기
 $execute if entity @s[tag=loading1.5] run data modify storage player_data players[{id:$(id)}].loading set from storage text data[0]
 $execute if entity @s[tag=loading3] run data modify storage player_data players[{id:$(id)}].loading set from storage text data[1]

@@ -1,6 +1,3 @@
-# 테스트
-data merge storage text {loading:[]}
-
 ## 빈 바 설정
 #   data[0] = 틱당 4칸, 30틱 실행
 #   data[1] = 틱당 2칸, 60틱 실행

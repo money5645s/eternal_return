@@ -1,10 +1,11 @@
 # 스코어보드 생성
+scoreboard objectives remove player_id 
 scoreboard objectives add player_id dummy
 
 # 스토리지 생성
 data remove storage minecraft:player_data players
 data modify storage player_data players set value []
-data modify storage player_data temp set value [{id:0},{armor:0},{index:""},{},{text:''}]
+data modify storage player_data temp set value [{id:0},{armor:0},{index:""},{},{text:''},{cradit:0}]
 
 # 플레이어 스코어 및 태그 지우기
 tag @a remove player_id

@@ -1,6 +1,7 @@
 {
     "values":[
-        "eternal_return:load",
-        "eternal_return:init"
+       "eternal_return:load",
+       "animated_java:animal_boar/zzzzzzzz/load",
+       "animated_java:animal_bear/zzzzzzzz/load"
     ]
 }

@@ -10,4 +10,4 @@
 execute if score @s[tag=open_hyperloop] ChatClick matches 1..19 run function eternal_return:system/trigger/hyperloop
 
 ## 키오스크
-execute if score @s[tag=open_kiosk] ChatClick matches 21..25 run function eternal_return:system/trigger/kiosk
+execute if score @s[tag=open_kiosk] ChatClick matches 20..25 run function eternal_return:system/trigger/kiosk
