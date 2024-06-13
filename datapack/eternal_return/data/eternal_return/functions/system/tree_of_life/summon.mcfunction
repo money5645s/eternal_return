@@ -1,7 +1,7 @@
 # 날짜 입력 받기
 $scoreboard players set #input.life_of_tree.day NUM $(day)
 
-# 일차 별 소환
+## 일차별 소환
 
 # 2일차 소환
 execute if score #input.life_of_tree.day NUM matches 2 run summon interaction -518 83 592 {width:1.1f,height:1.1f,Tags:["tree"]}

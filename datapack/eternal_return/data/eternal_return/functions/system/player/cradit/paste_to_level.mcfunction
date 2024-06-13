@@ -1,1 +1,1 @@
-$experience set @s $(cradit) levels
+$experience set @s $(credit) levels
