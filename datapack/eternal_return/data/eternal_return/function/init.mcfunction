@@ -34,6 +34,7 @@ scoreboard players set #ER.place.cathedral ER.sys 15
 scoreboard players set #ER.place.storage ER.sys 16
 scoreboard players set #ER.place.port ER.sys 17
 scoreboard players set #ER.place.factory ER.sys 18
+scoreboard players set #ER.place.jul ER.sys 19
 
 #> 야생동물 체력 및 공격력 설정
 #멧돼지

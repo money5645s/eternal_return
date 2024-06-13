@@ -50,9 +50,6 @@ $bossbar set minecraft:hud_$(id) name [\
     {"font":"minecraft:x_transform",    "text":"\u4$(mouseX)"},\
     {"font":"minecraft:map/icon",       "text":"\u1$(mouseY)","color":"#4e5c24"},\
     {"font":"minecraft:x_transform",    "text":"\u1$(mouseX)"},\
-    {"font":"minecraft:x_transform",    "text":"\u4$(PlayerX)"},\
-    {"font":"minecraft:map/icon",       "text":"\u1$(PlayerY)","color":"#4e5c24"},\
-    {"font":"minecraft:x_transform",    "text":"\u1$(PlayerX)"},\
     {"font":"minecraft:x_transform",    "text":"\u4230"},\
     {"font":"minecraft:map/hyper_loop", "text":"\u4001","color":"#4e5c24"},\
     {"font":"minecraft:x_transform",    "text":"\u1250"},\

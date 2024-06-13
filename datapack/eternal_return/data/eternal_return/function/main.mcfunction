@@ -13,9 +13,11 @@ function eternal_return:system/kiosk/main
 # 점프패드
 function eternal_return:system/jumppad/main
 # 하이퍼 루프
-execute as @a[tag=player_id] at @s run function eternal_return:system/hyperloop/main
+execute as @a[tag=player] at @s run function eternal_return:system/hyperloop/main
 # 생명의 나무
 execute as @a[tag=player] at @s run function eternal_return:system/tree_of_life/main
+# 운석
+execute as @a[tag=player] at @s run function eternal_return:system/meteor/main
 # 맵
 function eternal_return:system/map/main
 # 액션바
@@ -46,13 +48,6 @@ execute as @e[tag=gametime] run function eternal_return:system/game/gametime
 function eternal_return:system/game/last_area
 function eternal_return:system/game/daytimer
 function eternal_return:system/game/credit
-
-
-
-# 운석
-function eternal_return:system/stone/stonearea1
-function eternal_return:system/stone/stonearea3
-
 
 
 ##캐릭터

@@ -1,6 +1,6 @@
 
 $bossbar add minecraft:hud_$(id) [{"text":""}]
-
+$bossbar set minecraft:hud_$(id) color blue
 
 $bossbar set minecraft:hud_$(id) visible true
 
