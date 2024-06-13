@@ -68,8 +68,7 @@ function eternal_return:maps/hyper_loop/set_player_pos with storage minecraft:te
 data remove storage minecraft:temp coord
 
 
-data modify storage minecraft:temp temp merge value {\
-beach:"white",hotel:"white",yanggung:"white",gas_station:"white",school:"white",fire:"white",golmok:"white",police:"white",jul:"white",lab:"white",forest:"white",graveyard:"white",pond:"white",stream:"white",hospital:"white",factory:"white",cathedral:"white",port:"white",village:"white",storage:"white"}
+$data modify storage minecraft:temp temp merge value {id : $(id), beach:"white",hotel:"white",yanggung:"white",gas_station:"white",school:"white",fire:"white",golmok:"white",police:"white",jul:"white",lab:"white",forest:"white",graveyard:"white",pond:"white",stream:"white",hospital:"white",factory:"white",cathedral:"white",port:"white",village:"white",storage:"white"}
 
 #> 하이퍼루프 중 시야각 제어
 #execute at @s if score #rotX ER.sys matches 90.. run tp @s ~ ~ ~ 0 ~

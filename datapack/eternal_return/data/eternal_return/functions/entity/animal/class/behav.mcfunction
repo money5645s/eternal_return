@@ -21,8 +21,9 @@ $execute as @e[tag= aj.animal_$(animal).animation.ready,tag= ER.animal.model,tag
 
 
 #>attack 애니메이션 실행 및 로직 발동
-$execute at @e[tag= this,tag= ER.animal.attackDetection] if entity @e[tag=!aj.animal_$(animal).animation.attack,tag=!aj.animal_$(animal).animation.skill,tag= ER.animal.model,tag= this] if entity @p[distance=0..1] run function eternal_return:entity/animal/class/attack {animal : "$(animal)", damage : $(damage)}
+$execute at @e[tag= this,tag= ER.animal.attackDetection] if entity @p[distance=0..2] as @e[tag=!aj.animal_$(animal).animation.attack,tag=!aj.animal_$(animal).animation.skill,tag= ER.animal.model,tag= this] run function animated_java:animal_$(animal)/animations/attack/play
 
+$execute at @e[tag= this,tag= ER.animal.attackDetection] if entity @e[tag=aj.animal_$(animal).animation.attack,tag=!aj.animal_$(animal).animation.skill,tag= ER.animal.model,tag= this, scores={aj.anim_time = 7}] run function eternal_return:entity/animal/class/attack {animal : "$(animal)", damage : $(damage)}
 
 #>skill 애니메이션 실행 및 로직 발동
 $execute at @e[tag= this,tag= ER.animal.attackDetection] if score @s ER.cooltime matches 0 if entity @e[tag=!aj.animal_$(animal).animation.attack,tag=!aj.animal_$(animal).animation.skill,tag= ER.animal.model,tag= this] if entity @p[distance=0..1] run function eternal_return:entity/animal/$(animal)/script/skill

@@ -8,10 +8,7 @@ execute unless score #this.HP ER.sys = #this.MaxHP ER.sys run scoreboard players
 
 
 # 플레이어가 근처에 가면 발동 -> ready 애니메이션
-$execute at @s if entity @p[distance=0..6] if score #this.HP ER.sys = #this.MaxHP ER.sys run execute as @e[\
-    tag=!aj.animal_$(animal).animation.ready,\
-    tag=ER.animal.model,\
-    tag=this] run function animated_java:animal_$(animal)/animations/ready/play
+$execute at @s if entity @p[distance=0..6] if score #this.HP ER.sys = #this.MaxHP ER.sys run execute as @e[tag=!aj.animal_$(animal).animation.ready,tag=ER.animal.model,tag=this] run function animated_java:animal_$(animal)/animations/ready/play
 
 
 

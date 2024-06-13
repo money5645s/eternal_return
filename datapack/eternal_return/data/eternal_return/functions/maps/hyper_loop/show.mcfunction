@@ -1,8 +1,12 @@
 
-bossbar set minecraft:hud_5 visible true
+$bossbar add minecraft:hud_$(id) [{"text":""}]
 
 
-bossbar set minecraft:hud_5 players @s
+$bossbar set minecraft:hud_$(id) visible true
+
+
+$bossbar set minecraft:hud_$(id) players @s
+
 
 
 execute run tp @s ~ ~ ~ 0 0

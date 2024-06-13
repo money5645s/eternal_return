@@ -27,8 +27,8 @@ execute as @a[tag=player] run function eternal_return:system/actionbar/main
 function eternal_return:system/map/main
 
 #> 하이퍼루프 함수 eternal_return:maps/hyper_loop
-execute as @a if entity @a[tag=hyper_loop] at @s run function eternal_return:maps/hyper_loop/main
-execute as @a if entity @a[tag=!hyper_loop, tag=choosing_hyper_loop] run function eternal_return:maps/hyper_loop/reset
+execute as @a[tag=hyper_loop] at @s run function eternal_return:maps/hyper_loop/main
+execute as @a[tag=!hyper_loop, tag=choosing_hyper_loop] run function eternal_return:maps/hyper_loop/reset
 
 
 # 플레이어 제외 엔티티 업데이트

@@ -3,7 +3,7 @@
 
 
 
-$bossbar set minecraft:hud_5 name [\
+$bossbar set minecraft:hud_$(id) name [\
     {"font":"minecraft:map/hyper_loop", "text":"\u4000","color":"#4e5c24"},\
     {"font":"minecraft:x_transform",    "text":"\u4250"},\
     {"font":"minecraft:x_transform",    "text":"\u4250"},\
