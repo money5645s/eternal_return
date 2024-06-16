@@ -1,9 +1,5 @@
 
 #> function eternal_return:entity/main
-
-#execute if entity @s[type= minecraft:arrow] at @s run function eternal_return:entity/arrow_pen
-
-#ER에 해당하는 엔티티가 아니면 탈출
 execute if entity @s[tag=!ER] run return 0
 execute as @s[type=minecraft:marker,tag=ER.spawn] at @s run particle minecraft:flame ~ ~1 ~ 0 0 0 0 1 force
 

@@ -33,9 +33,13 @@ execute as @a[tag=hyper_loop] at @s run function eternal_return:maps/hyper_loop/
 execute as @a[tag=!hyper_loop, tag=choosing_hyper_loop] run function eternal_return:maps/hyper_loop/reset
 
 
-# 플레이어 제외 엔티티 업데이트
+# 야생동물 업데이트
 execute as @e[type=!player,tag=ER] run function eternal_return:entity/main
-# 플레이어 엔티티 에딧 모드 진입
+
+# 벽뚫화살 업데이트
+execute as @e[type= minecraft:arrow] at @s run function eternal_return:entity/arrow_pen/main
+
+# 플레이어 야생동물 에딧 모드 진입
 execute as @a[gamemode= creative] at @s run function eternal_return:entity/animal_spawn/point/main
 
 ##> 디버그
