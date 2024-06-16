@@ -1,4 +1,3 @@
-
 # 임의의 두 마커에 태그 부여
 tag @e[tag=meteor,tag=!selected,tag=marker,sort=random,limit=2] add selected
 scoreboard players set @e[tag=meteor,tag=selected,tag=marker] CT1 0

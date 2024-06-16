@@ -5,7 +5,7 @@ function eternal_return:temp/input/id
 
 ## 페이지 열기
 # 개인 인터렉션 소환 및 태그 부여
-execute as @e[tag=hyperloop,tag=interaction] on target at @s run function eternal_return:system/hyperloop/summon/interaction with storage player_data temp[0]
+execute as @e[tag=hyperloop,tag=interaction] on target at @s[tag=!hyper_loop,distance=..2,tag=!loop] run function eternal_return:system/hyperloop/summon/interaction with storage player_data temp[0]
 execute as @e[tag=hyperloop,tag=interaction] at @s on target run tag @s[tag=!hyper_loop,distance=..2,tag=!loop] add hyper_loop
 # 화면 선택 시 좌클릭
 execute if entity @s[tag=hyper_loop,tag=!loop] run function eternal_return:system/hyperloop/choice_interaction with storage player_data temp[0]
