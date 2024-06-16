@@ -1,0 +1,1 @@
+$kill @e[tag=choice_warp$(id),distance=..2]

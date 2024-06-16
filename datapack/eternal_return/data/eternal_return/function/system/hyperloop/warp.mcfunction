@@ -1,3 +1,5 @@
+# 인터렉션 삭제
+function eternal_return:system/hyperloop/remove/interaction with storage player_data temp[0]
 # 지정된 위치로 이동
 execute if score @s ER.sys matches 1 run tp @s -434.707 80 575.057 ~ ~
 execute if score @s ER.sys matches 2 run tp @s -705.931 82 686.952 ~ ~
