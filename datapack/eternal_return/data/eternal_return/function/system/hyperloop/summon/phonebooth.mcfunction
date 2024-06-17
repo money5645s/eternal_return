@@ -13,4 +13,4 @@ execute as @e[tag=hyperloop,type=armor_stand,distance=..3] at @s run fill ^ ^ ^ 
 execute as @e[tag=hyperloop,type=armor_stand,distance=..3] at @s run tp @s ^0.5 ^ ^
 
 ## 인터렉션 소환
-execute as @e[tag=hyperloop,type=armor_stand,distance=..3] at @s run summon interaction ~ ~ ~ {width:2f,height:3f,Tags:["hyperloop","interaction"]}
+execute as @e[tag=hyperloop,type=armor_stand,distance=..3] at @s run summon interaction ^ ^ ^0.5 {width:2f,height:3f,Tags:["hyperloop","interaction"]}

@@ -13,6 +13,9 @@ scoreboard objectives add SC dummy
 # 정수
 scoreboard objectives add NUM dummy
 
+# sidebar 로그 스코어 생성
+scoreboard objectives add ER.log dummy
+
 # 야생동물 관련 스코어보드 생성
 scoreboard objectives add ER.sys dummy
 scoreboard players set #ER.place.null ER.sys 0
@@ -72,3 +75,5 @@ function eternal_return:system/player/init
 function eternal_return:system/bossbar/init
 # 액션바 기본 설정
 function eternal_return:system/actionbar/init
+# 사이드바 로그 기본 설정
+function eternal_return:system/sidebar/init
