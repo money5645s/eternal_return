@@ -14,12 +14,7 @@ $summon minecraft:zombie ~$(dx) ~$(dy) ~$(dz) {          \
         DeathTime:18,                                    \
         CustomName:'{"color":"green","text":"[ER][ER.animal.root boar]"}',\
         HasVisualFire:0b,PersistenceRequired:1b,         \
-        Attributes:[                                     \
-            {Name:generic.scale,Base:1},                 \
-            {Name:generic.attack_damage,Base:0},         \
-            {Name:generic.movement_speed,Base:0.34}      \
-            ]                                            \
-        }
+        attributes:[{id:"generic.scale",base: 1.0d},{id:"generic.attack_damage",base: 0.0d},{id:"generic.movement_speed",base: 0.1d}]}
 # 히트박스 소환
 $summon ghast ~$(dx) ~$(dy) ~$(dz) {\
         Tags:["this","ER.animal.hitbox"],\
@@ -27,11 +22,7 @@ $summon ghast ~$(dx) ~$(dy) ~$(dz) {\
         Silent:1b,\
         Health:1000f,\
         DeathTime:18,\
-        Attributes:[\
-            {Name:generic.max_health,Base:1000},\
-            {Name:generic.scale,Base:0.8}\
-            ]\
-        }
+        attributes:[{id:"generic.max_health", base: 1000.0d},{id:"generic.scale", base: 0.8d}]}
 
 # 체력바 소환
 $summon text_display ~$(dx) ~$(dy) ~$(dz) {\

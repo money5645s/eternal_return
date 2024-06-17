@@ -8,6 +8,7 @@ execute unless score #this.HP ER.health matches 1000 run scoreboard players oper
 execute unless score #this.HP ER.health matches 1000 run scoreboard players operation @s ER.health -= #getDamage ER.health
 
 
+
 execute store result storage minecraft:temp temp.HP int 1 run scoreboard players get @s ER.health
 
 #> 사망 시 제거 (음수값 띄우기 방지)
@@ -18,5 +19,4 @@ execute if score @s ER.health matches 1.. on passengers if entity @s[tag=ER.anim
 
 
 data remove storage minecraft:temp temp
-
 execute unless score #this.HP ER.health matches 1000 run data modify entity @s Health set value 1000

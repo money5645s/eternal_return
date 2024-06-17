@@ -1,10 +1,9 @@
 
 #> function eternal_return:entity/main
-execute if entity @s[tag=!ER] run return 0
 execute as @s[type=minecraft:marker,tag=ER.spawn] at @s run particle minecraft:flame ~ ~1 ~ 0 0 0 0 1 force
 
 #> 야생동물 스폰 포인트 제어
-execute if entity @s[type=! minecraft:item_display, tag= ER.spawn.animal] at @s if entity @p[distance=..40] run function eternal_return:entity/animal_spawn/main {nbt: "data"}
+execute if entity @s[type= minecraft:marker, tag= ER.spawn.animal] at @s if entity @p[distance=..40] run function eternal_return:entity/animal_spawn/main {nbt: "data"}
 
 #> 히트박스
 execute if entity @s[type= minecraft:ghast, tag= ER.animal.hitbox] if score @s ER.health matches 1.. run function eternal_return:entity/hitbox

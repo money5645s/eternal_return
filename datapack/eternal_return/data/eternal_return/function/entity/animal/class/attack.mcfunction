@@ -3,4 +3,3 @@
 
 
 $damage @p[distance=0..3] $(damage) minecraft:player_attack
-

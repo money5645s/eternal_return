@@ -49,6 +49,8 @@ $execute if score #MotionExist ER.sys matches 1 run execute as @e[tag=!aj.animal
 
 
 #>모델 및 엔티티 시선처리
-execute as @e[tag= this, tag= ER.animal.model] at @s facing entity @p[distance=0..20,sort=nearest] feet run tp @s ~ ~ ~ ~ 0
+execute on target run tag @s add targeted
+execute as @e[tag= this, tag= ER.animal.model] at @s facing entity @n[distance=0..20,tag=targeted] feet run tp @s ~ ~ ~ ~ 0
+execute on target run tag @s remove targeted
 #>공격 지시 마커 제거
 execute if entity @e[tag= this, tag= ER.animal.attackDetection] run kill @e[tag= this, tag= ER.animal.attackDetection]
