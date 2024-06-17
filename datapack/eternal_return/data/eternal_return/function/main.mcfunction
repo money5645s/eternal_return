@@ -1,9 +1,19 @@
 ##> 함수 반복문
 tag @a[tag=!player] add player
+
 ## 플레이어
 execute as @a[tag=player] at @s run function eternal_return:system/player/main
-## 채팅 클릭
+# 채팅 클릭
 execute as @a[tag=player_id] at @s run function eternal_return:system/trigger/main
+
+
+
+
+## 게임 타임라인
+function eternal_return:system/game/main
+
+
+
 
 ## 기물
 # 부시
@@ -48,7 +58,6 @@ function eternal_return:debug
 ## 이전 버전 데이터팩 함수 루프
 function eternal_return:system/game/noarea
 function eternal_return:system/game/safearea
-execute as @e[tag=gametime] run function eternal_return:system/game/gametime
 function eternal_return:system/game/last_area
 function eternal_return:system/game/daytimer
 function eternal_return:system/game/credit

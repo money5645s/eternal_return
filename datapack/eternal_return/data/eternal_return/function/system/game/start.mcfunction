@@ -1,1 +1,1 @@
-summon minecraft:armor_stand -581 84 526 {Tags:["gametime"]}
+# 타이머 설정
