@@ -23,6 +23,7 @@ function eternal_return:system/character/sissela/main
 function eternal_return:system/character/silvia/main
 function eternal_return:system/character/isol/main
 function eternal_return:system/character/arda/main
+function eternal_return:system/character/katja/main
 
 function eternal_return:system/player/rightclick
 function eternal_return:system/player/damagegive
