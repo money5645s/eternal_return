@@ -1,6 +1,33 @@
 ##> 함수 반복문
 tag @a[tag=!player] add player
 
+##캐릭터
+function eternal_return:system/character/character
+function eternal_return:system/character/happychaos
+function eternal_return:system/character/jackie
+function eternal_return:system/character/nickys
+function eternal_return:system/character/luke
+function eternal_return:system/character/mai
+function eternal_return:system/character/shou
+function eternal_return:system/character/charlotte
+function eternal_return:system/character/aya
+function eternal_return:system/character/yohan
+function eternal_return:system/character/heart
+function eternal_return:system/character/yuki/main
+function eternal_return:system/character/hyunwoo/main
+function eternal_return:system/character/daniel
+function eternal_return:system/character/laura/main
+function eternal_return:system/character/lenox/main
+function eternal_return:system/character/vianca/main
+function eternal_return:system/character/sissela/main
+function eternal_return:system/character/silvia/main
+function eternal_return:system/character/isol/main
+function eternal_return:system/character/arda/main
+
+function eternal_return:system/player/rightclick
+function eternal_return:system/player/damagegive
+function eternal_return:system/player/damagetaken
+
 ## 플레이어
 execute as @a[tag=player] at @s run function eternal_return:system/player/main
 # 채팅 클릭
@@ -62,32 +89,6 @@ function eternal_return:system/game/last_area
 function eternal_return:system/game/daytimer
 function eternal_return:system/game/credit
 
-
-##캐릭터
-function eternal_return:system/character/character
-function eternal_return:system/character/happychaos
-function eternal_return:system/character/jackie
-function eternal_return:system/character/nickys
-function eternal_return:system/character/luke
-function eternal_return:system/character/mai
-function eternal_return:system/character/shou
-function eternal_return:system/character/charlotte
-function eternal_return:system/character/aya
-function eternal_return:system/character/yohan
-function eternal_return:system/character/heart
-function eternal_return:system/character/yuki/main
-function eternal_return:system/character/hyunwoo/main
-function eternal_return:system/character/daniel
-function eternal_return:system/character/laura/main
-function eternal_return:system/character/lenox/main
-function eternal_return:system/character/vianca/main
-function eternal_return:system/character/sissela/main
-function eternal_return:system/character/silvia/main
-function eternal_return:system/character/isol/main
-
-function eternal_return:system/player/rightclick
-function eternal_return:system/player/damagegive
-function eternal_return:system/player/damagetaken
 
 ## CC기
 function eternal_return:system/character/stun/main
