@@ -25,10 +25,12 @@ execute as @a[tag=viancaskill] at @s run tp @s @e[tag=viancaw,limit=1,sort=neare
 ## 비앙카 스킬 효과
 execute as @a[tag=viancaskill] run effect give @s regeneration infinite 3 true
 execute as @a[tag=viancaskill] run effect give @s resistance infinite 2 true
+execute as @a[tag=viancaskill] run effect give @s weakness infinite 100 true
 
 ## 비앙카 스킬 효과 제거
 execute as @a[scores={viancaskill=100..}] run effect clear @s regeneration
 execute as @a[scores={viancaskill=100..}] run effect clear @s resistance
+execute as @a[scores={viancaskill=100..}] run effect clear @s weakness
 execute as @a[scores={viancaskill=100..}] at @s run kill @e[tag=viancaw,limit=1,sort=nearest]
 execute as @a[scores={viancaskill=100..}] at @s run kill @e[tag=viancaw1,limit=2,sort=nearest]
 execute as @a[scores={viancaskill=100..}] run tag @s remove viancaskill

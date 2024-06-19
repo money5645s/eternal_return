@@ -24,6 +24,13 @@ function eternal_return:system/character/silvia/main
 function eternal_return:system/character/isol/main
 function eternal_return:system/character/arda/main
 function eternal_return:system/character/katja/main
+function eternal_return:system/character/estell/main
+function eternal_return:system/character/echion/main
+function eternal_return:system/character/elena/main
+function eternal_return:system/character/camilo/main
+function eternal_return:system/character/lidailin/main
+function eternal_return:system/character/magnus/main
+function eternal_return:system/character/adriana/main
 
 function eternal_return:system/player/rightclick
 function eternal_return:system/player/damagegive

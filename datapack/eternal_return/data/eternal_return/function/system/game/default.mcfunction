@@ -34,3 +34,7 @@ scoreboard objectives add viancaskill dummy
 scoreboard objectives add sisselaskill dummy
 scoreboard objectives add visit dummy
 scoreboard objectives add isolskill dummy
+scoreboard objectives add katjakill playerKillCount
+scoreboard objectives add echionskill dummy
+scoreboard objectives add camiloskill dummy
+scoreboard objectives add lidailinskill dummy
