@@ -1,7 +1,36 @@
 ##> 게임 타임라인 별 실행 함수
 
-#execute if score #timer.sec CT1 matches ..9 run title Money5645 actionbar [{"score":{"name":"#timer.day","objective":"CT1"},"font":"sidebar/up"},{"text":"일차 ","color":"gold"},"  /  ",{"text":"낮밤 ","color":"gold"},{"score":{"name":"#timer.halfday","objective":"CT1"}},"  /  ",{"text":"시간 ","color":"gold"},"0",{"score":{"name":"#timer.min","objective":"CT1"}},":0",{"score":{"name":"#timer.sec","objective":"CT1"}}]
-#execute if score #timer.sec CT1 matches 10.. run title Money5645 actionbar [{"score":{"name":"#timer.day","objective":"CT1"},"font":"sidebar/up"},{"text":"일차 ","color":"gold"},"  /  ",{"text":"낮밤 ","color":"gold"},{"score":{"name":"#timer.halfday","objective":"CT1"}},"  /  ",{"text":"시간 ","color":"gold"},"0",{"score":{"name":"#timer.min","objective":"CT1"}},":",{"score":{"name":"#timer.sec","objective":"CT1"}}]
+
+## 게임 진행
+function eternal_return:system/game/timeline
+
+
+
+
+
 
 # 타이머
-function eternal_return:system/game/timer
+function eternal_return:system/game/timer/tick
+
+# 게임시간 타이머
+function eternal_return:system/game/time/tick
+
+# 게임 데이터 집계
+function eternal_return:system/game/total
+
+
+
+
+
+
+## 상단 UI 표기
+# 초 자릿수 표기
+function eternal_return:system/game/is/tensec
+# 플레이어 수 표기
+function eternal_return:system/game/is/player
+# 팀 수 표기
+function eternal_return:system/game/is/team
+# 일차 수 표기
+function eternal_return:system/game/is/day
+# 금지구역 시간 표기
+execute as @a[tag=player] at @s run function eternal_return:system/game/is/bantime

@@ -44,6 +44,8 @@ function eternal_return:system/game/main
 
 
 ## 기물
+# 보스바
+execute as @a[tag=player] at @s run function eternal_return:system/bossbar/main
 # 부시
 function eternal_return:system/bush/main
 # 키오스크
@@ -57,14 +59,9 @@ execute as @a[tag=player] at @s run function eternal_return:system/tree_of_life/
 # 운석
 execute as @a[tag=player] at @s run function eternal_return:system/meteor/main
 # 맵
-function eternal_return:system/map/main
+execute as @a[tag=player] at @s run function eternal_return:system/map/main
 # 액션바
 execute as @a[tag=player] run function eternal_return:system/actionbar/main
-
-
-
-## 맵
-function eternal_return:system/map/main
 
 #> 하이퍼루프 함수 eternal_return:maps/hyper_loop
 execute as @a[tag=hyper_loop] at @s run function eternal_return:maps/hyper_loop/main

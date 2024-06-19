@@ -1,8 +1,11 @@
 ## 스코어보드 생성
-scoreboard objectives add Cradit dummy
+
+scoreboard objectives add ER.resurrection dummy
+scoreboard objectives add credit dummy
 scoreboard objectives add ChatClick trigger
 scoreboard objectives add shift minecraft.custom:minecraft.sneak_time
 scoreboard objectives add hp health {"text":"♥","color":"red"}
+
 
 # 쿨타임
 scoreboard objectives add CT1 dummy
@@ -15,6 +18,8 @@ scoreboard objectives add NUM dummy
 
 # sidebar 로그 스코어 생성
 scoreboard objectives add ER.log dummy
+
+
 
 # 야생동물 관련 스코어보드 생성
 scoreboard objectives add ER.sys dummy
@@ -77,3 +82,5 @@ function eternal_return:system/bossbar/init
 function eternal_return:system/actionbar/init
 # 사이드바 로그 기본 설정
 function eternal_return:system/sidebar/init
+# 맵 기본 설정
+function eternal_return:system/map/init

@@ -1,5 +1,5 @@
 # 보스바 숨기기
-bossbar set line1 players
-bossbar set line2 players
-bossbar set line3 players
-bossbar set line4 players
+$bossbar set line1.id$(id) visible false
+$bossbar set line2.id$(id) visible false
+$bossbar set line3.id$(id) visible false
+$bossbar set line4.id$(id) visible false
