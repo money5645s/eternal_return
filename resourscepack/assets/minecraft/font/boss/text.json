@@ -1,0 +1,11 @@
+{
+    "providers": [
+        {
+            "type": "ttf",
+            "file": "minecraft:bold.ttf",
+            "oversample": 12.0,
+            "size": 6,
+            "shift": [ 0.0, -1.2 ]
+        }
+]
+}

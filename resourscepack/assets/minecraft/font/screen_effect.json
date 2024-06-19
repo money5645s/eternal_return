@@ -1,0 +1,11 @@
+{
+	"providers": [
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/banned_area.png",
+			"ascent": 95,
+			"height": 200,
+			"chars": ["0"]
+		}
+	]
+}

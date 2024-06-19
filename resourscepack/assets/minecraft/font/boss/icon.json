@@ -1,46 +1,20 @@
 {
     "providers": [
-	{
-		"type": "bitmap",
-		"file": "minecraft:font/moon.png",
-		"ascent": 6,
-		"height": 20,
-		"chars": ["0"]
-	},
-	{
-		"type": "bitmap",
-		"file": "minecraft:font/sun.png",
-		"ascent": 19,
-		"height": 19,
-		"chars": ["1"]
-	},
-	{
-		"type": "bitmap",
-		"file": "minecraft:font/clock.png",
-		"ascent": 4,
-		"height": 30,
-		"chars": ["2"]
-	},
-	{
-		"type": "bitmap",
-		"file": "minecraft:font/bg.png",
-		"ascent": 10.5,
-		"height": 35,
-		"chars": ["3"]
-	},
-	{
-		"type": "bitmap",
-		"file": "minecraft:font/respawn.png",
-		"ascent": 10,
-		"height": 13.5,
-		"chars": ["4"]
-	},
-	{
-		"type": "bitmap",
-		"file": "minecraft:font/players.png",
-		"ascent": 10,
-		"height": 13.5,
-		"chars": ["5"]
-	}
+		{
+			"type": "bitmap","file": "minecraft:font/clock.png",
+			"ascent": 4,"height": 30,
+			"chars": ["0"]
+		},
+		{
+			"type": "bitmap","file": "minecraft:font/players.png",
+			"ascent": 10,"height": 13.5,
+			"chars": ["1"]
+		},
+		{
+			"type": "bitmap","file": "minecraft:font/bg.png",
+			"ascent": 10.5,"height": 35,
+			"chars": ["2"]
+		}
     ]
 }
+
