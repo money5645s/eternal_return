@@ -19,7 +19,7 @@
     #gmae.team CT1
 
 - 부활
-    #game.resurrection CT1
+    ER.resurrection CT1
     #gmae.respawn CT1
 
 - 금지구역 시간

@@ -8,8 +8,10 @@ $execute if score #is_areatype CT1 matches 0 run function eternal_return:system/
 $execute if score #is_areatype CT1 matches 1 run function eternal_return:system/map/set_area_color {id:$(id),place:"$(place)",color:"gold"}
 # 금지 구역
 $execute if score #is_areatype CT1 matches 2 run function eternal_return:system/map/set_area_color {id:$(id),place:"$(place)",color:"#9E0010"}
+# 전장 예정구역
+$execute if score #is_areatype CT1 matches 3 run function eternal_return:system/map/set_area_color {id:$(id),place:"$(place)",color:"yellow"}
 # 전장
-$execute if score #is_areatype CT1 matches 3 run function eternal_return:system/map/set_area_color {id:$(id),place:"$(place)",color:"red"}
+$execute if score #is_areatype CT1 matches 4 run function eternal_return:system/map/set_area_color {id:$(id),place:"$(place)",color:"red"}
  
 # score free
 scoreboard players reset #is_areatype CT1

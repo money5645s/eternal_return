@@ -66,7 +66,7 @@ execute as @a[tag=player] at @s run function eternal_return:system/tree_of_life/
 # 운석
 execute as @a[tag=player] at @s run function eternal_return:system/meteor/main
 # 맵
-execute as @a[tag=player] at @s run function eternal_return:system/map/main
+function eternal_return:system/map/main
 # 액션바
 execute as @a[tag=player] run function eternal_return:system/actionbar/main
 
@@ -92,7 +92,6 @@ function eternal_return:system/game/noarea
 function eternal_return:system/game/safearea
 function eternal_return:system/game/last_area
 function eternal_return:system/game/daytimer
-function eternal_return:system/game/credit
 
 
 ## CC기

@@ -2,24 +2,19 @@
 
 
 ## 게임 진행
+
+# 타임라인
 function eternal_return:system/game/timeline
-
-
-
-
-
-
+# 밤낮 바꾸기
+function eternal_return:system/game/change_daycycle
 # 타이머
 function eternal_return:system/game/timer/tick
-
 # 게임시간 타이머
 function eternal_return:system/game/time/tick
-
 # 게임 데이터 집계
 function eternal_return:system/game/total
-
-
-
+# 크레딧 지속 지급
+function eternal_return:system/game/give/credit
 
 
 
