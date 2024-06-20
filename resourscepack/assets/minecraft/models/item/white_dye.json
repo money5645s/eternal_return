@@ -231,6 +231,84 @@
 				"custom_model_data": 38
 			},
 			"model": "animated_java:item/animal_wolf/front_body"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 39
+			},
+			"model": "animated_java:item/animal_alpha/bone4"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 40
+			},
+			"model": "animated_java:item/animal_alpha/bone"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 41
+			},
+			"model": "animated_java:item/animal_alpha/bone5"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 42
+			},
+			"model": "animated_java:item/animal_alpha/bone2"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 43
+			},
+			"model": "animated_java:item/animal_alpha/head"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 44
+			},
+			"model": "animated_java:item/animal_alpha/bone6"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 45
+			},
+			"model": "animated_java:item/animal_alpha/left_down_arm"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 46
+			},
+			"model": "animated_java:item/animal_alpha/left_upper_arm"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 47
+			},
+			"model": "animated_java:item/animal_alpha/bone7"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 48
+			},
+			"model": "animated_java:item/animal_alpha/left_down_arm2"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 49
+			},
+			"model": "animated_java:item/animal_alpha/left_upper_arm2"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 50
+			},
+			"model": "animated_java:item/animal_alpha/upperbody"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 51
+			},
+			"model": "animated_java:item/animal_alpha/downbody"
 		}
 	],
 	"animated_java": {
@@ -282,6 +360,23 @@
 					36,
 					37,
 					38
+				]
+			},
+			"animal_alpha": {
+				"used_ids": [
+					39,
+					40,
+					41,
+					42,
+					43,
+					44,
+					45,
+					46,
+					47,
+					48,
+					49,
+					50,
+					51
 				]
 			}
 		}
