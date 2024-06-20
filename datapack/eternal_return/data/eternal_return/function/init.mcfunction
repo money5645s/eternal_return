@@ -57,10 +57,14 @@ scoreboard players set #ER.animal.bear.cooltime ER.sys 120
 scoreboard players set #ER.animal.wolf.health ER.sys 25
 scoreboard players set #ER.animal.wolf.attack ER.sys 4
 scoreboard players set #ER.animal.wolf.cooltime ER.sys 120
+#알파
+scoreboard players set #ER.animal.alpha.health ER.sys 100
+scoreboard players set #ER.animal.alpha.attack ER.sys 10
+scoreboard players set #ER.animal.alpha.cooltime ER.sys 120
 
 
 scoreboard objectives add ER.health dummy
-scoreboard objectives add ER.coolTime dummy
+scoreboard objectives add ER.cooltime dummy
 scoreboard objectives add df_id dummy
 
 # 플레이어 uuid 스코어보드 생성

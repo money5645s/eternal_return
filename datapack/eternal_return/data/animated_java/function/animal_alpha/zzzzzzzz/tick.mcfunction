@@ -1,0 +1,1 @@
+execute if entity @s[tag=aj.animal_alpha.root] run function animated_java:animal_alpha/zzzzzzzz/tick_as_root

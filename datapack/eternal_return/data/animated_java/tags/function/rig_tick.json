@@ -3,6 +3,7 @@
 	"values": [
 		"animated_java:animal_bear/zzzzzzzz/tick",
 		"animated_java:animal_boar/zzzzzzzz/tick",
-		"animated_java:animal_wolf/zzzzzzzz/tick"
+		"animated_java:animal_wolf/zzzzzzzz/tick",
+		"animated_java:animal_alpha/zzzzzzzz/tick"
 	]
 }

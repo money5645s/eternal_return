@@ -61,7 +61,7 @@ tag @e[tag=this] add ER
 #> 아이디 부여
 function df_library:id/set_id
 
-function eternal_return:entity/animal_spawn/store_id
+function eternal_return:entity/store_id
 
 #> this 태그 제거
 tag @e[tag=this] remove this
