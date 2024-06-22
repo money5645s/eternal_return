@@ -5,11 +5,7 @@
             "file": "minecraft:godo.ttf",
             "oversample": 12.0,
             "size": 7,
-<<<<<<<< Updated upstream:resourscepack/assets/minecraft/font/sidebar/title.json
-            "shift": [ -50.0, -1.0 ]
-========
             "shift": [ 0.0, 4.0 ]
->>>>>>>> Stashed changes:resourscepack/assets/minecraft/font/centerbar/wait/remaining_text.json
         }
 ]
 }
