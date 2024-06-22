@@ -1,0 +1,11 @@
+{
+	"providers": [
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/waitbar.png",
+			"ascent": -10,
+			"height": 32,
+			"chars": ["1","2","3","4","5","6","7","8","9"]
+		}
+	]
+}
