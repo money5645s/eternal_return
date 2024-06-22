@@ -1,0 +1,1 @@
+function animated_java:animal_bear/zzzzzzzz/animations/move/tick_animation

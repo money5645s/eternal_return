@@ -1,0 +1,1 @@
+tag @s remove aj.animal_alpha.animation.skill

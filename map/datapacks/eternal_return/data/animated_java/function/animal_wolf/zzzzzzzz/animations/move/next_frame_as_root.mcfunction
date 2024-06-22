@@ -1,0 +1,1 @@
+function animated_java:animal_wolf/zzzzzzzz/animations/move/tick_animation
