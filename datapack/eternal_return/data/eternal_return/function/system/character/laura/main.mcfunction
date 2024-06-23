@@ -11,16 +11,21 @@ execute as @a[tag=laura,scores={right=1..}] at @s run function eternal_return:sy
 function eternal_return:system/character/carrot_stick_f
 
 ## 라우라 스킬 효과 (예고장 소환)
-execute as @a[tag=lauraskill] at @s run summon marker ^ ^ ^ {Tags:["lauram"]}
-execute as @a[tag=lauraskill] at @s run tp @e[tag=lauram,distance=..1] ~ ~1.25 ~ ~ ~
-execute as @e[tag=lauram] run scoreboard players add @s lauram 1
-execute as @e[scores={lauram=1..}] at @s run tp @s ^ ^ ^0.5
-execute as @e[tag=lauram] at @s run particle dust{color:[0.804,0.259,1.000],scale:1} ~ ~ ~ 0.3 0.3 0.3 0 20 force
+function eternal_return:system/character/laura/summon_marker
+
+function eternal_return:system/character/laura/tp_marker
+
+function eternal_return:system/character/laura/add_score_marker
+
+function eternal_return:system/character/laura/particle_marker
+
 execute as @e[scores={lauram=21..}] run kill @s
+
 execute as @a[tag=lauraskill] at @s run tag @s remove lauraskill
 
 ## 라우라 스킬 효과 (예고장 효과)
-execute as @e[tag=lauram] at @s run tag @e[tag=!laura,type=!marker,distance=..1] add lauraskill1
+function eternal_return:system/character/laura/skill_hit
+
 execute as @e[tag=lauraskill1] run scoreboard players add @s lauraskill 1
 execute as @e[tag=lauraskill1] run effect give @s weakness infinite 0 true
 execute as @e[tag=lauraskill1] run effect give @s slowness infinite 0 true

@@ -25,9 +25,10 @@ execute as @a[scores={yukiskill=20}] at @s run kill @e[tag=yukir11,limit=1,sort=
 
 ## 유키 화무십일홍 공격
 execute as @a[scores={yukiskill=20}] at @s run function eternal_return:system/character/yuki/yukir2
+function eternal_return:system/character/yuki/tag_add_yukir2
 
 execute as @e[tag=yukir2] at @s run particle minecraft:cherry_leaves ~ ~1 ~ 0.5 0.1 0.5 0.05 50 force
-execute as @e[tag=yukir2] at @s run tag @e[tag=!yuki,tag=!yukir2,distance=..1] add yukir3
+function eternal_return:system/character/yuki/tag_add_yukir3
 
 ## 유키 화무십일홍 데미지
 execute as @e[tag=yukir3] run scoreboard players add @s yukir 1

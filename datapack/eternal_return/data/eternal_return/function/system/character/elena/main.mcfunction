@@ -12,7 +12,9 @@ function eternal_return:system/character/carrot_stick_f
 
 ## 엘레나 스킬 효과
 execute as @a[tag=elenaskill] at @s run particle item{item:"blue_ice"} ~ ~ ~ 1.5 0 1.5 0 200 force
-execute as @a[tag=elenaskill] at @s run tag @e[tag=!elena,distance=..3] add elenaskill1
+
+function eternal_return:system/character/elena/enemytag
+
 execute as @e[tag=elenaskill1] at @s run effect give @s slowness 2 1 true
 execute as @e[tag=elenaskill1] at @s run particle dust{color:[0.388,1.000,0.980],scale:1} ~ ~ ~ 0.5 0 0.5 0 70 force
 execute as @e[tag=elenaskill1] run tag @s remove elenaskill1
