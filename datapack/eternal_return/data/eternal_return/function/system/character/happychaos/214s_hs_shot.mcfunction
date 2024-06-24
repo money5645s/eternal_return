@@ -1,0 +1,31 @@
+summon marker ^ ^1.5 ^0 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^1 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^2 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^3 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^4 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^5 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^6 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^7 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^8 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^9 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^10 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^11 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^12 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^13 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^14 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^15 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^16 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^17 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^18 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^19 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^20 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^21 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^22 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^23 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+summon marker ^ ^1.5 ^24 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
+playsound minecraft:item.mace.smash_ground_heavy master @a ~ ~ ~ 1 1.5 0
+
+scoreboard players remove @s happybullet 1
+scoreboard players remove @s[tag=!happyfocus_decrease] happyfocus 4
+scoreboard players remove @s[tag=happyfocus_decrease] happyfocus 2
+scoreboard players add @s happyaimc 1
