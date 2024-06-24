@@ -32,7 +32,9 @@ function eternal_return:system/character/lidailin/main
 function eternal_return:system/character/magnus/main
 function eternal_return:system/character/adriana/main
 
-function eternal_return:system/player/rightclick
+function eternal_return:system/rest/main
+function eternal_return:system/player/rightclick/carrot_rightclick
+function eternal_return:system/player/rightclick/food_rightclick_cool
 function eternal_return:system/player/damagegive
 function eternal_return:system/player/damagetaken
 
@@ -100,6 +102,7 @@ function eternal_return:system/game/daytimer
 
 ## CC기
 function eternal_return:system/character/stun/main
+
 
 ## 낮밤 변경
 function eternal_return:system/game/daycycle

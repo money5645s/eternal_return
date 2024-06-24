@@ -1,17 +1,15 @@
-execute as @a[tag=player,tag=!rest,nbt={Inventory:[{id:"minecraft:red_bed",Slot:-106b}]}] run tag @s add rest1
-execute as @a[tag=player,tag=!rest,nbt={Inventory:[{id:"minecraft:red_bed",Slot:-106b}]}] run tellraw @s {"text":"휴식 중입니다.","color":"yellow"}
-execute as @a[tag=player,tag=!rest,nbt={Inventory:[{id:"minecraft:red_bed",Slot:-106b}]}] run item replace entity @s weapon.mainhand with red_bed
-execute as @a[tag=player,tag=!rest,nbt={Inventory:[{id:"minecraft:red_bed",Slot:-106b}]}] run item replace entity @s weapon.offhand with air
+execute as @a[tag=player,tag=!rest,tag=rightclick] run tag @s add rest1
+execute as @a[tag=player,tag=!rest,tag=rightclick] run tellraw @s {"text":"휴식 중입니다.","color":"yellow"}
+execute as @a[tag=player,tag=!rest,tag=rightclick] run tag @s remove rightclick
 execute as @a[tag=player,tag=rest] run effect give @s slowness infinite 100 true
 execute as @a[tag=player,tag=rest] run effect give @s regeneration infinite 1 true
 
 execute as @a[tag=player,tag=!rest,tag=rest1] run tag @s add rest
 execute as @a[tag=player,tag=rest1] run tag @s remove rest1
 
-execute as @a[tag=player,tag=rest,nbt={Inventory:[{id:"minecraft:red_bed",Slot:-106b}]}] run tag @s add rest1
-execute as @a[tag=player,tag=rest,nbt={Inventory:[{id:"minecraft:red_bed",Slot:-106b}]}] run tellraw @s {"text":"휴식이 해제되었습니다.","color":"red"}
-execute as @a[tag=player,tag=rest,nbt={Inventory:[{id:"minecraft:red_bed",Slot:-106b}]}] run item replace entity @s weapon.mainhand with red_bed
-execute as @a[tag=player,tag=rest,nbt={Inventory:[{id:"minecraft:red_bed",Slot:-106b}]}] run item replace entity @s weapon.offhand with air
+execute as @a[tag=player,tag=rest,tag=rightclick] run tag @s add rest1
+execute as @a[tag=player,tag=rest,tag=rightclick] run tellraw @s {"text":"휴식이 해제되었습니다.","color":"red"}
+execute as @a[tag=player,tag=rest,tag=rightclick] run tag @s remove rightclick
 execute as @a[tag=player,tag=rest,tag=rest1] run effect clear @s slowness
 execute as @a[tag=player,tag=rest,tag=rest1] run effect clear @s regeneration
 execute as @a[tag=player,tag=rest,tag=rest1] run kill @e[tag=resta,limit=1,sort=nearest]
