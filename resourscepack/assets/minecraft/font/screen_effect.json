@@ -6,6 +6,13 @@
 			"ascent": 95,
 			"height": 200,
 			"chars": ["0"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/black_screen.png",
+			"ascent": 95,
+			"height": 200,
+			"chars": ["1"]
 		}
 	]
 }
