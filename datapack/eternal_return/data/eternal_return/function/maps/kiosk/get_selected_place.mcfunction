@@ -13,21 +13,25 @@ scoreboard players operation @s ER.sys = #ER.place.null ER.sys
 
 #>플레이어 회전값 구하기
 data modify storage minecraft:temp temp.Rot set from entity @s Rotation
-execute store result score #rotX ER.sys run data get storage minecraft:temp temp.Rot[0]
-execute store result score #rotY ER.sys run data get storage minecraft:temp temp.Rot[1]
+execute store result score #rotX ER.sys run data get storage minecraft:temp temp.Rot[0] 8
+execute store result score #rotY ER.sys run data get storage minecraft:temp temp.Rot[1] 8
+
+execute at @s if score #rotX ER.sys matches 750.. run tp @s ~ ~ ~ 74 ~
+execute at @s if score #rotX ER.sys matches ..-600 run tp @s ~ ~ ~ -59 ~
 
 #> {posX : x, posY : y} -> {mouseX : 스코어보드(#rotX ER.sys), mouseY : 스코어보드(#rotY ER.sys)}
 #> 좌표 변환 : 98 -> 098 , 7 -> 007 이렇게
 
-scoreboard players set #temp ER.sys -3
+scoreboard players set #temp ER.sys -1
 scoreboard players operation #rotX ER.sys *= #temp ER.sys
-scoreboard players set #temp ER.sys 3
+scoreboard players set #temp ER.sys 1
 scoreboard players operation #rotY ER.sys *= #temp ER.sys
-scoreboard players add #rotX ER.sys 200
+scoreboard players add #rotX ER.sys 410
 scoreboard players add #rotY ER.sys 154
 
-execute if score #rotX ER.sys matches 550.. run scoreboard players set #rotX ER.sys 550
-execute if score #rotX ER.sys matches ..0 run scoreboard players set #rotX ER.sys 0
+
+execute if score #rotX ER.sys matches 650.. run scoreboard players set #rotX ER.sys 650
+execute if score #rotX ER.sys matches ..120 run scoreboard players set #rotX ER.sys 120
 execute if score #rotY ER.sys matches 256.. run scoreboard players set #rotY ER.sys 256
 
 
@@ -41,11 +45,10 @@ function eternal_return:maps/kiosk/set_player_pos with storage minecraft:temp co
 data remove storage minecraft:temp coord
 
 
-$data modify storage minecraft:temp temp merge value {id : $(id), beach:"white",hotel:"white",yanggung:"white",gas_station:"white",school:"white",fire:"white",golmok:"white",police:"white",jul:"white",lab:"white",forest:"white",graveyard:"white",pond:"white",stream:"white",hospital:"white",factory:"white",cathedral:"white",port:"white",village:"white",storage:"white"}
+$data modify storage minecraft:temp temp merge value {id : $(id)}
 
 #> 하이퍼루프 중 시야각 제어
-#execute at @s if score #rotX ER.sys matches 90.. run tp @s ~ ~ ~ 0 ~
-#execute at @s if score #rotX ER.sys matches ..-90 run tp @s ~ ~ ~ 0 ~
+
 
 
 ##> 공장
