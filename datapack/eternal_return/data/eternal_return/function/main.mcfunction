@@ -37,6 +37,7 @@ function eternal_return:system/player/rightclick/carrot_rightclick
 function eternal_return:system/player/rightclick/food_rightclick_cool
 function eternal_return:system/player/damagegive
 function eternal_return:system/player/damagetaken
+function eternal_return:system/player/shift
 
 ## 플레이어
 execute as @a[tag=player] at @s run function eternal_return:system/player/main

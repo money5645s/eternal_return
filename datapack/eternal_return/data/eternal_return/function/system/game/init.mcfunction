@@ -22,6 +22,8 @@ scoreboard objectives add happyfocus dummy
 scoreboard objectives add happyfocus_decrease dummy
 scoreboard objectives add happyfocus_player dummy
 scoreboard objectives add happydrop minecraft.dropped:minecraft.carrot_on_a_stick
+scoreboard objectives add happytarget dummy
+scoreboard objectives add happyhalfs dummy
 scoreboard objectives add jackieskill dummy
 scoreboard objectives add jackiekill playerKillCount
 scoreboard objectives add nickyskill dummy
