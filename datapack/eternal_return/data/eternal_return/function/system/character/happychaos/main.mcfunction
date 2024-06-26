@@ -13,19 +13,19 @@ scoreboard players set @e[tag=happynormalhit] happytarget 0
 tag @e[tag=happynormalhit] remove happynormalhit
 execute as @e[tag=happynormalshot] at @s run particle dust{color:[0.251,0.800,1.000],scale:1} ~ ~ ~ 0 0 0 0.03 15 normal
 
-#총알 갯수 표기
-execute as @a[tag=happy,scores={happybullet=6}] run item replace entity @s container.7 with stone_button[item_name='{"color":"gray","text":"총알"}'] 6
-execute as @a[tag=happy,scores={happybullet=5}] run item replace entity @s container.7 with stone_button[item_name='{"color":"gray","text":"총알"}'] 5
-execute as @a[tag=happy,scores={happybullet=4}] run item replace entity @s container.7 with stone_button[item_name='{"color":"gray","text":"총알"}'] 4
-execute as @a[tag=happy,scores={happybullet=3}] run item replace entity @s container.7 with stone_button[item_name='{"color":"gray","text":"총알"}'] 3
-execute as @a[tag=happy,scores={happybullet=2}] run item replace entity @s container.7 with stone_button[item_name='{"color":"gray","text":"총알"}'] 2
-execute as @a[tag=happy,scores={happybullet=1}] run item replace entity @s container.7 with stone_button[item_name='{"color":"gray","text":"총알"}'] 1
+#탄약 갯수 표기
+execute as @a[tag=happy,scores={happybullet=6}] run item replace entity @s container.7 with iron_nugget[custom_model_data=214,item_name='{"color":"gray","text":"탄약"}'] 6
+execute as @a[tag=happy,scores={happybullet=5}] run item replace entity @s container.7 with iron_nugget[custom_model_data=214,item_name='{"color":"gray","text":"탄약"}'] 5
+execute as @a[tag=happy,scores={happybullet=4}] run item replace entity @s container.7 with iron_nugget[custom_model_data=214,item_name='{"color":"gray","text":"탄약"}'] 4
+execute as @a[tag=happy,scores={happybullet=3}] run item replace entity @s container.7 with iron_nugget[custom_model_data=214,item_name='{"color":"gray","text":"탄약"}'] 3
+execute as @a[tag=happy,scores={happybullet=2}] run item replace entity @s container.7 with iron_nugget[custom_model_data=214,item_name='{"color":"gray","text":"탄약"}'] 2
+execute as @a[tag=happy,scores={happybullet=1}] run item replace entity @s container.7 with iron_nugget[custom_model_data=214,item_name='{"color":"gray","text":"탄약"}'] 1
 execute as @a[tag=happy,scores={happybullet=0}] run item replace entity @s container.7 with air
 execute as @a[tag=happy,scores={happybullet=6..}] run scoreboard players set @s happybullet 6
 execute as @a[tag=happy,scores={happybullet=1..}] run tag @s add happybullet
 execute as @a[tag=happy,scores={happybullet=0}] run tag @s remove happybullet
 
-#총알 장전
+#탄약 장전
 execute as @a[tag=happy,tag=!happyfocus,tag=!happyhalfs,scores={happyright=1..,shift=1..}] unless score @s happybullet matches 6.. run tag @s add happyreload
 execute as @a[tag=happy,tag=happyreload] run scoreboard players add @s happyreload 1
 execute as @a[tag=happy,tag=happyreload] run effect clear @s slowness
@@ -39,8 +39,8 @@ execute as @a[tag=happy,tag=happyreload] at @s run particle smoke ~ ~0.75 ~ 0.1 
 execute as @a[tag=happy] unless entity @s[tag=happyreload] run scoreboard players reset @s happyreload
 
 #정조준 hs 발사
-execute as @a[tag=happy,tag=!happyaim,tag=!happyfocus,tag=!happyhalfs,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] unless score @s shift matches 1.. if score @s happyfocus matches 1..12 run tag @s add happyaim1
-execute as @a[tag=happy,tag=!happyaim,tag=!happyfocus,tag=!happyhalfs,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] unless score @s shift matches 1.. if score @s happyfocus matches 1..12 at @s run playsound minecraft:custom.happyaim master @a ~ ~ ~ 1 1
+execute as @a[tag=happy,tag=!happyaim,tag=!happyreload,tag=!happyfocus,tag=!happyhalfs,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] if score @s happyfocus matches 1..12 run tag @s add happyaim1
+execute as @a[tag=happy,tag=!happyaim,tag=!happyreload,tag=!happyfocus,tag=!happyhalfs,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] if score @s happyfocus matches 1..12 at @s run playsound minecraft:custom.happyaim master @a ~ ~ ~ 1 1
 execute as @a[tag=happy,tag=!happyaim,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] run item replace entity @s weapon.mainhand from entity @s weapon.offhand
 execute as @a[tag=happy,tag=!happyaim,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] run item replace entity @s weapon.offhand with air
 execute as @a[tag=happy,tag=happyaim] run item replace entity @s container.6 with lantern[item_name='{"color":"gold","text":"[ 정조준 ]"}'] 1
@@ -94,7 +94,7 @@ execute as @e[tag=cus] unless entity @s[nbt={active_effects:[{id:"minecraft:unlu
 
 #커스 쿨타임
 execute as @a[tag=happy] unless entity @s[nbt={Inventory:[{id:"minecraft:splash_potion"}]}] run effect give @s slowness 1 4 true
-execute as @a[tag=happy] unless entity @s[nbt={Inventory:[{id:"minecraft:splash_potion"}]}] run item replace entity @s container.1 with minecraft:splash_potion[item_name='{"color":"aqua","text":"[ 커스 ]"}',lore=['{"italic":true,"text":"상대에게 적중 시 5초간 디버프가 걸린다."}','{"italic":true,"text":"디버프에 걸린 적은 받는 총알 데미지가 2 증가한다."}'],hide_additional_tooltip={},potion_contents={custom_color:3735518,custom_effects:[{id:"minecraft:unluck",amplifier:1,duration:100,show_particles:0b,show_icon:1b,ambient:0b}]}] 1
+execute as @a[tag=happy] unless entity @s[nbt={Inventory:[{id:"minecraft:splash_potion"}]}] run item replace entity @s container.1 with minecraft:splash_potion[item_name='{"color":"aqua","text":"[ 커스 ]"}',lore=['{"italic":true,"text":"상대에게 적중 시 5초간 디버프가 걸린다."}','{"italic":true,"text":"디버프에 걸린 적은 받는 탄약 데미지가 2 증가한다."}'],hide_additional_tooltip={},potion_contents={custom_color:3735518,custom_effects:[{id:"minecraft:unluck",amplifier:1,duration:100,show_particles:0b,show_icon:1b,ambient:0b}]}] 1
 
 ## 집중
 function eternal_return:system/character/happychaos/concentration
@@ -108,7 +108,7 @@ execute as @a[tag=happy,tag=!happyreload,tag=!happyhalfs,scores={happydrop=0..}]
 execute as @a[tag=happyfocus] run tag @s remove happyaim
 execute as @a[tag=happyfocus] run effect give @s slowness infinite 100 true
 execute as @a[tag=happyfocus] run effect give @s weakness infinite 100 true
-execute as @a[tag=happyfocus] run effect give @s regeneration infinite 3 true
+execute as @a[tag=happyfocus] run effect give @s regeneration infinite 2 true
 execute as @a[tag=happyfocus] run attribute @s minecraft:generic.jump_strength base set 0
 execute as @a[tag=happyfocus] at @s run particle minecraft:trial_spawner_detection_ominous ~ ~ ~ 0.5 0.5 0.5 0 2 force
 execute as @a[scores={happyfocus_player=1}] at @s run playsound minecraft:block.trial_spawner.spawn_item_begin master @a ~ ~ ~ 2 1 0
@@ -129,9 +129,32 @@ execute as @a[tag=happyfocus_decrease] run scoreboard players add @s happyfocus_
 execute as @a[scores={happyfocus_decrease=100..}] run tag @s remove happyfocus_decrease
 execute as @a[scores={happyfocus_decrease=100..}] run scoreboard players reset @s happyfocus_decrease
 
+## 분신
+execute as @a[tag=happy,tag=rightclick,nbt={SelectedItem:{id:"minecraft:disc_fragment_5",count:1}}] run tag @s add happycopy
+execute as @a[tag=happy,tag=rightclick,nbt={SelectedItem:{id:"minecraft:disc_fragment_5",count:1}}] run scoreboard players set @e[tag=happycopycat] happycopy 60
+
+execute as @a[tag=happycopy] at @s run playsound minecraft:block.trial_spawner.spawn_item_begin master @a ~ ~ ~ 2 2 0
+execute as @a[tag=happycopy] at @s run particle minecraft:ominous_spawning ~ ~1 ~ 0.5 0.5 0.5 0 50
+execute as @a[tag=happycopy,scores={hp=5..}] at @s run damage @s 4 magic
+execute as @a[tag=happycopy,scores={hp=4}] at @s run damage @s 3 magic
+execute as @a[tag=happycopy] at @s run tp @s ^ ^ ^ ~ 0
+execute as @a[tag=happycopy] at @s run summon armor_stand ^ ^ ^-0.00001 {NoBasePlate:1b,DisabledSlots:4144959,ShowArms:1b,Pose:{LeftLeg:[0f,0f,350f],RightLeg:[10f,0f,6f],LeftArm:[211f,0f,18f],RightArm:[221f,24f,0f]},HandItems:[{id:"minecraft:carrot_on_a_stick",count:1,components:{"minecraft:custom_model_data":215}},{}],ArmorItems:[{id:"iron_boots",Count:1b},{id:"iron_leggings",Count:1b},{id:"iron_chestplate",Count:1b},{id:"player_head",Count:1b,components:{"minecraft:profile":{name:"KSnsrod",id:[I;1228426741,-876658542,-2054852773,-1789121659],properties:[{name:"textures",value:"ewogICJ0aW1lc3RhbXAiIDogMTcxOTQyODEzNDY1NywKICAicHJvZmlsZUlkIiA6ICI0OTM4NGRmNWNiYmY0MDkyODU4NTZmNWI5NTVjMmI4NSIsCiAgInByb2ZpbGVOYW1lIiA6ICJLU25zcm9kIiwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2YzMjg3MjgxNzA1N2VhYzQ4ZDA0MTNhYTdhMzE4OWQ1M2VlZDU2MTNmNjNmMmM2ZjJjMjI0NmZjNzBkYmViMWQiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ=="}]}}}],Tags:["happycopycat"]}
+execute at @a[tag=happycopy] as @n[tag=happycopycat] at @s run tp @s ~ ~ ~ facing entity @n[tag=happycopy]
+function eternal_return:system/character/happychaos/copy_move
+execute as @a[tag=happycopy] run effect give @s slowness 1 4 true
+
+execute as @e[tag=happycopycat] run scoreboard players add @s happycopy 1
+execute as @e[scores={happycopy=1}] run item replace entity @s armor.chest from entity @n[tag=happycopy] armor.chest
+execute as @e[scores={happycopy=1}] run item replace entity @s armor.legs from entity @n[tag=happycopy] armor.legs
+execute as @e[scores={happycopy=1}] run item replace entity @s armor.feet from entity @n[tag=happycopy] armor.feet
+execute as @e[scores={happycopy=60..}] at @s run particle minecraft:trial_spawner_detection_ominous ~ ~ ~ 0.5 0.5 0.5 0 20 force
+execute as @e[scores={happycopy=60..}] at @s run playsound minecraft:block.trial_spawner.eject_item master @a ~ ~ ~ 1 2
+execute as @e[scores={happycopy=60..}] run kill @s
+tag @a[tag=happycopy] remove happycopy
+
 
 ## 데엑마
-execute as @e at @s on attacker if entity @s[tag=happy,scores={dmggive=0..}] at @s run scoreboard players set @e[scores={dmgtaken=0..},distance=..30] happytarget 0
+execute as @e at @s on attacker if entity @s[tag=happy,scores={dmggive=0..}] at @s run scoreboard players set @e[tag=!happy,scores={dmgtaken=0..},distance=..10] happytarget 0
 execute as @e[scores={happytarget=0..}] run scoreboard players add @s happytarget 1
 execute as @e[scores={happytarget=0..100}] at @s run particle minecraft:trial_spawner_detection ~ ~ ~ 0.3 0.3 0.3 0 2 force
 
