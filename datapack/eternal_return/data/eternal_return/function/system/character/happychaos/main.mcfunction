@@ -1,10 +1,11 @@
 #기본 hs 발사
-execute as @a[tag=happy,scores={happyright=1..},tag=happybullet,tag=!happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches 1..12 at @s run function eternal_return:system/character/happychaos/hs_shot
 execute as @a[tag=happy,scores={happyright=1..},tag=happybullet,tag=!happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches ..0 at @s run playsound minecraft:block.dispenser.fail master @s ~ ~ ~ 1 1.5
 execute as @a[tag=happy,scores={happyright=1..},tag=!happybullet,tag=!happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches 1..12 at @s run playsound minecraft:block.dispenser.fail master @s ~ ~ ~ 1 1.5
+execute as @a[tag=happy,scores={happyright=1..},tag=!happybullet,tag=!happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches ..0 at @s run playsound minecraft:block.dispenser.fail master @s ~ ~ ~ 1 1.5
+execute as @a[tag=happy,scores={happyright=1..},tag=happybullet,tag=!happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches 1..12 at @s run function eternal_return:system/character/happychaos/hs_shot
 
 #기본 hs 딜, 파티클
-execute as @e[tag=happynormalshot] at @s positioned ~ ~-1 ~ run tag @e[tag=!happy,tag=!happynormalshot,distance=..1.1,limit=1,sort=nearest] add happynormalhit
+execute as @e[tag=happynormalshot] at @s positioned ~ ~-1 ~ run tag @e[tag=!happy,tag=!happynormalshot,distance=..1.1,limit=1,sort=nearest,type=!marker,type=!armor_stand,type=!interaction,type=!item] add happynormalhit
 damage @e[tag=happynormalhit,tag=!cus,limit=1,sort=nearest] 3 thrown by @a[tag=happy,limit=1,sort=nearest]
 damage @e[tag=happynormalhit,tag=cus,limit=1,sort=nearest] 5 thrown by @a[tag=happy,limit=1,sort=nearest]
 execute as @a[tag=happy] at @s if entity @e[tag=happynormalhit] run playsound minecraft:entity.arrow.hit_player master @s ~ ~ ~
@@ -38,18 +39,20 @@ execute as @a[tag=happy,tag=happyreload] at @s run particle smoke ~ ~0.75 ~ 0.1 
 execute as @a[tag=happy] unless entity @s[tag=happyreload] run scoreboard players reset @s happyreload
 
 #정조준 hs 발사
-execute as @a[tag=happy,tag=!happyaim,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] run tag @s add happyaim1
+execute as @a[tag=happy,tag=!happyaim,tag=!happyfocus,tag=!happyhalfs,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] unless score @s shift matches 1.. if score @s happyfocus matches 1..12 run tag @s add happyaim1
+execute as @a[tag=happy,tag=!happyaim,tag=!happyfocus,tag=!happyhalfs,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] unless score @s shift matches 1.. if score @s happyfocus matches 1..12 at @s run playsound minecraft:custom.happyaim master @a ~ ~ ~ 1 1
 execute as @a[tag=happy,tag=!happyaim,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] run item replace entity @s weapon.mainhand from entity @s weapon.offhand
 execute as @a[tag=happy,tag=!happyaim,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] run item replace entity @s weapon.offhand with air
 execute as @a[tag=happy,tag=happyaim] run item replace entity @s container.6 with lantern[item_name='{"color":"gold","text":"[ 정조준 ]"}'] 1
 execute as @a[tag=happy,tag=!happyaim] run item replace entity @s container.6 with soul_lantern[item_name='{"color":"aqua","text":"[ 일반 사격 ]"}'] 1
 execute as @a[tag=happy,tag=happyaim] run effect give @s slowness 1 100 true
-execute as @a[tag=happy,scores={happyright=1..},tag=happybullet,tag=happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches 1..12 unless score @s happyaimc matches 1.. at @s run function eternal_return:system/character/happychaos/214s_hs_shot
 execute as @a[tag=happy,scores={happyright=1..},tag=happybullet,tag=happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches ..0 unless score @s happyaimc matches 1.. at @s run playsound minecraft:block.dispenser.fail master @s ~ ~ ~ 1 1.5
 execute as @a[tag=happy,scores={happyright=1..},tag=!happybullet,tag=happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches 1..12 unless score @s happyaimc matches 1.. at @s run playsound minecraft:block.dispenser.fail master @s ~ ~ ~ 1 1.5
+execute as @a[tag=happy,scores={happyright=1..},tag=!happybullet,tag=happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches ..0 unless score @s happyaimc matches 1.. at @s run playsound minecraft:block.dispenser.fail master @s ~ ~ ~ 1 1.5
+execute as @a[tag=happy,scores={happyright=1..},tag=happybullet,tag=happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches 1..12 unless score @s happyaimc matches 1.. at @s run function eternal_return:system/character/happychaos/214s_hs_shot
 
 #정조준 hs 딜, 파티클
-execute as @e[tag=happyaimshot] at @s positioned ~ ~-1 ~ run tag @e[tag=!happy,tag=!happyaimshot,distance=..1.1,limit=1,sort=nearest] add happyaimhit
+execute as @e[tag=happyaimshot] at @s positioned ~ ~-1 ~ run tag @e[tag=!happy,tag=!happyaimshot,distance=..1.1,limit=1,sort=nearest,type=!marker,type=!armor_stand,type=!interaction,type=!item] add happyaimhit
 damage @e[tag=happyaimhit,tag=!cus,limit=1,sort=nearest] 7 thrown by @a[tag=happy,limit=1,sort=nearest]
 damage @e[tag=happyaimhit,tag=cus,limit=1,sort=nearest] 9 thrown by @a[tag=happy,limit=1,sort=nearest]
 execute as @a[tag=happy] at @s if entity @e[tag=happyaimhit] run playsound minecraft:entity.arrow.hit_player master @s ~ ~ ~
@@ -135,8 +138,6 @@ execute as @e[scores={happytarget=0..100}] at @s run particle minecraft:trial_sp
 
 execute as @a[tag=happy,tag=rightclick,tag=!happyfocus,nbt={SelectedItem:{id:"minecraft:nether_star",count:1}}] if score @s happyfocus matches 1..12 if entity @n[scores={happytarget=0..100}] run tag @s add happyhalfs
 execute as @a[tag=happy,tag=rightclick,tag=!happyfocus,nbt={SelectedItem:{id:"minecraft:nether_star",count:1}}] if score @s happyfocus matches 1..12 if entity @n[scores={happytarget=0..100}] run tag @s add happycool
-execute as @a[tag=happy,tag=rightclick,tag=!happyfocus,nbt={SelectedItem:{id:"minecraft:nether_star",count:1}}] if score @s happyfocus matches 1..12 if entity @n[scores={happytarget=0..100}] at @s run playsound minecraft:entity.wither.death player @a ~ ~ ~ 1 2
-execute as @a[tag=happy,tag=rightclick,tag=!happyfocus,nbt={SelectedItem:{id:"minecraft:nether_star",count:1}}] if score @s happyfocus matches 1..12 if entity @n[scores={happytarget=0..100}] at @s run function eternal_return:system/character/particle/main
 execute as @a[tag=happy,tag=rightclick,tag=!happyfocus,nbt={SelectedItem:{id:"minecraft:nether_star",count:1}}] if score @s happyfocus matches 1..12 if entity @n[scores={happytarget=0..100}] run item replace entity @s weapon.mainhand with barrier
 execute as @a[tag=happyhalfs] run scoreboard players add @s happyhalfs 1
 execute as @a[tag=happyhalfs] run scoreboard players set @s happybullet 6
@@ -145,6 +146,8 @@ execute as @a[tag=happyhalfs] run effect give @s slowness infinite 100 true
 execute as @a[tag=happyhalfs] run effect give @s weakness infinite 100 true
 execute as @a[tag=happyhalfs] run attribute @s minecraft:generic.jump_strength base set 0
 execute as @a[tag=happyhalfs] at @s run tp @s ~ ~ ~ facing entity @n[scores={happytarget=0..100}]
+execute as @a[scores={happyhalfs=1}] at @s run playsound minecraft:entity.wither.death player @a ~ ~ ~ 1 2
+execute as @a[scores={happyhalfs=1}] at @s run function eternal_return:system/character/particle/main
 execute as @a[scores={happyhalfs=1..}] run damage @n[scores={happytarget=0..100}] 0.5 thrown
 execute as @a[scores={happyhalfs=1..}] run scoreboard players set @n[scores={happytarget=0..100}] happytarget 0
 execute as @e[scores={happytarget=0..100}] at @s if entity @a[scores={happyhalfs=1..}] run particle enchanted_hit ~ ~1 ~ 0.3 0.3 0.3 0.5 1 force
