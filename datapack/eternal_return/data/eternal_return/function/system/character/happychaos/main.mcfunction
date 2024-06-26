@@ -29,6 +29,7 @@ execute as @a[tag=happy,scores={happybullet=0}] run tag @s remove happybullet
 execute as @a[tag=happy,tag=!happyfocus,tag=!happyhalfs,scores={happyright=1..,shift=1..}] unless score @s happybullet matches 6.. run tag @s add happyreload
 execute as @a[tag=happy,tag=happyreload] run scoreboard players add @s happyreload 1
 execute as @a[tag=happy,tag=happyreload] run effect clear @s slowness
+execute as @a[tag=happyreload] run attribute @s minecraft:generic.jump_strength base set 0.42
 execute as @a[tag=happy,tag=happyreload] run tag @s remove happyaim
 execute as @a[tag=happy,tag=happyreload,scores={happyreload=4}] run scoreboard players add @s happybullet 1
 execute as @a[tag=happy,tag=happyreload,scores={happyreload=4}] at @s run playsound minecraft:block.vault.reject_rewarded_player master @a ~ ~ ~ 1 1 0
@@ -46,6 +47,7 @@ execute as @a[tag=happy,tag=!happyaim,nbt={Inventory:[{id:"minecraft:carrot_on_a
 execute as @a[tag=happy,tag=happyaim] run item replace entity @s container.6 with lantern[item_name='{"color":"gold","text":"[ 정조준 ]"}'] 1
 execute as @a[tag=happy,tag=!happyaim] run item replace entity @s container.6 with soul_lantern[item_name='{"color":"aqua","text":"[ 일반 사격 ]"}'] 1
 execute as @a[tag=happy,tag=happyaim] run effect give @s slowness 1 100 true
+execute as @a[tag=happyaim] run attribute @s minecraft:generic.jump_strength base set 0
 execute as @a[tag=happy,scores={happyright=1..},tag=happybullet,tag=happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches ..0 unless score @s happyaimc matches 1.. at @s run playsound minecraft:block.dispenser.fail master @s ~ ~ ~ 1 1.5
 execute as @a[tag=happy,scores={happyright=1..},tag=!happybullet,tag=happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches 1..12 unless score @s happyaimc matches 1.. at @s run playsound minecraft:block.dispenser.fail master @s ~ ~ ~ 1 1.5
 execute as @a[tag=happy,scores={happyright=1..},tag=!happybullet,tag=happyaim,tag=!happyfocus,tag=!happyhalfs] unless score @s shift matches 1.. if score @s happyfocus matches ..0 unless score @s happyaimc matches 1.. at @s run playsound minecraft:block.dispenser.fail master @s ~ ~ ~ 1 1.5
@@ -73,6 +75,7 @@ execute as @a[tag=happy,tag=happyaim,nbt={Inventory:[{id:"minecraft:carrot_on_a_
 execute as @a[tag=happy,tag=happyaim,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] run item replace entity @s weapon.mainhand from entity @s weapon.offhand
 execute as @a[tag=happy,tag=happyaim,nbt={Inventory:[{id:"minecraft:carrot_on_a_stick",Slot:-106b}]}] run item replace entity @s weapon.offhand with air
 execute as @a[tag=happy,tag=happyaim,tag=happyaim1] run effect clear @s slowness
+execute as @a[tag=happy,tag=happyaim,tag=happyaim1] run attribute @s minecraft:generic.jump_strength base set 0.42
 execute as @a[tag=happy,tag=happyaim,tag=happyaim1] run tag @s remove happyaim
 execute as @a[tag=happy,tag=happyaim1] run tag @s remove happyaim1
 execute as @a[tag=happy] unless entity @s[tag=happyaim] run scoreboard players reset @s happyaimc
@@ -94,6 +97,8 @@ execute as @e[tag=cus] unless entity @s[nbt={active_effects:[{id:"minecraft:unlu
 
 #커스 쿨타임
 execute as @a[tag=happy] unless entity @s[nbt={Inventory:[{id:"minecraft:splash_potion"}]}] run effect give @s slowness 1 4 true
+execute as @a[tag=happy] unless entity @s[nbt={Inventory:[{id:"minecraft:splash_potion"}]}] run tag @s remove happyaim
+execute as @a[tag=happy] unless entity @s[nbt={Inventory:[{id:"minecraft:splash_potion"}]}] run attribute @s minecraft:generic.jump_strength base set 0.42
 execute as @a[tag=happy] unless entity @s[nbt={Inventory:[{id:"minecraft:splash_potion"}]}] run item replace entity @s container.1 with minecraft:splash_potion[item_name='{"color":"aqua","text":"[ 커스 ]"}',lore=['{"italic":true,"text":"상대에게 적중 시 5초간 디버프가 걸린다."}','{"italic":true,"text":"디버프에 걸린 적은 받는 탄약 데미지가 2 증가한다."}'],hide_additional_tooltip={},potion_contents={custom_color:3735518,custom_effects:[{id:"minecraft:unluck",amplifier:1,duration:100,show_particles:0b,show_icon:1b,ambient:0b}]}] 1
 
 ## 집중
@@ -135,6 +140,8 @@ execute as @a[tag=happy,tag=rightclick,nbt={SelectedItem:{id:"minecraft:disc_fra
 
 execute as @a[tag=happycopy] at @s run playsound minecraft:block.trial_spawner.spawn_item_begin master @a ~ ~ ~ 2 2 0
 execute as @a[tag=happycopy] at @s run particle minecraft:ominous_spawning ~ ~1 ~ 0.5 0.5 0.5 0 50
+execute as @a[tag=happycopy] run tag @s remove happyaim
+execute as @a[tag=happycopy] run attribute @s minecraft:generic.jump_strength base set 0.42
 execute as @a[tag=happycopy,scores={hp=5..}] at @s run damage @s 4 magic
 execute as @a[tag=happycopy,scores={hp=4}] at @s run damage @s 3 magic
 execute as @a[tag=happycopy] at @s run tp @s ^ ^ ^ ~ 0
@@ -200,10 +207,18 @@ execute as @a[tag=player] unless entity @s[tag=happy] run tag @s remove happybul
 execute as @a[tag=player] unless entity @s[tag=happy] run tag @s remove happyaim1
 execute as @a[tag=player] unless entity @s[tag=happy] run tag @s remove happyaim
 execute as @a[tag=player] unless entity @s[tag=happy] run tag @s remove happyreload
+execute as @a[tag=player] unless entity @s[tag=happy] run tag @s remove happycopy
+execute as @a[tag=player] unless entity @s[tag=happy] run tag @s remove happyfocus
+execute as @a[tag=player] unless entity @s[tag=happy] run tag @s remove happytarget
+execute as @a[tag=player] unless entity @s[tag=happy] run tag @s remove happyrhalfs
 execute as @a[tag=player] unless entity @s[tag=happy] run scoreboard players reset @s happyaimc
 execute as @a[tag=player] unless entity @s[tag=happy] run scoreboard players reset @s happyright
 execute as @a[tag=player] unless entity @s[tag=happy] run scoreboard players reset @s happybullet
 execute as @a[tag=player] unless entity @s[tag=happy] run scoreboard players reset @s happyreload
+execute as @a[tag=player] unless entity @s[tag=happy] run scoreboard players reset @s happyfocus
+execute as @a[tag=player] unless entity @s[tag=happy] run scoreboard players reset @s happyfocus_decrease
+execute as @a[tag=player] unless entity @s[tag=happy] run scoreboard players reset @s happyfocus_player
+
 
 ## 해피 태그 보유 시 팀 가입
 execute as @a[tag=happy,tag=team1] run team join happy @s
