@@ -24,8 +24,10 @@ summon marker ^ ^ ^22 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimsho
 summon marker ^ ^ ^23 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
 summon marker ^ ^ ^24 {NoGravity:1b,Silent:1b,Invulnerable:1b,Tags:["happyaimshot"]}
 execute as @e[tag=happyaimshot] at @s run tp @s ~ ~1.5 ~
-playsound minecraft:item.mace.smash_ground_heavy master @a ~ ~ ~ 1 1.5 0
-playsound minecraft:entity.warden.attack_impact master @a ~ ~ ~ 1 1 0
+playsound minecraft:custom.happy_shot master @a ~ ~ ~ 2 1 0
+playsound minecraft:custom.happy_bang2 master @a ~ ~ ~ 0.7 1 0
+#playsound minecraft:item.mace.smash_ground_heavy master @a ~ ~ ~ 1 1.5 0
+#playsound minecraft:entity.warden.attack_impact master @a ~ ~ ~ 1 1 0
 
 scoreboard players remove @s happybullet 1
 scoreboard players remove @s[tag=!happyfocus_decrease] happyfocus 4
