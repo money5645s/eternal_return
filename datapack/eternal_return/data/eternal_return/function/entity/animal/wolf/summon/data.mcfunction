@@ -6,7 +6,7 @@
 
 #>SUMMON ENTITY
 #좀비 소환
-$summon minecraft:zombie ~$(dx) ~$(dy) ~$(dz) {          \
+$summon minecraft:zombie ^$(dx) ^$(dy) ^$(dz) {          \
         Tags:["this","ER.animal.root"],\
         NoAI:1b,                                         \
         Silent:1b,                                       \
@@ -14,9 +14,9 @@ $summon minecraft:zombie ~$(dx) ~$(dy) ~$(dz) {          \
         DeathTime:18,                                    \
         CustomName:'{"color":"green","text":"[ER][ER.animal.root wolf]"}',\
         HasVisualFire:0b,PersistenceRequired:1b,         \
-        attributes:[{id:"generic.scale",base: 1.0d},{id:"generic.attack_damage",base: 0.0d},{id:"generic.movement_speed",base: 0.1d}]}
+        attributes:[{id:"generic.scale",base: 1.0d},{id:"generic.attack_damage",base: 0.0d},{id:"generic.movement_speed",base: 0.45d}]}
 # 히트박스 소환
-$summon ghast ~$(dx) ~$(dy) ~$(dz) {\
+$summon ghast ^$(dx) ^$(dy) ^$(dz) {\
         Tags:["this","ER.animal.hitbox"],\
         NoAI:1b,\
         Silent:1b,\
@@ -25,7 +25,7 @@ $summon ghast ~$(dx) ~$(dy) ~$(dz) {\
         attributes:[{id:"generic.max_health", base: 1000.0d},{id:"generic.scale", base: 0.7d}]}
 
 # 체력바 소환
-$summon text_display ~$(dx) ~$(dy) ~$(dz) {\
+$summon text_display ^$(dx) ^$(dy) ^$(dz) {\
         Tags:["this","ER.animal.HPbar"],\
         CustomNameVisible:0b,\
         billboard:"center",\
@@ -55,7 +55,7 @@ scoreboard players operation @e[tag =this, tag= ER.animal.root  ] ER.cooltime = 
 tag @e[tag=this] add ER.animal.wolf
 tag @e[tag=this] add ER.animal
 tag @e[tag=this] add ER
-
+execute rotated as @s as @e[tag=this] positioned as @s run tp @s ~ ~ ~ ~ 0
 
 #> 아이디 부여
 function df_library:id/set_id

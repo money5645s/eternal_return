@@ -7,8 +7,6 @@ execute if entity @s[type= minecraft:marker, tag= ER.spawn.animal] at @s if enti
 
 #> 히트박스
 execute if entity @s[type= minecraft:ghast, tag= ER.animal.hitbox] if score @s ER.health matches 1.. run function eternal_return:entity/hitbox
-execute if entity @s[type= minecraft:ghast, tag= ER.animal.hitbox] if score @s ER.health matches ..0 run function eternal_return:entity/remove_hitbox
-
 
 #> 야생동물 스크립트
 # 멧돼지
@@ -19,3 +17,5 @@ execute if entity @s[type= minecraft:zombie, tag= ER.animal.root ,tag= ER.animal
 execute if entity @s[type= minecraft:zombie, tag= ER.animal.root ,tag= ER.animal.wolf] run function eternal_return:entity/animal/wolf/script/main
 # 알파
 execute if entity @s[type= minecraft:zombie, tag= ER.animal.root ,tag= ER.animal.alpha] run function eternal_return:entity/animal/alpha/script/main
+
+execute if entity @s[type= minecraft:ghast, tag= ER.animal.hitbox] if score @s ER.health matches ..0 run function eternal_return:entity/remove_hitbox

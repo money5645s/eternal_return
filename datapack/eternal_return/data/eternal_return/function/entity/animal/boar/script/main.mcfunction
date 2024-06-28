@@ -1,43 +1,6 @@
 
-#> 곰의 스크립트
-#===================================================================================================
-#> 야생동물 기본 로직
-#
-#>if 체력 > 0  :
-#>        if AI = 0 :
-#>               if 현재 체력 < 최대 체력 :
-#>                   AI = 1
-#>                   준비 애니메이션 종료()
-#>                   스킬 발동()
-#>                   쿨타임 = this.MaxCool
-#>
-#>               if  체력 = 최대 체력 & 플레이어가 근처에 있을 때:
-#>                   준비 애니메이션()
-#>
-#>        if AI = 1 :
-#>               if  준비 애니메이션 중 == true :
-#>                       준비 애니메이션 종료()
-#>
-#>               if 모션이 존재하면 & 움직이는 중 == false :
-#>                       움직이기()
-#>               else if 모션이 존재 == false & 움직이는 중 == true:
-#>                       움직이기 중지()
-#>
-#>               if 플레이어가 전방에 존재 시 :
-#>                       if 쿨타임 조건 == false & 공격 중 == false:
-#>                               움직이기 중지() 
-#>                               모션 제거()
-#>                               공격하기()
-#>                       else if 쿨타임 조건 == true & 스킬 발동 중 == false:
-#>                               움직이기 중지()
-#>                               모션 제거()
-#>                               스킬 발동()
-#>                               쿨타임 = this.MaxCool
-#>if 체력 <=0  :
-#>        사망()
-#>
+#> 멧돼지의 스크립트
 #=================================================================================================== 
-
 #>  function eternal_return:entity/animal/boar/script/main
 #>  function eternal_return:entity/animal/boar/script/attack
 #>  function eternal_return:entity/animal/boar/script/show_model
@@ -62,9 +25,9 @@
 #> 아이디 체크 및 동일한 아이디의 구성 엔티티에게 this 태그 부여
 tag @s add this
 execute store result score #this.ID ER.sys run scoreboard players get @s df_id
-execute as @e[tag=ER.animal.boar, tag=ER.animal.hitbox] if score @s df_id = #this.ID ER.sys run tag @s add this
-execute as @e[tag=ER.animal.boar, tag=ER.animal.model ] if score @s df_id = #this.ID ER.sys run tag @s add this
-execute as @e[tag=ER.animal.boar, tag=ER.animal.HPbar ] if score @s df_id = #this.ID ER.sys run tag @s add this
+execute as @e[type= minecraft:ghast,        tag=ER.animal.boar, tag=ER.animal.hitbox] if score @s df_id = #this.ID ER.sys run tag @s add this
+execute as @e[type= minecraft:item_display, tag=ER.animal.boar, tag=ER.animal.model ] if score @s df_id = #this.ID ER.sys run tag @s add this
+execute as @e[type= minecraft:text_display, tag=ER.animal.boar, tag=ER.animal.HPbar ] if score @s df_id = #this.ID ER.sys run tag @s add this
 #> 변수 얻어오기
 execute store result score #this.HP ER.sys run scoreboard players get @e[tag= ER.animal.hitbox, tag= this, limit= 1] ER.health
 execute store result score #this.MaxHP ER.sys run scoreboard players get @s ER.health
@@ -85,24 +48,26 @@ execute unless entity @s[nbt={NoAI:1b}] run scoreboard players set #this.AI ER.s
 #===================================================================================================
 
 
+data modify storage minecraft:temp temp set value {animal : "boar", OPTdistance : 30, damage : 5, attackTick : 1, attackDistance : 3}
+
 #> 최적화 [엔티티 쇼 / 노쇼]
-function eternal_return:entity/animal/class/optimize/main {animal:"boar",distance: 30}
+function eternal_return:entity/animal/class/optimize/main with storage minecraft:temp temp
 
 
 #> 엔티티의 행동
 #> HP > 0
-execute if score #this.HP ER.sys matches 1.. if score #this.AI ER.sys matches 0 run function eternal_return:entity/animal/class/ready {animal:"boar"}
-execute if score #this.HP ER.sys matches 1.. if score #this.AI ER.sys matches 1 run function eternal_return:entity/animal/class/behav {animal:"boar",damage: 5}
-
+execute if score #this.HP ER.sys matches 1.. if score #this.AI ER.sys matches 0 run function eternal_return:entity/animal/class/ready with storage minecraft:temp temp
+execute if score #this.HP ER.sys matches 1.. if score #this.AI ER.sys matches 1 run function eternal_return:entity/animal/class/behav with storage minecraft:temp temp
 
 
 #> HP <= 0
-execute if score #this.HP ER.sys matches ..0 run function eternal_return:entity/animal/class/death {animal : "boar"}
+execute if score #this.HP ER.sys matches ..0 run function eternal_return:entity/animal/class/death with storage minecraft:temp temp
 
 
 # 히트박스 위치 조정
 execute at @s run tp @e[tag= this, tag= ER.animal.hitbox] ~ ~ ~
 # 다음 엔티티를 위해 모든 boolean 태그 제거 및 this 태그 제거
+data remove storage minecraft:temp temp
 scoreboard players set #MotionExist ER.sys 0
 scoreboard players set #this.AI ER.sys 0
 tag @e[tag=this] remove this
