@@ -25,6 +25,6 @@ scoreboard players add .aj.last_id aj.id 0
 scoreboard players set $aj.loop_mode.loop aj.i 0
 scoreboard players set $aj.loop_mode.once aj.i 1
 scoreboard players set $aj.loop_mode.hold aj.i 2
-scoreboard players set aj.animal_boar.export_version aj.i 869394638
+scoreboard players set aj.animal_boar.export_version aj.i 307573008
 scoreboard players reset * aj.animal_boar.rig_loaded
 execute as @e[type=minecraft:item_display,tag=aj.animal_boar.root] run function animated_java:animal_boar/zzzzzzzz/on_load

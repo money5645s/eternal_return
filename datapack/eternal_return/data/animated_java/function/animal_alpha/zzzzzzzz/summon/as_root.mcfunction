@@ -9,8 +9,6 @@ tp @s ~ ~ ~ ~ ~
 execute at @s on passengers run function animated_java:animal_alpha/zzzzzzzz/summon/as_rig_entities
 execute if score #variant aj.i = $aj.animal_alpha.variant.default aj.id run function animated_java:animal_alpha/zzzzzzzz/apply_variant/default/as_root
 execute if score #animation aj.i matches 0.. run scoreboard players operation @s aj.anim_time = #frame aj.i
-execute if score #animation aj.i = $aj.animal_alpha.animation.move aj.id run function animated_java:animal_alpha/zzzzzzzz/animations/move/apply_frame_as_root
-execute if score #animation aj.i = $aj.animal_alpha.animation.move aj.id run scoreboard players operation @s aj.animal_alpha.animation.move.local_anim_time = #frame aj.i
 execute if score #animation aj.i = $aj.animal_alpha.animation.skill aj.id run function animated_java:animal_alpha/zzzzzzzz/animations/skill/apply_frame_as_root
 execute if score #animation aj.i = $aj.animal_alpha.animation.skill aj.id run scoreboard players operation @s aj.animal_alpha.animation.skill.local_anim_time = #frame aj.i
 execute if score #animation aj.i = $aj.animal_alpha.animation.attack aj.id run function animated_java:animal_alpha/zzzzzzzz/animations/attack/apply_frame_as_root
@@ -19,6 +17,8 @@ execute if score #animation aj.i = $aj.animal_alpha.animation.death aj.id run fu
 execute if score #animation aj.i = $aj.animal_alpha.animation.death aj.id run scoreboard players operation @s aj.animal_alpha.animation.death.local_anim_time = #frame aj.i
 execute if score #animation aj.i = $aj.animal_alpha.animation.ready aj.id run function animated_java:animal_alpha/zzzzzzzz/animations/ready/apply_frame_as_root
 execute if score #animation aj.i = $aj.animal_alpha.animation.ready aj.id run scoreboard players operation @s aj.animal_alpha.animation.ready.local_anim_time = #frame aj.i
+execute if score #animation aj.i = $aj.animal_alpha.animation.move aj.id run function animated_java:animal_alpha/zzzzzzzz/animations/move/apply_frame_as_root
+execute if score #animation aj.i = $aj.animal_alpha.animation.move aj.id run scoreboard players operation @s aj.animal_alpha.animation.move.local_anim_time = #frame aj.i
 execute at @s run function #animated_java:animal_alpha/on_summon/as_root
 tag @s remove aj.new
 scoreboard players reset #frame aj.i
