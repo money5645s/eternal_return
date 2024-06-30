@@ -42,7 +42,7 @@ execute unless entity @s[nbt={NoAI:1b}] run scoreboard players set #this.AI ER.s
 #===================================================================================================
 
 
-data modify storage minecraft:temp temp set value {animal : "wolf", OPTdistance : 30, damage : 5, attackTick : 12, attackDistance : 4}
+data modify storage minecraft:temp temp set value {animal : "wolf", OPTdistance : 20, damage : 5, attackTick : 12, attackDistance : 4}
 
 #> 최적화 [엔티티 쇼 / 노쇼]
 function eternal_return:entity/animal/class/optimize/main with storage minecraft:temp temp

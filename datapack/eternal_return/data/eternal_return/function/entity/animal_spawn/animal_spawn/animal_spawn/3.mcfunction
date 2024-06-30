@@ -1,2 +1,1 @@
-function eternal_return:entity/animal/bear/summon/data {dx: 0 , dy: 0, dz: 0 }
-scoreboard players set @s ER.sys 1
+execute if score #HasNoID ER.sys matches 1 run function eternal_return:entity/animal_spawn/animal_spawn/animal_spawn/animal_spawn/7 

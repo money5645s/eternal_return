@@ -14,7 +14,8 @@ $summon minecraft:zombie ^$(dx) ^$(dy) ^$(dz) {          \
         DeathTime:18,                                    \
         CustomName:'{"color":"green","text":"[ER][ER.animal.root alpha]"}',\
         HasVisualFire:0b,PersistenceRequired:1b,         \
-        attributes:[{id:"generic.scale",base: 1.0d},{id:"generic.attack_damage",base: 0.0d},{id:"generic.movement_speed",base: 0.2d}]}
+        attributes:[{id:"generic.scale",base: 1.0d},{id:"generic.attack_damage",base: 0.0d},{id:"generic.movement_speed",base: 0.3d}]}
+
 # 히트박스 소환
 $summon ghast ^$(dx) ^$(dy) ^$(dz) {\
         Tags:["this","ER.animal.hitbox"],\
@@ -22,7 +23,7 @@ $summon ghast ^$(dx) ^$(dy) ^$(dz) {\
         Silent:1b,\
         Health:1000f,\
         DeathTime:18,\
-        attributes:[{id:"generic.max_health", base: 1000.0d},{id:"generic.scale", base: 0.7d}]}
+        attributes:[{id:"generic.max_health", base: 1000.0d},{id:"generic.scale", base: 0.8d}]}
 
 # 체력바 소환
 $summon text_display ^$(dx) ^$(dy) ^$(dz) {\
@@ -38,7 +39,7 @@ $summon text_display ^$(dx) ^$(dy) ^$(dz) {\
 execute as @e[  tag= ER.animal.root,tag=this] at @s run function animated_java:animal_alpha/summon
 execute as @e[  tag= aj.animal_alpha.root] if score @s aj.id = .aj.last_id aj.id run tag @s add this
 tag @e[tag=this,tag= aj.animal_alpha.root] add ER.animal.model
-ride @e[tag= this, tag= ER.animal.model, limit= 1] mount @e[tag= this, tag= ER.animal.root,   limit= 1]
+ride @e[tag= this, tag= ER.animal.model, limit= 1] mount @e[tag= this, tag= ER.animal.root, limit= 1]
 ride @e[tag= this, tag= ER.animal.HPbar, limit= 1] mount @e[tag= this, tag= ER.animal.hitbox, limit= 1]
 
 #> 안 보이게 하기
@@ -56,6 +57,7 @@ tag @e[tag=this] add ER.animal.alpha
 tag @e[tag=this] add ER.animal
 tag @e[tag=this] add ER
 execute rotated as @s as @e[tag=this] positioned as @s run tp @s ~ ~ ~ ~ 0
+
 
 #> 아이디 부여
 function df_library:id/set_id
