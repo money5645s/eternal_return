@@ -117,8 +117,8 @@
             aname:"",alore1:"line1",alore2:"line2",alore3:"line3",acool:0,alevel:0,\
             pname:"",plore1:"line1",plore2:"line2",plore3:"line3",pcool:0,plevel:0},\
         {no:31,name:"yuki",\
-            aname:"화무십일홍(花無十日紅)",alore1:"유키가 검에 손을 가져가서 순식간에 공간을 베어 버립니다.",alore2:"피격당한 적에게 피해줌과 동시에 표시를 남기며 1초간 이동속도를 30%느려지게 한뒤, 유키가 검을 검집에 집어 넣는 순간 표식이 터지며 대상에게 방어력을 관통하는 피해를 입힙니다.",alore3:"쿨타임 60/55/50/45/40 , 피해량 4/5/6/7/8 , 방관피해량 6/7/8/9/10",acool:0,alevel:0,\
-            pname:"",plore1:"line1",plore2:"line2",plore3:"line3",pcool:0,plevel:0},\
+            aname:"화무십일홍(花無十日紅)",alore1:"유키가 검에 손을 가져가서 순식간에 공간을 베어 버립니다.",alore2:"피격당한 적에게 피해줌과 동시에 표시를 남기며 1초간 이동속도를 30% 느려지게 한뒤, 유키가 검을 검집에 집어 넣는 순간 표식이 터지며 대상에게 방어력을 관통하는 피해를 입힙니다.",alore3:"쿨타임 60/55/50/45/40 , 피해량 4/5/6/7/8 , 방관피해량 6/7/8/9/10",acool:0,alevel:0,\
+            pname:"완벽한 옷매무새",plore1:"유키가 최대체력의 80%이상 체력을 보유시에 근접무기의 데미지가 추가됩니다.",plore2:"추가되는 데미지 1/2/3/4/5",plore3:"그래서 나는 왜 사관후보생 유키 없음??",pcool:0,plevel:0},\
         {no:32,name:"estelle",\
             active:\
             {name:"",lore1:"line1",lore2:"line2",lore3:"line3",cool:0},\
