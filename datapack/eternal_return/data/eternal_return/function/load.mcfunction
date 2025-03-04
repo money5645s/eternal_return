@@ -139,9 +139,11 @@ forceload add -243 485 -243 479
             scoreboard players set #ER.animal.alpha.attack_tick_first ER.sys 12
             scoreboard players set #ER.animal.alpha.attack_tick_second ER.sys 34
 
-            
-
-
+    #UUID 스코어보드 추가
+        scoreboard objectives add UUID0 dummy
+        scoreboard objectives add UUID1 dummy
+        scoreboard objectives add UUID2 dummy
+        scoreboard objectives add UUID3 dummy
 
     # 하이퍼루프 영역 번호 지정
         scoreboard players set #ER.place.null ER.sys 0
