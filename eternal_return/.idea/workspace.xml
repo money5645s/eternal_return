@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad880bbd-0f4a-442f-8f8a-ff7d16fab161" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/../improved_mcfunction/project/eternal_return/entity/animal/alpha/optimize.mcfunction" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../improved_mcfunction/project/eternal_return/entity/animal/bear/optimize.mcfunction" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../improved_mcfunction/project/eternal_return/entity/animal/boar/optimize.mcfunction" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../improved_mcfunction/project/eternal_return/entity/animal/wolf/optimize.mcfunction" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datapack/eternal_return/data/eternal_return/function/entity/animal/boar/skill/b1/b1/code.mcfunction" beforeDir="false" afterPath="$PROJECT_DIR$/../datapack/eternal_return/data/eternal_return/function/entity/animal/boar/skill/b1/b1/code.mcfunction" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datapack/eternal_return/data/eternal_return/function/object/box/set_box_marker.mcfunction" beforeDir="false" afterPath="$PROJECT_DIR$/../datapack/eternal_return/data/eternal_return/function/object/box/set_box_marker.mcfunction" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../improved_mcfunction/project/eternal_return/entity/animal/alpha/behav.mcfunction" beforeDir="false" afterPath="$PROJECT_DIR$/../improved_mcfunction/project/eternal_return/entity/animal/alpha/behav.mcfunction" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../improved_mcfunction/project/test/bubble_sort_opt.mcfunction" beforeDir="false" afterPath="$PROJECT_DIR$/../improved_mcfunction/project/test/bubble_sort_opt.mcfunction" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +137,7 @@
     "Gradle.소스 다운로드.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "feature/datapack",
     "kotlin-language-version-configured": "true",
     "project.structure.last.edited": "프로젝트",
     "project.structure.proportion": "0.0",

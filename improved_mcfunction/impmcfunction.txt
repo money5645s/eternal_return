@@ -1,0 +1,35 @@
+execute는 강력하니까 그냥 놔둘 예정
+
+
+executor Player:
+    Scoreboard[dummy] money
+
+    Player(Entity[type=minecraft:player] p):
+        p.getScore().money = 0
+
+
+
+
+def main():
+
+    List list = List()    
+
+    execute as @a :
+	Player player = Player(self)
+     	list.add(player.getUUID())
+
+
+바이트코드 개념을 사용한다!
+
+executor player:
+    function player/load :
+        01 : scoreboard objectives add Player.money dummy
+    
+    function player/new :
+        01 : tag @s add Executor.Player
+        02 : scoreboard players operation @s #stack0 STACKFRAME
+        
+
+function main:
+    01 : function list/new with
+    

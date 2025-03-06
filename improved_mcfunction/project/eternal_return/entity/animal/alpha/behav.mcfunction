@@ -115,7 +115,7 @@ execute positioned as @s on passengers :
             #   +-------------------------------------+-------------------------------------------------------+
 
             # 스킬 효과 발동
-            if score @s aj.skill.frame = #ER.animal.alpha.skill_effect_tick ER.sys on vehicle :
+            if score @s aj.skill.frame = #ER.animal.alpha.skill_effect_tick ER.sys on vehicle run\
                 function animal:skill
             
             # 스킬 종료

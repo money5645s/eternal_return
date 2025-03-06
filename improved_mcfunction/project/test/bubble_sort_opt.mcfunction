@@ -50,18 +50,6 @@ arr = {\
     }
 len_of_arr = arr
 
-#i = 0
-#temp = 30
-#WHILE.i = i
-#function with WHILE :
-#    $arr[$(i)] = temp
-#    i += 1
-#    temp -= 1
-#    WHILE.i = i
-#    if i == ..29 run function BACK
-
-
-
 i = 0
 function :
     j = 0
