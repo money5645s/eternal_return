@@ -60,8 +60,8 @@
             aname:"Flanger",alore1:"하트가 지정한 방향으로 짧게 이동한 후 근처 적에게 방어력을 관통하는 음파를 날려 피해를 입힙니다.",alore2:"5초내로 스킬을 재사용할 수 있습니다.",alore3:"방관피해량 : 1/2/3/4/5 ",alore4:"",acool:"30/28/26/24/20",alevel:0,\
             pname:"Peacemaker",plore1:"하트가 낮에는 앰프를 소환해 'Love and Peace'버스킹을 하여 ",plore2:"해당지역을 피스존으로 선언합니다.(1일차 낮은 제외)",plore3:"피스존에 있었던 실험체들은 15초간 재생효과와 근접공격력 -4의 효과를 받습니다.",plore4:"피스존 내 하트만 받는 효과 : 재생,근접공격력-4 / 재생,근접공격력-4 / 재생 / 재생 / 재생2",pcool:"없음",plevel:0},\
         {no:12,name:"hyunwoo",\
-            aname:"선빵필승",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
-            pname:"도그파이트",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
+            aname:"선빵필승",alore1:"바라보는 방향으로 돌진하며 적과 부딪히면 밀어내며 데미지를 입힌다.",alore2:"밀어낸 적이 벽에 부딪히면 추가 피해를 입히고 일정시간동안 슬로우를 겁니다.",alore3:"피해량 : 7/8/9/10/12 , 추가 피해량 : 3/4/5/6/8",alore4:"슬로우 효과 수치 : 99% , 지속시간 2초(고정)",acool:"30/26/22/18/14",alevel:0,\
+            pname:"도그파이트",plore1:"현우가 적을 공격할 떄마다 도그파이트 중첩을 얻습니다.",plore2:"5번의 중첩을 쌓았을때에 활성화 되며 동시에 체력을 회복합니다.",plore3:"회복량 : 1/2/3/4/5",plore4:"",pcool:"없음",plevel:0},\
         {no:13,name:"isol",\
             aname:"Mok제 폭탄",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
             pname:"유격전",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
@@ -78,11 +78,11 @@
             aname:"뿅! 망치",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
             pname:"곰돌이! 공격",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
         {no:18,name:"lenox",\
-            aname:"회오리 비늘",alore1:" line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
-            pname:"위풍당당",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
+            aname:"회오리 비늘",alore1:"레녹스가 원형 범위의 적들에게 피해를 입힙니다.",alore2:"해당 스킬을 맞은 상대는 느려집니다.",alore3:"느림 효과 : 15/15/30/30/45",alore4:"피해량 : 6/8/10/12/14",acool:"30/27/24/21/18",alevel:0,\
+            pname:"위풍당당",plore1:"레녹스가 적에게 피해를 입히면 보호막을 2초동안 획득합니다.",plore2:"획득하는 보호막량 : 4(고정)",plore3:"레녹스는 강태공입니다. 물론 세월도 낚지만요...",plore4:"낚시시에 높은확률(40%)로 연어를 낚습니다.",pcool:"30/27/24/21/15",plevel:0},\
         {no:19,name:"leon",\
-            aname:"물보라",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
-            pname:"인간 어뢰",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
+            aname:"물보라",alore1:"레온이 스킬 사용 후 지속시간동안 삼지창 투척으로 적에게 피해를 주면 체력을 회복합니다.",alore2:"지속시간 7/9/11/13/15",alore3:"회복되는 체력량 : 4(고정)",alore4:"",acool:"50/47/44/41/35",alevel:0,\
+            pname:"인간 어뢰",plore1:"레온은 물가지역에서 공격속도 10%를 제공받습니다.외에 지역에선 근접공격력 -4의 효과를 받습니다.",plore2:"물가지역 : 소방서, 개울, 연못, 숲, 항구, 모래사장",plore3:"삼지창 조준시에 이동속도가 완화됩니다.",plore4:"완화되는 이동속도 15/30/45/60/75%",pcool:"없음",plevel:0},\
         {no:20,name:"luke",\
             aname:"클리닝 서비스",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
             pname:"청소 완료",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
@@ -105,8 +105,8 @@
             aname:"튕겨내기&휘두르기",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
             pname:"단련광",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
         {no:27,name:"shou",\
-            aname:"뜨거운 맛",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
-            pname:"요리사의 열정",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
+            aname:"뜨거운 맛",alore1:"쇼우의 현재 체력의 20%를 소모하여, 소모된 체력만큼 근접 공격력을 상승시킨다.",alore2:"소모된 체력과 상승되는 공격력 비율(내림 계산): 1:0.9 / 1:1 / 1:1.1 / 1:1.2 / 1:1.4",alore3:"지속시간 : 20초(고정)",alore4:"",acool:"70/65/60/55/50",alevel:0,\
+            pname:"요리사의 열정",plore1:"쇼우가 음식을 제작할때 완성되는 요리의 수량이 일정확률로 1개 더 추가됩니다.",plore2:"일정확률 : 20/40/60/80/100(%)",plore3:"'셰프 위에 식재료가 있다' - 주오 쇼우카이",plore4:"낚시와 채집시에 무조건 연어와 호박고구마를 얻습니다.",pcool:"없음",plevel:0},\
         {no:28,name:"silvia",\
             aname:"기동전",alore1:"",alore3:"",alore4:"",acool:"",alevel:0,\
             pname:"그란투리스모",plore1:"",plore2:"",plore3:"",plore4:"",pcool:"",plevel:0},\
