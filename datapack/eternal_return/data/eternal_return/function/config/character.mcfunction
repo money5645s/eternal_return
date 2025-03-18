@@ -39,8 +39,8 @@
             aname:"고고학적 분석",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
             pname:"유물 탐구",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
         {no:5,name:"bernice",\
-            aname:"사냥 덫",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
-            pname:"산탄",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
+            aname:"사냥 덫",alore1:"버니스가 바라보는 곳에 사냥덫을 설치합니다.",alore2:"적이 사냥덫을 밟으면 느려지고 출혈피해를 2초간 받습니다.",alore3:"덫 효과 : 속도감소 15% ,독3 // 효과는 중첩되지 않고 갱신됩니다.",alore4:"  지속시간 : 15초 // 레벨당 충전되는 덫의 개수 : 1/1/2/2/3 // 덫은 지울수 없습니다.",acool:"50/45/40/35/30 // 재설치 쿨타임 : 3초",alevel:0,\
+            pname:"산탄",plore1:"버니스는 다수의 탄환을 사용해 공격합니다.(다중발사)",plore2:"사냥의 노하우를 가진 버니스는 야생동물 처치시에 일정 체력을 회복합니다.",plore3:"회복량 : 1/2/3/4/5",plore4:"",pcool:"20/18/16/14/10",plevel:0},\
         {no:6,name:"bianca",\
             aname:"짧은 안식",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
             pname:"흡혈귀",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
@@ -55,7 +55,7 @@
             pname:"고독한 예술가",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
         {no:10,name:"elena",\
             aname:"죽음의 무도",alore1:"엘레나가 전방으로 죽음의 얼음지대를 7초간 생성합니다.",alore2:"죽음의 얼음지대 위에서 엘레나는 화염저항, 근접공격력 +3 추가효과를 받으며,",alore3:"죽음의 얼음지대 또한 얼음지대효과를 공유합니다.",alore4:"",acool:"60/55/50/45/40",alevel:0,\
-            pname:"겨울여왕의 영지",plore1:"엘레나가 지역과 지역사이를 오갈때 7초간 엘레나의 발자취에 짧게 유지되는 얼음지대를 생성합니다.",plore2:"얼음지대 위에서의 적은 냉기가 차올라 이동속도(%)가 15/15/30/30/45 느려집니다.",plore3:"엘레나는 피겨스케이팅을 통해 유연성을 길러 긴 리치를 가졌습니다. 기본사거리 : 3.5",plore4:"",pcool:"없음",plevel:0},\
+            pname:"겨울여왕의 영지",plore1:"엘레나가 밤에 엘레나의 발자취에 유지되는 얼음지대를 생성합니다.",plore2:"얼음지대 위에서의 적은 냉기가 차올라 이동속도(%)가 15/15/30/30/45 느려집니다.",plore3:"엘레나는 피겨스케이팅을 통해 유연성을 길러 긴 리치를 가졌습니다. 기본사거리 : 3.5",plore4:"",pcool:"없음",plevel:0},\
         {no:11,name:"hart",\
             aname:"Flanger",alore1:"하트가 지정한 방향으로 짧게 이동한 후 근처 적에게 방어력을 관통하는 음파를 날려 피해를 입힙니다.",alore2:"5초내로 스킬을 재사용할 수 있습니다.",alore3:"방관피해량 : 1/2/3/4/5 ",alore4:"",acool:"30/28/26/24/20",alevel:0,\
             pname:"Peacemaker",plore1:"하트가 낮에는 앰프를 소환해 'Love and Peace'버스킹을 하여 ",plore2:"해당지역을 피스존으로 선언합니다.(1일차 낮은 제외)",plore3:"피스존에 있었던 실험체들은 15초간 재생효과와 근접공격력 -4의 효과를 받습니다.",plore4:"피스존 내 하트만 받는 효과 : 재생,근접공격력-4 / 재생,근접공격력-4 / 재생 / 재생 / 재생2",pcool:"없음",plevel:0},\
@@ -66,8 +66,8 @@
             aname:"Mok제 폭탄",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
             pname:"유격전",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
         {no:14,name:"jackie",\
-            aname:"아드레날린 분비",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
-            pname:"피의 축제",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
+            aname:"전기톱 살인마",alore1:"재키의 이동속도(20%)가 일정시간동안 증가되고 지속 시간 내에 학살을 사용할 수 있습니다.",alore2:"학살 : 재키가 전기톱을 크게 휘둘러 주위에 7/8/9/10/12 피해를 입힘과 동시에 흡혈합니다.",alore3:"또한 지속시간 내에 적에게 피해를 주면 딱 한번 2초간 이동속도를 30% 느려지게 합니다.",alore4:"지속시간 : 5/6/7/8/10",acool:"50/47/44/41/35",alevel:0,\
+            pname:"피의 축제",plore1:"재키가 야생동물 4마리 혹은 실험체 1명을 죽일 경우 '피의 축제'가 20초간 활성화 됩니다.(갱신 가능)",plore2:"피의 축제 : 근접 공격력 +3, 주변에 있는 실험체 위치까지 가는 최단경로 정보들",plore3:"항상 피에 목말라있는 재키는 피가 없으면 기력이 부족합니다.",plore4:"피의 축제 효과가 없을 평상시에는 이동속도가 15% 감소됩니다.",pcool:"없음",plevel:0},\
         {no:15,name:"jenny",\
             aname:"페르소나",alore1:"제니가 전방으로 짧은거리를 이동하며 배역을 전환합니다.",alore2:"전환된 배역에 따라 추가 효과를 획득합니다.",alore3:"블랙티 : 이동속도 +20% , 근접공격력 -4",alore4:"레드와인 : 공격속도 +10%",acool:"30/27/24/21/15",alevel:0,\
             pname:"죽음의 연기",plore1:"제니의 체력이 0이되면 3초간 죽음의 연기상태가 됩니다.",plore2:"죽음의 연기 : 추가체력 4/4/8/8/12 , 화염저항 , 근접공격력 -4, 이동속도 -30%",plore3:"",plore4:"",pcool:"70(고정)",plevel:0},\
@@ -75,8 +75,8 @@
             aname:"접근 금지",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
             pname:"잿빛 사신",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
         {no:17,name:"leni",\
-            aname:"뿅! 망치",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
-            pname:"곰돌이! 공격",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
+            aname:"뿅! 망치",alore1:"레니가 바라보는 방향으로 도약하여 바닥에 뿅망치 자국을 남기며 적에게 피해를 입힌다.",alore2:"뿅망치 자국을 맞은 적은 5/7/9/11/13의 피해를 입고 느림효과를 3초간 받습니다.",alore3:"동시에 적 피격과 관계 없이 레니는 이동속도와 점프강화를 얻습니다.",alore4:"제공 받는 효과 : 이동속도 15%, 점프강화 2배",acool:"50/45/40/35/30",alevel:0,\
+            pname:"곰돌이! 공격",plore1:"레니가 점프를 20회 진행할 시에 액티브 스킬의 쿨타임을 감소시킨다.",plore2:"'성장기인 레니는 점프하는걸 너무 좋아합니다.'",plore3:"감소되는 쿨타임 : 1/1/2/2/3",plore4:"",pcool:"없음",plevel:0},\
         {no:18,name:"lenox",\
             aname:"회오리 비늘",alore1:"레녹스가 원형 범위의 적들에게 피해를 입힙니다.",alore2:"해당 스킬을 맞은 상대는 느려집니다.",alore3:"느림 효과 : 15/15/30/30/45",alore4:"피해량 : 6/8/10/12/14",acool:"30/27/24/21/18",alevel:0,\
             pname:"위풍당당",plore1:"레녹스가 적에게 피해를 입히면 보호막을 2초동안 획득합니다.",plore2:"획득하는 보호막량 : 4(고정)",plore3:"레녹스는 강태공입니다. 물론 세월도 낚지만요...",plore4:"낚시시에 높은확률(40%)로 연어를 낚습니다.",pcool:"30/27/24/21/15",plevel:0},\
@@ -96,8 +96,8 @@
             aname:"지각변동",alore1:"마커스가 전방으로 도약해 지면을 내려찍습니다.",alore2:"피격당한 적들은 방어력을 관통하는 피해를 입으며",alore3:"5초간 '충격' 상태가 되어 이동속도가 15% 느려집니다.",alore4:"방관피해량 : 4/5/6/7/8",acool:"50/45/40/35/30",alevel:0,\
             pname:"전사의 투지",plore1:"적에게 스킬을 피격시에 마커스는 전사의 투지를 획득합니다.",plore2:"전사의 투지 : 공격속도 1/1.4/1.8/2.2/2.6 , 이동속도 +20/20/40/40/60%",plore3:"지속시간 : 7/8/9/10/12",plore4:"",pcool:"없음",plevel:0},\
         {no:24,name:"nadine",\
-            aname:"늑대 맹습",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
-            pname:"야성",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
+            aname:"늑대 맹습",alore1:"나딘은 늑대의 영혼이 담긴 폭죽을 일정시간동안 장전하여 발사할 수 있습니다.",alore2:"폭죽 피해량(방어관통) : 6",alore3:"지속시간 : 5/6/7/8/10",alore4:"",acool:"60/55/50/45/40",alevel:0,\
+            pname:"야성",plore1:"나딘이 야생동물을 5마리 잡게되면 랜덤으로 속성 화살을 1개 제공받습니다.",plore2:"속성 화살 종류 : 나약함/감속/분광/독/신속 (확률 균등)",plore3:"속성 화살의 지속시간 : 3/4/5/6/7 , 신속 화살 지속시간 : 22초",plore4:"",pcool:"없음",plevel:0},\
         {no:25,name:"nathapon",\
             aname:"인스턴트 포토",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
             pname:"슬로우 셔터",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
@@ -108,8 +108,8 @@
             aname:"뜨거운 맛",alore1:"쇼우의 현재 체력의 20%를 소모하여, 소모된 체력만큼 근접 공격력을 상승시킨다.",alore2:"소모된 체력과 상승되는 공격력 비율(내림 계산): 1:0.9 / 1:1 / 1:1.1 / 1:1.2 / 1:1.4",alore3:"지속시간 : 20초(고정)",alore4:"",acool:"70/65/60/55/50",alevel:0,\
             pname:"요리사의 열정",plore1:"쇼우가 음식을 제작할때 완성되는 요리의 수량이 일정확률로 1개 더 추가됩니다.",plore2:"일정확률 : 20/40/60/80/100(%)",plore3:"'셰프 위에 식재료가 있다' - 주오 쇼우카이",plore4:"낚시와 채집시에 무조건 연어와 호박고구마를 얻습니다.",pcool:"없음",plevel:0},\
         {no:28,name:"silvia",\
-            aname:"기동전",alore1:"",alore3:"",alore4:"",acool:"",alevel:0,\
-            pname:"그란투리스모",plore1:"",plore2:"",plore3:"",plore4:"",pcool:"",plevel:0},\
+            aname:"기동전",alore1:"스킬 사용시 실비아는 말을 소환해 탑승합니다.",alore3:"실비아는 말을 타거나 내릴 수 있습니다.",alore4:"지속시간 : 20초(고정)",acool:"60/55/50/45/40",alevel:0,\
+            pname:"그란투리스모",plore1:"새로운 지역 8개를 방문하면 200 크레딧을 획득합니다.",plore2:"너의 바이크의 단단함은 말 갑옷으로 대체되었다.",plore3:"레벨당 장착되는 말 갑옷 : 없음/가죽/철/금/다이아",plore4:"",pcool:"없음",plevel:0},\
         {no:29,name:"sissela",\
             aname:"모두 해방이에요.",alore1:"1.5초간 정신집중 후 시셀라 자신이 존재하는 지역에 있는",alore2:"모든 실험체에게 방어력을 관통하는 피해를 줍니다.",alore3:"발동조건 : 최대체력의 40% 미만",alore4:"방관피해량 : 4/6/8/10/12",acool:"60/55/50/45/40",alevel:0,\
             pname:"삷은 고통이에요.",plore1:"시셀라는 현재 체력이 낮아지면 낮아질수록 추가효과를 받습니다.",plore2:"체력 40% 미만일때 : 근접 공격력 +3",plore3:"체력 20% 미만일때 : 근접 공격력 +6",plore4:"병들고 어린 시셀라는 팔이 짧습니다. 기본사거리 : 2.5",pcool:"없음",plevel:0},\
