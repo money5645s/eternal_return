@@ -16,12 +16,16 @@ class Backpack():
     def add(ItemNBT item) -> void:
         itemList.append(item)
 
+
+
+
+/*
 #위는 다음과 같이 컴파일됨.
-/**
 class <ProjectName>/Backpack extends MCObject
-    MCObject/NBT/List itemList
-    int currentIndex
-    int size
+
+    #MCObject/NBT/List itemList
+    #int currentIndex
+    #int size
 
     function <ProjectName>/Backpack/init:
         set heapSpaceTemp {id:-1,itemList:[],currentIndex:-1,size:0,class:"backpack"}
@@ -30,13 +34,12 @@ class <ProjectName>/Backpack extends MCObject
         append heapSpace heapSpaceTemp
 
     function <ProjectName>/Backpack/add:
-        append 
-
+        append itemList stack0
 */
 
 
 
-class EcomonyPlayer:
+class EcomonyPlayer(Player):
     int playerID
     int vault
     Backpack backpack
@@ -54,6 +57,9 @@ class EcomonyPlayer:
 
     def getBackpackItem(int index):
         ...
+
+
+
 
 
 class <ProjectName>:

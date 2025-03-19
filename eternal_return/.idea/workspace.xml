@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad880bbd-0f4a-442f-8f8a-ff7d16fab161" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/../datapack/eternal_return/data/eternal_return/function/entity/animal/boar/skill/b1/b1/code.mcfunction" beforeDir="false" afterPath="$PROJECT_DIR$/../datapack/eternal_return/data/eternal_return/function/entity/animal/boar/skill/b1/b1/code.mcfunction" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../datapack/eternal_return/data/eternal_return/function/object/box/set_box_marker.mcfunction" beforeDir="false" afterPath="$PROJECT_DIR$/../datapack/eternal_return/data/eternal_return/function/object/box/set_box_marker.mcfunction" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../improved_mcfunction/project/eternal_return/entity/animal/alpha/behav.mcfunction" beforeDir="false" afterPath="$PROJECT_DIR$/../improved_mcfunction/project/eternal_return/entity/animal/alpha/behav.mcfunction" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../improved_mcfunction/project/test/bubble_sort_opt.mcfunction" beforeDir="false" afterPath="$PROJECT_DIR$/../improved_mcfunction/project/test/bubble_sort_opt.mcfunction" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../improved_mcfunction/impmcfunction.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../improved_mcfunction/impmcfunction.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,24 +125,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.C:/Users/21kim/Desktop/plugins/eternal_return [wrapper].executor": "Run",
-    "Gradle.eternal_return [build].executor": "Run",
-    "Gradle.eternal_return [jar].executor": "Run",
-    "Gradle.eternal_return [testClasses].executor": "Run",
-    "Gradle.eternal_return 빌드.executor": "Run",
-    "Gradle.소스 다운로드.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature/datapack",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "프로젝트",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "File.Encoding"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.C:/Users/21kim/Desktop/plugins/eternal_return [wrapper].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.eternal_return [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.eternal_return [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.eternal_return [testClasses].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.eternal_return 빌드.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.소스 다운로드.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/datapack&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;프로젝트&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="eternal_return.system.ERPlayer" />
