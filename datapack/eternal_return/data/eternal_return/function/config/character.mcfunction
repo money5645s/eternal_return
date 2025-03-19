@@ -30,8 +30,8 @@
 ## 캐릭터 리스트
     data modify storage config character_list set value [\
         {no:2,name:"adriana",\
-            aname:"불길 쇄도",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
-            pname:"활활",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
+            aname:"불길 쇄도",alore1:"바라보는 방향으로 돌진하며 이동한 경로에는 일정시간 유지되는 화염 지대가 생성됩니다.",alore2:"화염지대는 범위 안에 대상에게 지속적으로 피해를 입히며 화상상태를 부여한다.",alore3:"방관피해량 : 1/1/2/2/3 ",alore4:"지속시간 : 3/4/5/6/8",acool:"30/28/26/24/20",alevel:0,\
+            pname:"활활",plore1:"아드리아나는 스킬로 피해를 입히면 적을 불태워 화상 상태로 만듭니다.",plore2:"화상상태 : 이동속도 -15/15/30/30/45(%) // 갱신은 가능하나 중첩되지 않는다.",plore3:"아드리아나는 릴리의 죽음의 트라우마로 인한 강박적 방화때문에 불에 대한 저항이 높아졌습니다.",plore4:"화염저항 : 불로 인한 피해 면역(발화,화염 등)",pcool:"없음",plevel:0},\
         {no:3,name:"alex",\
             aname:"타겟 마커 & 플라즈마 마인",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
             pname:"잠입",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
@@ -51,8 +51,8 @@
             aname:"생명 공유",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
             pname:"살아 있는 마리오네트",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
         {no:9,name:"daniel",\
-            aname:"그림자 가위",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
-            pname:"고독한 예술가",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
+            aname:"그림자 가위",alore1:"다니엘이 전방에 그림자 가위를 불러와 적들에게 피해를 입힙니다.",alore2:"방관 피해량 : 3/4/5/6/8",alore3:"또한 피해를 입은 적은 잠깐동안 시야가 축소되며, 이동속도가 15% 감소됩니다.",alore4:"지속시간 : 2/3/4/5/6",acool:"40/35/30/25/20",alevel:0,\
+            pname:"고독한 예술가",plore1:"녹슨 가위(공격력 7)를 사용하는 다니엘은 더아프게 적을 공격할 수 있으나 적 처치시에 스스로 파상풍(독)에 걸립니다.",plore2:"적 처치시 받는 디버프 : 독4 5/4/3/2/0",plore3:"밤이되면 다니엘을 고독한 예술가가 되어 밤 시야가 증가하고 이동속도가 증가합니다.",plore4:"고독한 예술가 : 야간 투시 , 이동속도 +15%",pcool:"없음",plevel:0},\
         {no:10,name:"elena",\
             aname:"죽음의 무도",alore1:"엘레나가 전방으로 죽음의 얼음지대를 7초간 생성합니다.",alore2:"죽음의 얼음지대 위에서 엘레나는 화염저항, 근접공격력 +3 추가효과를 받으며,",alore3:"죽음의 얼음지대 또한 얼음지대효과를 공유합니다.",alore4:"",acool:"60/55/50/45/40",alevel:0,\
             pname:"겨울여왕의 영지",plore1:"엘레나가 밤에 엘레나의 발자취에 유지되는 얼음지대를 생성합니다.",plore2:"얼음지대 위에서의 적은 냉기가 차올라 이동속도(%)가 15/15/30/30/45 느려집니다.",plore3:"엘레나는 피겨스케이팅을 통해 유연성을 길러 긴 리치를 가졌습니다. 기본사거리 : 3.5",plore4:"",pcool:"없음",plevel:0},\
@@ -114,8 +114,8 @@
             aname:"모두 해방이에요.",alore1:"1.5초간 정신집중 후 시셀라 자신이 존재하는 지역에 있는",alore2:"모든 실험체에게 방어력을 관통하는 피해를 줍니다.",alore3:"발동조건 : 최대체력의 40% 미만",alore4:"방관피해량 : 4/6/8/10/12",acool:"60/55/50/45/40",alevel:0,\
             pname:"삷은 고통이에요.",plore1:"시셀라는 현재 체력이 낮아지면 낮아질수록 추가효과를 받습니다.",plore2:"체력 40% 미만일때 : 근접 공격력 +3",plore3:"체력 20% 미만일때 : 근접 공격력 +6",plore4:"병들고 어린 시셀라는 팔이 짧습니다. 기본사거리 : 2.5",pcool:"없음",plevel:0},\
         {no:30,name:"vanya",\
-            aname:"꿈결 가루",alore1:"line1",alore2:"line2",alore3:"line3",alore4:"",acool:"",alevel:0,\
-            pname:"몽환 나비",plore1:"line1",plore2:"line2",plore3:"line3",plore4:"",pcool:"",plevel:0},\
+            aname:"꿈결 가루",alore1:"환상의 비늘가루를 전방에 흩뿌려 피해를 주며 수면에 들게 합니다.",alore2:"비늘가루를 맞은 적은 이동속도가 4초에 걸쳐서 점차 감소되다 결국 수면에 빠집니다.",alore3:"수면 : 1.5초간 실명효과가 걸리며, 이동속도가 99% 감소되어 움직이기 힘들어 진다.",alore4:"피해량 : 4/6/8/10/12",acool:"70/65/60/55/50",alevel:0,\
+            pname:"몽환 나비",plore1:"삼지창 투척 이후 바냐의 손에 다시 돌아오면 일정시간 유지되는 4만큼의 보호막을 제공받습니다.",plore2:"보호막 지속시간 : 6초(고정)",plore3:"타 보호막 효과와 중첩시에 더 높은 효과가 유지된다.",plore4:"",pcool:"30/27/24/21/15",plevel:0},\
         {no:31,name:"yuki",\
             aname:"화무십일홍(花無十日紅)",alore1:"유키가 검에 손을 가져가서 순식간에 공간을 베어 버립니다.",alore2:"피격당한 적에게 피해줌과 동시에 표시를 남기며 1초간 이동속도를 30% 느려지게 한 뒤",alore3:"유키가 검을 검집에 집어 넣는 순간 표식이 터지며 대상에게 방어력을 관통하는 피해를 입힙니다.",alore4:"1차 피해량 : 4/5/6/7/8 , 2차 방관피해량 : 6/7/8/9/10",acool:"60/55/50/45/40",alevel:0,\
             pname:"완벽한 옷매무새",plore1:"유키가 최대체력의 80%이상 체력을 보유시에 근접무기의 데미지가 추가됩니다.",plore2:"추가되는 데미지 : 1/2/3/4/5",plore3:"",plore4:"",pcool:"없음",plevel:0},\
