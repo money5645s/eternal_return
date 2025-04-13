@@ -3,7 +3,7 @@ execute if entity @s[tag=get_tree,tag=!charge2,tag=!loading] run function eterna
 execute if entity @s[tag=get_tree,tag=charge2] run tag @s remove pause_loading
 
 # 채집 완료
-give @s[tag=get_tree,tag=charge2,tag=done_loading] oak_sapling[item_name={"bold":true,"color":"green","text":"생명의 나무"}] 1
+give @s[tag=get_tree,tag=charge2,tag=done_loading] oak_sapling[item_name='{"bold":true,"color":"green","text":"생명의 나무"}'] 1
 execute if entity @s[tag=charge2,tag=done_loading] as @e[tag=tree,distance=..2.5] at @s run setblock ~ ~ ~ air
 execute if entity @s[tag=charge2,tag=done_loading] as @e[tag=tree,distance=..2.5] run kill @s
 execute if entity @s[tag=charge2,tag=done_loading] run tag @s remove get_tree

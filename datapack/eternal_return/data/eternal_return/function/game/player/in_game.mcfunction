@@ -8,7 +8,7 @@ function pdb:get_me
 
 ## 게임 시작 전
     # 상단 UI 표기
-        #function eternal_return:gui/bossbar/display/interface
+        function eternal_return:gui/bossbar/display/interface
     # 중앙 텍스트 표기 UI 스코어 연산
         function eternal_return:gui/bossbar/display/center_bar_tickrate
 

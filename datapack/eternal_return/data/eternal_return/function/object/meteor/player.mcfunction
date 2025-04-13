@@ -3,7 +3,7 @@ execute if entity @s[tag=get_meteor,tag=!charge2,tag=!loading] run function eter
 execute if entity @s[tag=get_meteor,tag=charge2] run tag @s remove pause_loading
 
 # 채집 완료
-give @s[tag=get_meteor,tag=charge2,tag=done_loading] echo_shard[item_name={"bold":true,"color":"blue","text":"운석"}] 1
+give @s[tag=get_meteor,tag=charge2,tag=done_loading] echo_shard[item_name='{"bold":true,"color":"blue","text":"운석"}'] 1
 execute if entity @s[tag=charge2,tag=done_loading] as @e[tag=meteor,tag=interaction,distance=..1.5] at @s run setblock ~ ~ ~ air
 execute if entity @s[tag=charge2,tag=done_loading] as @e[tag=meteor,tag=interaction,distance=..1.5] run kill @s
 execute if entity @s[tag=charge2,tag=done_loading] run tag @s remove get_meteor
