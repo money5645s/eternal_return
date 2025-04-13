@@ -20,12 +20,12 @@ execute if score #timer.day NUM matches 2 \
     if score #timer.halfday NUM matches 1 \
     if score #timer.sec NUM matches 30 \
     if score #timer.tick NUM matches 19 \
-        run function eternal_return:send_msg {target:"@a",text:'{"text":"알파가 [위치] 지역에 30초 후 출현합니다."}',color:"gold",timer:1}
+        run function eternal_return:send_msg {target:"@a",text:{"text":"알파가 [위치] 지역에 30초 후 출현합니다."},color:"gold",timer:1}
 execute if score #timer.day NUM matches 2 \
     if score #timer.halfday NUM matches 2 \
     if score #timer.sec NUM matches 59 \
     if score #timer.tick NUM matches 19 \
-        run function eternal_return:send_msg {target:"@a",text:'{"text":"알파가 [위치]에 등장했습니다!"}',color:"gold",timer:1}
+        run function eternal_return:send_msg {target:"@a",text:{"text":"알파가 [위치]에 등장했습니다!"},color:"gold",timer:1}
 
 execute if score #timer.day NUM matches 2 \
     if score #timer.halfday NUM matches 1 \
@@ -42,12 +42,12 @@ execute if score #timer.day NUM matches 3 \
     if score #timer.halfday NUM matches 1 \
     if score #timer.sec NUM matches 30 \
     if score #timer.tick NUM matches 19 \
-        run function eternal_return:send_msg {target:"@a",text:'{"text":"오메가가 [위치] 지역에 30초 후 출현합니다."}',color:"gold",timer:1}
+        run function eternal_return:send_msg {target:"@a",text:{"text":"오메가가 [위치] 지역에 30초 후 출현합니다."},color:"gold",timer:1}
 execute if score #timer.day NUM matches 3 \
     if score #timer.halfday NUM matches 2 \
     if score #timer.sec NUM matches 59 \
     if score #timer.tick NUM matches 19 \
-        run function eternal_return:send_msg {target:"@a",text:'{"text":"오메가가 [위치]에 등장했습니다!"}',color:"gold",timer:1}
+        run function eternal_return:send_msg {target:"@a",text:{"text":"오메가가 [위치]에 등장했습니다!"},color:"gold",timer:1}
 
 execute if score #timer.day NUM matches 3 \
     if score #timer.halfday NUM matches 1 \
@@ -64,12 +64,12 @@ execute if score #timer.day NUM matches 4 \
     if score #timer.halfday NUM matches 1 \
     if score #timer.sec NUM matches 30 \
     if score #timer.tick NUM matches 19 \
-        run function eternal_return:send_msg {target:"@a",text:'{"text":"30초 후, 위클라인 박사가 등장합니다. 조심하세요!"}',color:"gold",timer:1}
+        run function eternal_return:send_msg {target:"@a",text:{"text":"30초 후, 위클라인 박사가 등장합니다. 조심하세요!"},color:"gold",timer:1}
 execute if score #timer.day NUM matches 4 \
     if score #timer.halfday NUM matches 2 \
     if score #timer.sec NUM matches 59 \
     if score #timer.tick NUM matches 19 \
-        run function eternal_return:send_msg {target:"@a",text:'{"text":"위클라인 박사가 [위치]에서 등장했습니다."}',color:"gold",timer:1}
+        run function eternal_return:send_msg {target:"@a",text:{"text":"위클라인 박사가 [위치]에서 등장했습니다."},color:"gold",timer:1}
 
 execute if score #timer.day NUM matches 4 \
     if score #timer.halfday NUM matches 1 \
@@ -125,7 +125,7 @@ execute if score #timer.day NUM matches 2 \
     if score #timer.halfday NUM matches 1 \
     if score #timer.sec NUM matches 59 \
     if score #timer.tick NUM matches 19 \
-        run function eternal_return:send_msg {target:"@a",text:'{"text":"이제 키오스크 사용이 가능합니다."}',color:"gold",timer:1}
+        run function eternal_return:send_msg {target:"@a",text:{"text":"이제 키오스크 사용이 가능합니다."},color:"gold",timer:1}
 ## 보안콘솔(CCTV) 
 
 

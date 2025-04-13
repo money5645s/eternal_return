@@ -88,6 +88,8 @@
         data modify storage temp place.name set from storage pdb:main in.place_name
         data modify storage temp place.color set from storage pdb:main in.place_color
         function eternal_return:gui/bossbar/display/format/place_and_color with storage temp place
+
+        
 # 플레이어별 보스바에 변환된 텍스트 입력
     function eternal_return:gui/bossbar/display/ui/interface with storage pdb:main args
 

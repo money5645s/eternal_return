@@ -64,22 +64,22 @@
         summon interaction -244 63 468 {width:1f,height:2f,Tags:["standing_point","s_id18"]}
 
     # 구역별 마커
-        summon marker -573 84 526 {data:{place:"alley"},Tags:["zplace","safe"],CustomName:'{"text":"골목길"}'}
-        summon marker -573 84 526 {data:{place:"archery_range"},Tags:["zplace","safe"],CustomName:'{"text":"양궁장"}'}
-        summon marker -573 84 526 {data:{place:"beach"},Tags:["zplace","safe"],CustomName:'{"text":"모래사장"}'}
-        summon marker -573 84 526 {data:{place:"cemetery"},Tags:["zplace","safe"],CustomName:'{"text":"묘지"}'}
-        summon marker -573 84 526 {data:{place:"chapel"},Tags:["zplace","safe"],CustomName:'{"text":"성당"}'}
-        summon marker -573 84 526 {data:{place:"dock"},Tags:["zplace","safe"],CustomName:'{"text":"항구"}'}
-        summon marker -573 84 526 {data:{place:"factory"},Tags:["zplace","safe"],CustomName:'{"text":"공장"}'}
-        summon marker -573 84 526 {data:{place:"fire_station"},Tags:["zplace","safe"],CustomName:'{"text":"소방서"}'}
-        summon marker -573 84 526 {data:{place:"forest"},Tags:["zplace","safe"],CustomName:'{"text":"숲"}'}
-        summon marker -573 84 526 {data:{place:"gas_station"},Tags:["zplace","safe"],CustomName:'{"text":"주유소"}'}
-        summon marker -573 84 526 {data:{place:"hospital"},Tags:["zplace","safe"],CustomName:'{"text":"병원"}'}
-        summon marker -573 84 526 {data:{place:"hotel"},Tags:["zplace","safe"],CustomName:'{"text":"호텔"}'}
-        summon marker -573 84 526 {data:{place:"police_station"},Tags:["zplace","safe"],CustomName:'{"text":"경찰서"}'}
-        summon marker -573 84 526 {data:{place:"pond"},Tags:["zplace","safe"],CustomName:'{"text":"연못"}'}
-        summon marker -573 84 526 {data:{place:"school"},Tags:["zplace","safe"],CustomName:'{"text":"학교"}'}
-        summon marker -573 84 526 {data:{place:"stream"},Tags:["zplace","safe"],CustomName:'{"text":"개울"}'}
-        summon marker -573 84 526 {data:{place:"temple"},Tags:["zplace","safe"],CustomName:'{"text":"절"}'}
-        summon marker -573 84 526 {data:{place:"uptown"},Tags:["zplace","safe"],CustomName:'{"text":"고급 주택가"}'}
-        summon marker -573 84 526 {data:{place:"warehouse"},Tags:["zplace","safe"],CustomName:'{"text":"창고"}'}
+        summon marker -573 84 526 {data:{place:"alley"},Tags:["zplace","safe"],CustomName:{"text":"골목길"}}
+        summon marker -573 84 526 {data:{place:"archery_range"},Tags:["zplace","safe"],CustomName:{"text":"양궁장"}}
+        summon marker -573 84 526 {data:{place:"beach"},Tags:["zplace","safe"],CustomName:{"text":"모래사장"}}
+        summon marker -573 84 526 {data:{place:"cemetery"},Tags:["zplace","safe"],CustomName:{"text":"묘지"}}
+        summon marker -573 84 526 {data:{place:"chapel"},Tags:["zplace","safe"],CustomName:{"text":"성당"}}
+        summon marker -573 84 526 {data:{place:"dock"},Tags:["zplace","safe"],CustomName:{"text":"항구"}}
+        summon marker -573 84 526 {data:{place:"factory"},Tags:["zplace","safe"],CustomName:{"text":"공장"}}
+        summon marker -573 84 526 {data:{place:"fire_station"},Tags:["zplace","safe"],CustomName:{"text":"소방서"}}
+        summon marker -573 84 526 {data:{place:"forest"},Tags:["zplace","safe"],CustomName:{"text":"숲"}}
+        summon marker -573 84 526 {data:{place:"gas_station"},Tags:["zplace","safe"],CustomName:{"text":"주유소"}}
+        summon marker -573 84 526 {data:{place:"hospital"},Tags:["zplace","safe"],CustomName:{"text":"병원"}}
+        summon marker -573 84 526 {data:{place:"hotel"},Tags:["zplace","safe"],CustomName:{"text":"호텔"}}
+        summon marker -573 84 526 {data:{place:"police_station"},Tags:["zplace","safe"],CustomName:{"text":"경찰서"}}
+        summon marker -573 84 526 {data:{place:"pond"},Tags:["zplace","safe"],CustomName:{"text":"연못"}}
+        summon marker -573 84 526 {data:{place:"school"},Tags:["zplace","safe"],CustomName:{"text":"학교"}}
+        summon marker -573 84 526 {data:{place:"stream"},Tags:["zplace","safe"],CustomName:{"text":"개울"}}
+        summon marker -573 84 526 {data:{place:"temple"},Tags:["zplace","safe"],CustomName:{"text":"절"}}
+        summon marker -573 84 526 {data:{place:"uptown"},Tags:["zplace","safe"],CustomName:{"text":"고급 주택가"}}
+        summon marker -573 84 526 {data:{place:"warehouse"},Tags:["zplace","safe"],CustomName:{"text":"창고"}}
