@@ -76,7 +76,7 @@ function :
         #function eternal_return:system/print/main with PRINT   
 
         HPbar.HP = ThisHP
-        execute on passengers with HPbar :
+        execute on passengers :
             score i is #i ER.sys
 
             HPbar.HPdata = ["-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0","-0"]
@@ -84,26 +84,30 @@ function :
             storage WHILE is minecraft:temp temp
             i = 0
             WHILE.i = 0
-            function with WHILE : 
-
-                $if i >= HPkey run data modify HPbar.HPdata[$(i)] set value "-0"
+            function : 
+                #매크로 최적화
+                function with WHILE :
+                    $if i >= HPkey run data modify HPbar.HPdata[$(i)] set value "-0"
                     
-                if i < HPkey with WHILE:
+                if i < HPkey :
                     HPSpliterL = i
                     HPSpliterL %= HPRateWith40
 
                     HPSpliterS = i
                     HPSpliterS %= HPRateWith4
 
-                    $if HPSpliterS matches 0 run data modify HPbar.HPdata[$(i)] set value "-2"
-
-                    $if HPSpliterL matches 0 run data modify HPbar.HPdata[$(i)] set value "-0"
+                    #매크로 최적화
+                    function with WHILE :
+                        $if HPSpliterS matches 0 run data modify HPbar.HPdata[$(i)] set value "-2"
+                        $if HPSpliterL matches 0 run data modify HPbar.HPdata[$(i)] set value "-0"
+                        $unless HPSpliterS matches 0 run data modify HPbar.HPdata[$(i)] set value "-1"
                     
-                    $unless HPSpliterS matches 0 run data modify HPbar.HPdata[$(i)] set value "-1"
-
                 i += 1
                 WHILE.i = i
                 if i matches ..99 run function BACK
-            $ThisEntity nbt text = '[{"text":"["},{"text":"$(HP)"},{"text":"]\\n"},{"text":"10"},{"translate":"space.2","font":"minecraft:default"},{"storage":"minecraft:temp","nbt":"temp.HPdata","interpret":true,"font":"minecraft:bar"}]'
+            
+            #매크로 최적화
+            function with HPbar :
+                $ThisEntity nbt text = '[{"text":"["},{"text":"$(HP)"},{"text":"]\\n"},{"text":"10"},{"translate":"space.2","font":"minecraft:default"},{"storage":"minecraft:temp","nbt":"temp.HPdata","interpret":true,"font":"minecraft:bar"}]'
         # free()
         data remove HPbar

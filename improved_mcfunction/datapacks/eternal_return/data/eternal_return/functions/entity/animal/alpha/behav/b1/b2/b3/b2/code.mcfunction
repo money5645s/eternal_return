@@ -1,1 +1,2 @@
-function eternal_return:entity/animal/alpha/skill/main
+effect clear @s minecraft:slowness
+scoreboard players set @s ER.cooltime 200
