@@ -1,0 +1,96 @@
+(.mcfunction)
+
+
+main
+    eternal_return:player/tick
+        eternal_return:first_join
+            pdb:new_player
+            pdb:get_me
+            eternal_return:character/remove_tag with storage pdb:main in.character
+            eternal_return:gui/sidebar/remove with storage pdb:main args
+            eternal_return:gui/bossbar/new with storage pdb:main args
+            eternal_return:gui/bossbar/show with storage pdb:main args
+            pdb:save_me
+    
+        eternal_return:gui/bossbar/leave_game
+            pdb:get_me
+            eternal_return:gui/bossbar/hide with storage pdb:main args
+            eternal_return:gui/bossbar/show with storage pdb:main args           
+        
+        eternal_return:player/freeze_player
+        
+        eternal_return:player/stats
+            pdb:get_me
+            pdb:save_me
+        
+        eternal_return:player/bush/tick
+            eternal_return:player/armors/blood/head
+            eternal_return:player/armors/blood/chest
+            eternal_return:player/armors/blood/legs
+            eternal_return:player/armors/blood/feet
+            eternal_return:player/armors/iron/head
+            eternal_return:player/armors/iron/chest
+            eternal_return:player/armors/iron/legs
+            eternal_return:player/armors/iron/feet
+    
+    eternal_return:object/tick
+        eternal_return:object/kiosk/tick
+        eternal_return:object/hyperloop/tick
+        eternal_return:gui/loading/cancel
+        eternal_return:object/cctv/tick
+        eternal_return:object/cctv/cooltime/tick
+        eternal_return:object/jumppad/tick
+        eternal_return:object/meteor/info/tick
+        eternal_return:object/box/tick
+    
+    eternal_return:character/tick
+        eternal_return:character/skill/active_level_up
+        eternal_return:character/skill/passive_level_up
+        eternal_return:character/skill_cool
+        eternal_return:character/detect_key
+        eternal_return:character/list/<character>/list/active/main
+        eternal_return:character/list/<character>/list/passive/main
+        eternal_return:player/damagegive
+        eternal_return:character/list/stun/main
+    
+    eternal_return:game/tick
+        eternal_return:game/game_timer
+        
+        eternal_return:game/player/character_select
+            pdb:get_me
+            eternal_return:gui/bossbar/display/interface
+            eternal_return:gui/bossbar/display/wait_bar
+            eternal_return:gui/bossbar/display/now_bar
+            eternal_return:game/player/warp
+            eternal_return:game/player/in_game/reset_score
+        
+        eternal_return:game/player/briefing_room
+            eternal_return:gui/bossbar/display/interface
+            eternal_return:gui/bossbar/display/wait_bar
+            eternal_return:gui/bossbar/display/now_bar
+            eternal_return:game/player/warp
+            eternal_return:game/player/in_game/reset_score
+
+        eternal_return:game/system/briefing_room
+            eternal_return:game/system/briefing_room/set_ui_score
+            eternal_return:gui/bossbar/display/now_bar_tickrate
+            eternal_return:game/system/briefing_room/starting
+
+        eternal_return:game/player/in_game
+            pdb:get_me
+            eternal_return:gui/bossbar/display/interface
+            eternal_return:gui/bossbar/display/center_bar_tickrate
+            eternal_return:game/system/briefing_room/tp_to_area
+            eternal_return:gui/bossbar/display/ui/left_timer with storage pdb:main args
+
+        eternal_return:game/system/in_game
+            eternal_return:game/system/in_game/day_timer
+            eternal_return:object/summon
+            eternal_return:game/system/in_game/left_timer
+            eternal_return:object/chest/set
+            eternal_return:gui/bossbar/display/center_bar {text:'{"text":" 실험이 시작되었습니다. 레이더를 활성화합니다.","font":"gui/centerbar/bar/text"}',sec:5}
+            eternal_return:game/system/in_game/set_start_init
+            eternal_return:game/player/in_game/credit
+        
+        eternal_return:game/timeline
+    
