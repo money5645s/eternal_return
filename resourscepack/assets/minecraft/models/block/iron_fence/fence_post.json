@@ -1,0 +1,36 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "block/light_gray_concrete",
+		"particle": "#texture"
+	},
+	"elements": [
+		{
+			"name": "Center post",
+			"from": [7, 7, 7],
+			"to": [9, 23, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 15, 8]},
+			"faces": {
+				"north": {"uv": [7, 0, 9, 16], "texture": "#texture"},
+				"east": {"uv": [7, 0, 9, 16], "texture": "#texture"},
+				"south": {"uv": [7, 0, 9, 16], "texture": "#texture"},
+				"west": {"uv": [7, 0, 9, 16], "texture": "#texture"},
+				"up": {"uv": [7, 7, 9, 9], "texture": "#texture", "cullface": "up"},
+				"down": {"uv": [7, 7, 9, 9], "texture": "#texture", "cullface": "down"}
+			}
+		},
+		{
+			"from": [5, 0, 5],
+			"to": [11, 7, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 1, 7]},
+			"faces": {
+				"north": {"uv": [0, 0, 6, 7], "texture": "#1"},
+				"east": {"uv": [0, 0, 6, 7], "texture": "#1"},
+				"south": {"uv": [0, 0, 6, 7], "texture": "#1"},
+				"west": {"uv": [0, 0, 6, 7], "texture": "#1"},
+				"up": {"uv": [0, 0, 6, 6], "texture": "#1"},
+				"down": {"uv": [0, 0, 6, 6], "texture": "#1"}
+			}
+		}
+	]
+}

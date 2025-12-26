@@ -1,0 +1,34 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "block/light_gray_concrete",
+		"particle": "#texture"
+	},
+	"elements": [
+		{
+			"from": [5, 0, 0],
+			"to": [11, 7, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 1, 2]},
+			"faces": {
+				"north": {"uv": [0, 0, 6, 7], "texture": "#1"},
+				"east": {"uv": [0, 0, 6, 7], "texture": "#1"},
+				"south": {"uv": [0, 0, 6, 7], "texture": "#1"},
+				"west": {"uv": [0, 0, 6, 7], "texture": "#1"},
+				"up": {"uv": [0, 0, 6, 6], "texture": "#1"},
+				"down": {"uv": [0, 0, 6, 6], "texture": "#1"}
+			}
+		},
+		{
+			"name": "lower bar",
+			"from": [7, 22, 0],
+			"to": [9, 23, 7],
+			"faces": {
+				"north": {"uv": [7, 8, 9, 9], "texture": "#texture", "cullface": "north"},
+				"east": {"uv": [0, 7, 9, 8], "texture": "#texture"},
+				"west": {"uv": [0, 7, 9, 8], "texture": "#texture"},
+				"up": {"uv": [7, 1, 9, 9], "texture": "#texture"},
+				"down": {"uv": [7, 1, 9, 9], "texture": "#texture"}
+			}
+		}
+	]
+}

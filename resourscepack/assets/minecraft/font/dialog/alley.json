@@ -1,0 +1,3 @@
+{"providers":[
+{"type": "bitmap","file": "minecraft:map/hyperloop/default/alley.png","ascent": 41, "height": 41,"chars": ["\u1000"]},
+{"type": "bitmap","file": "minecraft:map/hyperloop/default/island256.png","ascent": 256, "height": 256,"chars": ["\u1001"]}]}

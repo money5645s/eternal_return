@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/iron_fence/fence_post",
+  "textures": {
+    "texture": "minecraft:block/gray_concrete"
+  }
+}

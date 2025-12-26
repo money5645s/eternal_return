@@ -8,5 +8,36 @@
   "container.chest": "",
   "container.barrel": "",
   "container.inventory": "",
-  "advancements.toast.task": ""
+  "advancements.toast.task": "",
+ 
+  "item.minecraft.apple": "물",
+  "item.minecraft.cooked_rabbit": "§b뜨거운 물",
+  "item.minecraft.chicken": "§b따끈따끈한 토스트",
+  "item.minecraft.rabbit": "§b베이컨 토스트",
+  "item.minecraft.melon_slice": "§d민트 초코",
+  "item.minecraft.carrot": "§6꿀고구마",
+  "item.minecraft.baked_potato": "§b감자튀김",
+  "item.minecraft.beetroot": "§d호박 고구마",
+  "item.minecraft.beef": "고기",
+  "item.minecraft.cooked_beef": "§b웰던 스테이크",
+  "item.minecraft.cooked_chicken": "§a탄두리",
+  "item.minecraft.cod": "대구",
+  "item.minecraft.cooked_cod": "§b생선까스",
+  "item.minecraft.cooked_salmon": "§6연어 스테이크",
+  "item.minecraft.tropical_fish": "§d피쉬 앤 칩스",
+  "item.minecraft.cookie": "§6하와이안 피자",
+  "item.minecraft.pumpkin_pie": "§a버거",
+  "item.minecraft.rotten_flesh": "§d냉동 피자",
+  "item.minecraft.salmon": "§d연어",
+
+  "item.minecraft.turtle_scute": "§dVF 혈액 샘플",
+  "item.minecraft.armadillo_scute": "§d포스 코어",
+  "item.minecraft.slime_ball": "§d운석",
+  "item.minecraft.clay_ball": "§d미스릴",
+  "item.minecraft.prismarine_shard": "§d생명의 나무",
+
+  "item.minecraft.porkchop": "§6컴뱃 에피네프린",
+  "item.minecraft.cooked_porkchop": "§6성수",
+  "item.minecraft.mutton": "§6셀레네의 눈물",
+  "item.minecraft.cooked_mutton": "§6대환단"
 }

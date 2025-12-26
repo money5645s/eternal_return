@@ -1,11 +1,6 @@
 {
 "pack": {
-"pack_format": 46,
-"description": "eternal return resourcespack 1.0v"
-},
-  "features": {
-    "enabled": [
-      "update_1.21.4"
-    ]
-  }
+"pack_format": 76,
+"description": "eternal return resourcespack 1.21.11v"
+}
 }
