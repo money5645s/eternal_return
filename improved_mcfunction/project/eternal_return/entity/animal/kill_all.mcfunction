@@ -1,1 +1,0 @@
-scoreboard players set @e[type=minecraft:ghast,tag=ER.animal.hitbox] ER.health 0
