@@ -1,0 +1,4 @@
+{"providers":[
+{"type": "bitmap","file": "minecraft:font/kiosk/default/not_enough/vf_blood_sample.png","ascent": 80, "height": 80,"chars": ["0"]},
+{"type": "bitmap","file": "minecraft:font/kiosk/default/turned_off/vf_blood_sample.png","ascent": 80, "height": 80,"chars": ["1"]},
+{"type": "bitmap","file": "minecraft:font/kiosk/default/turned_on/vf_blood_sample.png","ascent": 80, "height": 80,"chars": ["2"]}]}

@@ -1,0 +1,4 @@
+{"providers":[
+{"type": "bitmap","file": "minecraft:font/kiosk/default/not_enough/tac_skill_module.png","ascent": 80, "height": 80,"chars": ["0"]},
+{"type": "bitmap","file": "minecraft:font/kiosk/default/turned_off/tac_skill_module.png","ascent": 80, "height": 80,"chars": ["1"]},
+{"type": "bitmap","file": "minecraft:font/kiosk/default/turned_on/tac_skill_module.png","ascent": 80, "height": 80,"chars": ["2"]}]}

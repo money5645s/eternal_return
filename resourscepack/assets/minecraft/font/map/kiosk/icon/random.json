@@ -1,0 +1,4 @@
+{"providers":[
+{"type": "bitmap","file": "minecraft:font/kiosk/default/not_enough/random.png","ascent": 80, "height": 80,"chars": ["0"]},
+{"type": "bitmap","file": "minecraft:font/kiosk/default/turned_off/random.png","ascent": 80, "height": 80,"chars": ["1"]},
+{"type": "bitmap","file": "minecraft:font/kiosk/default/turned_on/random.png","ascent": 80, "height": 80,"chars": ["2"]}]}

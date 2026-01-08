@@ -1,0 +1,36 @@
+
+{
+	"providers": [
+		{"type": "bitmap", "file": "minecraft:font/character/list/hart.png", "ascent": 0, "height": 55, "chars": ["1"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/hyunwoo.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/isol.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/jackie.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/jenny.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/katja.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/leni.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/lenox.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/leon.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/luke.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/lyanh.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/magnus.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/markus.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/alex.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/adriana.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/nadine.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/nathapon.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/piolo.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/shou.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/silvia.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/sissela.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/vanya.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/yuki.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/estelle.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/arda.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/bernice.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/bianca.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/celine.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/chloe.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/daniel.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/elena.png", "ascent": 0, "height": 55, "chars": ["n"]}
+	]
+}
