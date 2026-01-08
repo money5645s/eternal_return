@@ -9,7 +9,13 @@
   "container.barrel": "",
   "container.inventory": "",
   "advancements.toast.task": "",
- 
+
+  "multiplayer.confirm_command.parse_errors": "",
+  "multiplayer.confirm_command.permissions_required": "",
+  "multiplayer.confirm_command.signature_required": "",
+  "multiplayer.confirm_command.title": "정말로 진행하시겠습니까?",
+  "multiplayer.confirm_command.run_command": "진행",
+
   "item.minecraft.apple": "물",
   "item.minecraft.nautilus_shell": "§a백일취",
   "block.minecraft.cake": "약초",
