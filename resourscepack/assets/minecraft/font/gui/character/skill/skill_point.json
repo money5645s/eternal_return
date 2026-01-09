@@ -1,0 +1,7 @@
+{
+	"providers": [
+		{"type": "bitmap","file": "minecraft:font/character/skill_point.png","ascent": -89, "height": 39,"chars": ["0"]},
+		{"type": "bitmap","file": "minecraft:font/character/skill_point_off.png","ascent": -89, "height": 39,"chars": ["1"]},
+		{"type": "bitmap","file": "minecraft:font/character/skill_point_empty.png","ascent": -89, "height": 39,"chars": ["2"]}
+	]
+}
