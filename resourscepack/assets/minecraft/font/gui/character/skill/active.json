@@ -1,15 +1,16 @@
 {
 	"providers": [
 		{"type": "bitmap","file": "minecraft:font/character/active_skill_cool.png","ascent": -133, "height": 18,"chars": ["0","1"]},
-		{"type": "bitmap","file": "minecraft:font/character/active/adriana.png","ascent": -133, "height": 18,"chars": ["\u1002"]},
-		{"type": "bitmap","file": "minecraft:font/character/active/alex.png","ascent": -133, "height": 18,"chars": ["\u1003"]},
-		{"type": "bitmap","file": "minecraft:font/character/active/arda.png","ascent": -133, "height": 18,"chars": ["\u1004"]},
-		{"type": "bitmap","file": "minecraft:font/character/active/bernice.png","ascent": -133, "height": 18,"chars": ["\u1005"]},
-		{"type": "bitmap","file": "minecraft:font/character/active/bianca.png","ascent": -133, "height": 18,"chars": ["\u1006"]},
-		{"type": "bitmap","file": "minecraft:font/character/active/celine.png","ascent": -133, "height": 18,"chars": ["\u1007"]},
-		{"type": "bitmap","file": "minecraft:font/character/active/chloe.png","ascent": -133, "height": 18,"chars": ["\u1008"]},
-		{"type": "bitmap","file": "minecraft:font/character/active/daniel.png","ascent": -133, "height": 18,"chars": ["\u1009"]},
-		{"type": "bitmap","file": "minecraft:font/character/active/elena.png","ascent": -133, "height": 18,"chars": ["\u1010"]},
+		{"type": "bitmap","file": "minecraft:font/character/active/adriana.png","ascent": -133, "height": 18,"chars": ["\u1001"]},
+		{"type": "bitmap","file": "minecraft:font/character/active/alex.png","ascent": -133, "height": 18,"chars": ["\u1002"]},
+		{"type": "bitmap","file": "minecraft:font/character/active/arda.png","ascent": -133, "height": 18,"chars": ["\u1003"]},
+		{"type": "bitmap","file": "minecraft:font/character/active/bernice.png","ascent": -133, "height": 18,"chars": ["\u1004"]},
+		{"type": "bitmap","file": "minecraft:font/character/active/bianca.png","ascent": -133, "height": 18,"chars": ["\u1005"]},
+		{"type": "bitmap","file": "minecraft:font/character/active/celine.png","ascent": -133, "height": 18,"chars": ["\u1006"]},
+		{"type": "bitmap","file": "minecraft:font/character/active/chloe.png","ascent": -133, "height": 18,"chars": ["\u1007"]},
+		{"type": "bitmap","file": "minecraft:font/character/active/daniel.png","ascent": -133, "height": 18,"chars": ["\u1008"]},
+		{"type": "bitmap","file": "minecraft:font/character/active/elena.png","ascent": -133, "height": 18,"chars": ["\u1009"]},
+		{"type": "bitmap","file": "minecraft:font/character/active/estelle.png","ascent": -133, "height": 18,"chars": ["\u1010"]},
 		{"type": "bitmap","file": "minecraft:font/character/active/hart.png","ascent": -133, "height": 18,"chars": ["\u1011"]},
 		{"type": "bitmap","file": "minecraft:font/character/active/hyunwoo.png","ascent": -133, "height": 18,"chars": ["\u1012"]},
 		{"type": "bitmap","file": "minecraft:font/character/active/isol.png","ascent": -133, "height": 18,"chars": ["\u1013"]},
@@ -30,7 +31,6 @@
 		{"type": "bitmap","file": "minecraft:font/character/active/silvia.png","ascent": -133, "height": 18,"chars": ["\u1028"]},
 		{"type": "bitmap","file": "minecraft:font/character/active/sissela.png","ascent": -133, "height": 18,"chars": ["\u1029"]},
 		{"type": "bitmap","file": "minecraft:font/character/active/vanya.png","ascent": -133, "height": 18,"chars": ["\u1030"]},
-		{"type": "bitmap","file": "minecraft:font/character/active/yuki.png","ascent": -133, "height": 18,"chars": ["\u1031"]},
-		{"type": "bitmap","file": "minecraft:font/character/active/estelle.png","ascent": -133, "height": 18,"chars": ["\u1032"]}
+		{"type": "bitmap","file": "minecraft:font/character/active/yuki.png","ascent": -133, "height": 18,"chars": ["\u1031"]}
 	]
 }
