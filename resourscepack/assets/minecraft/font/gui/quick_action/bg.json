@@ -1,0 +1,9 @@
+{
+	"providers": [
+		{"type": "bitmap","file": "minecraft:font/bg/quick_action.png","ascent": 80,"height": 130,"chars": ["0"]},
+		{"type": "bitmap","file": "minecraft:font/bg/quick_action_skill.png","ascent": 80,"height": 130,"chars": ["1"]},
+		{"type": "bitmap","file": "minecraft:font/bg/left_button.png","ascent": 10,"height": 18,"chars": ["2"]},
+		{"type": "bitmap","file": "minecraft:font/bg/right_button.png","ascent": 10,"height": 18,"chars": ["3"]},
+		{"type": "bitmap","file": "minecraft:font/bg/quick_action_text.png","ascent": 45,"height": 55,"chars": ["a"]}
+	]
+}
