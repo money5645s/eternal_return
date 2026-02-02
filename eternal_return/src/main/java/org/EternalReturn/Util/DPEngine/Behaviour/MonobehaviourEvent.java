@@ -1,4 +1,4 @@
-package org.EternalReturn.Util.DPEngine.Behaviour;
+package org.EternalReturn.Util.dpengine.behaviour;
 
 public interface MonobehaviourEvent {
 }

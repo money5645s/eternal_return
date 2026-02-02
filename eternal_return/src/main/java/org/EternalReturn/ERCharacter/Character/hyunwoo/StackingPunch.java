@@ -2,7 +2,7 @@ package org.EternalReturn.ERCharacter.Character.hyunwoo;
 
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour;
 import org.EternalReturn.ERCharacter.Event.CharacterAttackEvent;
-import org.EternalReturn.Util.DPEngine.Behaviour.MonobehaviourEvent;
+import org.EternalReturn.Util.dpengine.behaviour.MonobehaviourEvent;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -13,18 +13,20 @@ import java.util.*;
 public class StackingPunch extends ERCharacterMonobehaviour<CharacterAttackEvent> {
 
     private final Map<UUID, Integer> hitCountMap = new HashMap<>();
+    private long punchTimeMillis = 0;
 
     @Override
     public void start(CharacterAttackEvent event) {
-        Entity victimEntity = event.victim;
+        Entity victimEntity = event.victim.getEntity();
 
         if(!(victimEntity instanceof LivingEntity victim)){
             return;
         }
 
-        //if (victim.getNoDamageTicks() > 10) {
-        //    return;
-        //}
+        if(System.currentTimeMillis() < punchTimeMillis){
+            return;
+        }
+        punchTimeMillis = System.currentTimeMillis() + 10 * 50;
 
         Player attacker = getPlayer();
 

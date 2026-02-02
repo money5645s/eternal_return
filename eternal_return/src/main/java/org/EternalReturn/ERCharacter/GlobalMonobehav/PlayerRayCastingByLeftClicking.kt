@@ -4,8 +4,7 @@ import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour
 import org.EternalReturn.ERCharacter.Event.CharacterLeftClickEvent
 import org.EternalReturn.ERCharacter.Event.CharacterRayCastEvent
 import org.EternalReturn.EREntity.EREntity
-import org.EternalReturn.Util.DPEngine.Behaviour.MonobehaviourEvent
-import org.bukkit.entity.Entity
+import org.EternalReturn.Util.dpengine.behaviour.MonobehaviourEvent
 
 /**
  * 플레이어가 왼쪽 클릭을 할 때마다 실행될 레이캐스트.
@@ -15,8 +14,8 @@ class PlayerRayCastingByLeftClicking : ERCharacterMonobehaviour<CharacterLeftCli
 
     override fun start(event: CharacterLeftClickEvent) {
 
-        val pdir = getDir(getPlayer() as Entity);
-        val pPos = getPos(getPlayer() as Entity);
+        val pdir = (actor as EREntity).getDirection();
+        val pPos = (actor as EREntity).getPosition();
         val out = vec3();
 
         //println("Event dispatched : " + this.javaClass + " for entities " + getMonobehavActorList().size);
@@ -39,7 +38,7 @@ class PlayerRayCastingByLeftClicking : ERCharacterMonobehaviour<CharacterLeftCli
         this.actor.submitEvent(CharacterRayCastEvent(hitList))
     }
 
-    override fun update(eventList: Collection<MonobehaviourEvent>) {
+    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
         stopMonobehav();
     }
 

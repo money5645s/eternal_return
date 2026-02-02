@@ -4,9 +4,7 @@ import org.EternalReturn.ERCharacter.GlobalMonobehav.PlayerRayCastingByLeftClick
 import org.EternalReturn.EREntity.EREntity;
 import org.EternalReturn.ERPlayer.ERPlayer;
 import org.EternalReturn.System.PluginInstance;
-import org.EternalReturn.Util.DPEngine.Geometry.Collider;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class ERCharacter extends EREntity {
 
@@ -21,9 +19,9 @@ public abstract class ERCharacter extends EREntity {
                         erPlayer.getPlayer().getLocation().getY(),
                         erPlayer.getPlayer().getLocation().getZ()),
                 1,3));
+        this.setEntity(erPlayer.getPlayer());
         this.erPlayer = erPlayer;
-        this.entity = erPlayer.getPlayer();
-        registerMonobehaviour(this, new PlayerRayCastingByLeftClicking());
+        registerMonobehaviour(new PlayerRayCastingByLeftClicking());
     }
 
     public abstract String getName();
@@ -33,6 +31,6 @@ public abstract class ERCharacter extends EREntity {
     }
 
     public Player getPlayer(){
-        return (Player)this.entity;
+        return (Player)this.getEntity();
     }
 }

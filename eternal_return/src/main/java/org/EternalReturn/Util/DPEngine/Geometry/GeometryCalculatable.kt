@@ -1,51 +1,58 @@
-package org.EternalReturn.Util.DPEngine.Geometry
+package org.EternalReturn.Util.geometryModule.Geometry
 
+import org.EternalReturn.Util.dpengine.geometry.GeometryModule
+import org.EternalReturn.Util.dpengine.geometry.Vector3
 
 
 open class GeometryCalculatable{
 
-    lateinit var geometryEngine: GeometryEngine;
+    public lateinit var geometryModule : GeometryModule;
+
+    open fun geometryCalculatableInit(geometryModule : GeometryModule){
+        this.geometryModule = geometryModule
+    }
+
 
     infix fun Vector3.dot(b: Vector3): Double {
-        return geometryEngine.dotprd(b, this)
+        return geometryModule.dotprd(b, this)
     }
 
     /**
      * = 과 같음.
      * */
     infix fun Vector3.assign(b: Vector3): Vector3 {
-        val out = geometryEngine.vec3()
-        geometryEngine.assign(out, this)
+        val out = geometryModule.vec3()
+        geometryModule.assign(out, this)
         return out
     }
 
     infix fun Vector3.cross(b: Vector3): Vector3 {
-        val out = geometryEngine.vec3()
-        geometryEngine.cross(out, b, this)
+        val out = geometryModule.vec3()
+        geometryModule.cross(out, b, this)
         return out
     }
 
     open operator fun Vector3.plus(b: Vector3): Vector3 {
-        val out = geometryEngine.vec3()
-        geometryEngine.add(out, this, b)
+        val out = geometryModule.vec3()
+        geometryModule.add(out, this, b)
         return out
     }
 
     operator fun Vector3.times(scalar: Double): Vector3 {
-        val out = geometryEngine.vec3()
-        geometryEngine.scalarProd(out, scalar, this)
+        val out = geometryModule.vec3()
+        geometryModule.scalarProd(out, scalar, this)
         return out
     }
 
     operator fun Double.times(vector: Vector3): Vector3 {
-        val out = geometryEngine.vec3()
-        geometryEngine.scalarProd(out, this, vector)
+        val out = geometryModule.vec3()
+        geometryModule.scalarProd(out, this, vector)
         return out
     }
 
     operator fun Vector3.unaryMinus(): Vector3 {
-        val out = geometryEngine.vec3()
-        geometryEngine.scalarProd(out, -1.0, this)
+        val out = geometryModule.vec3()
+        geometryModule.scalarProd(out, -1.0, this)
         return out
     }
 
@@ -53,15 +60,15 @@ open class GeometryCalculatable{
      * +=, -= 부분
      * */
     operator fun Vector3.plusAssign(b: Vector3) {
-        geometryEngine.add(this, this, b)
+        geometryModule.add(this, this, b)
     }
 
     operator fun Vector3.minusAssign(b: Vector3) {
-        geometryEngine.sub(this, this, b)
+        geometryModule.sub(this, this, b)
     }
 
-    fun vec3(): Vector3 = geometryEngine.vec3()
+    fun vec3(): Vector3 = geometryModule.vec3()
 
-    fun vec3(x : Double, y : Double, z : Double): Vector3 = geometryEngine.vec3(x, y, z)
+    fun vec3(x : Double, y : Double, z : Double): Vector3 = geometryModule.vec3(x, y, z)
 
 }

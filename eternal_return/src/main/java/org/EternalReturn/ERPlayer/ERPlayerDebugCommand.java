@@ -2,6 +2,8 @@ package org.EternalReturn.ERPlayer;
 
 import org.EternalReturn.ERAnimal.*;
 import org.EternalReturn.ERCharacter.Character.hyunwoo.Character_Hyunwoo;
+import org.EternalReturn.ERCharacter.Character.jackie.Character_Jackie;
+import org.EternalReturn.ERCharacter.Character.yuki.Character_Yuki;
 import org.EternalReturn.ERCharacter.ERCharacter;
 import org.EternalReturn.EREntity.ERDummy;
 import org.EternalReturn.System.PluginInstance;
@@ -78,7 +80,7 @@ public class ERPlayerDebugCommand implements CommandExecutor {
             return true;
         }
         else if(args.length == 4 && args[0].equalsIgnoreCase("vector")){
-            erPlayer.getMotionManager().updatePlayerMotion(
+            erPlayer.getMotionManager().updateEntityMotion(
                     Double.parseDouble(args[1]),
                     Double.parseDouble(args[2]),
                     Double.parseDouble(args[3])
@@ -93,7 +95,7 @@ public class ERPlayerDebugCommand implements CommandExecutor {
 
         else if(args.length == 1 && args[0].equalsIgnoreCase("ch")){
 
-            ERCharacter character = new Character_Hyunwoo(erPlayer);
+            ERCharacter character = new Character_Yuki(erPlayer);
 
             erPlayer.setCharacter(character);
             PluginInstance.getEREngine().registerBukkitActor(p, character);

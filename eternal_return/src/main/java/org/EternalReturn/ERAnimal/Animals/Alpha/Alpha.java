@@ -2,11 +2,7 @@ package org.EternalReturn.ERAnimal.Animals.Alpha;
 
 import org.EternalReturn.ERAnimal.ERAJEntity;
 import org.EternalReturn.ERAnimal.ERAnimal;
-import org.EternalReturn.ERAnimal.GlobalMonobehav.Battle;
-import org.EternalReturn.ERAnimal.GlobalMonobehav.Ready;
 import org.EternalReturn.System.PluginInstance;
-import org.EternalReturn.Util.DPEngine.Geometry.Cylinder;
-import org.EternalReturn.Util.DPEngine.Geometry.InfStraightLine;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,7 +11,7 @@ public class Alpha extends ERAnimal {
     public Alpha(@NotNull Location location) {
         super(
                 new ERAJEntity("animal_alpha", location),
-                PluginInstance.getEREngine().createCylinder(PluginInstance.getEREngine().createInfStrightLine(0,1,0, location.getX(), location.getY(), location.getZ()),3,1)
+                PluginInstance.getEREngine().createCylinder(location,3,2)
         );
 
         this.ajEntity.registerAnimation("ready",2.0d);

@@ -5,8 +5,9 @@ import org.EternalReturn.ERCharacter.Event.CharacterStunEvent;
 import org.EternalReturn.ERCharacter.Event.CharacterSwapHandEvent;
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour;
 import org.EternalReturn.ERPlayer.ERPlayer;
+import org.EternalReturn.System.EREngine;
 import org.EternalReturn.System.SystemManager;
-import org.EternalReturn.Util.DPEngine.Behaviour.MonobehaviourEvent;
+import org.EternalReturn.Util.dpengine.behaviour.MonobehaviourEvent;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -15,10 +16,10 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class WallSlamDash extends ERCharacterMonobehaviour<CharacterSwapHandEvent> {
@@ -32,7 +33,7 @@ public class WallSlamDash extends ERCharacterMonobehaviour<CharacterSwapHandEven
     private int stunTimer = 0;
 
     @Override
-    public void start(CharacterSwapHandEvent event) {
+    public void start(@NotNull CharacterSwapHandEvent event) {
         Player player = getPlayer();
         if (!player.isOnGround() || player.getLocation().add(0, -0.5, 0).getBlock().getType().isAir()) {
             player.sendMessage("§c[현우] §f지상에서만 사용할 수 있습니다.");
@@ -72,7 +73,9 @@ public class WallSlamDash extends ERCharacterMonobehaviour<CharacterSwapHandEven
 
                     // [해결] 제공해주신 생성자 구조 (ERPlayer, Entity)에 정확히 맞춘 코드입니다.
                     // getERCharacter()를 통해 시스템에 이벤트를 제출합니다.
-                    getERCharacter().submitEvent(new CharacterAttackEvent(getERPlayer(), victim));
+                    EREngine engine = (EREngine)getDpEngine();
+
+                    getERCharacter().submitEvent(new CharacterAttackEvent(getERPlayer().getCharacter(), engine.getEREntity(victim)));
                     damage(getPlayer(), victim, 2.0);
                 }
                 // 적을 플레이어 속도에 맞춰 밀어냄
@@ -118,7 +121,8 @@ public class WallSlamDash extends ERCharacterMonobehaviour<CharacterSwapHandEven
     private void handleWallSlamSuccess(Player player) {
         for (LivingEntity victim : hitEntities.keySet()) {
             // 1. 도그파이트 패시브를 위한 공격 이벤트
-            getERCharacter().submitEvent(new CharacterAttackEvent(getERPlayer(), victim));
+            EREngine engine = (EREngine)getDpEngine();
+            getERCharacter().submitEvent(new CharacterAttackEvent(getERPlayer().getCharacter(), engine.getEREntity(victim)));
             damage(getPlayer(), victim, 10.0);
 
             // 2. [변경] 상대방에게 스턴 이벤트 전달
