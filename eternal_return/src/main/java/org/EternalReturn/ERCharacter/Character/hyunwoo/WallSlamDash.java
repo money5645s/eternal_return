@@ -66,13 +66,10 @@ public class WallSlamDash extends ERCharacterMonobehaviour<CharacterSwapHandEven
                 }
             }
 
-            // 3. 피해 및 패시브(도그파이트) 연동
             for (LivingEntity victim : hitEntities.keySet()) {
                 if (hitEntities.get(victim) == 0) {
                     hitEntities.put(victim, 1);
 
-                    // [해결] 제공해주신 생성자 구조 (ERPlayer, Entity)에 정확히 맞춘 코드입니다.
-                    // getERCharacter()를 통해 시스템에 이벤트를 제출합니다.
                     EREngine engine = (EREngine)getDpEngine();
 
                     getERCharacter().submitEvent(new CharacterAttackEvent(getERPlayer().getCharacter(), engine.getEREntity(victim)));

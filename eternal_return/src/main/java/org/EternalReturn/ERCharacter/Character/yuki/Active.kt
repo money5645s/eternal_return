@@ -27,7 +27,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         this.isActive = true
         (actor as Character_Yuki).isActiveSkill = true;
 
-        player.sendMessage("§f[유키] §b머리치기!: §f다음 공격에 슬로우를 부여합니다!")
+        player.sendMessage("§f[유키] §b머리치기!: §f다음 공격에 기절을 부여합니다!")
         player.playSound(player.location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
     }
 

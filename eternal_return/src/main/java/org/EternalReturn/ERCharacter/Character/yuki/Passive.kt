@@ -2,6 +2,8 @@ package org.EternalReturn.ERCharacter.Character.yuki
 
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour
 import org.EternalReturn.ERCharacter.Event.CharacterAttackEvent
+import org.EternalReturn.ERCharacter.Event.CharacterStunEvent
+import org.EternalReturn.EREntity.Event.EREntityStunEvent
 import org.EternalReturn.Util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Location
 import org.bukkit.Particle
@@ -55,9 +57,7 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
 
             if (yuki.isActiveSkill) {
                 player.sendMessage("§f[유키] 머리!")
-                stunnedVictims.clear()
-                stunnedVictims[victimEntity] = victimEntity.location
-                isActiveAttack = true
+                event.victim.submitEvent(EREntityStunEvent(2 * 20)) //2초
                 yuki.isActiveSkill = false
             }
 
@@ -74,29 +74,6 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
         val yuki = actor as Character_Yuki
-        if (isActiveAttack && stunTimer < 40) {
-            // 40틱 동안 유지
-            stunTimer++
-            getPlayer().sendMessage("§f[유키] 스턴")
-
-            for (entry in stunnedVictims.entries) {
-                val victim: LivingEntity = entry.key!!
-                val loc: Location = entry.value!!
-
-                if (victim.isValid()) {
-                    // 위치 고정 및 파티클 생성
-                    victim.teleport(loc)
-                    victim.getWorld()
-                        .spawnParticle(Particle.ELECTRIC_SPARK, loc.clone().add(0.0, 1.0, 0.0), 3, 0.3, 0.3, 0.3, 0.05)
-                }
-            }
-        } else if (stunTimer >= 40) {
-            // [핵심] 40틱이 지나 기절이 끝나면 상태를 초기화하여 재사용 가능하게 함
-            isActiveAttack = false
-            stunTimer = 0
-            stunnedVictims.clear()
-        }
-
         // 4. 재봉 시간 체크
         if (yuki.isReloading) {
             if (System.currentTimeMillis() - reloadStartTime >= reloadDuration) {
@@ -105,6 +82,8 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
                 getPlayer().sendMessage("§f[유키] §a재봉 완료! §f단추가 다시 채워졌습니다.")
                 getPlayer().playSound(getPlayer().location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1.5f)
             }
+            return;
         }
+        stopMonobehav();
     }
 }

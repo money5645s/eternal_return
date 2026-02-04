@@ -4,6 +4,7 @@ import org.EternalReturn.EREntity.EREntityMonobehaviour;
 import org.EternalReturn.EREntity.Event.EREntityStunEvent;
 import org.EternalReturn.Util.dpengine.behaviour.MonobehaviourEvent;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -26,6 +27,7 @@ public class Stun extends EREntityMonobehaviour<EREntityStunEvent> {
     public void update(@NotNull Collection<MonobehaviourEvent> event) {
         if(isNotEnd(startStunMillies,duration)){
             getEntity().teleport(stunLocation);
+            stunLocation.getWorld().spawnParticle(Particle.ELECTRIC_SPARK, stunLocation.clone().add(0.0, 1.0, 0.0), 3, 0.3, 0.3, 0.3, 0.05);
             return;
         }
         stopMonobehav();
