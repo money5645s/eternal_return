@@ -2,9 +2,11 @@ package org.EternalReturn.ERCharacter.Character.fiora
 
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour
 import org.EternalReturn.ERCharacter.Event.CharacterAttackEvent
+import org.EternalReturn.EREntity.Event.ERToucheCountEvent
 import org.EternalReturn.Util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Particle
 import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
 
 class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
     private var punchTimeMillis: Long = 0
@@ -21,9 +23,7 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
             return
         }
         punchTimeMillis = System.currentTimeMillis() + 10 * 50
-
-        val attacker = getPlayer()
-        Touche.applyStack(getPlayer(), victim) // 평타 시 스택 적용
+        event.victim.submitEvent(ERToucheCountEvent(this.entity as Player))
     }
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {

@@ -46,7 +46,7 @@ abstract class MonobehaviourActor protected constructor() {
      * 외부에서 해당 객체에게 이벤트를 제출하기 위한 창구
      */
     fun submitEvent(event: MonobehaviourEvent) {
-        //System.out.println("Event submitted " + event.getClass() + " | Length = " + submittedEvent.size());
+        println("Event submitted " + event.javaClass + " | Length = " + submittedEvent.size);
         submittedEvent.add(event)
         monobehaviourModule.submitActorWhoTriggeredEvent(this)
     }

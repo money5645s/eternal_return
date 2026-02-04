@@ -2,6 +2,9 @@ package org.EternalReturn.ERCharacter.Character.fiora
 
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour
 import org.EternalReturn.ERCharacter.Event.CharacterSwapHandEvent
+import org.EternalReturn.EREntity.Event.ERToucheCountEvent
+import org.EternalReturn.EREntity.GlobalMonobehav.ToucheCount
+import org.EternalReturn.System.PluginInstance
 import org.EternalReturn.Util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Particle
 import org.bukkit.Sound
@@ -48,9 +51,9 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                     entity.noDamageTicks = 0
                     entity.damage(damage, player)
 
-                    if (forceStack) {
-                        Touche.applyStack(player, entity)
-                    }
+                    val victim = PluginInstance.getEREngine().getEREntity(entity);
+                    if(victim == null)return;
+                    victim.submitEvent(ERToucheCountEvent(player));
                 }
             }
         }

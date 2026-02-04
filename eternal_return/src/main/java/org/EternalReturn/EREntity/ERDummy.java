@@ -3,6 +3,7 @@ package org.EternalReturn.EREntity;
 import org.EternalReturn.EREntity.GlobalMonobehav.InfinityHealing;
 import org.EternalReturn.System.PluginInstance;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 
 public class ERDummy extends EREntity{
 
@@ -14,6 +15,8 @@ public class ERDummy extends EREntity{
                         entity.getLocation().getZ()),
                 1,3));
         this.setEntity(entity);
+        ((LivingEntity)entity).setAI(false);
+
 //        registerMonobehaviour(new InfinityHealing());
     }
 

@@ -1,6 +1,7 @@
 package org.EternalReturn.EREntity
 
 import org.EternalReturn.EREntity.GlobalMonobehav.Stun
+import org.EternalReturn.EREntity.GlobalMonobehav.ToucheCount
 import org.EternalReturn.System.PluginInstance
 import org.EternalReturn.Util.dpengine.behaviour.MonobehaviourActor
 import org.EternalReturn.Util.dpengine.geometry.Collider
@@ -51,6 +52,7 @@ abstract class EREntity( // extends MonobehaviourActor()
 
         //Monobehaviour 등록
         this.registerMonobehaviour(Stun() as Monobehaviour<out MonobehaviourEvent>)
+        this.registerMonobehaviour(ToucheCount() as Monobehaviour<out MonobehaviourEvent>)
     }
 
     /**

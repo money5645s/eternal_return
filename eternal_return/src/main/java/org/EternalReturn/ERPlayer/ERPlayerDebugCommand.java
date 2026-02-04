@@ -2,9 +2,6 @@ package org.EternalReturn.ERPlayer;
 
 import org.EternalReturn.ERAnimal.*;
 import org.EternalReturn.ERCharacter.Character.fiora.Character_Fiora;
-import org.EternalReturn.ERCharacter.Character.hyunwoo.Character_Hyunwoo;
-import org.EternalReturn.ERCharacter.Character.jackie.Character_Jackie;
-import org.EternalReturn.ERCharacter.Character.yuki.Character_Yuki;
 import org.EternalReturn.ERCharacter.ERCharacter;
 import org.EternalReturn.EREntity.ERDummy;
 import org.EternalReturn.System.PluginInstance;

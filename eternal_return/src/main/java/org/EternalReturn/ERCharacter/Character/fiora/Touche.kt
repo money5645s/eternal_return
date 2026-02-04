@@ -32,7 +32,7 @@ object Touche {
 
             player.sendMessage("§f[피오라] §b§l팡뜨! §f적중")
             player.playSound(player.location, Sound.ENTITY_GENERIC_EXPLODE, 0.5f, 1.8f)
-            victim.world.spawnParticle(Particle.FLASH, victim.location.add(0.0, 1.0, 0.0), 1)
+            //victim.world.spawnParticle(Particle.FLASH, victim.location.add(0.0, 1.0, 0.0), 1)
         }
     }
 
