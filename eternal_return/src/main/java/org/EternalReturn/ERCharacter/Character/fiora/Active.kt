@@ -9,6 +9,8 @@ import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var skillTimer = 0
@@ -16,6 +18,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     override fun start(event: CharacterSwapHandEvent) {
         skillTimer = 0
         getPlayer().sendMessage("§f[피오라] §b아따끄 꽁뽀제!")
+        getPlayer().addPotionEffect(PotionEffect(PotionEffectType.RESISTANCE, 14, 2, false, false))
     }
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
@@ -49,6 +52,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
                     entity.noDamageTicks = 0
                     entity.damage(damage, player)
+                    entity.addPotionEffect(PotionEffect(PotionEffectType.WEAKNESS, 40, 100, false, true))
 
                     val victim = PluginInstance.getEREngine().getEREntity(entity);
                     if(victim == null)return;

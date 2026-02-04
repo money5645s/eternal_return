@@ -5,7 +5,7 @@ import org.EternalReturn.ERCharacter.Character.fiora.event.ToucheEffectStartEven
 import org.EternalReturn.EREntity.EREntityMonobehaviour
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.entity.LivingEntity
-import org.jetbrains.annotations.NotNull
+import org.bukkit.attribute.Attribute
 
 /**
  * 이거는 EREntity에게 적용되는 Monobehaviour입니다.
@@ -24,8 +24,13 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
 
         println("CurrentCount : $count ");
         if(count >= 4) {
-            event.player.sendMessage("§f[피오라] §b§l팡뜨! §f적중");
+            event.player.sendMessage("§f[피오라] §b§l뚜셰! §f적중");
             victim.damage(20.0, event.player);
+            val healAmount = 3.0
+            val maxHealth = event.player.getAttribute(Attribute.MAX_HEALTH)?.value ?: 20.0
+            val finalHealth = Math.min(event.player.health + healAmount, maxHealth)
+            event.player.health = finalHealth
+
             count = 0;
             this.getEREntity().submitEvent(ToucheEffectStartEvent(victim.location, durationTicks, count));
             stopMonobehav();
