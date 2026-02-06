@@ -20,7 +20,7 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
         if (System.currentTimeMillis() < punchTimeMillis) {
             return
         }
-        
+
         punchTimeMillis = System.currentTimeMillis() + 10 * 50
 
         event.victim.submitEvent(ERToucheCountEvent(this.getEREntity().entity as Player))

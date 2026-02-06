@@ -14,9 +14,6 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
     private var reloadStartTime: Long = 0
     private val reloadDuration: Long = 2000 // 2초
     private var punchTimeMillis: Long = 0
-    private val stunnedVictims: MutableMap<LivingEntity?, Location?> = HashMap<LivingEntity?, Location?>()
-    private var stunTimer = 0
-    private var isActiveAttack = false
 
     override fun start(event: CharacterAttackEvent) {
         // 자바 클래스인 Character_Yuki로 형변환
@@ -55,7 +52,7 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
 
             if (yuki.isActiveSkill) {
                 player.sendMessage("§f[유키] 머리!")
-                event.victim.submitEvent(EREntityStunEvent(2 * 20)) //2초
+                event.victim.submitEvent(EREntityStunEvent(1 * 20)) //2초
                 yuki.isActiveSkill = false
             }
 

@@ -47,6 +47,10 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
         for (entity in player.getNearbyEntities(2.5, 2.5, 2.5)) {
             if (entity is LivingEntity && entity != player) {
+
+                val victim = PluginInstance.getEREngine().getEREntity(entity)
+                if (victim == null) continue
+
                 val toTarget = entity.location.toVector().subtract(player.location.toVector()).normalize()
                 if (player.location.direction.dot(toTarget) > 0.7) {
 

@@ -18,7 +18,6 @@ public class Character_Yuki extends ERCharacter {
     public int buttonCount = 4;
     public boolean isReloading = false;
     public boolean isActiveSkill = false;
-    public boolean isActiveAttack = false;
     public Map<LivingEntity, Location> stunnedVictims = new HashMap<>();
 
     public Character_Yuki(ERPlayer player) {

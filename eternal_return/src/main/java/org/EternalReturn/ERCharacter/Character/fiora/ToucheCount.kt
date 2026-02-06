@@ -4,6 +4,7 @@ import org.EternalReturn.ERCharacter.Character.fiora.event.ERToucheCountEvent
 import org.EternalReturn.ERCharacter.Character.fiora.event.ToucheEffectStartEvent
 import org.EternalReturn.EREntity.EREntityMonobehaviour
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.attribute.Attribute
 
@@ -25,6 +26,8 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
         println("CurrentCount : $count ");
         if(count >= 4) {
             event.player.sendMessage("§f[피오라] §b§l뚜셰! §f적중");
+            event.player.playSound(event.player.location, Sound.ITEM_MACE_SMASH_GROUND_HEAVY, 1f, 1.5f)
+
             victim.damage(20.0, event.player);
             val healAmount = 3.0
             val maxHealth = event.player.getAttribute(Attribute.MAX_HEALTH)?.value ?: 20.0
@@ -42,12 +45,14 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
             startTime = System.currentTimeMillis();
             event.player.sendMessage("카운트 : $count");
             this.getEREntity().submitEvent(ToucheEffectStartEvent(victim.location, durationTicks, count));
+            event.player.playSound(event.player.location, Sound.BLOCK_NOTE_BLOCK_CHIME, 1f, 1f + (count * 0.2f))
             stopMonobehav();
             return;
         }
         else{
             count = 1;
             event.player.sendMessage("타임아웃 ! 카운트 : $count");
+            event.player.playSound(event.player.location, Sound.BLOCK_NOTE_BLOCK_CHIME, 1f, 1f + (count * 0.2f))
             startTime = System.currentTimeMillis();
             this.getEREntity().submitEvent(ToucheEffectStartEvent(victim.location, durationTicks, count));
             stopMonobehav();

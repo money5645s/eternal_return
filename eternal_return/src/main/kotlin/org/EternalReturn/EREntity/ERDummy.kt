@@ -17,7 +17,7 @@ class ERDummy(entity: Entity) : EREntity(
 ) {
     init {
         this.entity = entity
-        (entity as LivingEntity).setAI(false)
+//        (entity as LivingEntity).setAI(false)
 
         //        registerMonobehaviour(new InfinityHealing());
     }

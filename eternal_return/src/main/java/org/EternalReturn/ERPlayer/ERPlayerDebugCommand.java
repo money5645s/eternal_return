@@ -2,7 +2,10 @@ package org.EternalReturn.ERPlayer;
 
 import org.EternalReturn.ERAnimal.*;
 import org.EternalReturn.ERCharacter.Character.fiora.Character_Fiora;
+import org.EternalReturn.ERCharacter.Character.hart.Character_Hart;
+import org.EternalReturn.ERCharacter.Character.isaac.Character_Isaac;
 import org.EternalReturn.ERCharacter.Character.jackie.Character_Jackie;
+import org.EternalReturn.ERCharacter.Character.nathapon.Character_Nathapon;
 import org.EternalReturn.ERCharacter.ERCharacter;
 import org.EternalReturn.EREntity.ERDummy;
 import org.EternalReturn.System.PluginInstance;
@@ -87,7 +90,7 @@ public class ERPlayerDebugCommand implements CommandExecutor {
 
         else if(args.length == 1 && args[0].equalsIgnoreCase("ch")){
 
-            ERCharacter character = new Character_Fiora(erPlayer);
+            ERCharacter character = new Character_Isaac(erPlayer);
 
             erPlayer.setCharacter(character);
             PluginInstance.getEREngine().registerBukkitActor(p, character);

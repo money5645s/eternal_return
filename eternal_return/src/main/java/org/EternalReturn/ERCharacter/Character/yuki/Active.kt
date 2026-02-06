@@ -31,7 +31,6 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         player.playSound(player.location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
     }
 
-    // 사진 3번의 오류를 해결하기 위해 반드시 포함되어야 하는 메서드입니다.
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
         if (isActive) {
             val yuki = actor as Character_Yuki
