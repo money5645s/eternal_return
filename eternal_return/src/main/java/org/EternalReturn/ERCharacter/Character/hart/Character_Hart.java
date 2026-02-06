@@ -5,8 +5,6 @@ import org.EternalReturn.ERPlayer.ERPlayer;
 
 public class Character_Hart extends ERCharacter {
 
-    // 플레이어별 공격 횟수를 저장하는 맵
-
     public Character_Hart(ERPlayer player) {
         super(player);
         this.cooldownSeconds = 8;

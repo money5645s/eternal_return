@@ -1,10 +1,8 @@
 package org.EternalReturn.ERCharacter.Character.hart
 
-import org.EternalReturn.ERCharacter.Character.fiora.event.ERToucheCountEvent
 import org.EternalReturn.ERCharacter.Character.hart.event.PassiveTimerEvent
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour
 import org.EternalReturn.ERCharacter.Event.CharacterAttackEvent
-import org.EternalReturn.System.PluginInstance
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
