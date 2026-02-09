@@ -51,8 +51,8 @@
       <list>
         <option value="Exception" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Kotlin Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -123,6 +123,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.EternalReturn.ERCharacter" />
       <recent name="org.EternalReturn.System" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -274,7 +275,8 @@
       <updated>1741262840716</updated>
       <workItem from="1770199932211" duration="1911000" />
       <workItem from="1770272650920" duration="22002000" />
-      <workItem from="1770352982889" duration="20901000" />
+      <workItem from="1770352982889" duration="21698000" />
+      <workItem from="1770625576864" duration="20268000" />
     </task>
     <servers />
   </component>

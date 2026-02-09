@@ -7,7 +7,8 @@ public class Character_Hart extends ERCharacter {
 
     public Character_Hart(ERPlayer player) {
         super(player);
-        this.cooldownSeconds = 8;
+        this.ActiveCooldownSeconds = 8;
+        this.PassiveCooldownSeconds = 8;
         registerMonobehaviour(new Passive());
         registerMonobehaviour(new Active());
     }

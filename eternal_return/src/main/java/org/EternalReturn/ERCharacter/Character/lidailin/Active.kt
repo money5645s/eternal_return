@@ -14,6 +14,15 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var isDrinking = false // [추가] 지금 술을 목구멍으로 넘기는 중인가?
 
     override fun start(event: CharacterSwapHandEvent) {
+        val liDailin = actor as Character_LiDailin
+        val cd = liDailin.cooldown
+
+        if (cd.isWaiting("Active")) {
+            val remain = String.format("%.1f", cd.getLeft("Active"))
+            getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
+            return
+        }
+
         startDrinking()
     }
 

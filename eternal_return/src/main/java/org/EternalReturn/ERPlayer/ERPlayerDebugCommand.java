@@ -1,12 +1,15 @@
 package org.EternalReturn.ERPlayer;
 
 import org.EternalReturn.ERAnimal.*;
+import org.EternalReturn.ERCharacter.Character.adriana.Character_Adriana;
 import org.EternalReturn.ERCharacter.Character.fiora.Character_Fiora;
 import org.EternalReturn.ERCharacter.Character.hart.Character_Hart;
+import org.EternalReturn.ERCharacter.Character.hyunwoo.Character_Hyunwoo;
 import org.EternalReturn.ERCharacter.Character.isaac.Character_Isaac;
 import org.EternalReturn.ERCharacter.Character.jackie.Character_Jackie;
 import org.EternalReturn.ERCharacter.Character.lidailin.Character_LiDailin;
 import org.EternalReturn.ERCharacter.Character.nathapon.Character_Nathapon;
+import org.EternalReturn.ERCharacter.Character.yuki.Character_Yuki;
 import org.EternalReturn.ERCharacter.ERCharacter;
 import org.EternalReturn.EREntity.ERDummy;
 import org.EternalReturn.System.PluginInstance;
@@ -89,13 +92,55 @@ public class ERPlayerDebugCommand implements CommandExecutor {
             p.sendMessage(data.getScore() + "");
         }
 
-        else if(args.length == 1 && args[0].equalsIgnoreCase("ch")){
+        else if (args[0].equalsIgnoreCase("ch")) {
+            if (args.length < 2) {
+                p.sendMessage("§c사용법: /er ch [캐릭터이름]");
+                return true;
+            }
 
-            ERCharacter character = new Character_LiDailin(erPlayer);
+            String charName = args[1].toLowerCase();
+            ERCharacter character = null;
 
-            erPlayer.setCharacter(character);
-            PluginInstance.getEREngine().registerBukkitActor(p, character);
-            erPlayer.sendMessage(erPlayer.getCharacter().getName());
+            // 입력된 이름에 따라 캐릭터 인스턴스 생성
+            switch (charName) {
+                case "lidailin":
+                    character = new Character_LiDailin(erPlayer);
+                    break;
+                case "fiora":
+                    character = new Character_Fiora(erPlayer);
+                    break;
+                case "hart":
+                    character = new Character_Hart(erPlayer);
+                    break;
+                case "isaac":
+                    character = new Character_Isaac(erPlayer);
+                    break;
+                case "jackie":
+                    character = new Character_Jackie(erPlayer);
+                    break;
+                case "nathapon":
+                    character = new Character_Nathapon(erPlayer);
+                    break;
+                case "adriana":
+                    character = new Character_Adriana(erPlayer);
+                    break;
+                case "hyunwoo":
+                    character = new Character_Hyunwoo(erPlayer);
+                    break;
+                case "yuki":
+                    character = new Character_Yuki(erPlayer);
+                    break;
+                default:
+                    p.sendMessage("§c알 수 없는 캐릭터입니다: " + charName);
+                    return true;
+            }
+
+            if (character != null) {
+                erPlayer.setCharacter(character);
+                PluginInstance.getEREngine().registerBukkitActor(p, character);
+                p.sendMessage("§a캐릭터가 변경되었습니다: §f" + character.getName());
+            }
+            return true;
         }
 
         else if(args.length == 1 && args[0].equalsIgnoreCase("dummy")){

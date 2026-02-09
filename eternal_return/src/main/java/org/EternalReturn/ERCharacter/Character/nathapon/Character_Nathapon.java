@@ -9,7 +9,8 @@ public class Character_Nathapon extends ERCharacter {
 
     public Character_Nathapon(ERPlayer player) {
         super(player);
-        this.cooldownSeconds = 8;
+        this.ActiveCooldownSeconds = 8;
+        this.PassiveCooldownSeconds = 8;
         registerMonobehaviour(new Passive());
         registerMonobehaviour(new Active());
     }

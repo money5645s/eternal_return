@@ -22,7 +22,8 @@ public class Character_Yuki extends ERCharacter {
 
     public Character_Yuki(ERPlayer player) {
         super(player);
-        this.cooldownSeconds = 8;
+        this.ActiveCooldownSeconds = 3;
+        this.PassiveCooldownSeconds = 8;
         registerMonobehaviour(new Active());
         registerMonobehaviour(new Passive());
     }

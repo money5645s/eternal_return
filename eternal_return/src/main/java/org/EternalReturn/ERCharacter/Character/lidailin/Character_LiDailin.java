@@ -10,7 +10,8 @@ public class Character_LiDailin extends ERCharacter {
 
     public Character_LiDailin(ERPlayer player) {
         super(player);
-        this.cooldownSeconds = 8;
+        this.ActiveCooldownSeconds = 8;
+        this.PassiveCooldownSeconds = 8;
         registerMonobehaviour(new Passive());
         registerMonobehaviour(new Active());
     }
