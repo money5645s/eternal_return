@@ -23,21 +23,24 @@ import java.util.*
  *
  */
 abstract class MonobehaviourActor protected constructor() {
+
+    open var referenceCount = 1;
+
     /**
      * (MonobehaviourEvent, Monobehaviour)의 키 쌍
      */
-    protected var monobehaviourMap: HashMap<Class<out MonobehaviourEvent>, Monobehaviour<out MonobehaviourEvent>> =
+    open var monobehaviourMap: HashMap<Class<out MonobehaviourEvent>, Monobehaviour<out MonobehaviourEvent>> =
         HashMap<Class<out MonobehaviourEvent>, Monobehaviour<out MonobehaviourEvent>>()
 
     /**
      * 제출된 엔티티를 담는 큐 ( LinkedList )
      */
-    protected var submittedEvent: ArrayDeque<MonobehaviourEvent> = ArrayDeque<MonobehaviourEvent>()
+    open var submittedEvent: ArrayDeque<MonobehaviourEvent> = ArrayDeque<MonobehaviourEvent>()
 
     /**
      * update(MonobehaviourEvent)를 호출할 Monobehaviour들을 스케줄링하기 위해 유지하는 링크드 리스트
      */
-    protected var runningBehaviours: ArrayDeque<Monobehaviour<out MonobehaviourEvent>> = ArrayDeque<Monobehaviour<out MonobehaviourEvent>>()
+    open var runningBehaviours: ArrayDeque<Monobehaviour<out MonobehaviourEvent>> = ArrayDeque<Monobehaviour<out MonobehaviourEvent>>()
 
     lateinit var monobehaviourModule : MonobehaviourModule
 
@@ -121,4 +124,7 @@ abstract class MonobehaviourActor protected constructor() {
         this.monobehaviourModule = module
         //System.out.println("DPEngine set");
     }
+
+    abstract fun update();
+
 }

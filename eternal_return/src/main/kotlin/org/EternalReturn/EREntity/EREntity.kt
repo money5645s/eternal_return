@@ -1,20 +1,21 @@
 package org.EternalReturn.EREntity
 
-import org.EternalReturn.ERCharacter.Character.isaac.PassiveCount
-import org.EternalReturn.EREntity.GlobalMonobehav.Stun
 import org.EternalReturn.ERCharacter.Character.fiora.ToucheCount
 import org.EternalReturn.ERCharacter.Character.fiora.ToucheEffect
 import org.EternalReturn.ERCharacter.Character.hart.Passive_Timer
+import org.EternalReturn.ERCharacter.Character.isaac.PassiveCount
 import org.EternalReturn.ERCharacter.Character.lidailin.LiDailinPassiveTimer
+import org.EternalReturn.EREntity.GlobalMonobehav.Stun
 import org.EternalReturn.System.PluginInstance
-import org.EternalReturn.util.dpengine.behaviour.MonobehaviourActor
-import org.EternalReturn.util.dpengine.geometry.Collider
-import org.EternalReturn.util.dpengine.geometry.GeometryModule
-import org.EternalReturn.util.dpengine.geometry.Vector3
 import org.EternalReturn.util.dpengine.behaviour.Monobehaviour
+import org.EternalReturn.util.dpengine.behaviour.MonobehaviourActor
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.EternalReturn.util.dpengine.command.SetSpigotEntityPosition
 import org.EternalReturn.util.dpengine.command.SetSpigotEntityVelocity
+import org.EternalReturn.util.dpengine.geometry.Collider
+import org.EternalReturn.util.dpengine.geometry.GeometryModule
+import org.EternalReturn.util.dpengine.geometry.Vector3
+import org.bukkit.Location
 import org.bukkit.entity.Entity
 import kotlin.math.cos
 import kotlin.math.sin
@@ -92,5 +93,12 @@ abstract class EREntity( // extends MonobehaviourActor()
         this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity!!, x, y, z))
     }
 
+    override fun update(){
+        if (entity == null)return;
+        val loc: Location = entity!!.location
+        val collider: Collider = collider
+        collider.setPosition(loc.x, loc.y, loc.z)
+        collider.setDirection(0.0, loc.pitch.toDouble(), 0.0)
+    }
 
 }

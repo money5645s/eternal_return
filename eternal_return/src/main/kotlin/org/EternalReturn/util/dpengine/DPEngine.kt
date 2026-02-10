@@ -1,5 +1,6 @@
 package org.EternalReturn.util.dpengine
 
+import org.EternalReturn.util.dpengine.behaviour.MonobehaviourActor
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourModule
 import org.EternalReturn.util.dpengine.command.Command
 import org.EternalReturn.util.dpengine.geometry.Cylinder
@@ -71,6 +72,7 @@ abstract class DPEngine(bufferSize: Int = 512) : Runnable {
     override fun run() {
         monobehaviourModule.consumeEvents();
         monobehaviourModule.updateMonobehaviours();
+        monobehaviourModule.monobehaviourActorList.updateQueue();
         update();
         flushCommandQueue();
     }

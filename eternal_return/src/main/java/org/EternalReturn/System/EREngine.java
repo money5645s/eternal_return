@@ -13,30 +13,13 @@ import java.util.HashMap;
  * Bukkit 객체들과 유연하게 상호작용하기위한 엔진
  * */
 public class EREngine extends DPEngine {
-
+    
+    // 이거 문제 있을 수도
+    //
     private final HashMap<Entity, EREntity> erEntityMap = new HashMap<>();
 
     @Override
     public void update(){
-
-        //for(ERPlayer erPlayer : SystemManager.getERPlayerHashMap().values()){
-        //    Player p = erPlayer.getPlayer();
-        //    Set<String> tags = p.getScoreboardTags();
-        //
-        //    erPlayer.getSkill().update();
-        //    erPlayer.getMotionManager().update(tags);
-        //}
-
-        for(EREntity erEntity : erEntityMap.values()){
-            if(erEntity.getEntity() == null)continue;
-
-            Location loc = erEntity.getEntity().getLocation();
-            Collider collider = erEntity.getCollider();
-            collider.setPosition(loc.getX(), loc.getY(), loc.getZ());
-            collider.setDirection(0.0, loc.getPitch(), 0.0);
-
-        }
-
         ERAnimalManager.update(32);
     }
 

@@ -1,21 +1,23 @@
 package org.EternalReturn.util.dpengine.behaviour
 
 import org.EternalReturn.util.dpengine.DPEngine
+import org.EternalReturn.util.dpengine.datastructure.UpdateQueue
+
 
 class MonobehaviourModule(val dpEngine: DPEngine) {
 
-    private val monobehaviourActorList = ArrayList<MonobehaviourActor>();
+    internal val monobehaviourActorList = UpdateQueue<MonobehaviourActor>();
 
     /**
      * 이벤트가 dispatch된 순서대로 MonobehaviourActor을 추가함.
      * 해당 큐는 run() 내에서 앞에서부터 순서대로 소비됨.
      * */
-    private val eventTriggeredActors = ArrayDeque<MonobehaviourActor>();
+    internal val eventTriggeredActors = ArrayDeque<MonobehaviourActor>();
 
     /**
      * Running 중인 Monobehaviour을 소유한 MonobehaviourActor를 유지함.
      * */
-    private var runningActors = ArrayDeque<MonobehaviourActor>();
+    internal var runningActors = ArrayDeque<MonobehaviourActor>();
 
     /**
      * 이벤트를 dispatch하고, Monobehaviour들을 업데이트함. <br>
@@ -49,7 +51,7 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
     }
 
     fun getMonobehavActors() : MutableList<MonobehaviourActor>{
-        return monobehaviourActorList;
+        return monobehaviourActorList.curQueue;
     }
 
     fun submitActorWhoTriggeredEvent(actor : MonobehaviourActor){
@@ -58,8 +60,8 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
 
     fun registerMonobehaviourActor(actor : MonobehaviourActor){
         //println("Registering : " + actor.javaClass)
-        monobehaviourActorList.add(actor);
-        actor.setModule(this);
+        actor.monobehaviourModule = this;
+        monobehaviourActorList.curQueue.add(actor);
     }
 
 }

@@ -77,6 +77,19 @@ open class GeometryCalculatable{
         return out
     }
 
+    fun x(vec: Vector3): Double{
+        return geometryModule.x(vec)
+    }
+
+    fun y(vec: Vector3): Double{
+        return geometryModule.y(vec)
+    }
+
+    fun z(vec: Vector3): Double{
+        return geometryModule.z(vec)
+    }
+
+
     /**
      * +=, -= 부분
      * */
