@@ -1,5 +1,7 @@
 package org.EternalReturn.ERCharacter.Character.adriana
 
+import org.EternalReturn.ERCharacter.Character.adriana.monobehavs.BurningGround
+import org.EternalReturn.ERCharacter.Character.adriana.monobehavs.LitFireOnAttack
 import org.EternalReturn.ERCharacter.ERCharacter
 import org.EternalReturn.ERPlayer.ERPlayer
 

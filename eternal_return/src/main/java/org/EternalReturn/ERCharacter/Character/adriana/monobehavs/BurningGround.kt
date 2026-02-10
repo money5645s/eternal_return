@@ -1,15 +1,12 @@
-package org.EternalReturn.ERCharacter.Character.adriana
+package org.EternalReturn.ERCharacter.Character.adriana.monobehavs
 
+import org.EternalReturn.ERCharacter.Character.adriana.Character_Adriana
 import org.EternalReturn.ERCharacter.Character.adriana.entities.BurningGroundVirtualEntity
 import org.EternalReturn.ERCharacter.Character.adriana.events.LetsBurn
-import org.EternalReturn.ERCharacter.Character.adriana.monobehavs.BurningGroundMonobehav
-import org.EternalReturn.ERCharacter.ERCharacter
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour
 import org.EternalReturn.ERCharacter.Event.CharacterSwapHandEvent
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Location
-import org.bukkit.entity.Player
-import java.util.*
 
 class BurningGround : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 

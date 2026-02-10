@@ -1,4 +1,4 @@
-package org.EternalReturn.ERCharacter.Character.adriana
+package org.EternalReturn.ERCharacter.Character.adriana.monobehavs
 
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour
 import org.EternalReturn.ERCharacter.Event.CharacterAttackEvent
