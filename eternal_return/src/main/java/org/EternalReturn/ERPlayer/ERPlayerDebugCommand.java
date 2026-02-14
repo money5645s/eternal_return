@@ -1,15 +1,15 @@
 package org.EternalReturn.ERPlayer;
 
 import org.EternalReturn.ERAnimal.*;
-import org.EternalReturn.ERCharacter.Character.adriana.Character_Adriana;
-import org.EternalReturn.ERCharacter.Character.fiora.Character_Fiora;
-import org.EternalReturn.ERCharacter.Character.hart.Character_Hart;
-import org.EternalReturn.ERCharacter.Character.hyunwoo.Character_Hyunwoo;
-import org.EternalReturn.ERCharacter.Character.isaac.Character_Isaac;
-import org.EternalReturn.ERCharacter.Character.jackie.Character_Jackie;
-import org.EternalReturn.ERCharacter.Character.lidailin.Character_LiDailin;
-import org.EternalReturn.ERCharacter.Character.nathapon.Character_Nathapon;
-import org.EternalReturn.ERCharacter.Character.yuki.Character_Yuki;
+import org.EternalReturn.ERCharacter.character.adriana.Character_Adriana;
+import org.EternalReturn.ERCharacter.character.fiora.Character_Fiora;
+import org.EternalReturn.ERCharacter.character.hart.Character_Hart;
+import org.EternalReturn.ERCharacter.character.hyunwoo.Character_Hyunwoo;
+import org.EternalReturn.ERCharacter.character.isaac.Character_Isaac;
+import org.EternalReturn.ERCharacter.character.jackie.Character_Jackie;
+import org.EternalReturn.ERCharacter.character.lidailin.Character_LiDailin;
+import org.EternalReturn.ERCharacter.character.nathapon.Character_Nathapon;
+import org.EternalReturn.ERCharacter.character.yuki.Character_Yuki;
 import org.EternalReturn.ERCharacter.ERCharacter;
 import org.EternalReturn.EREntity.ERDummy;
 import org.EternalReturn.System.PluginInstance;

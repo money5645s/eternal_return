@@ -1,6 +1,6 @@
 package org.EternalReturn.ERPlayer;
 
-import org.EternalReturn.ERCharacter.Character.NullCharacter;
+import org.EternalReturn.ERCharacter.character.NullCharacter;
 import org.EternalReturn.ERCharacter.ERCharacter;
 import org.EternalReturn.ERPlayer.Gui.Inventory.UpgradeSystem.UpgradeGuiController;
 import org.EternalReturn.ERPlayer.Gui.Inventory.UpgradeSystem.View.UpgradeGui;

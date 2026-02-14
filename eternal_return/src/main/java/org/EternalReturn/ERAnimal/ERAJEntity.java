@@ -32,7 +32,7 @@ public class ERAJEntity extends AJEntity {
     protected Husk actor;
 
     private TextDisplay hpbar;
-    
+
     /**
      * 해당 엔티티가 얼마나 많은 플레이어에게 보여지고 있는지 저장
      * */

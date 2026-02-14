@@ -129,7 +129,7 @@ public class ERAnimalManager {
 
         for(AreaERAnimalInfo areaInfo : areaInfoMap.values()){
             for(ERAnimalInfo animalInfo : areaInfo.animals()){
-                
+
                 //ERAnimal 생성
                 ERAnimal newInstance = new_ERAnimal(animalInfo);
 

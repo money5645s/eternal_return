@@ -1,10 +1,10 @@
 package org.EternalReturn.EREntity
 
-import org.EternalReturn.ERCharacter.Character.fiora.ToucheCount
-import org.EternalReturn.ERCharacter.Character.fiora.ToucheEffect
-import org.EternalReturn.ERCharacter.Character.hart.Passive_Timer
-import org.EternalReturn.ERCharacter.Character.isaac.PassiveCount
-import org.EternalReturn.ERCharacter.Character.lidailin.LiDailinPassiveTimer
+import org.EternalReturn.ERCharacter.character.fiora.ToucheCount
+import org.EternalReturn.ERCharacter.character.fiora.ToucheEffect
+import org.EternalReturn.ERCharacter.character.hart.Passive_Timer
+import org.EternalReturn.ERCharacter.character.isaac.PassiveCount
+import org.EternalReturn.ERCharacter.character.lidailin.LiDailinPassiveTimer
 import org.EternalReturn.EREntity.GlobalMonobehav.Stun
 import org.EternalReturn.System.PluginInstance
 import org.EternalReturn.util.dpengine.behaviour.Monobehaviour

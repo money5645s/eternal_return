@@ -1,7 +1,7 @@
 package org.EternalReturn.ERPlayer;
 
 import org.EternalReturn.ERCharacter.ERCharacter;
-import org.EternalReturn.ERCharacter.Event.*;
+import org.EternalReturn.ERCharacter.event.*;
 import org.EternalReturn.EREntity.EREntity;
 import org.EternalReturn.EREntity.Event.EREntityDamagedEvent;
 import org.EternalReturn.System.PluginInstance;
