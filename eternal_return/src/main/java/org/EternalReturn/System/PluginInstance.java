@@ -7,7 +7,7 @@ import org.EternalReturn.ERPlayer.ERPlayerDebugCommand;
 import org.EternalReturn.ERPlayer.ERPlayerListener;
 import org.EternalReturn.ERPlayer.Gui.Inventory.InventoryGuiListener;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import org.EternalReturn.ERAnimal.ERAnimalManager;
+import org.EternalReturn.ERAnimal.managers.actors.ERAnimalManager;
 import org.EternalReturn.util.AJEntity.AJEntityManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -54,7 +54,9 @@ public final class PluginInstance extends JavaPlugin{
 
         //Animated JAVA Entity initialization
         ajEntityManager = AJEntityManager.registerAJEntityManager(this);
-        erAnimalManager = ERAnimalManager.registerERAnimalManager(ajEntityManager, erEngine = new EREngine());
+        
+        //ERAnimal들을 dpengine구현체에 register하는 구문
+        ERAnimalManager.initERAnimalManagers(ajEntityManager, erEngine);
 
         //시스템매니저 객체 생성
         systemManager = SystemManager.getInstance();
@@ -72,7 +74,7 @@ public final class PluginInstance extends JavaPlugin{
         //온라인인 플레이어들 다시 해시맵에 등록
         for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
             onlinePlayer.sendMessage("해시맵에 다시 등록");
-            systemManager.addPlayer(onlinePlayer);
+            SystemManager.addPlayer(onlinePlayer);
         }
 
 

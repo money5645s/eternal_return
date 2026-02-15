@@ -22,7 +22,7 @@ import java.util.*
  *
  *
  */
-abstract class MonobehaviourActor protected constructor() {
+abstract class MonobehaviourActor {
 
     open var referenceCount = 1;
 
@@ -42,6 +42,9 @@ abstract class MonobehaviourActor protected constructor() {
      */
     open var runningBehaviours: ArrayDeque<Monobehaviour<out MonobehaviourEvent>> = ArrayDeque<Monobehaviour<out MonobehaviourEvent>>()
 
+    /**
+     * 무조건 initialize되어야 할 것.
+     * */
     lateinit var monobehaviourModule : MonobehaviourModule
 
 
@@ -124,7 +127,5 @@ abstract class MonobehaviourActor protected constructor() {
         this.monobehaviourModule = module
         //System.out.println("DPEngine set");
     }
-
-    abstract fun update();
 
 }

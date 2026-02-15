@@ -49,7 +49,7 @@ class BurningGround : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             Location(adriana.player.world, x(pos), y(pos), z(pos)),
             System.currentTimeMillis())
 
-        dpEngine.monobehaviourModule.registerMonobehaviourActor(burningGroundEntity);
+        dpEngine.monobehaviourModule.register(burningGroundEntity);
         burningGroundEntity.submitEvent(LetsBurn()); //태우기 실행
 
     }

@@ -1,8 +1,8 @@
-package org.EternalReturn.ERAnimal.GlobalMonobehav;
+package org.EternalReturn.ERAnimal.animals.behavs;
 
 import org.EternalReturn.ERAnimal.ERAJEntity;
 import org.EternalReturn.ERAnimal.ERAnimalMonobehaviour;
-import org.EternalReturn.ERAnimal.Event.ERAnimalAttackedByPlayerEvent;
+import org.EternalReturn.ERAnimal.animals.events.ERAnimalAttackedByPlayerEvent;
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;

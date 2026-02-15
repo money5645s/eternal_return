@@ -7,8 +7,9 @@ import org.EternalReturn.ERPlayer.ERPlayer
 import org.EternalReturn.System.PluginInstance
 import org.bukkit.entity.Player
 
-abstract class ERCharacter(erPlayer: ERPlayer) : EREntity(
-    PluginInstance.getEREngine().createOrientedBox(erPlayer.getPlayer().getLocation(), 1.0 / 2, 3.0 / 2, 1.0 / 2)
+abstract class ERCharacter(player : Player, erPlayer: ERPlayer) : EREntity(
+    PluginInstance.getEREngine().createOrientedBox(erPlayer.player.location, 1.0 / 2, 3.0 / 2, 1.0 / 2),
+    player
 ) {
     var eRPlayer: ERPlayer
         protected set
@@ -20,7 +21,7 @@ abstract class ERCharacter(erPlayer: ERPlayer) : EREntity(
     var cooldown: SkillCooldown = SkillCooldown()
 
     init {
-        this.entity = erPlayer.getPlayer()
+        this.entity = player
         this.eRPlayer = erPlayer
 
         registerMonobehaviour(PlayerRayCastingByLeftClicking())

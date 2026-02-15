@@ -5,7 +5,9 @@ import org.EternalReturn.ERCharacter.character.fiora.ToucheEffect
 import org.EternalReturn.ERCharacter.character.hart.Passive_Timer
 import org.EternalReturn.ERCharacter.character.isaac.PassiveCount
 import org.EternalReturn.ERCharacter.character.lidailin.LiDailinPassiveTimer
+import org.EternalReturn.EREntity.Event.EREntityUpdateColliderEvent
 import org.EternalReturn.EREntity.GlobalMonobehav.Stun
+import org.EternalReturn.EREntity.GlobalMonobehav.UpdateCollider
 import org.EternalReturn.System.PluginInstance
 import org.EternalReturn.util.dpengine.behaviour.Monobehaviour
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourActor
@@ -30,13 +32,10 @@ abstract class EREntity( // extends MonobehaviourActor()
     /**
      * 해당 MonobehaviourActor의 Collider 설정
      */
-    val collider: Collider
+    val collider: Collider,
+    val entity : Entity
 ) : MonobehaviourActor() {
 
-    /**
-     * 해당 MonobehaviourActor의 MNS 객체 설정
-     */
-    var entity: Entity? = null
 
     val geometryModule : GeometryModule;
 
@@ -45,7 +44,7 @@ abstract class EREntity( // extends MonobehaviourActor()
 
         /**이거 존나 위험한 구문임. 나중에 어떻게든 수정해야 할 것. */
         val monobehaviourModule = PluginInstance.getEREngine().monobehaviourModule;
-        monobehaviourModule.registerMonobehaviourActor(this);
+        monobehaviourModule.register(this);
         this.monobehaviourModule = monobehaviourModule;
         geometryModule = monobehaviourModule.dpEngine.geometryModule;
         /**이거 존나 위험한 구문임. 나중에 어떻게든 수정해야 할 것.
@@ -53,12 +52,16 @@ abstract class EREntity( // extends MonobehaviourActor()
          * */
 
         //Monobehaviour 등록
-        this.registerMonobehaviour(Stun() as Monobehaviour<out MonobehaviourEvent>)
-        this.registerMonobehaviour(ToucheCount() as Monobehaviour<out MonobehaviourEvent>)
-        this.registerMonobehaviour(ToucheEffect() as Monobehaviour<out MonobehaviourEvent>)
-        this.registerMonobehaviour(Passive_Timer() as Monobehaviour<out MonobehaviourEvent>)
-        this.registerMonobehaviour(LiDailinPassiveTimer() as Monobehaviour<out MonobehaviourEvent>)
-        this.registerMonobehaviour(PassiveCount() as Monobehaviour<out MonobehaviourEvent>)
+        this.registerMonobehaviour(Stun())
+        this.registerMonobehaviour(ToucheCount())
+        this.registerMonobehaviour(ToucheEffect())
+        this.registerMonobehaviour(Passive_Timer())
+        this.registerMonobehaviour(LiDailinPassiveTimer())
+        this.registerMonobehaviour(PassiveCount())
+        this.registerMonobehaviour(UpdateCollider())
+
+        //콜라이더 위치, 각도를 업데이트하도록 지시. 한번만 submit하면 됨.
+        submitEvent(EREntityUpdateColliderEvent())
     }
 
     /**
@@ -67,7 +70,7 @@ abstract class EREntity( // extends MonobehaviourActor()
      */
 
     fun getDirection(): Vector3 {
-        val location = entity!!.location
+        val location = entity.location
         val radX = Math.toRadians(location.yaw.toDouble())
         val radY = Math.toRadians(location.pitch.toDouble())
         val xz = cos(radY)
@@ -75,7 +78,7 @@ abstract class EREntity( // extends MonobehaviourActor()
     }
 
     fun getPosition(): Vector3 {
-        val location = entity!!.location
+        val location = entity.location
         return this.geometryModule.vec3(location.x, location.y, location.z)
     }
 
@@ -93,12 +96,5 @@ abstract class EREntity( // extends MonobehaviourActor()
         this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity!!, x, y, z))
     }
 
-    override fun update(){
-        if (entity == null)return;
-        val loc: Location = entity!!.location
-        val collider: Collider = collider
-        collider.setPosition(loc.x, loc.y, loc.z)
-        collider.setDirection(0.0, loc.pitch.toDouble(), 0.0)
-    }
 
 }

@@ -1,7 +1,7 @@
 package org.EternalReturn.ERCharacter.globalmonobehav
 
 import org.EternalReturn.ERAnimal.ERAnimal
-import org.EternalReturn.ERAnimal.Event.ERAnimalAttackedByPlayerEvent
+import org.EternalReturn.ERAnimal.animals.events.ERAnimalAttackedByPlayerEvent
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour
 import org.EternalReturn.ERCharacter.event.CharacterAttackEvent
 import org.EternalReturn.ERCharacter.event.CharacterRayCastEvent

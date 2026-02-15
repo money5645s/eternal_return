@@ -4,8 +4,6 @@ import org.EternalReturn.ERCharacter.character.NullCharacter;
 import org.EternalReturn.ERCharacter.ERCharacter;
 import org.EternalReturn.ERPlayer.Gui.Inventory.UpgradeSystem.UpgradeGuiController;
 import org.EternalReturn.ERPlayer.Gui.Inventory.UpgradeSystem.View.UpgradeGui;
-import org.EternalReturn.ERPlayer.Skill.Mukbo;
-import org.EternalReturn.ERPlayer.Skill.Skill;
 import org.EternalReturn.util.Gui.InventoryGui.View.IController;
 import org.EternalReturn.util.Geometry.MathVector.Vec3d;
 import org.bukkit.entity.Player;
@@ -19,20 +17,15 @@ public class ERPlayer {
     private IController upgradeGuiController;
     private ERCharacter character;
 
-
-    private Skill mukbo;
-
     public void free(){
         upgradeGuiController.free();
         upgradeGui.free();
-        mukbo.free();
     }
 
     public ERPlayer(Player p){
         player = p;
         upgradeGui = new UpgradeGui(p);
         upgradeGuiController = new UpgradeGuiController(this, upgradeGui);
-        mukbo = new Mukbo(this);
         character = new NullCharacter(this);
     }
 
@@ -43,11 +36,6 @@ public class ERPlayer {
 
     public IController getUpgradeGuiController(){
         return upgradeGuiController;
-    }
-
-
-    public Skill getSkill(){
-        return mukbo;
     }
 
 

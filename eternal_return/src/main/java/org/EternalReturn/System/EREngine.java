@@ -1,13 +1,14 @@
 package org.EternalReturn.System;
 
 import org.EternalReturn.EREntity.EREntity;
-import org.EternalReturn.ERAnimal.ERAnimalManager;
 import org.EternalReturn.util.dpengine.DPEngine;
-import org.EternalReturn.util.dpengine.geometry.Collider;
-import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Bukkit 객체들과 유연하게 상호작용하기위한 엔진
@@ -15,12 +16,16 @@ import java.util.HashMap;
 public class EREngine extends DPEngine {
     
     // 이거 문제 있을 수도
-    //
-    private final HashMap<Entity, EREntity> erEntityMap = new HashMap<>();
+    private HashMap<Entity, EREntity> erEntityMap = new HashMap<>();
+    private List<EREntity> players = new ArrayList<>();
 
     @Override
     public void update(){
-        ERAnimalManager.update(32);
+
+    }
+
+    public void registerPlayers(Collection<? extends Player> onlinePlayers){
+
     }
 
     /**
@@ -28,7 +33,7 @@ public class EREngine extends DPEngine {
      * 일반 registerMonobehaviourActor를 통해 등록 시 Entity를 통해 접근이 불가해짐.
      * */
     public void registerBukkitActor(Entity entity, EREntity actor){
-        super.getMonobehaviourModule().registerMonobehaviourActor(actor);
+        super.getMonobehaviourModule().register(actor);
         erEntityMap.put(entity,actor);
     }
 

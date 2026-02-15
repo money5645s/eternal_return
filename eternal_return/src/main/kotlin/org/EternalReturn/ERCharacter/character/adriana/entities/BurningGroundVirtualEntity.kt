@@ -13,11 +13,10 @@ class BurningGroundVirtualEntity(
     val startTime: Long
 ) : MonobehaviourActor() {
 
-    override fun update() {
-    }
 
     init {
         this.monobehaviourModule = dpEngine.monobehaviourModule;
         registerMonobehaviour(BurningGroundMonobehav());
     }
+
 }

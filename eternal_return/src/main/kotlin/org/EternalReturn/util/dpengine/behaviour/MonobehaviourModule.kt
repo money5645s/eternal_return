@@ -58,7 +58,7 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
         eventTriggeredActors.add(actor);
     }
 
-    fun registerMonobehaviourActor(actor : MonobehaviourActor){
+    fun register(actor : MonobehaviourActor){
         //println("Registering : " + actor.javaClass)
         actor.monobehaviourModule = this;
         monobehaviourActorList.curQueue.add(actor);

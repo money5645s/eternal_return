@@ -19,12 +19,6 @@ import java.util.List;
 
 public class ERAJEntity extends AJEntity {
 
-    /**
-     * afterSpawnEvent 이후 entity 필드 초기화됨
-     * 그때까지는 erEntity.entity == null
-     * */
-    protected EREntity erEntity;
-
     protected boolean isHit;
 
     protected boolean isShown;
@@ -116,12 +110,9 @@ public class ERAJEntity extends AJEntity {
         }
 
         ///actor(CraftHusk)에 2개 이상의 엔티티를 태우려고 시도 시에는 전부 다 내려지는 버그가 있음.
-        //
-
         rootEntity = spawnedRootEntity;
         rootEntity.addPassenger(hpbar);
         actor.addPassenger(rootEntity);
-        erEntity.setEntity(actor);
     }
 
 
