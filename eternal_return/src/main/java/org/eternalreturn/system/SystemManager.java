@@ -1,0 +1,139 @@
+package org.eternalreturn.system;
+
+import org.eternalreturn.area.ERAreaGraph;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.eternalreturn.erplayer.ERPlayer;
+import org.eternalreturn.erplayer.gui.inventory.upgradesystem.model.Enchanter;
+import org.eternalreturn.erplayer.gui.inventory.upgradesystem.model.Upgrader;
+import org.eternalreturn.util.itemUtill.CustomModelData;
+import org.eternalreturn.util.itemUtill.CustomModelDataManager;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
+
+//싱글톤 객체
+public class SystemManager {
+
+    private static SystemManager instance;
+    private static HashMap<Player, ERPlayer> erPlayerHashMap;
+    private static List<ERPlayer> erPlayerList;
+    private static HashMap<UUID, Player> uuidPlayerHashMap;
+    private static BukkitAudiences bukkitAudiences;
+    private static Enchanter enchanter;
+    private static ERAreaGraph ERAreaGraph;
+    private static CustomModelDataManager CustomModelDataManager;
+
+    public static int RED_ZONE = 0;
+    public static int YELLOW_ZONE = 1;
+    public static int GREEN_ZONE = 2;
+
+    public static String AREASTRING_alley = "alley";
+    public static String AREASTRING_gas_station = "gas_station";
+    public static String AREASTRING_archery_range = "archery_range";
+    public static String AREASTRING_temple = "temple";
+    public static String AREASTRING_hotel = "hotel";
+    public static String AREASTRING_school = "school";
+    public static String AREASTRING_fire = "fire";
+    public static String AREASTRING_police = "police";
+    public static String AREASTRING_stream = "stream";
+    public static String AREASTRING_pond = "pond";
+    public static String AREASTRING_forest = "forest";
+    public static String AREASTRING_cemetery = "cemetery";
+    public static String AREASTRING_beach = "beach";
+    public static String AREASTRING_village = "village";
+    public static String AREASTRING_hospital = "hospital";
+    public static String AREASTRING_chapel = "chapel";
+    public static String AREASTRING_factory = "factory";
+    public static String AREASTRING_storage = "storage";
+    public static String AREASTRING_port = "port";
+
+    public static String USE_KIOSK = "use_kiosk";
+    public static String USE_HYPERLOOP = "use_hyperloop";
+
+    public static CustomModelData EPIC_BLOOD_SAMPLE = new CustomModelData("epic",0.0f);
+    public static CustomModelData EPIC_FORCE_CORE   = new CustomModelData("epic",1.0f);
+    public static CustomModelData EPIC_METEORITE    = new CustomModelData("epic",2.0f);
+    public static CustomModelData EPIC_MITHRIL      = new CustomModelData("epic",3.0f);
+    public static CustomModelData EPIC_TREE_OF_LIFE = new CustomModelData("epic",4.0f);
+
+
+
+    //free (메모리 할당 해제)
+    public void free() {
+        for(ERPlayer erPlayer : erPlayerHashMap.values()){
+            erPlayer.free();
+        }
+        erPlayerList.clear();
+        erPlayerHashMap.clear();
+        uuidPlayerHashMap.clear();
+        enchanter.free();
+        ERAreaGraph.free();
+        CustomModelDataManager.free();
+    }
+
+    private SystemManager() {
+        erPlayerList = new ArrayList<>();
+        erPlayerHashMap = new HashMap<>();
+        uuidPlayerHashMap = new HashMap<>();
+        enchanter = new Upgrader();
+        ERAreaGraph = new ERAreaGraph(20);
+        CustomModelDataManager = new CustomModelDataManager();
+    }
+
+    //getter
+    public static ERPlayer getERPlayer(Player player){ //Player 객체를 이용해서 ERPlayer 객체 불러오기
+        return erPlayerHashMap.get(player);
+    }
+
+    public static SystemManager getInstance() {
+        if(instance == null){
+            instance = new SystemManager();
+        }
+        return instance;
+    }
+
+    public static Enchanter getEnchanter(){
+        return enchanter;
+    }
+
+    public static @NotNull HashMap<Player, ERPlayer> getERPlayerHashMap(){
+        return erPlayerHashMap;
+    }
+
+    public static BukkitAudiences getBukkitAudiences(){
+        return bukkitAudiences;
+    }
+
+    public static ERAreaGraph getAreaGraph(){
+        return ERAreaGraph;
+    }
+
+    public static CustomModelDataManager getCustomModelDataManager(){
+        return CustomModelDataManager;
+    }
+
+    public static List<ERPlayer> getERPlayerList() {
+        return erPlayerList;
+    }
+
+    //setter
+    public static void addPlayer(Player p){//해시맵에 플레이어 추가
+        ERPlayer erPlayer = new ERPlayer(p);
+        erPlayerList.add(erPlayer);
+        erPlayerHashMap.putIfAbsent(p,new ERPlayer(p));
+        uuidPlayerHashMap.putIfAbsent(p.getUniqueId(),p);
+    }
+
+    public static void removePlayer(Player p){//해시맵에서 플레이어 제거
+        ERPlayer erPlayer = erPlayerHashMap.get(p);
+        erPlayerList.remove(erPlayer);
+        erPlayerHashMap.remove(p);
+        uuidPlayerHashMap.remove(p.getUniqueId());
+        erPlayer.free();
+    }
+
+}
