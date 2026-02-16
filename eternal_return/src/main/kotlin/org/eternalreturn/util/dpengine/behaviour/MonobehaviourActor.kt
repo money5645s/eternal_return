@@ -1,5 +1,7 @@
 package org.eternalreturn.util.dpengine.behaviour
 
+import org.eternalreturn.util.dpengine.DPEngine
+import org.eternalreturn.util.dpengine.geometry.GeometryModule
 import java.util.*
 
 /**
@@ -22,9 +24,35 @@ import java.util.*
  *
  *
  */
-abstract class MonobehaviourActor {
+abstract class MonobehaviourActor(
+    val dpEngine: DPEngine
+) {
+    val monobehaviourModule: MonobehaviourModule
+        get() = dpEngine.monobehaviourModule
 
-    open var referenceCount = 1;
+    val geometryModule: GeometryModule
+        get() = dpEngine.geometryModule
+
+    init{
+        dpEngine.monobehaviourModule.register(this);
+    }
+
+    open var referenceCount = 0;
+
+    inline fun isAlive() : Boolean {
+        return referenceCount >= 1;
+    }
+
+    fun remove(){
+        this.referenceCount = 0;
+    }
+    fun dereference(){
+        this.referenceCount--;
+    }
+    fun refer(){
+        this.referenceCount++;
+    }
+
 
     /**
      * (MonobehaviourEvent, Monobehaviour)의 키 쌍
@@ -41,11 +69,6 @@ abstract class MonobehaviourActor {
      * update(MonobehaviourEvent)를 호출할 Monobehaviour들을 스케줄링하기 위해 유지하는 링크드 리스트
      */
     open var runningBehaviours: ArrayDeque<Monobehaviour<out MonobehaviourEvent>> = ArrayDeque<Monobehaviour<out MonobehaviourEvent>>()
-
-    /**
-     * 무조건 initialize되어야 할 것.
-     * */
-    lateinit var monobehaviourModule : MonobehaviourModule
 
 
     /**
@@ -118,14 +141,6 @@ abstract class MonobehaviourActor {
         this.monobehaviourMap.put(monobehaviour.eventType, monobehaviour)
         monobehaviour.setMonobehaviourActor(this)
         //System.out.println("register event " + monobehaviour.getClass());
-    }
-
-    /**
-     * 해당 MonobehaviourActor을 관리할 DPEngine을 설정.
-     */
-    fun setModule(module: MonobehaviourModule) {
-        this.monobehaviourModule = module
-        //System.out.println("DPEngine set");
     }
 
 }

@@ -7,15 +7,14 @@ import org.bukkit.Location
 import org.bukkit.entity.Player
 
 class BurningGroundVirtualEntity(
-    val dpEngine: DPEngine,
+    dpEngine: DPEngine,
     val caster: Player,
     val location: Location,
     val startTime: Long
-) : MonobehaviourActor() {
+) : MonobehaviourActor(dpEngine) {
 
 
     init {
-        this.monobehaviourModule = dpEngine.monobehaviourModule;
         registerMonobehaviour(BurningGroundMonobehav());
     }
 

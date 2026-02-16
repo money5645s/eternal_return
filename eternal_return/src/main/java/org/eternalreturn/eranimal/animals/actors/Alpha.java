@@ -2,13 +2,13 @@ package org.eternalreturn.eranimal.animals.actors;
 
 import org.eternalreturn.eranimal.ERAJEntity;
 import org.eternalreturn.eranimal.ERAnimal;
-import org.eternalreturn.system.PluginInstance;
 import org.bukkit.Location;
+import org.eternalreturn.util.dpengine.DPEngine;
 import org.jetbrains.annotations.NotNull;
 
 public class Alpha extends ERAnimal {
-    public Alpha(@NotNull ERAJEntity erAjEntity, @NotNull Location location) {
-        super(erAjEntity, PluginInstance.getEREngine().createOrientedBox(location,1.0/2,3.0/2,1.0/2));
+    public Alpha(@NotNull DPEngine engine, @NotNull ERAJEntity erAjEntity, @NotNull Location location) {
+        super(engine, erAjEntity, engine.createOrientedBox(location,1.0/2,3.0/2,1.0/2));
         this.ajEntity.registerAnimation("ready",2.0d);
         this.ajEntity.registerAnimation("attack",2.3d);
         this.ajEntity.registerAnimation("move",3.5d);

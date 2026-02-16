@@ -4,6 +4,7 @@ import org.eternalreturn.erentity.EREntity;
 import org.eternalreturn.util.dpengine.DPEngine;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.eternalreturn.util.dpengine.datastructure.UpdateList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,14 +18,10 @@ public class EREngine extends DPEngine {
     
     // 이거 문제 있을 수도
     private HashMap<Entity, EREntity> erEntityMap = new HashMap<>();
-    private List<EREntity> players = new ArrayList<>();
+    private UpdateList<EREntity> players = new UpdateList<>();
 
     @Override
     public void update(){
-
-    }
-
-    public void registerPlayers(Collection<? extends Player> onlinePlayers){
 
     }
 
@@ -35,9 +32,11 @@ public class EREngine extends DPEngine {
     public void registerBukkitActor(Entity entity, EREntity actor){
         var prevActor = erEntityMap.get(entity);
         if(prevActor != null){
-            prevActor.setReferenceCount(0); //refCount 를 0으로 만듬 -> 완전 제거를 의미
+            prevActor.remove(); //refCount 를 0으로 만듬 -> 완전 제거를 의미
         }
-        super.getMonobehaviourModule().register(actor);
+        if(entity instanceof Player p){
+            players.add(actor);
+        }
         erEntityMap.put(entity,actor);
     }
 

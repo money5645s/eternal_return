@@ -98,43 +98,44 @@ public class ERPlayerDebugCommand implements CommandExecutor {
                 return true;
             }
 
+            var engine = PluginInstance.getEREngine();
+
             String charName = args[1].toLowerCase();
             ERCharacter character = null;
-
             // 입력된 이름에 따라 캐릭터 인스턴스 생성
             switch (charName) {
                 case "lidailin":
-                    character = new Character_LiDailin(p);
+                    character = new Character_LiDailin(engine, p);
                     break;
                 case "fiora":
-                    character = new Character_Fiora(p);
+                    character = new Character_Fiora(engine, p);
                     break;
                 case "hart":
-                    character = new Character_Hart(p);
+                    character = new Character_Hart(engine, p);
                     break;
                 case "isaac":
-                    character = new Character_Isaac(p);
+                    character = new Character_Isaac(engine, p);
                     break;
                 case "jackie":
-                    character = new Character_Jackie(p);
+                    character = new Character_Jackie(engine, p);
                     break;
                 case "nathapon":
-                    character = new Character_Nathapon(p);
+                    character = new Character_Nathapon(engine, p);
                     break;
                 case "adriana":
-                    character = new Character_Adriana(p);
+                    character = new Character_Adriana(engine, p);
                     break;
                 case "hyunwoo":
-                    character = new Character_Hyunwoo(p);
+                    character = new Character_Hyunwoo(engine, p);
                     break;
                 case "yuki":
-                    character = new Character_Yuki(p);
+                    character = new Character_Yuki(engine, p);
                     break;
                 default:
                     p.sendMessage("§c알 수 없는 캐릭터입니다: " + charName);
                     return true;
             }
-
+            
             PluginInstance.getEREngine().registerBukkitActor(p, character);
             p.sendMessage("§a캐릭터가 변경되었습니다: §f" + character.getName());
 
@@ -142,16 +143,13 @@ public class ERPlayerDebugCommand implements CommandExecutor {
         }
 
         else if(args.length == 1 && args[0].equalsIgnoreCase("dummy")){
+            
+            var engine = PluginInstance.getEREngine();
+
             Entity dummy = p.getWorld().spawnEntity(p.getLocation(), EntityType.VILLAGER);
-            PluginInstance.getEREngine().registerBukkitActor(dummy, new ERDummy(dummy, PluginInstance.getEREngine().createCylinder(
-                    PluginInstance.getEREngine().createInfStrightLine(
-                            0.0, 1.0, 0.0,
-                            dummy.getLocation().getX(),
-                            dummy.getLocation().getY(),
-                            dummy.getLocation().getZ()
-                    ),
-                    1.0, 3.0
-            )));
+            engine.registerBukkitActor(
+                    dummy,
+                    new ERDummy(engine, dummy, engine.createOrientedBox(p.getLocation(),1.0/2,3.0/2,1.0/2)));
             erPlayer.sendMessage("Dummy set");
         }
 

@@ -116,24 +116,4 @@ public class SystemManager {
         return CustomModelDataManager;
     }
 
-    public static List<ERPlayer> getERPlayerList() {
-        return erPlayerList;
-    }
-
-    //setter
-    public static void addPlayer(Player p){//해시맵에 플레이어 추가
-        ERPlayer erPlayer = new ERPlayer(p);
-        erPlayerList.add(erPlayer);
-        erPlayerHashMap.putIfAbsent(p,new ERPlayer(p));
-        uuidPlayerHashMap.putIfAbsent(p.getUniqueId(),p);
-    }
-
-    public static void removePlayer(Player p){//해시맵에서 플레이어 제거
-        ERPlayer erPlayer = erPlayerHashMap.get(p);
-        erPlayerList.remove(erPlayer);
-        erPlayerHashMap.remove(p);
-        uuidPlayerHashMap.remove(p.getUniqueId());
-        erPlayer.free();
-    }
-
 }

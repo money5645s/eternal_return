@@ -16,6 +16,8 @@ import org.eternalreturn.util.dpengine.geometry.Collider
 import org.eternalreturn.util.dpengine.geometry.GeometryModule
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import org.bukkit.entity.Entity
+import org.eternalreturn.util.dpengine.DPEngine
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourModule
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -25,28 +27,16 @@ import kotlin.math.sin
  *  - Entity는 처음에 init 되어있지 않음. 수동적으로 set 해주어야 함.
  */
 abstract class EREntity( // extends MonobehaviourActor()
-
+    dpEngine: DPEngine,
     val entity : Entity,
+
     /**
      * 해당 MonobehaviourActor의 Collider 설정
      */
     val collider: Collider
-) : MonobehaviourActor() {
-
-
-    val geometryModule : GeometryModule;
+) : MonobehaviourActor(dpEngine) {
 
     init {
-
-
-        /**이거 존나 위험한 구문임. 나중에 어떻게든 수정해야 할 것. */
-        val monobehaviourModule = PluginInstance.getEREngine().monobehaviourModule;
-        monobehaviourModule.register(this);
-        this.monobehaviourModule = monobehaviourModule;
-        geometryModule = monobehaviourModule.dpEngine.geometryModule;
-        /**이거 존나 위험한 구문임. 나중에 어떻게든 수정해야 할 것.
-         * 해당 구문의 책임은 DPEngine에게 위임해야 할 것.
-         * */
 
         //Monobehaviour 등록
         this.registerMonobehaviour(Stun())

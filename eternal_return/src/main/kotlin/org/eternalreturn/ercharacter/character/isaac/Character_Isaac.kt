@@ -3,8 +3,9 @@ package org.eternalreturn.ercharacter.character.isaac
 import org.eternalreturn.ercharacter.ERCharacter
 import org.bukkit.entity.Player
 import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.util.dpengine.DPEngine
 
-class Character_Isaac(player: Player) : ERPlayer(player) {
+class Character_Isaac(engine : DPEngine,player: Player) : ERPlayer(player, engine) {
     var isActiveSkill: Boolean = false
 
     init {

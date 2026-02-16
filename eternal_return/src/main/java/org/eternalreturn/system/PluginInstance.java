@@ -71,12 +71,6 @@ public final class PluginInstance extends JavaPlugin{
         pm.registerEvents(ajEntityManager, this);
         loadCommands();
 
-        //온라인인 플레이어들 다시 해시맵에 등록
-        for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
-            onlinePlayer.sendMessage("해시맵에 다시 등록");
-            SystemManager.addPlayer(onlinePlayer);
-        }
-
 
         Bukkit.getScheduler().runTaskTimer(this, erEngine,0,1);
 

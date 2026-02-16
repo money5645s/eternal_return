@@ -50,7 +50,6 @@ public class ERAnimalManager extends MonobehaviourActor {
         for(AreaERAnimalInfo info : areaInfoList){
             var animalManager = new ERAnimalManager(ajEntityManager, engine, world, info);
             animalManagers.add(animalManager);
-            monobehaviourModule.register(animalManager);
         }
     }
 
@@ -64,6 +63,7 @@ public class ERAnimalManager extends MonobehaviourActor {
     private List<ERAJEntity> entities;
 
     public ERAnimalManager(AJEntityManager ajEntityManager, DPEngine engine, World world, AreaERAnimalInfo info){
+        super(engine);
         if(ajEntityManager == null){
             throw new RuntimeException("Cannot instantiate(register) ERAnimalManager, ajEntityManager is null.");
         }

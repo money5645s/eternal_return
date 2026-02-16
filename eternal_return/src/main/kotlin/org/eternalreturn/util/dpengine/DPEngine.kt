@@ -8,8 +8,12 @@ import org.eternalreturn.util.dpengine.geometry.InfPlane
 import org.eternalreturn.util.dpengine.geometry.InfStraightLine
 import org.eternalreturn.util.dpengine.geometry.OrientedBox
 import org.bukkit.Location
+import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.joml.Quaterniond
 import java.util.concurrent.ArrayBlockingQueue
+import kotlin.reflect.KClass
 
 /**
  * Made by Danpung (TDanfung)
@@ -71,7 +75,7 @@ abstract class DPEngine(bufferSize: Int = 512) : Runnable {
     override fun run() {
         monobehaviourModule.consumeEvents();
         monobehaviourModule.updateMonobehaviours();
-        monobehaviourModule.monobehaviourActorList.updateQueue();
+        monobehaviourModule.monobehaviourActorList.update();
         update();
         flushCommandQueue();
     }

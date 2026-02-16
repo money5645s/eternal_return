@@ -6,6 +6,10 @@ import org.eternalreturn.erplayer.gui.inventory.upgradesystem.view.UpgradeGui;
 import org.eternalreturn.system.PluginInstance;
 import org.eternalreturn.util.Gui.InventoryGui.View.IController;
 import org.bukkit.entity.Player;
+import org.eternalreturn.util.dpengine.DPEngine;
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor;
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourModule;
+import org.eternalreturn.util.dpengine.geometry.GeometryModule;
 import org.jetbrains.annotations.NotNull;
 
 public class ERPlayer extends ERCharacter{
@@ -24,8 +28,10 @@ public class ERPlayer extends ERCharacter{
         return this.name;
     }
 
-    public ERPlayer(Player p){
-        super(p, PluginInstance.getEREngine().createOrientedBox(p.getLocation(), 1.0 / 2, 3.0 / 2, 1.0 / 2));
+    public ERPlayer(Player p, DPEngine engine){
+        super(p,
+                engine.createOrientedBox(p.getLocation(), 1.0 / 2, 3.0 / 2, 1.0 / 2),
+                engine);
         upgradeGui = new UpgradeGui(p);
         upgradeGuiController = new UpgradeGuiController(this, upgradeGui);
     }

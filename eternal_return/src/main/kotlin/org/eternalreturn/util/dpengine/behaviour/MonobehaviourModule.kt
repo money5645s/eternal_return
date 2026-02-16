@@ -1,12 +1,12 @@
 package org.eternalreturn.util.dpengine.behaviour
 
 import org.eternalreturn.util.dpengine.DPEngine
-import org.eternalreturn.util.dpengine.datastructure.UpdateQueue
+import org.eternalreturn.util.dpengine.datastructure.UpdateList
 
 
 class MonobehaviourModule(val dpEngine: DPEngine) {
 
-    internal val monobehaviourActorList = UpdateQueue<MonobehaviourActor>();
+    internal val monobehaviourActorList = UpdateList<MonobehaviourActor>();
 
     /**
      * 이벤트가 dispatch된 순서대로 MonobehaviourActor을 추가함.
@@ -43,7 +43,7 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
             val hasRunningMonobehav = actor.updateMonobehaviour();
             //여기도 isEmptyForRunningMonobehaviour() 써도 되긴 하는데, 일부러 안 건드림.
             //아무래도 메소드 한번 호출보다야 이미 저장된 값 쓰는 게 더 빠를 테니까.
-            if(hasRunningMonobehav){
+            if(hasRunningMonobehav && actor.isAlive()){
                 newRunningActors.addLast(actor);
             }
         }
@@ -58,9 +58,7 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
         eventTriggeredActors.add(actor);
     }
 
-    fun register(actor : MonobehaviourActor){
-        //println("Registering : " + actor.javaClass)
-        actor.monobehaviourModule = this;
+    internal fun register(actor : MonobehaviourActor){
         monobehaviourActorList.curQueue.add(actor);
     }
 

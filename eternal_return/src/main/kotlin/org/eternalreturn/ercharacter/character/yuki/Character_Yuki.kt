@@ -3,9 +3,10 @@ package org.eternalreturn.ercharacter.character.yuki
 import org.eternalreturn.ercharacter.ERCharacter
 import org.bukkit.entity.Player
 import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.util.dpengine.DPEngine
 
 
-class Character_Yuki(player: Player) : ERPlayer(player) {
+class Character_Yuki(engine : DPEngine,player: Player) : ERPlayer(player, engine) {
     var buttonCount: Int = 4
     var isReloading: Boolean = false
     var isActiveSkill: Boolean = false
