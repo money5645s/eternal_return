@@ -48,6 +48,7 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
 
     fun dispatchEvent(event: MonobehaviourEvent) {
         check(eventType.isInstance(event)) { "Wrong event type: " + event.javaClass }
+        //println("DispatchedEvent : " + event);
         startMonobehav(eventType.cast(event))
         this.state = State.RUNNING
     }

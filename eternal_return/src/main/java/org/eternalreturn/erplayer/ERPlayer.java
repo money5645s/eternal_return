@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ERPlayer extends ERCharacter{
 
-    private String name = "";
+    private String name = "NullPlayer";
     private UpgradeGui upgradeGui;
     private IController upgradeGuiController;
 
@@ -30,7 +30,7 @@ public class ERPlayer extends ERCharacter{
 
     public ERPlayer(Player p, DPEngine engine){
         super(p,
-                engine.createOrientedBox(p.getLocation(), 1.0 / 2, 3.0 / 2, 1.0 / 2),
+                engine.createOrientedBox(p.getLocation(), 1.0 / 2, 2.0 / 2, 1.0 / 2),
                 engine);
         upgradeGui = new UpgradeGui(p);
         upgradeGuiController = new UpgradeGuiController(this, upgradeGui);

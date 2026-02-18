@@ -41,7 +41,6 @@ public class Battle extends ERAnimalMonobehaviour<ERAnimalAttackedByPlayerEvent>
         //    }
         //}
 
-
         //System.out.println("updating");
 
         //rotating == look at a target

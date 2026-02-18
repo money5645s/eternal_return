@@ -1,14 +1,17 @@
 package org.eternalreturn.eranimal.managers.actors;
 
 import org.eternalreturn.eranimal.*;
-import org.eternalreturn.eranimal.managers.behavs.ManageAnimals;
-import org.eternalreturn.eranimal.managers.events.AnimalManageEvent;
+import org.eternalreturn.eranimal.managers.behavs.DetectingPlayersInRange;
+import org.eternalreturn.eranimal.managers.behavs.ManageERAnimals;
+import org.eternalreturn.eranimal.managers.behavs.WaitForSummoningERAJEntities;
+import org.eternalreturn.eranimal.managers.events.DetectingPlayerEvent;
 import org.eternalreturn.util.dpengine.DPEngine;
 import org.eternalreturn.system.PluginInstance;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,21 +75,23 @@ public class ERAnimalManager extends MonobehaviourActor {
         this.world = world;
         this.areaName = info.name();
         this.engine = engine;
+        this.entities = new ArrayList<>();
         for(ERAnimalInfo animalInfo : info.animals()){
             var animal = new ERAJEntity(animalInfo.name, new Location(world, animalInfo.x, animalInfo.y, animalInfo.z, animalInfo.yaw, animalInfo.pitch));
             AJEntityManager.registerAJEntity(animal); //register하지 않으면 돌아가지 않아요...
             entities.add(animal);
         }
 
-        registerMonobehaviour(new ManageAnimals());
+        registerMonobehaviour(new ManageERAnimals());
+        registerMonobehaviour(new DetectingPlayersInRange());
+        registerMonobehaviour(new WaitForSummoningERAJEntities());
 
         //한번만 제출하면 됨. 매 틱마다 동작할 것.
-        this.submitEvent(new AnimalManageEvent());
+        this.submitEvent(new DetectingPlayerEvent());
     }
 
-    public List<ERAJEntity> getEntities(){
+    public List<@NotNull ERAJEntity> getEntities(){
         return this.entities;
     }
-
 
 }

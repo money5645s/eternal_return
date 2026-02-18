@@ -2,6 +2,7 @@ package org.eternalreturn.util.dpengine.behaviour
 
 import org.eternalreturn.util.dpengine.DPEngine
 import org.eternalreturn.util.dpengine.datastructure.UpdateList
+import org.eternalreturn.util.dpengine.datastructure.UpdateView
 
 
 class MonobehaviourModule(val dpEngine: DPEngine) {
@@ -36,6 +37,9 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
         }
     }
 
+    /**
+     * 객체가 살아있는 경우 (referenceCounter >= 1)인 경우의 객체들의 Monobehaviour만 Update한다.
+     * */
     fun updateMonobehaviours(){
         val newRunningActors = ArrayDeque<MonobehaviourActor>()
         while(runningActors.isNotEmpty()){
@@ -50,6 +54,10 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
         this.runningActors = newRunningActors;
     }
 
+    fun registerUpdateView(view : UpdateView<out MonobehaviourActor>){
+        monobehaviourActorList.registerView(view);
+    }
+
     fun getMonobehavActors() : MutableList<MonobehaviourActor>{
         return monobehaviourActorList.curQueue;
     }
@@ -58,8 +66,11 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
         eventTriggeredActors.add(actor);
     }
 
-    internal fun register(actor : MonobehaviourActor){
-        monobehaviourActorList.curQueue.add(actor);
+    /**
+     * 객체의 레퍼런스 카운터를 1 올리면서 MonobehaviourModule 내의 actorList에 등록한다.
+     * */
+    fun register(actor : MonobehaviourActor){
+        monobehaviourActorList.add(actor);
     }
 
 }

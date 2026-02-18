@@ -68,7 +68,7 @@ class WallSlamDash : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                             engine.getEREntity(victim)
                         )
                     )
-                    damage(getPlayer(), victim, 2.0)
+                    victim.damage(2.0, getPlayer())
                 }
                 // 적을 플레이어 속도에 맞춰 밀어냄
                 victim.setVelocity(direction!!.clone().multiply(1.2))
@@ -102,7 +102,8 @@ class WallSlamDash : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                         .spawnParticle(Particle.ELECTRIC_SPARK, loc.clone().add(0.0, 1.0, 0.0), 3, 0.3, 0.3, 0.3, 0.05)
                 }
             }
-        } else if (stunTimer >= 40) {
+        }
+        else if (stunTimer >= 40) {
             // [핵심] 40틱이 지나 기절이 끝나면 상태를 초기화하여 재사용 가능하게 함
             isWallSlam = false
             stunTimer = 0
@@ -116,7 +117,7 @@ class WallSlamDash : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             // 1. 도그파이트 패시브를 위한 공격 이벤트
             val engine = dpEngine as EREngine
             getERCharacter().submitEvent(CharacterAttackEvent(getERPlayer(), engine.getEREntity(victim)))
-            damage(getPlayer(), victim, 10.0)
+            victim.damage(10.0, getPlayer())
 
             // 2. [변경] 상대방에게 스턴 이벤트 전달
             // 상대방의 ERPlayer 객체를 가져와서 해당 캐릭터 시스템에 이벤트를 던집니다.

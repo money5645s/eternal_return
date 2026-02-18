@@ -68,14 +68,14 @@ abstract class MonobehaviourActor(
     /**
      * update(MonobehaviourEvent)를 호출할 Monobehaviour들을 스케줄링하기 위해 유지하는 링크드 리스트
      */
-    open var runningBehaviours: ArrayDeque<Monobehaviour<out MonobehaviourEvent>> = ArrayDeque<Monobehaviour<out MonobehaviourEvent>>()
+    open var runningBehaviours: LinkedList<Monobehaviour<out MonobehaviourEvent>> = LinkedList<Monobehaviour<out MonobehaviourEvent>>()
 
 
     /**
      * 외부에서 해당 객체에게 이벤트를 제출하기 위한 창구
      */
     fun submitEvent(event: MonobehaviourEvent) {
-        println("Event submitted ${event.javaClass} | Length = ${submittedEvent.size}");
+        println("Event submitted : ${event.javaClass.simpleName} \tto ${this.javaClass.simpleName}");
         submittedEvent.add(event)
         monobehaviourModule.submitActorWhoTriggeredEvent(this)
     }
@@ -94,7 +94,7 @@ abstract class MonobehaviourActor(
             //System.out.println(event.getClass());
             if (monobehav != null && !monobehav.isRunning){
                 runningBehaviours.add(monobehav)
-                //System.out.println("dispatch success");
+                println("Event consumed :  ${event.javaClass.simpleName} \ton ${this.javaClass.simpleName}");
                 monobehav.dispatchEvent(event)
             }
             checkedEvent.addLast(event)
@@ -111,16 +111,17 @@ abstract class MonobehaviourActor(
             return false
         }
 
+        //println("Updating monobehaviours : ${runningBehaviours.size}");
+
         //monobehaviour update() 스케줄링
         val monobehavNode = runningBehaviours.iterator()
         while (monobehavNode.hasNext()) {
-            val monobehaviour: Monobehaviour<*> = monobehavNode.next()!!
+            val monobehaviour: Monobehaviour<*> = monobehavNode.next()
             monobehaviour.updateMonobehav(checkedEvent)
 
-            //System.out.println("run");
             if (!monobehaviour.isRunning) {
                 monobehavNode.remove()
-                //System.out.println("removed : " + monobehaviour.getClass());
+                println("removed : " + monobehaviour.javaClass.simpleName);
             }
         }
         checkedEvent.clear()

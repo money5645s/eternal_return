@@ -4,6 +4,7 @@ import org.eternalreturn.ercharacter.ERCharacter;
 import org.eternalreturn.ercharacter.event.*;
 import org.eternalreturn.erentity.EREntity;
 import org.eternalreturn.erentity.events.EREntityDamagedEvent;
+import org.eternalreturn.system.EREngine;
 import org.eternalreturn.system.PluginInstance;
 import org.eternalreturn.system.SystemManager;
 import org.bukkit.entity.Entity;
@@ -15,6 +16,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.*;
+import org.eternalreturn.util.dpengine.DPEngine;
 
 import java.util.*;
 
@@ -39,16 +41,11 @@ public class ERPlayerListener implements Listener {
     @EventHandler
     public void onPlayerInteraction(PlayerInteractEvent e){
         Action action = e.getAction();
+        var engine = PluginInstance.getEREngine();
         if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)){
-            ERPlayer erPlayer = SystemManager.getERPlayerHashMap().get(e.getPlayer());
+            ERPlayer erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
             erPlayer.submitEvent(new CharacterLeftClickEvent());
         }
-    }
-
-    private static final Set<UUID> apiAttackers = new HashSet<>();
-
-    public static void addAPIAttacker(Player attacker){
-        apiAttackers.add(attacker.getUniqueId());
     }
 
     @EventHandler
@@ -56,33 +53,26 @@ public class ERPlayerListener implements Listener {
 
         if (!(e.getDamager() instanceof Player p)) return;
 
-        ERPlayer erPlayer = SystemManager.getERPlayerHashMap().get(p);
-
-        if(e.getEntity() instanceof Husk){
-            erPlayer.submitEvent(new CharacterLeftClickEvent());
-        }
-
-        EREntity victim = PluginInstance.getEREngine().getEREntity(e.getEntity());
+        var engine = PluginInstance.getEREngine();
+        ERPlayer erPlayer = (ERPlayer)engine.getEREntity(p);
+        EREntity victim = (EREntity)engine.getEREntity(e.getEntity());
 
         if(victim == null){
             return;
         }
 
-        victim.submitEvent(new EREntityDamagedEvent());
-
-        /// LivingEntity.damage() 함수로 피해를 준 경우에 제외
-        if (apiAttackers.remove(p.getUniqueId())) {
-            System.out.println("[API DAMAGE] dropped from " + p.getName());
-            return;
+        if(e.getEntity() instanceof Husk){
+            erPlayer.submitEvent(new CharacterLeftClickEvent());
         }
 
+        victim.submitEvent(new EREntityDamagedEvent());
         erPlayer.submitEvent(new CharacterLeftClickEvent());
-        erPlayer.submitEvent(new CharacterAttackEvent(erPlayer, victim));
     }
 
     @EventHandler
     public void onPlayerSwap(PlayerSwapHandItemsEvent e){
-        ERPlayer erPlayer = SystemManager.getERPlayerHashMap().get(e.getPlayer());
+        var engine = PluginInstance.getEREngine();
+        var erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
         erPlayer.submitEvent(new CharacterSwapHandEvent(erPlayer));
         e.setCancelled(true);
     }
@@ -92,13 +82,16 @@ public class ERPlayerListener implements Listener {
         Entity killer = e.getDamageSource().getCausingEntity();
         Entity victim = e.getEntity();
 
-        EREntity erVictim = PluginInstance.getEREngine().getEREntity(victim);
+        var engine = PluginInstance.getEREngine();
+
         if(killer == null){
             return;
         }
 
-        EREntity erKiller = PluginInstance.getEREngine().getEREntity(killer);
-        if(erKiller == null){
+        EREntity erVictim = engine.getEREntity(victim);
+        EREntity erKiller = engine.getEREntity(killer);
+
+        if(erKiller == null || erVictim == null){
             return;
         }
 

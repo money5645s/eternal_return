@@ -37,10 +37,6 @@ abstract class ERCharacterMonobehaviour<T : CharacterEvent> : EREntityMonobehavi
         return player
     }
 
-    protected fun damage(attacker: Player, victim: LivingEntity, dmg: Double) {
-        ERPlayerListener.addAPIAttacker(attacker)
-        victim.damage(dmg, attacker)
-    }
 
     fun getMonobehavActorList() : MutableList<MonobehaviourActor>{
         return dpEngine.monobehaviourModule.getMonobehavActors();

@@ -45,7 +45,6 @@ public class ERPlayerDebugCommand implements CommandExecutor {
         }
 
         Player p = (Player)sender;
-        ERPlayer erPlayer = SystemManager.getERPlayer(p);
         Set<String> tagSet = p.getScoreboardTags();
         if(args.length == 1 && args[0].equalsIgnoreCase("showtags")){
             p.sendMessage(tagSet.toString());
@@ -145,12 +144,12 @@ public class ERPlayerDebugCommand implements CommandExecutor {
         else if(args.length == 1 && args[0].equalsIgnoreCase("dummy")){
             
             var engine = PluginInstance.getEREngine();
-
+            var erPlayer = (ERPlayer)engine.getEREntity(p);
             Entity dummy = p.getWorld().spawnEntity(p.getLocation(), EntityType.VILLAGER);
             engine.registerBukkitActor(
                     dummy,
                     new ERDummy(engine, dummy, engine.createOrientedBox(p.getLocation(),1.0/2,3.0/2,1.0/2)));
-            erPlayer.sendMessage("Dummy set");
+            p.sendMessage("Dummy set");
         }
 
         return false;

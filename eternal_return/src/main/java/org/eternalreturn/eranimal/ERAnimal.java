@@ -2,6 +2,7 @@ package org.eternalreturn.eranimal;
 
 import org.eternalreturn.eranimal.animals.behavs.Battle;
 import org.eternalreturn.eranimal.animals.behavs.Ready;
+import org.eternalreturn.eranimal.animals.events.ERAnimalReadyEvent;
 import org.eternalreturn.erentity.EREntity;
 import org.eternalreturn.util.dpengine.DPEngine;
 import org.eternalreturn.util.dpengine.geometry.Collider;
@@ -24,6 +25,7 @@ public class ERAnimal extends EREntity {
         this.ajEntity = ajEntity;
         registerMonobehaviour(new Ready());
         registerMonobehaviour(new Battle());
+
     }
 
     public ERAJEntity getAJEntity(){

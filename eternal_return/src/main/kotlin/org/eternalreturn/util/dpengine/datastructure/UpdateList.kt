@@ -5,17 +5,11 @@ import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 /**
  * 삽입 시 레퍼런스 카운트를 1 올리는 컨테이너 객체.
  *
- * 레퍼런스 카운트가 0인 MonobehaviourActor들을 제거한다.
+ * 레퍼런스 카운트가 0인 MonobehaviourActor들은 제거한다.
  *
  * 제거하는 데에는 O(N)시간이 필요하다.
  * */
-class UpdateList<E : MonobehaviourActor>{
-
-    private val queue = Array<ArrayList<E>>(2) { ArrayList() };
-    private var curIdx = 0;
-    val curQueue : ArrayList<E>
-        get() = queue[curIdx]
-
+class UpdateList<E : MonobehaviourActor> : UpdateContainer<E>() {
     /**
      * 레퍼런스 카운트를 한 개 올리며 삽입한다.
      * */
@@ -25,20 +19,24 @@ class UpdateList<E : MonobehaviourActor>{
     }
 
     /**
-     * O(N) 시간에 돌면서 제거해야 할 Actor를 제거한다.
+     * 해당 리스트가 업데이트 될 때마다 함께 수정될 View들을 등록한다.
+     * 해당 View들은 UpdateList가 update를 통해 collecting을 할 때마다
+     * 함께 반영된다.
      * */
-    fun update(){
+    val viewList = ArrayList<UpdateView<out MonobehaviourActor>>();
+    fun registerView(view : UpdateView<out MonobehaviourActor>){
+        viewList.add(view);
+    }
 
-        val prevQueue = curQueue;
-
-        curIdx = curIdx xor 1
-        val nextQueue = queue[curIdx]
-        nextQueue.clear(); //나중에 바꿔야할 수도 있음. 성능 잡아먹음.
-
-        for(actor in prevQueue){
-            if(actor.referenceCount > 0){
-                nextQueue.add(actor);
-            }
+    /**
+     * Override된 기능. 원래의 update를 실행 후 종속된 View들의 컨테이너들도 함께 업데이트한다.
+     * Update-propagate 기능임.
+     * */
+    override fun update(){
+        super.update();
+        for(view in viewList){
+            view.update();
         }
     }
+
 }
