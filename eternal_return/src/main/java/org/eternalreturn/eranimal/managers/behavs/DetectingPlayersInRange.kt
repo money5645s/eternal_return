@@ -48,21 +48,20 @@ class DetectingPlayersInRange : Monobehaviour<DetectingPlayerEvent>() {
             val avg = vec3(px, py, pz);
             val pos = player.getPosition()
             val dis = magnitudeSqr(avg - pos);
-            if(dis <= 32 * 32){
+            if(dis <= 128 * 128){
                 isInDistance = true;
                 break;
             }
         }
+        
+        //4가지 케이스에 대해서 검사
 
-        //플레이어가 하나라도 없는 경우
-        if(!isInDistance && summoned){
+        if(!isInDistance && summoned) { //플레이어가 하나라도 없는 경우
             removeERAJEntities();
             actor.submitEvent(RemoveAllERAnimals())
             summoned = false;
         }
-        
-        //플레이어가 하나라도 있지만, 소환되지는 않은 경우
-        if(isInDistance && !summoned){
+        else if(isInDistance && !summoned){ //플레이어가 하나라도 있지만, 소환되지는 않은 경우
             val listReference = summonERAJEntities();
             actor.submitEvent(WaitForSummoning(listReference))
             summoned = true;

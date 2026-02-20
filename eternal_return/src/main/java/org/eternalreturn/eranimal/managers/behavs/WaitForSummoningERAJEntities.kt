@@ -18,7 +18,7 @@ class WaitForSummoningERAJEntities : Monobehaviour<WaitForSummoning>() {
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
         for(erAJEntity in waitingAnimalList){
             if(erAJEntity.actor == null){ //HUSK가 하나라도 null이라면
-                return; //묻지도 따지지도 말고 그냥 return
+                return; //묻지도 따지지도 말고 그냥 return + 다음 틱까지 대기
             }
         }
         

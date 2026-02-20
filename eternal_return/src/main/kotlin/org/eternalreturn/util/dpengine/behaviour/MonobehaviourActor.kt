@@ -43,7 +43,10 @@ abstract class MonobehaviourActor(
         return referenceCount >= 1;
     }
 
-    fun remove(){
+    /**
+     * 해당 객체의 레퍼런스 카운트를 0으로 설정하여 다음 틱 때 제거되도록 함.
+     * */
+    inline fun remove(){
         this.referenceCount = 0;
     }
     fun dereference(){
@@ -128,7 +131,7 @@ abstract class MonobehaviourActor(
         return true
     }
 
-    val isEmptyForRunningMonobehaviour: Boolean
+    val thereAreNoRunningMonobehaviours: Boolean
         get() = runningBehaviours.isEmpty()
 
     /**

@@ -28,7 +28,7 @@ class PlayerRayCastingMeleeAttack : ERCharacterMonobehaviour<CharacterRayCastEve
 
             val distanceSqr = magnitudeSqr(distVec);
 
-            if(1.0 < distanceSqr && distanceSqr <= 16.0 && distanceSqr < minDist){
+            if(distanceSqr < minDist){
                 minDist = distanceSqr;
                 closestTarget = e;
                 getERPlayer().sendMessage("Melee-attacked to -> " + e.javaClass)

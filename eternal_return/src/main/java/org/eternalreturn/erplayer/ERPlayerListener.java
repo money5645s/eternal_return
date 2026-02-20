@@ -55,17 +55,11 @@ public class ERPlayerListener implements Listener {
 
         var engine = PluginInstance.getEREngine();
         ERPlayer erPlayer = (ERPlayer)engine.getEREntity(p);
-        EREntity victim = (EREntity)engine.getEREntity(e.getEntity());
-
-        if(victim == null){
-            return;
-        }
 
         if(e.getEntity() instanceof Husk){
             erPlayer.submitEvent(new CharacterLeftClickEvent());
         }
 
-        victim.submitEvent(new EREntityDamagedEvent());
         erPlayer.submitEvent(new CharacterLeftClickEvent());
     }
 

@@ -17,6 +17,10 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
 
 
     override fun start(event: AnimalManageEvent) {
+        
+        //실체화된(AJEntity.summon()을 호출한) 엔티티들에 대한 Actor들을 생성
+        val startNano = System.nanoTime();
+
         for(erAJAnimal in event.aleadySummonedAnimals){
             val newAnimal = when (erAJAnimal.name) {
                 "animal_alpha" -> Alpha(dpEngine, erAJAnimal, erAJAnimal.location)
@@ -28,9 +32,13 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
             dpEngine.monobehaviourModule.register(newAnimal!!);
             animals.add(newAnimal);
         }
+
+        println("Nano spent : ${System.nanoTime() - startNano}");
+
     }
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+        //RemoveAllERAnimals 이벤트가 삽입된 경우, 바로 제거 절차 진입.
         for(event in eventList){
             if(event is RemoveAllERAnimals){
                 removeAll();
@@ -38,7 +46,6 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
                 return;
             }
         }
-
 
     }
 

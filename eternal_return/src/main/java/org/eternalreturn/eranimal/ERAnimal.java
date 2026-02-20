@@ -1,8 +1,8 @@
 package org.eternalreturn.eranimal;
 
 import org.eternalreturn.eranimal.animals.behavs.Battle;
-import org.eternalreturn.eranimal.animals.behavs.Ready;
-import org.eternalreturn.eranimal.animals.events.ERAnimalReadyEvent;
+import org.eternalreturn.eranimal.animals.behavs.Idle;
+import org.eternalreturn.eranimal.animals.events.IdleEvent;
 import org.eternalreturn.erentity.EREntity;
 import org.eternalreturn.util.dpengine.DPEngine;
 import org.eternalreturn.util.dpengine.geometry.Collider;
@@ -23,9 +23,10 @@ public class ERAnimal extends EREntity {
         super(engine, ajEntity.getActor(), collider);
         //System.out.println(collider.getClass());
         this.ajEntity = ajEntity;
-        registerMonobehaviour(new Ready());
         registerMonobehaviour(new Battle());
+        registerMonobehaviour(new Idle());
 
+        this.submitEvent(new IdleEvent());
     }
 
     public ERAJEntity getAJEntity(){
