@@ -86,6 +86,12 @@ public class Graph<T>{
         return vertices.get(data);
     }
 
+    public void modifyAs(Graph<T> graph){
+        this.vertexList = graph.vertexList;
+        this.vertices = graph.vertices;
+        this.edges = graph.edges;
+    }
+
 }
 
 

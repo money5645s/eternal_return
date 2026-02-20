@@ -1,10 +1,7 @@
 package org.eternalreturn.system;
 
-import org.eternalreturn.area.ERAreaGraph;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.eternalreturn.area.ERAreaSystem;
 import org.eternalreturn.erplayer.ERPlayer;
-import org.eternalreturn.erplayer.gui.inventory.upgradesystem.model.Enchanter;
-import org.eternalreturn.erplayer.gui.inventory.upgradesystem.model.Upgrader;
 import org.eternalreturn.util.itemUtill.CustomModelData;
 import org.eternalreturn.util.itemUtill.CustomModelDataManager;
 import org.bukkit.entity.Player;
@@ -21,10 +18,6 @@ public class SystemManager {
     private static SystemManager instance;
     private static HashMap<Player, ERPlayer> erPlayerHashMap;
     private static List<ERPlayer> erPlayerList;
-    private static HashMap<UUID, Player> uuidPlayerHashMap;
-    private static BukkitAudiences bukkitAudiences;
-    private static Enchanter enchanter;
-    private static ERAreaGraph ERAreaGraph;
     private static CustomModelDataManager CustomModelDataManager;
 
     public static int RED_ZONE = 0;
@@ -69,18 +62,12 @@ public class SystemManager {
         }
         erPlayerList.clear();
         erPlayerHashMap.clear();
-        uuidPlayerHashMap.clear();
-        enchanter.free();
-        ERAreaGraph.free();
         CustomModelDataManager.free();
     }
 
     private SystemManager() {
         erPlayerList = new ArrayList<>();
         erPlayerHashMap = new HashMap<>();
-        uuidPlayerHashMap = new HashMap<>();
-        enchanter = new Upgrader();
-        ERAreaGraph = new ERAreaGraph(20);
         CustomModelDataManager = new CustomModelDataManager();
     }
 
@@ -96,20 +83,8 @@ public class SystemManager {
         return instance;
     }
 
-    public static Enchanter getEnchanter(){
-        return enchanter;
-    }
-
     public static @NotNull HashMap<Player, ERPlayer> getERPlayerHashMap(){
         return erPlayerHashMap;
-    }
-
-    public static BukkitAudiences getBukkitAudiences(){
-        return bukkitAudiences;
-    }
-
-    public static ERAreaGraph getAreaGraph(){
-        return ERAreaGraph;
     }
 
     public static CustomModelDataManager getCustomModelDataManager(){

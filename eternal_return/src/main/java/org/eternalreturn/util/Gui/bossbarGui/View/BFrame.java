@@ -56,7 +56,6 @@ public class BFrame implements BComponentManager{
         this.components = new ArrayList<>(16);
         this.bComponents = new ArrayList<>(16);
         this.bButtons = new ArrayList<>(16);
-        this.audience = PluginInstance.adventure().player(player.getPlayer());
         this.currentButtonUnderCursor = null;
         this.name = name;
 

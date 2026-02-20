@@ -1,5 +1,8 @@
 package org.eternalreturn.erplayer;
 
+import org.bukkit.NamespacedKey;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.eternalreturn.ercharacter.character.adriana.Character_Adriana;
 import org.eternalreturn.ercharacter.character.fiora.Character_Fiora;
 import org.eternalreturn.ercharacter.character.hart.Character_Hart;
@@ -10,10 +13,9 @@ import org.eternalreturn.ercharacter.character.lidailin.Character_LiDailin;
 import org.eternalreturn.ercharacter.character.nathapon.Character_Nathapon;
 import org.eternalreturn.ercharacter.character.yuki.Character_Yuki;
 import org.eternalreturn.ercharacter.ERCharacter;
+import org.eternalreturn.ercharacter.event.CharacterParabolicFlyEvent;
 import org.eternalreturn.erentity.ERDummy;
-import org.eternalreturn.erplayer.ERPlayer;
 import org.eternalreturn.system.PluginInstance;
-import org.eternalreturn.system.SystemManager;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -150,6 +152,17 @@ public class ERPlayerDebugCommand implements CommandExecutor {
                     dummy,
                     new ERDummy(engine, dummy, engine.createOrientedBox(p.getLocation(),1.0/2,3.0/2,1.0/2)));
             p.sendMessage("Dummy set");
+        }
+
+        else if(args.length == 5 && args[0].equalsIgnoreCase("parabola")) {
+            var engine = PluginInstance.getEREngine();
+            var erPlayer = (ERPlayer)engine.getEREntity(p);
+            double dx, dy, dz, height;
+            dx = Double.parseDouble(args[1]);
+            dy = Double.parseDouble(args[2]);
+            dz = Double.parseDouble(args[3]);
+            height = Double.parseDouble(args[4]);
+            erPlayer.submitEvent(new CharacterParabolicFlyEvent(dx, dy, dz, height, 1.5));
         }
 
         return false;

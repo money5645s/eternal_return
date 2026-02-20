@@ -3,7 +3,6 @@ package org.eternalreturn.system;
 
 import java.io.UnsupportedEncodingException;
 
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.eternalreturn.eranimal.managers.actors.ERAnimalManager;
 import org.eternalreturn.erplayer.ERPlayerDebugCommand;
 import org.eternalreturn.erplayer.ERPlayerListener;
@@ -20,21 +19,12 @@ public final class PluginInstance extends JavaPlugin{
     private static PluginInstance serverInstance;
     private static AJEntityManager ajEntityManager;
     private static SystemManager systemManager;
-    private static BukkitAudiences adventure;
     private static ERAnimalManager erAnimalManager;
 
     /**
      * 나중에 병렬처리를 위해 List<>로 관리할 수도 있음.
      * */
     private static EREngine erEngine = new EREngine();
-
-    //BukkitAudience얻어오는 함수
-    public static @NotNull BukkitAudiences adventure(){
-        if(adventure == null){
-            throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
-        }
-        return adventure;
-    }
 
 
     //UTF-8로 인코딩 후 로거에게 전달하는 함수.
@@ -60,7 +50,6 @@ public final class PluginInstance extends JavaPlugin{
 
         //시스템매니저 객체 생성
         systemManager = SystemManager.getInstance();
-        adventure = BukkitAudiences.create(this);
 
 
         //GuiOpen 리스너 등록. 이런 식으로 해야 함...
@@ -88,9 +77,6 @@ public final class PluginInstance extends JavaPlugin{
     public void onDisable() {
         systemManager.free();
         ajEntityManager.free();
-        if(adventure != null){
-            adventure.close();
-        }
     }
 
     public static PluginInstance getServerInstance(){

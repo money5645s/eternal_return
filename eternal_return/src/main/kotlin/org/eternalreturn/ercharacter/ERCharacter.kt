@@ -1,6 +1,7 @@
 package org.eternalreturn.ercharacter
 
 import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.globalmonobehav.ParabolicFly
 import org.eternalreturn.ercharacter.globalmonobehav.PlayerRayCastingByLeftClicking
 import org.eternalreturn.ercharacter.globalmonobehav.PlayerRayCastingMeleeAttack
 import org.eternalreturn.erentity.EREntity
@@ -24,6 +25,7 @@ abstract class ERCharacter(
     init {
         registerMonobehaviour(PlayerRayCastingByLeftClicking())
         registerMonobehaviour(PlayerRayCastingMeleeAttack())
+        registerMonobehaviour(ParabolicFly())
     }
 
     abstract val name: String

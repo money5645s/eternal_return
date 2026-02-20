@@ -57,6 +57,9 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
 
     }
 
+    /**
+     * Global MonobehaviourActor 컨테이너의 UpdateView를 생성한다.
+     * */
     fun registerUpdateView(view : UpdateView<out MonobehaviourActor>){
         monobehaviourActorList.registerView(view);
     }
