@@ -1,8 +1,5 @@
 package org.eternalreturn.erplayer;
 
-import org.bukkit.NamespacedKey;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.eternalreturn.ercharacter.character.adriana.Character_Adriana;
 import org.eternalreturn.ercharacter.character.fiora.Character_Fiora;
 import org.eternalreturn.ercharacter.character.hart.Character_Hart;
@@ -163,6 +160,10 @@ public class ERPlayerDebugCommand implements CommandExecutor {
             dz = Double.parseDouble(args[3]);
             height = Double.parseDouble(args[4]);
             erPlayer.submitEvent(new CharacterParabolicFlyEvent(dx, dy, dz, height, 1.5));
+        }
+
+        else if(args.length == 1 && args[0].equalsIgnoreCase("r")){
+
         }
 
         return false;

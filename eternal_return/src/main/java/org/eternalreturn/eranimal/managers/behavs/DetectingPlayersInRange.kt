@@ -73,7 +73,6 @@ class DetectingPlayersInRange : Monobehaviour<DetectingPlayerEvent>() {
         val list = (actor as ERAnimalManager).entities;
         for(erAJAnimal in list){
             erAJAnimal.summon();
-            erAJAnimal.isShown = true;
         }
         return list;
     }
@@ -82,7 +81,6 @@ class DetectingPlayersInRange : Monobehaviour<DetectingPlayerEvent>() {
         val list = (actor as ERAnimalManager).entities;
         for(erAJAnimal in list){
             erAJAnimal.remove();
-            erAJAnimal.isShown = false;
         }
     }
 

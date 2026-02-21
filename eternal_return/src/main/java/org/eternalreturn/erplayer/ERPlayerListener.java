@@ -1,5 +1,8 @@
 package org.eternalreturn.erplayer;
 
+import com.destroystokyo.paper.event.player.PlayerReadyArrowEvent;
+import org.bukkit.Material;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.eternalreturn.ercharacter.ERCharacter;
 import org.eternalreturn.ercharacter.event.*;
 import org.eternalreturn.erentity.EREntity;
@@ -92,5 +95,27 @@ public class ERPlayerListener implements Listener {
         erKiller.submitEvent(new CharacterKillEvent());
 
     }
+
+    @EventHandler
+    public void onShoot(EntityShootBowEvent e){
+        e.setCancelled(true);
+        var player = (Player)e.getEntity();
+        float force = e.getForce();
+        player.sendMessage("Force : " + force);
+
+        if(force <= 0.9f){
+            return;
+        }
+
+        var inv = (player).getInventory();
+        inv.remove(Material.ARROW);
+
+        var engine = PluginInstance.getEREngine();
+        var erPlayer = engine.getEREntity(player);
+
+        erPlayer.submitEvent(new CharacterLeftClickEvent());
+
+    }
+
 
 }

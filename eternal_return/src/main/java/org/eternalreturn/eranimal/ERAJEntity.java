@@ -49,6 +49,7 @@ public class ERAJEntity extends AJEntity {
 
     public void summon() {
         AJEntityManager.summon(this, location);
+        this.isShown = true;
     }
 
 
@@ -100,6 +101,7 @@ public class ERAJEntity extends AJEntity {
             super.remove();
             this.actor.remove();
         }
+        this.isShown = false;
     }
 
     @Override
@@ -147,7 +149,4 @@ public class ERAJEntity extends AJEntity {
         return this.isShown;
     }
 
-    public void setShown(boolean bool){
-        this.isShown = bool;
-    }
 }

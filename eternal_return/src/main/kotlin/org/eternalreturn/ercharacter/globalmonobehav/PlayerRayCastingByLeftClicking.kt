@@ -35,11 +35,11 @@ class PlayerRayCastingByLeftClicking : ERCharacterMonobehaviour<CharacterLeftCli
 
             if(collider.rayCasting(out, pPos, pdir)){
                 println("Ray hit to -> " + erEntity.javaClass);
-                hitList.addLast(erEntity)
+                hitList.addLast(erEntity);
             }
         }
-        if(hitList.isEmpty())return
-        this.actor.submitEvent(CharacterRayCastEvent(hitList))
+        if(hitList.isEmpty())return;
+        this.actor.submitEvent(CharacterRayCastEvent(hitList));
     }
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {

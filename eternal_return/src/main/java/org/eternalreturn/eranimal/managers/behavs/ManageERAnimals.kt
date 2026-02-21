@@ -51,6 +51,7 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
 
     fun removeAll(){
         for(animal in animals.curQueue){
+            animal.ajEntity.remove();
             animal.remove();
         }
     }

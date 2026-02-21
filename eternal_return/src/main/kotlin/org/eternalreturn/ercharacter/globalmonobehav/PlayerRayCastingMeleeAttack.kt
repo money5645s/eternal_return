@@ -13,7 +13,7 @@ class PlayerRayCastingMeleeAttack : ERCharacterMonobehaviour<CharacterRayCastEve
 
     override fun start(event: CharacterRayCastEvent) {
 
-        var minDist = 16.0
+        var minDist = 9.0
         var closestTarget: EREntity? = null;
         val character = getERCharacter();
 

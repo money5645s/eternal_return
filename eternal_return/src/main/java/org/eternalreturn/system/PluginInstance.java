@@ -6,7 +6,6 @@ import java.io.UnsupportedEncodingException;
 import org.eternalreturn.eranimal.managers.actors.ERAnimalManager;
 import org.eternalreturn.erplayer.ERPlayerDebugCommand;
 import org.eternalreturn.erplayer.ERPlayerListener;
-import org.eternalreturn.erplayer.gui.inventory.InventoryGuiListener;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -55,7 +54,6 @@ public final class PluginInstance extends JavaPlugin{
         //GuiOpen 리스너 등록. 이런 식으로 해야 함...
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new ERPlayerListener(), this);
-        pm.registerEvents(new InventoryGuiListener(), this);
         //pm.registerEvents(new BSwingListener(), this);
         pm.registerEvents(ajEntityManager, this);
         loadCommands();

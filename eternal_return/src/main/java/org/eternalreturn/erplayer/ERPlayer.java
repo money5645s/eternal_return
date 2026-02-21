@@ -1,8 +1,6 @@
 package org.eternalreturn.erplayer;
 
 import org.eternalreturn.ercharacter.ERCharacter;
-import org.eternalreturn.erplayer.gui.inventory.upgradesystem.UpgradeGuiController;
-import org.eternalreturn.erplayer.gui.inventory.upgradesystem.view.UpgradeGui;
 import org.eternalreturn.system.PluginInstance;
 import org.eternalreturn.util.Gui.InventoryGui.View.IController;
 import org.bukkit.entity.Player;
@@ -15,12 +13,10 @@ import org.jetbrains.annotations.NotNull;
 public class ERPlayer extends ERCharacter{
 
     private String name = "NullPlayer";
-    private UpgradeGui upgradeGui;
     private IController upgradeGuiController;
 
     public void free(){
         upgradeGuiController.free();
-        upgradeGui.free();
     }
 
     @Override
@@ -32,17 +28,10 @@ public class ERPlayer extends ERCharacter{
         super(p,
                 engine.createOrientedBox(p.getLocation(), 1.0 / 2, 2.0 / 2, 1.0 / 2),
                 engine);
-        upgradeGui = new UpgradeGui(p);
-        upgradeGuiController = new UpgradeGuiController(this, upgradeGui);
     }
 
     public IController getUpgradeGuiController(){
         return upgradeGuiController;
-    }
-
-    //setter
-    public UpgradeGui getUpgradeGui() {
-        return upgradeGui;
     }
 
     public void sendMessage(String str){
