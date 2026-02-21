@@ -23,32 +23,9 @@ abstract class DPEngine(bufferSize: Int = 512) : Runnable {
 
     val geometryModule = GeometryModule(this, bufferSize)
 
-    public fun createCylinder(line : InfStraightLine, height : Double, radius : Double) : Cylinder{
-        return Cylinder(geometryModule, line, height, radius);
-    }
-
-    public fun createCylinder(location : Location, height : Double, radius : Double) : Cylinder{
-        val dir = location.direction;
-        return Cylinder(geometryModule,
-            InfStraightLine(geometryModule, dir.x, dir.y, dir.z, location.x, location.y, location.z),
-            radius, height);
-    }
-
-    public fun createInfStrightLine(dirX: Double, dirY: Double, dirZ: Double, posX: Double, posY: Double, posZ: Double): InfStraightLine {
-        return InfStraightLine(geometryModule, dirX, dirY, dirZ, posX, posY, posZ);
-    }
-
-    public fun createInfPlane(dirX: Double, dirY: Double, dirZ: Double, posX: Double, posY: Double, posZ: Double): InfPlane {
-        return InfPlane(geometryModule, posX, posY, posZ, dirX, dirY, dirZ);
-    }
-
     public fun createOrientedBox(location : Location, halfX: Double, halfY: Double, halfZ: Double): OrientedBox {
         val dir = location.direction;
         return OrientedBox(geometryModule,location.x,location.y, location.z,Quaterniond(dir.x, dir.y, dir.z, 0.0), halfX, halfY, halfZ);
-    }
-
-    public fun createOrientedBox(dirX: Double, dirY: Double, dirZ: Double, posX: Double, posY: Double, posZ: Double): OrientedBox {
-        return OrientedBox(geometryModule,posX,posY,posZ, Quaterniond(dirX, dirY, dirZ, 0.0), 0.0, 0.0, 0.0);
     }
 
     public val monobehaviourModule = MonobehaviourModule(this)
@@ -59,7 +36,6 @@ abstract class DPEngine(bufferSize: Int = 512) : Runnable {
 
     public fun appendCommandQueue(cmd : Command){
         commandQueue.add(cmd);
-        //println("Command queue length = " + commandQueue.size);
     }
 
     public fun flushCommandQueue(){

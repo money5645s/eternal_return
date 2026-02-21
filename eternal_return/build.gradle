@@ -59,7 +59,7 @@ processResources {
 
 jar{
     archiveFileName = 'eternal_return.jar'
-    destinationDirectory = file("E:\\EWorkspace\\eternal_return_test_server_papermc\\plugins")
+    destinationDirectory = file("C:\\eternal_return_test_server_papermc\\plugins")
     manifest{
         attributes 'Main-Class': 'eternal_return.system.PluginInstance'
     }

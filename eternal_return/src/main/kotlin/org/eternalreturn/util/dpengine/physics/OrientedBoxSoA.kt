@@ -1,19 +1,17 @@
-package org.eternalreturn.util.dpengine.geometry
-
-import org.joml.Quaterniond
+package org.eternalreturn.util.dpengine.physics
 
 class OrientedBoxSoA() {
 
-    val px = ArrayList<Double>();
-    val py = ArrayList<Double>();
-    val pz = ArrayList<Double>();
-    val halfX = ArrayList<Double>();
-    val halfY = ArrayList<Double>();
-    val halfZ = ArrayList<Double>();
-    val rx = ArrayList<Double>();
-    val ry = ArrayList<Double>();
-    val rz = ArrayList<Double>();
-    val rw = ArrayList<Double>();
+    private val px = ArrayList<Double>();
+    private val py = ArrayList<Double>();
+    private val pz = ArrayList<Double>();
+    private val halfX = ArrayList<Double>();
+    private val halfY = ArrayList<Double>();
+    private val halfZ = ArrayList<Double>();
+    private val rx = ArrayList<Double>();
+    private val ry = ArrayList<Double>();
+    private val rz = ArrayList<Double>();
+    private val rw = ArrayList<Double>();
 
     fun buildRotationMatrix(i: Int, out: DoubleArray /* size 9 */) {
         val x = rx[i]
