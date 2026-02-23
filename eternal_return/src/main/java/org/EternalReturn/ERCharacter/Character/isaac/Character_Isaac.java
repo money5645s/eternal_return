@@ -11,7 +11,7 @@ public class Character_Isaac extends ERCharacter {
 
     public Character_Isaac(ERPlayer player) {
         super(player);
-        this.ActiveCooldownSeconds = 8;
+        this.ActiveCooldownSeconds = 3;
         this.PassiveCooldownSeconds = 8;
         registerMonobehaviour(new Passive());
         registerMonobehaviour(new Active());

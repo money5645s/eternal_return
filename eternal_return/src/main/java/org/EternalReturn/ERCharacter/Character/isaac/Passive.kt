@@ -1,7 +1,6 @@
 package org.EternalReturn.ERCharacter.Character.isaac
 
 import org.EternalReturn.ERCharacter.Character.isaac.event.PassiveCountEvent
-import org.EternalReturn.ERCharacter.Character.yuki.Character_Yuki
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour
 import org.EternalReturn.ERCharacter.Event.CharacterAttackEvent
 import org.EternalReturn.EREntity.Event.EREntityStunEvent
@@ -32,6 +31,8 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
             player.sendMessage("§f[아이작] 경화 발동")
             victimEntity.noDamageTicks = 0
             victimEntity.damage(5.0)
+            // 쿨타임 등록
+            isaac.cooldown.set("Active", isaac.ActiveCooldownSeconds)
             isaac.isActiveSkill = false
         }
 

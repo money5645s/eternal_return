@@ -35,7 +35,7 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
             event.player.health = finalHealth
 
             count = 0;
-            this.getEREntity().submitEvent(ToucheEffectStartEvent(victim.location, durationTicks, count));
+//            this.getEREntity().submitEvent(ToucheEffectStartEvent(victim.location, durationTicks, count));
             stopMonobehav();
             return;
         }
@@ -44,17 +44,17 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
             count ++;
             startTime = System.currentTimeMillis();
             event.player.sendMessage("카운트 : $count");
-            this.getEREntity().submitEvent(ToucheEffectStartEvent(victim.location, durationTicks, count));
+//            this.getEREntity().submitEvent(ToucheEffectStartEvent(victim.location, durationTicks, count));
             event.player.playSound(event.player.location, Sound.BLOCK_NOTE_BLOCK_CHIME, 1f, 1f + (count * 0.2f))
             stopMonobehav();
             return;
         }
         else{
             count = 1;
-            event.player.sendMessage("타임아웃 ! 카운트 : $count");
+            event.player.sendMessage("카운트 : $count");
             event.player.playSound(event.player.location, Sound.BLOCK_NOTE_BLOCK_CHIME, 1f, 1f + (count * 0.2f))
             startTime = System.currentTimeMillis();
-            this.getEREntity().submitEvent(ToucheEffectStartEvent(victim.location, durationTicks, count));
+//            this.getEREntity().submitEvent(ToucheEffectStartEvent(victim.location, durationTicks, count));
             stopMonobehav();
             return;
         }

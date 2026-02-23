@@ -1,6 +1,5 @@
 package org.EternalReturn.ERCharacter.Character.hart
 
-import org.EternalReturn.ERCharacter.Character.jackie.Character_Jackie
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour
 import org.EternalReturn.ERCharacter.Event.CharacterSwapHandEvent
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent
@@ -13,6 +12,16 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var isActive = false
     override fun start(event: CharacterSwapHandEvent) {
         val player = getPlayer()
+
+        val hart = actor as Character_Hart
+        val cd = hart.cooldown
+
+        if (cd.isWaiting("Active")) {
+            val remain = String.format("%.1f", cd.getLeft("Active"))
+            getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
+            return
+        }
+
         if (isActive) return
 
         player.addPotionEffect(PotionEffect(PotionEffectType.STRENGTH, 100, 0, false, false))
@@ -23,6 +32,14 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     }
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+        val hart = actor as Character_Hart
+        val cd = hart.cooldown
+
+        if (cd.isWaiting("Active")) {
+            stopMonobehav()
+            return
+        }
+
         if (isActive) {
             val currentTime = System.currentTimeMillis()
 
@@ -30,6 +47,8 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             if (currentTime - skillActiveTick > durationMillis) {
                 getPlayer().sendMessage("§7[하트] 스킬 상태가 종료되었습니다.")
                 isActive = false
+                // 쿨타임 등록
+                hart.cooldown.set("Active", hart.ActiveCooldownSeconds)
                 stopMonobehav()
             }
         }

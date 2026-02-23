@@ -3,6 +3,7 @@ package org.EternalReturn.ERCharacter.Character.fiora
 import org.EternalReturn.ERCharacter.ERCharacterMonobehaviour
 import org.EternalReturn.ERCharacter.Event.CharacterSwapHandEvent
 import org.EternalReturn.ERCharacter.Character.fiora.event.ERToucheCountEvent
+import org.EternalReturn.ERCharacter.Character.fiora.Character_Fiora
 import org.EternalReturn.System.PluginInstance
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Particle
@@ -16,15 +17,36 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var skillTimer = 0
 
     override fun start(event: CharacterSwapHandEvent) {
+        val fiora = actor as Character_Fiora
+        val cd = fiora.cooldown
+
         skillTimer = 0
+
+        if (cd.isWaiting("Active")) {
+            val remain = String.format("%.1f", cd.getLeft("Active"))
+            getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
+            return
+        }
+
+        skillTimer = 1
         getPlayer().sendMessage("§f[피오라] §b아따끄 꽁뽀제!")
         getPlayer().addPotionEffect(PotionEffect(PotionEffectType.RESISTANCE, 14, 2, false, false))
+        // 쿨타임 등록
+        fiora.cooldown.set("Active", fiora.ActiveCooldownSeconds)
     }
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
 
+        if(skillTimer < 1){
+            stopMonobehav()
+            return
+        }
+
         skillTimer++
         val player = getPlayer()
+
+        // 디버깅 용도
+//        player.sendMessage("${skillTimer}")
 
         // 1타 (4틱)
         if (skillTimer == 4) {

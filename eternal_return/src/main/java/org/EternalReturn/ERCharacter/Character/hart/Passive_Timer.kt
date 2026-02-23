@@ -1,6 +1,5 @@
 package org.EternalReturn.ERCharacter.Character.hart
 
-import org.EternalReturn.ERCharacter.Character.fiora.event.ToucheEffectStartEvent
 import org.EternalReturn.ERCharacter.Character.hart.event.PassiveTimerEvent
 import org.EternalReturn.EREntity.EREntityMonobehaviour
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent

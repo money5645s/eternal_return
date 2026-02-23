@@ -53,6 +53,7 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
             if (yuki.isActiveSkill) {
                 player.sendMessage("§f[유키] 머리!")
                 event.victim.submitEvent(EREntityStunEvent(1 * 20)) //2초
+                // 쿨타임 등록
                 yuki.cooldown.set("Active", yuki.ActiveCooldownSeconds)
                 yuki.isActiveSkill = false
             }

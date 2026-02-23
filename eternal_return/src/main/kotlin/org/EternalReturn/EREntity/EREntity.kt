@@ -4,6 +4,7 @@ import org.EternalReturn.ERCharacter.Character.fiora.ToucheCount
 import org.EternalReturn.ERCharacter.Character.fiora.ToucheEffect
 import org.EternalReturn.ERCharacter.Character.hart.Passive_Timer
 import org.EternalReturn.ERCharacter.Character.isaac.PassiveCount
+import org.EternalReturn.ERCharacter.Character.lidailin.DrunkTimer
 import org.EternalReturn.ERCharacter.Character.lidailin.LiDailinPassiveTimer
 import org.EternalReturn.EREntity.GlobalMonobehav.Stun
 import org.EternalReturn.System.PluginInstance
@@ -59,6 +60,7 @@ abstract class EREntity( // extends MonobehaviourActor()
         this.registerMonobehaviour(Passive_Timer() as Monobehaviour<out MonobehaviourEvent>)
         this.registerMonobehaviour(LiDailinPassiveTimer() as Monobehaviour<out MonobehaviourEvent>)
         this.registerMonobehaviour(PassiveCount() as Monobehaviour<out MonobehaviourEvent>)
+        this.registerMonobehaviour(DrunkTimer() as Monobehaviour<out MonobehaviourEvent>)
     }
 
     /**

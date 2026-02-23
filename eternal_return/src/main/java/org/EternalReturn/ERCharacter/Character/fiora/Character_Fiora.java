@@ -6,9 +6,11 @@ import org.EternalReturn.ERPlayer.ERPlayer;
 
 public class Character_Fiora extends ERCharacter {
 
+    public boolean isActiveSkill = false;
+
     public Character_Fiora(ERPlayer player) {
         super(player);
-        this.ActiveCooldownSeconds = 8;
+        this.ActiveCooldownSeconds = 3;
         registerMonobehaviour(new Passive());
         registerMonobehaviour(new Active());
     }
