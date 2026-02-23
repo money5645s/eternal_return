@@ -1,43 +1,54 @@
 package org.eternalreturn.util.dpengine.physics
 
-class TransformSoA(size : Int) {
+import it.unimi.dsi.fastutil.ints.IntArrayList
+import kotlin.collections.set
 
-
-    private val px = DoubleArray(size);
-    private val py = DoubleArray(size);
-    private val pz = DoubleArray(size);
-    private val sparseIndex = IntArray(size);
-    private val denseIndex = IntArray(size);
-
-    var lastIdx = 0;
-
-    fun newIdx(entity : Int, x : Double, y : Double, z : Double){
-        px[lastIdx] = x; py[lastIdx] = y; pz[lastIdx] = z;
-        denseIndex[lastIdx] = entity;
-        sparseIndex[entity] = lastIdx; // sparse -> dense -> datas
-        lastIdx++;
-    }
-
-    fun remove(id : Int){
-        val lastId = lastIdx - 1;
-        px[id] = px[lastId];
-        py[id] = py[lastId];
-        pz[id] = pz[lastId];
-
-    }
-
+/**
+ * SparseIdx와 GenerationIdx를 함께 저장
+ * SparseIdx가 같아도 Gen이 다르면 바로 SoA모듈 상에서 resolve() 메소드 호출됨.
+ * */
+class Handle(val entityID : Int, val generation : Int){
 
 }
 
-class TestEntity(val ){
+
+class TransformSoA(size : Int) : SoAModule(size){
+
+    val position = Vec3SoA(size);
+
+    fun create(x : Double, y : Double, z : Double) : Handle{
+        val triple = super.createHandle(); // (entityID, denseID, generation)
+        val entityID = triple.first;
+        val denseID = triple.second;
+        val generation = triple.third;
+        position.allocSoA(denseID, x, y, z);
+        return Handle(entityID, generation)
+    }
+
+    fun remove(handle : Handle){
+        val pair = super.removeHandle(handle);
+        position.overwrite(pair.first, pair.second);
+    }
+
+    fun getDebugString(handle: Handle) : String{
+        val denseID = super.sparse[handle.entityID];
+        return position.getDebugString(denseID);
+    }
 
 }
 
 fun main(){
-    val module = TransformSoA();
-    val e0 =
-    module.newIdx(0.0, 0.0, 0.0);
+    val module = TransformSoA(512);
 
+    val handleList = ArrayList<Handle>();
+    for(i in 0 .. 4){
+        val x = Math.random();
+        val y = Math.random();
+        val z = Math.random();
+        handleList.add(module.create(x, y, z));
+        println("$x, $y, $z")
+    }
 
-
+    module.remove(handleList[3]);
+    println(module.getDebugString(handleList[4]));
 }

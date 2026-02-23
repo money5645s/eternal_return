@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0e01f0-2f44-4923-ba15-8c4d09d27f4c" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/SoAModule.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/TransformSoA.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/IntArray3D.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/Mat3x3SoA.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/OrientedBoxSoA__.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/SoATest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/UniformGrid.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/Vec3SoA.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/Vec4SoA.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/checksums/sha1-checksums.bin" afterDir="false" />
@@ -16,12 +21,11 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/EternalReturn/ERPlayer/Gui/Bossbars/RumiaIsland/extBComponent/HBImage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/META-INF/eternal_return.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/META-INF/eternal_return.kotlin_module" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len" afterDir="false" />
@@ -92,11 +96,11 @@
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/last-build.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/local-state/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/local-state/build-history.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/plugin.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kout/test.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/DPEngine.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/DPEngine.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/geometry/OrientedBoxSoA.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/OrientedBoxSoA.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/area/GraphLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/area/GraphLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/OrientedBoxSoA.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/OrientedBoxSoA.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/SoAModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/SoAModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/TransformSoA.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/TransformSoA.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,45 +181,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.eternal_return [:org.EternalReturn.ERAnimal.ERAJEntityLoader.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.eternal_return [:org.EternalReturn.System.ERAnimalManger.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.eternal_return [:org.EternalReturn.System.ERAnimalSystem.ERAnimalLoader.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.eternal_return [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.eternal_return [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.eternal_return [jar].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.eternal_return 빌드.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.소스 다운로드.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.SoAModuleKt.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.TestKt.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;PaperDanpungBranch&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/mcplugin/eternal_return/src/main/java/org/EternalReturn/ERCharacter/Character/li_dailin&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;프로젝트&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-    &quot;애플리케이션.ERAnimalManger.executor&quot;: &quot;Run&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.eternal_return [:org.EternalReturn.ERAnimal.ERAJEntityLoader.main()].executor": "Run",
+    "Gradle.eternal_return [:org.EternalReturn.System.ERAnimalManger.main()].executor": "Run",
+    "Gradle.eternal_return [:org.EternalReturn.System.ERAnimalSystem.ERAnimalLoader.main()].executor": "Run",
+    "Gradle.eternal_return [build].executor": "Run",
+    "Gradle.eternal_return [clean].executor": "Run",
+    "Gradle.eternal_return [jar].executor": "Run",
+    "Gradle.eternal_return 빌드.executor": "Run",
+    "Gradle.소스 다운로드.executor": "Run",
+    "Kotlin.OrientedBoxSoAKt.executor": "Run",
+    "Kotlin.SoAModuleKt.executor": "Run",
+    "Kotlin.SoATestKt.executor": "Run",
+    "Kotlin.TestKt.executor": "Run",
+    "Kotlin.TransformSoAKt.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "PaperDanpungBranch",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/mcplugin/eternal_return/src/main/java/org/EternalReturn/ERCharacter/Character/li_dailin",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "프로젝트",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true",
+    "애플리케이션.ERAnimalManger.executor": "Run"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.EternalReturn.ERCharacter" />
@@ -241,11 +248,11 @@
       <recent name="org.EternalReturn.System" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="org.eternalreturn.util.dpengine.physics" />
       <recent name="org.eternalreturn.util.dpengine.geometry" />
       <recent name="org.EternalReturn.ERCharacter.Character.lidailin" />
       <recent name="org.EternalReturn.ERCharacter.Character.lidailin.event" />
       <recent name="org.EternalReturn.Util.dpengine.command" />
-      <recent name="org.EternalReturn.ERCharacter.Character.jackie" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
       <recent name="org.EternalReturn.ERCharacter.Character.adriana.monobehavs" />
@@ -262,20 +269,7 @@
       <recent name="org.EternalReturn.ERAnimal" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.eternal_return [build]">
-    <configuration name="ERAJEntityLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.EternalReturn.ERAnimal.ERAJEntityLoader" />
-      <module name="git.eternal_return.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.EternalReturn.ERAnimal.actors.animals.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Kotlin.SoATestKt">
     <configuration name="eternal_return [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -320,30 +314,22 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="eternal_return [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jar" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
+    <configuration name="OrientedBoxSoAKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.eternalreturn.util.dpengine.physics.OrientedBoxSoAKt" />
+      <module name="git.eternal_return.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="SoAModuleKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.EternalReturn.util.dpengine.geometry.SoAModuleKt" />
+    <configuration name="SoATestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.eternalreturn.util.dpengine.physics.SoATestKt" />
+      <module name="git.eternal_return.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransformSoAKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.eternalreturn.util.dpengine.physics.TransformSoAKt" />
       <module name="git.eternal_return.main" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -351,11 +337,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.SoATestKt" />
         <item itemvalue="Gradle.eternal_return [build]" />
         <item itemvalue="Gradle.eternal_return [clean]" />
-        <item itemvalue="Gradle.eternal_return [jar]" />
-        <item itemvalue="애플리케이션.ERAJEntityLoader" />
-        <item itemvalue="Kotlin.SoAModuleKt" />
+        <item itemvalue="Kotlin.OrientedBoxSoAKt" />
+        <item itemvalue="Kotlin.TransformSoAKt" />
       </list>
     </recent_temporary>
   </component>

@@ -1,349 +1,208 @@
 package org.eternalreturn.util.dpengine.physics
 
-class OrientedBoxSoA() {
+import it.unimi.dsi.fastutil.ints.IntArrayList
 
-    private val px = ArrayList<Double>();
-    private val py = ArrayList<Double>();
-    private val pz = ArrayList<Double>();
-    private val halfX = ArrayList<Double>();
-    private val halfY = ArrayList<Double>();
-    private val halfZ = ArrayList<Double>();
-    private val rx = ArrayList<Double>();
-    private val ry = ArrayList<Double>();
-    private val rz = ArrayList<Double>();
-    private val rw = ArrayList<Double>();
+class OrientedBoxSoA(
+    size : Int,
+    private val transformSoA : TransformSoA,
+    private val grid : UniformGrid
+) : SoAModule(size) {
 
-    fun buildRotationMatrix(i: Int, out: DoubleArray /* size 9 */) {
-        val x = rx[i]
-        val y = ry[i]
-        val z = rz[i]
-        val w = rw[i]
+    private val size = Vec3SoA(size); // width, height, depth 저장
 
-        val xx = x * x
-        val yy = y * y
-        val zz = z * z
-        val xy = x * y
-        val xz = x * z
-        val yz = y * z
-        val wx = w * x
-        val wy = w * y
-        val wz = w * z
+    private val posCache = Vec3SoA(size); //transform.pos 캐싱
+    private val isValidPos = IntArray(size){ 0 };//해당 회전행렬이 valid한 회전행렬인지 확인
 
-        out[0] = 1.0 - 2.0 * (yy + zz)
-        out[1] = 2.0 * (xy - wz)
-        out[2] = 2.0 * (xz + wy)
+    private val quat = Vec4SoA(size); //각도에 대한 쿼터니언 저장
+    private val matCache = Mat3x3SoA(size); //해당 쿼터니언에 대한 회전행렬 저장
+    private val isValidMat = IntArray(size){ 0 };//해당 회전행렬이 valid한 회전행렬인지 확인
 
-        out[3] = 2.0 * (xy + wz)
-        out[4] = 1.0 - 2.0 * (xx + zz)
-        out[5] = 2.0 * (yz - wx)
+    private val transformHandleList = ArrayList<Handle>(size);
 
-        out[6] = 2.0 * (xz - wy)
-        out[7] = 2.0 * (yz + wx)
-        out[8] = 1.0 - 2.0 * (xx + yy)
+
+    fun create(transformHandle : Handle, width : Double, height : Double, depth : Double, qx : Double, qy : Double, qz : Double, qw : Double) : Handle{
+        val triple = super.createHandle(); // (entityID, denseID, generation)
+        val entityID = triple.first;
+        val denseID = triple.second;
+        val generation = triple.third;
+        size.allocSoA(denseID, width, height, depth);
+        quat.allocSoA(denseID, qx, qy, qz, qw);
+        matCache.allocSoA(denseID, 0.0, 0.0, 0.0 ,0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+        posCache.allocSoA(denseID, 0.0,0.0,0.0);
+        transformHandleList.addLast(transformHandle);
+        return Handle(entityID, generation)
     }
 
-    fun center(i: Int, out: DoubleArray) {
-        out[0] = px[i]
-        out[1] = py[i]
-        out[2] = pz[i]
+    fun remove(handle : Handle){
+        val pair = super.removeHandle(handle);
+        size.overwrite(pair.first, pair.second);
+        quat.overwrite(pair.first, pair.second);
+        matCache.overwrite(pair.first, pair.second);
+
+        isValidPos[pair.first] = isValidPos[pair.second];
+        isValidMat[pair.first] = isValidMat[pair.second];
+
+        transformHandleList[pair.first] = transformHandleList[pair.second];
+        transformHandleList.removeLast();
     }
 
-    fun extents(i: Int, out: DoubleArray) {
-        out[0] = halfX[i]
-        out[1] = halfY[i]
-        out[2] = halfZ[i]
-    }
-
-    fun rayToLocal(
-        i: Int,
-        ox: Double, oy: Double, oz: Double,
-        dx: Double, dy: Double, dz: Double,
-        outOrigin: DoubleArray,
-        outDir: DoubleArray
-    ) {
-
-        val cx = px[i]
-        val cy = py[i]
-        val cz = pz[i]
-
-        val px = ox - cx
-        val py = oy - cy
-        val pz = oz - cz
-
-        val R = DoubleArray(9)
-        buildRotationMatrix(i, R)
-
-        // transpose multiply
-        outOrigin[0] = R[0]*px + R[3]*py + R[6]*pz
-        outOrigin[1] = R[1]*px + R[4]*py + R[7]*pz
-        outOrigin[2] = R[2]*px + R[5]*py + R[8]*pz
-
-        outDir[0] = R[0]*dx + R[3]*dy + R[6]*dz
-        outDir[1] = R[1]*dx + R[4]*dy + R[7]*dz
-        outDir[2] = R[2]*dx + R[5]*dy + R[8]*dz
-    }
-
-    fun rayAABB(
-        ox: Double, oy: Double, oz: Double,
-        dx: Double, dy: Double, dz: Double,
-        ex: Double, ey: Double, ez: Double
-    ): Double {
-
-        var tmin = Double.NEGATIVE_INFINITY
-        var tmax = Double.POSITIVE_INFINITY
-
-        fun slab(origin: Double, dir: Double, min: Double, max: Double) {
-            val t1 = (min - origin) / dir
-            val t2 = (max - origin) / dir
-
-            val lo = minOf(t1, t2)
-            val hi = maxOf(t1, t2)
-
-            tmin = maxOf(tmin, lo)
-            tmax = minOf(tmax, hi)
+    fun updatePosCache(){
+        var id = 0;
+        val tsparse = transformSoA.sparse;
+        val position = transformSoA.position;
+        val numOfEntity = getNumOfEntities();
+        while(id < numOfEntity){
+            //OBB의 위치 구하기
+            if(isValidPos[id] == 1) continue;
+            val tID = tsparse[transformHandleList[id].entityID];
+            posCache.x[id] = position.x[tID]
+            posCache.y[id] = position.y[tID]
+            posCache.z[id] = position.z[tID]
+            isValidPos[id] = 1;
+            id++;
         }
-
-        slab(ox, dx, -ex, ex)
-        slab(oy, dy, -ey, ey)
-        slab(oz, dz, -ez, ez)
-
-        if (tmax >= maxOf(tmin, 0.0)) return tmin
-        return Double.POSITIVE_INFINITY
     }
 
-    fun raycastOBB(
-        i: Int,
-        ox: Double, oy: Double, oz: Double,
-        dx: Double, dy: Double, dz: Double
-    ): Double {
+    /**
+     * 
+     * */
+    fun updateRotCache(){
+        var id = 0;
+        val mat = matCache;
+        val numOfEntity = getNumOfEntities();
+        while(id < numOfEntity){
+            //OBB의 위치 구하기
+            if(isValidMat[id] == 1) continue;
+            val qx = quat.x[id]; val qy = quat.y[id]; val qz = quat.z[id]; val qw = quat.w[id]
 
-        val localO = DoubleArray(3)
-        val localD = DoubleArray(3)
+            val xx = qx * qx; val yy = qy * qy; val zz = qz * qz;
+            val xy = qx * qy; val xz = qx * qz; val yz = qy * qz;
+            val wx = qw * qx; val wy = qw * qy; val wz = qw * qz;
 
-        rayToLocal(i, ox, oy, oz, dx, dy, dz, localO, localD)
+            mat.m00[id] = 1.0 - 2.0 * (yy + zz)  ; mat.m10[id] = 2.0 * (xy + wz)       ; mat.m20[id] = 2.0 * (xz - wy)
+            mat.m01[id] = 2.0 * (xy - wz)        ; mat.m11[id] = 1.0 - 2.0 * (xx + zz) ; mat.m21[id] = 2.0 * (yz + wx)
+            mat.m02[id] = 2.0 * (xz + wy)        ; mat.m12[id] = 2.0 * (yz - wx)       ; mat.m22[id] = 1.0 - 2.0 * (xx + yy)
 
-        return rayAABB(
-            localO[0], localO[1], localO[2],
-            localD[0], localD[1], localD[2],
-            halfX[i], halfY[i], halfZ[i]
-        )
+            isValidMat[id] = 1;
+            id++;
+        }
     }
 
-    private val EPS = 1e-12
 
-    data class RayHit(
-        var hit: Boolean = false,
-        var t: Double = Double.POSITIVE_INFINITY,
-        var nx: Double = 0.0,
-        var ny: Double = 0.0,
-        var nz: Double = 0.0
-    )
+    /**
+     * 플레이어 객체 하나에 대해 rayCast 진행
+     * */
+    fun rayCast(hitList : IntArrayList, px : Double, py : Double, pz : Double, dirX : Double, dirY : Double, dirZ: Double){
 
-    private fun rayAABBWithNormalLocal(
-        ox: Double, oy: Double, oz: Double,
-        dx: Double, dy: Double, dz: Double,
-        ex: Double, ey: Double, ez: Double,
-        tMaxLimit: Double,           // 사거리/프레임 이동거리 제한
-        out: RayHit
-    ) {
+        hitList.clear();
+        val entityNum = getNumOfEntities();
+        var id = 0;
+        while(id < entityNum){
+            if (rayTestOne(id, px, py, pz, dirX, dirY, dirZ)) {
+                hitList.add(id);
+            }
+            id++;
+        }
+    }
+
+
+    fun rebuildGrid() {
+        // posCache는 Vec3SoA니까 내부 DoubleArray를 넘긴다고 가정
+        val m = matCache;
+        grid.updateGrid(
+            posCache.x, posCache.y, posCache.z,
+            size.x, size.y, size.z,
+            m.m00, m.m01, m.m02,
+            m.m10, m.m11, m.m12,
+            m.m20, m.m21, m.m22,
+            getNumOfEntities());
+    }
+
+    private fun rayTestOne(
+        id: Int,
+        px: Double, py: Double, pz: Double,
+        dirX: Double, dirY: Double, dirZ: Double
+    ): Boolean {
+
+        val mat = matCache;
+
+        val delX = px - posCache.x[id]
+        val delY = py - posCache.y[id]
+        val delZ = pz - posCache.z[id]
+
+        val m00 = mat.m00[id]; val m10 = mat.m10[id]; val m20 = mat.m20[id]
+        val m01 = mat.m01[id]; val m11 = mat.m11[id]; val m21 = mat.m21[id]
+        val m02 = mat.m02[id]; val m12 = mat.m12[id]; val m22 = mat.m22[id]
+
+        val locPx = delX * m00 + delY * m10 + delZ * m20
+        val locPy = delX * m01 + delY * m11 + delZ * m21
+        val locPz = delX * m02 + delY * m12 + delZ * m22
+
+        val locDx = dirX * m00 + dirY * m10 + dirZ * m20
+        val locDy = dirX * m01 + dirY * m11 + dirZ * m21
+        val locDz = dirX * m02 + dirY * m12 + dirZ * m22
+
+        // Slab (AABB)
         var tmin = Double.NEGATIVE_INFINITY
         var tmax = Double.POSITIVE_INFINITY
 
-        // tmin을 만든 축(면) 기록: 0=x,1=y,2=z
-        var hitAxis = -1
-        var hitSign = 0.0
-
-        fun slab(origin: Double, dir: Double, min: Double, max: Double, axis: Int) {
-            if (kotlin.math.abs(dir) < EPS) {
-                // 레이가 이 축 방향으로 거의 평행: origin이 slab 밖이면 miss
-                if (origin < min || origin > max) {
-                    tmin = Double.POSITIVE_INFINITY
-                    tmax = Double.NEGATIVE_INFINITY
+        fun slab(origin: Double, dir: Double, half: Double) {
+            // dir==0 처리
+            if (dir == 0.0) {
+                if (origin < -half || origin > half) {
+                    tmin = 1.0
+                    tmax = 0.0
                 }
                 return
             }
-
             val inv = 1.0 / dir
-            var t1 = (min - origin) * inv
-            var t2 = (max - origin) * inv
+            val t1 = (-half - origin) * inv
+            val t2 = ( half - origin) * inv
+            val lo = kotlin.math.min(t1, t2)
+            val hi = kotlin.math.max(t1, t2)
+            if (lo > tmin) tmin = lo
+            if (hi < tmax) tmax = hi
+        }
 
-            // t1이 near, t2가 far가 되도록
-            var near = t1
-            var far = t2
-            var sign = -1.0 // near가 min면이면 normal은 -axis 방향(로컬 기준)
-            if (t1 > t2) {
-                near = t2
-                far = t1
-                sign = +1.0 // near가 max면이면 normal은 +axis 방향
+        slab(locPx, locDx, size.x[id])
+        if (tmin > tmax) return false
+        slab(locPy, locDy, size.y[id])
+        if (tmin > tmax) return false
+        slab(locPz, locDz, size.z[id])
+        if (tmin > tmax) return false
+
+        return tmax >= kotlin.math.max(tmin, 0.0)
+    }
+
+    fun rayCastGrid(
+        hitList: IntArrayList,
+        px: Double, py: Double, pz: Double,
+        dirX: Double, dirY: Double, dirZ: Double,
+        maxDist: Double = 1000.0
+    ) {
+        //var visited = 0
+        grid.traverseRayCells(px, py, pz, dirX, dirY, dirZ, maxDist) { cell ->
+
+            val start = grid.cellStart[cell]
+            val count = grid.cellCount[cell]
+            val end = start + count
+
+            var i = start - 1
+            while (i < end - 1) { i++
+                val id = grid.cellIndices[i]
+                if (rayTestOne(id, px, py, pz, dirX, dirY, dirZ)) {
+                    hitList.add(dense[id]) // sparseID나 entityID로 바꾸고 싶으면 여기서
+                }
             }
-
-            if (near > tmin) {
-                tmin = near
-                hitAxis = axis
-                hitSign = sign
-            }
-            if (far < tmax) tmax = far
+            //visited++
+            false // true면 조기 종료. (ex: “첫 히트만 원함”이면 true로 바꾸면 됨)
         }
-
-        slab(ox, dx, -ex, ex, 0)
-        slab(oy, dy, -ey, ey, 1)
-        slab(oz, dz, -ez, ez, 2)
-
-        // 교차 판정
-        if (tmax < 0.0 || tmax < tmin || tmin > tMaxLimit) {
-            out.hit = false
-            out.t = Double.POSITIVE_INFINITY
-            out.nx = 0.0; out.ny = 0.0; out.nz = 0.0
-            return
-        }
-
-        // 레이가 박스 안에서 시작하면 tmin < 0 이 될 수 있음.
-        // "나가는 면"을 쓰고 싶으면 t = 0 또는 tmax 선택.
-        val tHit = if (tmin >= 0.0) tmin else 0.0
-
-        out.hit = true
-        out.t = tHit
-
-        // 로컬 normal
-        out.nx = 0.0; out.ny = 0.0; out.nz = 0.0
-        when (hitAxis) {
-            0 -> out.nx = hitSign
-            1 -> out.ny = hitSign
-            2 -> out.nz = hitSign
-            else -> { /* inside-start 같은 특수 케이스면 normal 필요없을 수도 */ }
-        }
+        //println("visited cells = $visited")
     }
 
-    private fun rayToLocalNoAlloc(
-        i: Int,
-        ox: Double, oy: Double, oz: Double,
-        dx: Double, dy: Double, dz: Double,
-        R: DoubleArray,          // size 9, 재사용
-        outO: DoubleArray,       // size 3, 재사용
-        outD: DoubleArray        // size 3, 재사용
-    ) {
-        buildRotationMatrix(i, R)
 
-        val cx = px[i]; val cy = py[i]; val cz = pz[i]
-        val px0 = ox - cx
-        val py0 = oy - cy
-        val pz0 = oz - cz
 
-        // outO = R^T * (O - C)
-        outO[0] = R[0]*px0 + R[3]*py0 + R[6]*pz0
-        outO[1] = R[1]*px0 + R[4]*py0 + R[7]*pz0
-        outO[2] = R[2]*px0 + R[5]*py0 + R[8]*pz0
 
-        // outD = R^T * D
-        outD[0] = R[0]*dx + R[3]*dy + R[6]*dz
-        outD[1] = R[1]*dx + R[4]*dy + R[7]*dz
-        outD[2] = R[2]*dx + R[5]*dy + R[8]*dz
-    }
 
-    private fun localNormalToWorld(
-        R: DoubleArray,
-        lx: Double, ly: Double, lz: Double,
-        out: DoubleArray
-    ) {
-        // out = R * localNormal
-        out[0] = R[0]*lx + R[1]*ly + R[2]*lz
-        out[1] = R[3]*lx + R[4]*ly + R[5]*lz
-        out[2] = R[6]*lx + R[7]*ly + R[8]*lz
-    }
-
-    data class RaycastResult(
-        var hit: Boolean = false,
-        var id: Int = -1,
-        var t: Double = Double.POSITIVE_INFINITY,
-        var hx: Double = 0.0,
-        var hy: Double = 0.0,
-        var hz: Double = 0.0,
-        var nx: Double = 0.0,
-        var ny: Double = 0.0,
-        var nz: Double = 0.0
-    )
-
-    fun raycastOBBFull(
-        i: Int,
-        ox: Double, oy: Double, oz: Double,
-        dx: Double, dy: Double, dz: Double,
-        tMaxLimit: Double,              // 시야=무한대 대신 거리 제한, 이동=이번 프레임 이동거리
-        tmpR: DoubleArray,              // size 9 재사용
-        tmpO: DoubleArray,              // size 3 재사용
-        tmpD: DoubleArray,              // size 3 재사용
-        tmpHit: RayHit,                 // 재사용
-        out: RaycastResult
-    ) {
-        rayToLocalNoAlloc(i, ox, oy, oz, dx, dy, dz, tmpR, tmpO, tmpD)
-
-        rayAABBWithNormalLocal(
-            tmpO[0], tmpO[1], tmpO[2],
-            tmpD[0], tmpD[1], tmpD[2],
-            halfX[i], halfY[i], halfZ[i],
-            tMaxLimit,
-            tmpHit
-        )
-
-        if (!tmpHit.hit) {
-            out.hit = false
-            out.id = -1
-            out.t = Double.POSITIVE_INFINITY
-            return
-        }
-
-        out.hit = true
-        out.id = i
-        out.t = tmpHit.t
-
-        // hit point in world: H = O + D * t
-        out.hx = ox + dx * out.t
-        out.hy = oy + dy * out.t
-        out.hz = oz + dz * out.t
-
-        // normal: local -> world (회전만 적용)
-        val nw = DoubleArray(3) // 여기도 재사용하면 더 좋음
-        localNormalToWorld(tmpR, tmpHit.nx, tmpHit.ny, tmpHit.nz, nw)
-
-        // normalize (수치 오차 대비)
-        val len = kotlin.math.sqrt(nw[0]*nw[0] + nw[1]*nw[1] + nw[2]*nw[2])
-        if (len > EPS) {
-            out.nx = nw[0] / len
-            out.ny = nw[1] / len
-            out.nz = nw[2] / len
-        } else {
-            out.nx = 0.0; out.ny = 0.0; out.nz = 0.0
-        }
-    }
-
-    fun raycastAll(
-        ox: Double, oy: Double, oz: Double,
-        dx: Double, dy: Double, dz: Double,
-        tMaxLimit: Double,
-        out: RaycastResult
-    ) {
-        val tmpR = DoubleArray(9)
-        val tmpO = DoubleArray(3)
-        val tmpD = DoubleArray(3)
-        val tmpN = DoubleArray(3)
-        val tmpHit = RayHit()
-
-        out.hit = false
-        out.t = Double.POSITIVE_INFINITY
-        out.id = -1
-
-        val tmpRes = RaycastResult()
-        for (i in 0 until px.size) {
-            // (필요하면) 팀/레이어/자기 자신 제외 필터를 여기서
-            raycastOBBFull(i, ox, oy, oz, dx, dy, dz, tMaxLimit, tmpR, tmpO, tmpD, tmpHit, tmpRes)
-
-            if (tmpRes.hit && tmpRes.t < out.t) {
-                out.hit = true
-                out.id = tmpRes.id
-                out.t = tmpRes.t
-                out.hx = tmpRes.hx; out.hy = tmpRes.hy; out.hz = tmpRes.hz
-                out.nx = tmpRes.nx; out.ny = tmpRes.ny; out.nz = tmpRes.nz
-            }
-        }
-    }
 
 }
