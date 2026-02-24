@@ -13,7 +13,7 @@ open class SoAModule(size : Int) {
      * */
     private val freeIds = IntArrayList(size);
     var lastSparseIdx = 0;
-    fun allocID() : Int{
+    internal fun allocID() : Int{
         var id = -1;
         if(!freeIds.isEmpty()){
             id = freeIds.removeLast(); //마지막 요소 삭제
@@ -24,11 +24,19 @@ open class SoAModule(size : Int) {
     }
 
     /**
+     * 해당 세대가 맞는 경우 true
+     * 아닌 경우 false
+     * */
+    fun isValid(handle : Handle) : Boolean{
+        return generation[sparse[handle.entityID]] == handle.generation;
+    }
+
+    /**
      * dense아이디들에 대한 인덱스
      * */
     var lastDenseIdx = 0;
     fun getNumOfEntities() : Int{return lastDenseIdx}
-    fun createHandle() : Triple<Int, Int, Int>{
+    internal fun createHandle() : Triple<Int, Int, Int>{
         //핵심 사실 : 상호 쿼리가 가능해야 함
         //sparse[dense[i]] == i
         //dense[sparse[e]] == e
@@ -49,7 +57,7 @@ open class SoAModule(size : Int) {
     /**
      * 핸들을 제거하는 함수
      * */
-    fun removeHandle(handle: Handle) : Pair<Int, Int>{
+    internal fun removeHandle(handle: Handle) : Pair<Int, Int>{
 
         /**
          * 삭제될 엔티티 아이디
@@ -58,7 +66,10 @@ open class SoAModule(size : Int) {
 
         //예외처리
         if(entityId >= lastSparseIdx) throw RuntimeException("삭제할 핸들의 아이디가 저장된 엔티티 수보다 큽니다.");
-        if(generation[entityId] != handle.generation) throw RuntimeException("세대가 다릅니다. 즉 이미 삭제된 개체입니다.")
+        if(generation[entityId] != handle.generation) {
+            println("")
+            throw RuntimeException("세대가 다릅니다. 즉 이미 삭제된 개체입니다. ID : $entityId")
+        }
 
         val rmvDenseIdx = sparse[entityId]
         if(rmvDenseIdx == -1) throw RuntimeException("해당 개체는 존재하지 않습니다. sparseIdx 탐색 결과의 값이 -1입니다.")
@@ -79,10 +90,6 @@ open class SoAModule(size : Int) {
 
         return pair;
 
-    }
-
-    fun getDenseID(entityID: Int) :Int {
-        return sparse[entityID];
     }
 
 }

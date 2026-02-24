@@ -8,11 +8,11 @@ import kotlin.system.measureTimeMillis
 class SoATest(size : Int) : SoAModule(size){
     val transformSoA = TransformSoA(size);
     val orientedBoxSoA = OrientedBoxSoA(size, transformSoA,
-        UniformGrid(100.0, 100.0, 100.0, -100.0, -100.0, -100.0, 200.0, size));
+        UniformGrid(100.0, 100.0, 100.0, -100.0, -100.0, -100.0, 10.0, size));
 
-    fun createTestEntity(x : Double, y : Double, z : Double, bx : Double, by : Double, bz : Double, qx : Double, qy : Double, qz : Double, qw : Double) : TestEntity{
-        val tHandle = transformSoA.create(x, y, z);
-        val bHandle = orientedBoxSoA.create(tHandle, bx, by, bz, qx, qy, qz, qw);
+    fun createTestEntity(x : Double, y : Double, z : Double, bx : Double, by : Double, bz : Double, rx : Double, ry : Double, rz : Double) : TestEntity{
+        val tHandle = transformSoA.create(x, y, z, rx, ry, rz);
+        val bHandle = orientedBoxSoA.create(tHandle, bx, by, bz);
         return TestEntity(tHandle, bHandle);
     }
 
@@ -26,7 +26,7 @@ class TestEntity(val transformHandle : Handle, val colliderHandle : Handle)
 
 fun main(){
 
-    val size = 512
+    val size = 1024
     val module = SoATest(size)
     val entityList = ArrayList<TestEntity>(size)
 
@@ -48,19 +48,18 @@ fun main(){
         val bz = rand.nextDouble(0.5, 3.0);
 
         // quaternion 랜덤 생성 (정규화)
-        var qx = rand.nextDouble(-1.0, 1.0)
-        var qy = rand.nextDouble(-1.0, 1.0)
-        var qz = rand.nextDouble(-1.0, 1.0)
-        var qw = rand.nextDouble(-1.0, 1.0)
+        val rx = Math.toRadians(rand.nextDouble(-180.0, 180.0));
+        val ry = Math.toRadians(rand.nextDouble(-180.0, 180.0));
+        val rz = Math.toRadians(rand.nextDouble(-180.0, 180.0));
 
-        val norm = kotlin.math.sqrt(qx*qx + qy*qy + qz*qz + qw*qw)
-        qx /= norm; qy /= norm; qz /= norm; qw /= norm
+        //val norm = kotlin.math.sqrt(rx*rx + ry*ry + rz*rz)
+        //rx /= norm; ry /= norm; rz /= norm;
 
         entityList.add(
             module.createTestEntity(
                 x, y, z,
                 bx, by, bz,
-                qx, qy, qz, qw
+                rx, ry, rz
             )
         )
     }
@@ -102,58 +101,32 @@ fun main(){
         dirZ.add(dz)
     }
 
-    var totalHit = 0;
 
-    totalHit = 0;
-    val time0 = measureTimeMillis {
-        for(i in 0 until rayCount){
-            val hitList = IntArrayList(size)
-            module.orientedBoxSoA.rayCast(
-                hitList,
-                posX.getDouble(i), posY.getDouble(i), posZ.getDouble(i),
-                dirX.getDouble(i), dirY.getDouble(i), dirZ.getDouble(i)
-            )
-
-            // 히트 수 세기
-            for(i in 0 until hitList.size){
-                totalHit++;
-                //for(id in hitList){ print("$id ") } println();
-
-            }
+    for(i in 0 until rayCount){
+        val hitList0 = IntArrayList(size)
+        val hitList1 = IntArrayList(size)
 
 
 
+        module.orientedBoxSoA.rayCast(
+            0, i, hitList0,
+            posX.getDouble(i), posY.getDouble(i), posZ.getDouble(i),
+            dirX.getDouble(i), dirY.getDouble(i), dirZ.getDouble(i)
+        )
+
+
+        module.orientedBoxSoA.rayCastGridOptim(
+            1, i, hitList1,
+            posX.getDouble(i), posY.getDouble(i), posZ.getDouble(i),
+            dirX.getDouble(i), dirY.getDouble(i), dirZ.getDouble(i)
+        )
+
+        if(hitList0.size != hitList1.size){
+            print("ray : $i,  ${hitList0.size}, ${hitList1.size} ");
+            for(id in hitList0){ print("$id "); }; for(id in hitList1){ print("$id "); }; println();
         }
+
     }
-
-    println("Ray count = $rayCount")
-    println("Total hit = $totalHit")
-    println("Elapsed = ${time0}ms")
-
-    totalHit = 0;
-    val time1 = measureTimeMillis {
-        for(i in 0 until rayCount){
-            val hitList = IntArrayList(size)
-            module.orientedBoxSoA.rayCastGrid(
-                hitList,
-                posX.getDouble(i), posY.getDouble(i), posZ.getDouble(i),
-                dirX.getDouble(i), dirY.getDouble(i), dirZ.getDouble(i)
-            )
-
-
-
-            // 히트 수 세기
-            for(i in 0 until hitList.size){
-                totalHit++;
-                //for(id in hitList){ print("$id ") } println();
-
-            }
-        }
-    }
-
-    println("Ray count = $rayCount")
-    println("Total hit = $totalHit")
-    println("Elapsed = ${time1}ms")
 
 
 

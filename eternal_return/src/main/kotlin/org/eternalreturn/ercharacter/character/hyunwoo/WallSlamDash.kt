@@ -65,7 +65,7 @@ class WallSlamDash : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                     getERCharacter().submitEvent(
                         CharacterAttackEvent(
                             getERPlayer(),
-                            engine.getEREntity(victim)
+                            engine.getEREntity(victim)!!
                         )
                     )
                     victim.damage(2.0, getPlayer())
@@ -116,7 +116,7 @@ class WallSlamDash : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         for (victim in hitEntities!!.keys) {
             // 1. 도그파이트 패시브를 위한 공격 이벤트
             val engine = dpEngine as EREngine
-            getERCharacter().submitEvent(CharacterAttackEvent(getERPlayer(), engine.getEREntity(victim)))
+            getERCharacter().submitEvent(CharacterAttackEvent(getERPlayer(), engine.getEREntity(victim)!!))
             victim.damage(10.0, getPlayer())
 
             // 2. [변경] 상대방에게 스턴 이벤트 전달

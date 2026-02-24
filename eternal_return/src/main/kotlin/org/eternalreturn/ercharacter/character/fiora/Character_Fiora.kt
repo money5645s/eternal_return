@@ -3,10 +3,11 @@ package org.eternalreturn.ercharacter.character.fiora
 import org.eternalreturn.ercharacter.ERCharacter
 import org.bukkit.entity.Player
 import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.DPEngine
 
 
-class Character_Fiora(engine : DPEngine,player: Player) : ERPlayer(player, engine) {
+class Character_Fiora(engine : EREngine,player: Player) : ERPlayer(player, engine) {
     init {
         this.ActiveCooldownSeconds = 8
         registerMonobehaviour(Passive())

@@ -15,31 +15,34 @@ class PlayerRayCastingByLeftClicking : ERCharacterMonobehaviour<CharacterLeftCli
 
 
     override fun start(event: CharacterLeftClickEvent) {
+        val erEntity = actor as EREntity;
+        erEntity.shootRay();
+        stopMonobehav();
 
-        val pdir = (actor as EREntity).getDirection();
-        val pPos = (actor as EREntity).getPosition();
-        val out = vec3();
-
-
-        val hitList = ArrayList<EREntity>();
-
-        for(erEntity in getMonobehavActorList()){
-            if(erEntity !is EREntity || erEntity === actor){
-                continue;
-            }
-
-            //println("" + erEntity.collider.javaClass + " with " + erEntity.javaClass);
-            
-            //콜라이더 위치 조정
-            val collider = erEntity.collider;
-
-            if(collider.rayCasting(out, pPos, pdir)){
-                println("Ray hit to -> " + erEntity.javaClass);
-                hitList.addLast(erEntity);
-            }
-        }
-        if(hitList.isEmpty())return;
-        this.actor.submitEvent(CharacterRayCastEvent(hitList));
+//        val pdir = (actor as EREntity).getDirection();
+//        val pPos = (actor as EREntity).getPosition();
+//        val out = vec3();
+//
+//
+//        val hitList = ArrayList<EREntity>();
+//
+//        for(erEntity in getMonobehavActorList()){
+//            if(erEntity !is EREntity || erEntity === actor){
+//                continue;
+//            }
+//
+//            //println("" + erEntity.collider.javaClass + " with " + erEntity.javaClass);
+//
+//            //콜라이더 위치 조정
+//            val collider = erEntity.collider;
+//
+//            if(collider.rayCasting(out, pPos, pdir)){
+//                println("Ray hit to -> " + erEntity.javaClass);
+//                hitList.addLast(erEntity);
+//            }
+//        }
+//        if(hitList.isEmpty())return;
+//        this.actor.submitEvent(CharacterRayCastEvent(hitList));
     }
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {

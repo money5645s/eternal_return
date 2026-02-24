@@ -15,9 +15,9 @@ class UpdateCollider : EREntityMonobehaviour<EREntityUpdateColliderEvent>() {
     }
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
-        val loc: Location = entity.location
-        val collider: Collider = getEREntity().collider
-        collider.setPosition(loc.x, loc.y, loc.z)
-        collider.setDirection(0.0, loc.yaw.toDouble(), 0.0)
+        //val loc: Location = entity.location
+        //val collider: Collider = getEREntity().collider
+        //collider.setPosition(loc.x, loc.y, loc.z)
+        //collider.setDirection(0.0, loc.yaw.toDouble(), 0.0)
     }
 }

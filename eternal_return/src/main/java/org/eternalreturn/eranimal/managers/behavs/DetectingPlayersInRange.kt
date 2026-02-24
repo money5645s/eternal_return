@@ -48,7 +48,7 @@ class DetectingPlayersInRange : Monobehaviour<DetectingPlayerEvent>() {
             val avg = vec3(px, py, pz);
             val pos = player.getPosition()
             val dis = magnitudeSqr(avg - pos);
-            if(dis <= 128 * 128){
+            if(dis <= 64 * 64){
                 isInDistance = true;
                 break;
             }

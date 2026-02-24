@@ -11,6 +11,9 @@ import org.bukkit.Location
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.physics.OrientedBoxSoA
+import org.eternalreturn.util.dpengine.physics.TransformSoA
+import org.eternalreturn.util.dpengine.physics.UniformGrid
 import org.joml.Quaterniond
 import java.util.concurrent.ArrayBlockingQueue
 import kotlin.reflect.KClass
@@ -31,7 +34,10 @@ abstract class DPEngine(bufferSize: Int = 512) : Runnable {
     public val monobehaviourModule = MonobehaviourModule(this)
 
     protected abstract fun update();
-
+    
+    /**
+     * 커맨드 큐
+     * */
     public val commandQueue = ArrayBlockingQueue<Command>(128);
 
     public fun appendCommandQueue(cmd : Command){

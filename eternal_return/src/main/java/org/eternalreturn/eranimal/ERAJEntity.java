@@ -1,5 +1,6 @@
 package org.eternalreturn.eranimal;
 
+import net.kyori.adventure.text.Component;
 import org.eternalreturn.erplayer.ERPlayer;
 import org.eternalreturn.system.SystemManager;
 import org.eternalreturn.util.AJEntity.AJEntity;
@@ -50,6 +51,10 @@ public class ERAJEntity extends AJEntity {
     public void summon() {
         AJEntityManager.summon(this, location);
         this.isShown = true;
+    }
+
+    public void setDebugDisplay(String str) {
+        this.hpbar.text(Component.text(str));
     }
 
 

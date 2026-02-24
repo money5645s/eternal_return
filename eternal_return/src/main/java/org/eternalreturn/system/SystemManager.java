@@ -57,9 +57,6 @@ public class SystemManager {
 
     //free (메모리 할당 해제)
     public void free() {
-        for(ERPlayer erPlayer : erPlayerHashMap.values()){
-            erPlayer.free();
-        }
         erPlayerList.clear();
         erPlayerHashMap.clear();
         CustomModelDataManager.free();

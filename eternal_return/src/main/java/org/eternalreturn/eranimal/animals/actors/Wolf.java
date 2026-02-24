@@ -2,14 +2,15 @@ package org.eternalreturn.eranimal.animals.actors;
 
 import org.eternalreturn.eranimal.ERAJEntity;
 import org.eternalreturn.eranimal.ERAnimal;
+import org.eternalreturn.system.EREngine;
 import org.eternalreturn.system.PluginInstance;
 import org.bukkit.Location;
 import org.eternalreturn.util.dpengine.DPEngine;
 import org.jetbrains.annotations.NotNull;
 
 public class Wolf extends ERAnimal {
-    public Wolf(@NotNull DPEngine engine, @NotNull ERAJEntity erAjEntity, @NotNull Location location) {
-        super(engine, erAjEntity, engine.createOrientedBox(location,1.5/2,1.5/2,2.0/2));
+    public Wolf(@NotNull EREngine engine, @NotNull ERAJEntity erAjEntity, @NotNull Location location) {
+        super(engine, erAjEntity, engine.createOrientedBox(location,1.5,1.5,2.0));
         this.ajEntity.registerAnimation("ready",2.0d);
         this.ajEntity.registerAnimation("attack",2.3d);
         this.ajEntity.registerAnimation("move",3.5d);

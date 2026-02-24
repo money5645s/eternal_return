@@ -14,7 +14,6 @@ open class UpdateContainer<E : MonobehaviourActor>{
      * O(N) 시간에 돌면서 제거해야 할 Actor를 제거한다.
      * */
     open fun update(){
-
         val prevQueue = curQueue;
 
         curIdx = curIdx xor 1

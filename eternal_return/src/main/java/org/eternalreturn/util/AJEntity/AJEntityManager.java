@@ -164,7 +164,7 @@ public class AJEntityManager implements Listener , FreeAble {
 
             AJEntity ajEntity = ajEntitySummonQueue.removeLast();
 
-            System.out.println(ajEntity +" 에서 소환 명세를 받았습니다. 길이 : " + (ajEntitySummonQueue.size() + 1));
+            //System.out.println(ajEntity +" 에서 소환 명세를 받았습니다. 길이 : " + (ajEntitySummonQueue.size() + 1));
 
             assert ajEntity != null : "ajEntity가 Null 입니다. AJEntityManager.summon(AJEntity, Location) AJEntity에 잘못된 값이 들어갔습니다.";
 
@@ -173,7 +173,7 @@ public class AJEntityManager implements Listener , FreeAble {
 
             ajEntity.afterSpawnEvent(entity);
 
-            System.out.println("ajEntity가 생성되었습니다. : " + ajEntity.getRootEntity().getUniqueId());
+            //System.out.println("ajEntity가 생성되었습니다. : " + ajEntity.getRootEntity().getUniqueId());
         }
 
 

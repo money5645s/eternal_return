@@ -46,7 +46,7 @@ abstract class MonobehaviourActor(
     /**
      * 해당 객체의 레퍼런스 카운트를 0으로 설정하여 다음 틱 때 제거되도록 함.
      * */
-    inline fun remove(){
+    open fun remove(){
         this.referenceCount = 0;
     }
     fun dereference(){

@@ -16,28 +16,58 @@ import org.eternalreturn.util.dpengine.geometry.Collider
 import org.eternalreturn.util.dpengine.geometry.GeometryModule
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import org.bukkit.entity.Entity
+import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.DPEngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourModule
+import org.eternalreturn.util.dpengine.physics.Handle
 import kotlin.math.cos
 import kotlin.math.sin
 
 /**
  * 모든 EREntity의 Subclass에게 동시에 통용되는 성질을 저장하는 곳.
- *  - 생성자에 위험한 구문이 껴 있음. 그것만큼은 알아둘 것.
- *  - Entity는 처음에 init 되어있지 않음. 수동적으로 set 해주어야 함.
+ * 자신의 위치를 저장하는 Handle을 소유한다.
  */
 abstract class EREntity( // extends MonobehaviourActor()
-    dpEngine: DPEngine,
+    erEngine: EREngine,
     val entity : Entity,
+    obbHalfX : Double, obbHalfY : Double, obbHalfZ : Double,
 
     /**
      * 해당 MonobehaviourActor의 Collider 설정
      */
-    val collider: Collider
-) : MonobehaviourActor(dpEngine) {
+) : MonobehaviourActor(erEngine) {
+
+    val transformHandle : Handle = erEngine.transformSoA.create(
+        entity.location.x, entity.location.y,entity.location.z,
+        entity.location.yaw.toDouble(), entity.location.pitch.toDouble(), 0.0 );
+
+    val obbHandle : Handle = erEngine.orientedBoxSoA.create(transformHandle, obbHalfX, obbHalfY, obbHalfZ);
+    init{
+        transformHandle.actor = this;
+        obbHandle.actor = this;
+        println("[SoA CREATE] ${this.javaClass.simpleName} T${transformHandle.entityID} | O${obbHandle.entityID}")
+    }
+
+    private var shootRay : Boolean = false;
+    fun isShootingRay() : Boolean{
+        val ret = shootRay;
+        shootRay = false;
+        return ret;
+    }
+    fun shootRay(){
+        shootRay = true;
+    }
+
+    override fun remove(){
+        if(referenceCount == 0)return;
+        super.remove();
+        val engine = super.dpEngine as EREngine;
+        engine.transformSoA.remove(transformHandle); transformHandle.actor = null;
+        engine.orientedBoxSoA.remove(obbHandle); obbHandle.actor = null;
+        println("[SoA REMOVE] ${this.javaClass.simpleName} T${transformHandle.entityID} O${obbHandle.entityID}")
+    }
 
     init {
-
         //Monobehaviour 등록
         this.registerMonobehaviour(Stun())
         this.registerMonobehaviour(ToucheCount())
@@ -45,17 +75,12 @@ abstract class EREntity( // extends MonobehaviourActor()
         this.registerMonobehaviour(Passive_Timer())
         this.registerMonobehaviour(LiDailinPassiveTimer())
         this.registerMonobehaviour(PassiveCount())
-        this.registerMonobehaviour(UpdateCollider())
-
-        //콜라이더 위치, 각도를 업데이트하도록 지시. 한번만 submit하면 됨.
-        submitEvent(EREntityUpdateColliderEvent())
     }
 
     /**
      * 플레이어의 위치벡터 + 방향벡터를 얻어온다.
      * No Scoping
      */
-
     fun getDirection(): Vector3 {
         val location = entity.location
         val radX = Math.toRadians(location.yaw.toDouble())

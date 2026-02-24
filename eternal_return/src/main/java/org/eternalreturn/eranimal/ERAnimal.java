@@ -4,8 +4,10 @@ import org.eternalreturn.eranimal.animals.behavs.Battle;
 import org.eternalreturn.eranimal.animals.behavs.Idle;
 import org.eternalreturn.eranimal.animals.events.IdleEvent;
 import org.eternalreturn.erentity.EREntity;
+import org.eternalreturn.system.EREngine;
 import org.eternalreturn.util.dpengine.DPEngine;
 import org.eternalreturn.util.dpengine.geometry.Collider;
+import org.eternalreturn.util.dpengine.geometry.OrientedBox;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -19,12 +21,14 @@ public class ERAnimal extends EREntity {
      * */
     protected long cooldownSeconds;
 
-    public ERAnimal(@NotNull DPEngine engine,@NotNull ERAJEntity ajEntity, @NotNull Collider collider){
-        super(engine, ajEntity.getActor(), collider);
+    public ERAnimal(@NotNull EREngine engine, @NotNull ERAJEntity ajEntity, @NotNull OrientedBox collider){
+        super(engine, ajEntity.getRootEntity(), collider.getHalfX(), collider.getHalfY(), collider.getHalfZ());
         //System.out.println(collider.getClass());
         this.ajEntity = ajEntity;
         registerMonobehaviour(new Battle());
         registerMonobehaviour(new Idle());
+
+        this.ajEntity.setDebugDisplay("T" + getTransformHandle().getEntityID() + " | O" + getObbHandle().getEntityID() + "\n\n\n\n");
 
         this.submitEvent(new IdleEvent());
     }

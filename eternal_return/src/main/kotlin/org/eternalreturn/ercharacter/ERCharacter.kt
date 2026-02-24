@@ -5,16 +5,17 @@ import org.eternalreturn.ercharacter.globalmonobehav.ParabolicFly
 import org.eternalreturn.ercharacter.globalmonobehav.PlayerRayCastingByLeftClicking
 import org.eternalreturn.ercharacter.globalmonobehav.PlayerRayCastingMeleeAttack
 import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.DPEngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourModule
 import org.eternalreturn.util.dpengine.geometry.Collider
 import org.eternalreturn.util.dpengine.geometry.GeometryModule
+import org.eternalreturn.util.dpengine.physics.Handle
 
 abstract class ERCharacter(
     val player : Player,
-    collider: Collider,
-    dpEngine: DPEngine
-) : EREntity(dpEngine, player, collider) {
+    erEngine: EREngine,
+) : EREntity(erEngine, player, 0.5, 1.0, 0.5) {
 
     @JvmField
     var ActiveCooldownSeconds: Long = 0
