@@ -12,6 +12,7 @@ import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 import org.eternalreturn.util.dpengine.datastructure.DeadActorException
 import org.eternalreturn.util.dpengine.datastructure.UpdateView
 import org.eternalreturn.util.dpengine.physics.OrientedBoxSoA
+import org.eternalreturn.util.dpengine.physics.RaySoA
 import org.eternalreturn.util.dpengine.physics.TransformSoA
 import org.eternalreturn.util.dpengine.physics.UniformGrid
 import kotlin.math.cos
@@ -48,23 +49,19 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
         -1047.0, 70.0, 168.0,
         50.0, bufferSize);
     val orientedBoxSoA = OrientedBoxSoA(bufferSize, transformSoA, uniformGrid);
+    val raySoA = RaySoA(bufferSize * 4);
 
 
-    var lastRay = 0;
-    val posX = DoubleArray(bufferSize);// 레이캐스팅용 객체
-    val posY = DoubleArray(bufferSize);// 레이캐스팅용 객체
-    val posZ = DoubleArray(bufferSize);// 레이캐스팅용 객체
-    val dirX = DoubleArray(bufferSize);// 레이캐스팅용 객체
-    val dirY = DoubleArray(bufferSize);// 레이캐스팅용 객체
-    val dirZ = DoubleArray(bufferSize);// 레이캐스팅용 객체
-    val actor = IntArray(bufferSize);
-    var rayGeneration : Long = 0;
 
-    public override fun update() {
+
+    /**
+     * 외부 객체의 pos, rot 모두 가져와서 캐싱하는 함수.
+     * */
+    private fun cachingForSoA(){
         var filterBool = false;
         var filterCount = 0; var deadActor = 0;
         val filterEREntity = ArrayList<EREntity>();
-
+        
         for(erEntity in erEntityMap.values){ //일단 전부 돌기
 
             //디버깅용 필터
@@ -73,56 +70,39 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
             filterEREntity.add(erEntity);
 
             val loc = erEntity.entity.location;
-            transformSoA.setPosition(erEntity.transformHandle, loc.x, loc.y, loc.z);
-            transformSoA.setRotation(erEntity.transformHandle, 0.0, loc.yaw.toDouble(), 0.0);
-            transformSoA.setDirection(erEntity.transformHandle, loc.yaw.toDouble(), loc.pitch.toDouble(), 0.0);
+            val px = loc.x;
+            val py = loc.y;
+            val pz = loc.z;
+            val rx = Math.toRadians(loc.yaw.toDouble());
+            val ry = Math.toRadians(loc.yaw.toDouble());
+            val rz = Math.toRadians(loc.yaw.toDouble());
+
+            transformSoA.setPosition(erEntity.transformHandle, rx, ry, rz);
+            transformSoA.setRotation(erEntity.transformHandle, rx, 0.0, 0.0);
+            transformSoA.setDirection(erEntity.transformHandle, rx, ry, 0.0);
             if(erEntity.isShootingRay()){
                 filterBool = true;
-                println("OBB : ${orientedBoxSoA.getNumOfEntities()} TRSF : ${transformSoA.getNumOfEntities()}")
-                //여긴 또 반대야;;
-                val rotX = Math.toRadians(loc.yaw.toDouble())
-                val rotY = Math.toRadians(loc.pitch.toDouble())
-                val xz = cos(rotY)
-                val dx = -xz * sin(rotX); val dy = -sin(rotY); val dz =  xz * cos(rotX)
-                posX[lastRay] = loc.x; posY[lastRay] = loc.y; posZ[lastRay] = loc.z;
-                dirX[lastRay] = dx;    dirY[lastRay] = dy;    dirZ[lastRay] = dz;
-                //actor[lastRay] =
-                lastRay++;
+                println("OBB : ${orientedBoxSoA.getNumOfEntities()} TRSF : ${transformSoA.getNumOfEntities()}");
+                raySoA.addRay(erEntity, px, py, pz, rx, ry);
             }
         }
 
         if(filterBool){
             println("[FILTER] EREntityCount : $filterCount deadActorCount : $deadActor")
             for(actor in filterEREntity){
-                println("T${actor.transformHandle.entityID} O${actor.obbHandle.entityID}")
+                println("T${actor.transformHandle.entityID} O${actor.obbHandle.entityID}");
             }
         }
 
-        orientedBoxSoA.updatePosCache();
-        orientedBoxSoA.updateRotCache();
+        orientedBoxSoA.updateCacheFromTransfrom();
         orientedBoxSoA.rebuildGrid();
+    }
 
-        if(lastRay > 0){
-            for(i in 0 until lastRay){
-                println("rayCasting... : [${posX[i]}, ${posY[i]}, ${posZ[i]}] + t * [${dirX[i]}, ${dirY[i]}, ${dirZ[i]}]")
-                val hitList = IntArrayList(8);
-                orientedBoxSoA.rayCastGridOptim(
-                    rayGeneration, i, hitList,posX[i], posY[i], posZ[i], dirX[i], dirY[i], dirZ[i]);
-
-                if(hitList.isNotEmpty()){
-                    for(j in 0 until hitList.size){
-                        val entityID = hitList.getInt(j);
-                        val actor = orientedBoxSoA.getConnectedActor(entityID) as EREntity;
-
-                        val posDebugStr = transformSoA.getDebugString(actor.transformHandle);
-                        println("HITLIST -> [$j] : ${actor.javaClass.simpleName} ${actor.transformHandle.entityID} ${actor.obbHandle.entityID} isValid : ${orientedBoxSoA.isValid(actor.obbHandle)}"); // 디버깅용
-                    }
-                }
-            }
-            rayGeneration = (rayGeneration xor 1)
-            lastRay = 0;
-        }
-
+    public override fun update() {
+        cachingForSoA();
+        orientedBoxSoA.rayCastSoA(raySoA);
+        raySoA.freeRays();
+        removeAll();
     }
 
     /**
@@ -162,5 +142,35 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
             erEntity = null //제거 시에는 null을 반환하도록 설계
         }
         return erEntity
+    }
+
+    /**
+     * 제거될 EREntity들의 리스트. removeAll() 함수 호출 시 일괄 삭제됨.
+     * */
+    private val removeList = ArrayList<EREntity>();
+    fun remove(erEntity: EREntity){
+        removeList.add(erEntity);
+    }
+
+    /**
+     * 일괄삭제 함수.
+     * */
+    private fun removeAll() {
+        val size = removeList.size
+        for(i in 0 until size){
+
+            val erEntity = removeList[i];
+            val transformHandle = erEntity.transformHandle;
+            val obbHandle = erEntity.obbHandle;
+
+            transformSoA.remove(transformHandle); transformHandle.actor = null;
+            orientedBoxSoA.remove(obbHandle); obbHandle.actor = null;
+
+            removeBukkitActor(erEntity.entity);
+
+            println("[SoA REMOVE] ${this.javaClass.simpleName} T${transformHandle.entityID} O${obbHandle.entityID}")
+
+        }
+        removeList.clear();
     }
 }

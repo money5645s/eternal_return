@@ -50,7 +50,7 @@ class TransformSoA(size : Int) : SoAModule(size){
     }
     
     /**
-     * 호도법 각도 전달
+     * 라디안 각도 전달
      * */
     fun setRotation(handle : Handle, rx : Double, ry : Double, rz : Double){
         if(isValid(handle)){
@@ -58,27 +58,23 @@ class TransformSoA(size : Int) : SoAModule(size){
             rotation.x[denseID] = rx;
             rotation.y[denseID] = ry;
             rotation.z[denseID] = rz;
-
-            val radX = Math.toRadians(rx)
-            val radY = Math.toRadians(ry)
-            val xz = cos(radY)
-            val dirX = -xz * sin(radX); val dirY =  -sin(radY); val dirZ =  xz * cos(radX)
-            direction.x[denseID] = dirX;
-            direction.y[denseID] = dirY;
-            direction.z[denseID] = dirZ;
+            val xz = cos(ry)
+            direction.x[denseID] = -xz * sin(rx);
+            direction.y[denseID] = -sin(ry);
+            direction.z[denseID] = xz * cos(rx);
         }
     }
 
+    /**
+     * 라디안 각도 전달
+     * */
     fun setDirection(handle : Handle, rx : Double, ry : Double, rz : Double){
         if(isValid(handle)){
             val denseID = sparse[handle.entityID];
-            val radX = Math.toRadians(rx)
-            val radY = Math.toRadians(ry)
-            val xz = cos(radY)
-            val dirX = -xz * sin(radX); val dirY =  -sin(radY); val dirZ =  xz * cos(radX)
-            direction.x[denseID] = dirX;
-            direction.y[denseID] = dirY;
-            direction.z[denseID] = dirZ;
+            val xz = cos(ry)
+            direction.x[denseID] = -xz * sin(rx);
+            direction.y[denseID] = -sin(ry);
+            direction.z[denseID] = xz * cos(rx);
         }
     }
 

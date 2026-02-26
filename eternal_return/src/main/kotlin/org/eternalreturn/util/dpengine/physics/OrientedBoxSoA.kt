@@ -1,6 +1,7 @@
 package org.eternalreturn.util.dpengine.physics
 
 import it.unimi.dsi.fastutil.ints.IntArrayList
+import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 import kotlin.math.cos
 import kotlin.math.sin
@@ -52,7 +53,7 @@ class OrientedBoxSoA(
         updateRotCache();
     }
 
-    fun updatePosCache(){
+    private fun updatePosCache(){
         val tsparse = transformSoA.sparse;
         val position = transformSoA.position;
         val numOfEntity = getNumOfEntities();
@@ -67,7 +68,7 @@ class OrientedBoxSoA(
         }
     }
 
-    fun updateRotCache(){
+    private fun updateRotCache(){
         val tsparse = transformSoA.sparse;
         val rotation = transformSoA.rotation;
         val numOfEntity = getNumOfEntities();
@@ -125,27 +126,23 @@ class OrientedBoxSoA(
     /**
      * 플레이어 객체 하나에 대해 rayCast 진행
      * */
-    val rayGeneration = LongArray(size) { -1 };
-    fun rayCast(generation : Long, rayID : Int, hitList : IntArrayList, px : Double, py : Double, pz : Double, dirX : Double, dirY : Double, dirZ: Double){
+    val rayGeneration = IntArray(size) { -1 };
+    fun rayCast(generation : Int, rayID : Int, hitList : IntArrayList,
+                px : Double, py : Double, pz : Double,
+                dirX : Double, dirY : Double, dirZ: Double){
         hitList.clear();
         val entityNum = getNumOfEntities();
-
         for(id in 0 until entityNum){
-            if (rayTestOne(id, px, py, pz, dirX, dirY, dirZ)) {
-                hitList.add(dense[id]); //entityID 반환
+            if(grid.alreadyChecked[id] != rayID || rayGeneration[id] != generation){
+                grid.alreadyChecked[id] = rayID;
+                rayGeneration[id] = generation;
+                if (rayTestOne(id, px, py, pz, dirX, dirY, dirZ)) {
+                    hitList.add(dense[id]); //entityID 반환
+                }
             }
-
-            //if(grid.alreadyChecked[id] != rayID || rayGeneration[id] != generation){
-            //    grid.alreadyChecked[id] = rayID;
-            //    rayGeneration[id] = generation;
-            //
-            //}
         }
     }
 
-    fun initializeRayCast(){
-        java.util.Arrays.fill(grid.alreadyChecked, -1);
-    }
 
 
     fun rebuildGrid() {
@@ -216,11 +213,8 @@ class OrientedBoxSoA(
         return tmax >= kotlin.math.max(tmin, 0.0)
     }
 
-
-
-
     fun rayCastGrid(
-        generation: Long,
+        generation: Int,
         rayID : Int,
         hitList: IntArrayList,
         px: Double, py: Double, pz: Double,
@@ -251,7 +245,7 @@ class OrientedBoxSoA(
     }
 
     fun rayCastGridOptim(
-        generation: Long,
+        generation: Int,
         rayID : Int,
         hitList: IntArrayList,
         px: Double, py: Double, pz: Double,
@@ -286,5 +280,35 @@ class OrientedBoxSoA(
     }
 
 
+    fun rayCastSoA(raySoA : RaySoA){
 
+        val lastRay = raySoA.lastRay;
+        val posX = raySoA.posX;
+        val posY = raySoA.posY;
+        val posZ = raySoA.posZ;
+
+        val dirX = raySoA.dirX;
+        val dirY = raySoA.dirY;
+        val dirZ = raySoA.dirZ;
+
+        val rayGeneration = raySoA.rayGeneration;
+
+        if(lastRay > 0){
+            for(i in 0 until lastRay){
+                println("rayCasting... : [${posX[i]}, ${posY[i]}, ${posZ[i]}] + t * [${dirX[i]}, ${dirY[i]}, ${dirZ[i]}]")
+
+                val hitList = IntArrayList(8); //배열을 만들어 반환 -> 나중에 고쳐야 할 수도
+                rayCastGridOptim(rayGeneration, i, hitList,posX[i], posY[i], posZ[i], dirX[i], dirY[i], dirZ[i]);
+
+                if(hitList.isNotEmpty()){
+                    for(j in 0 until hitList.size){
+                        val entityID = hitList.getInt(j);
+                        val actor = getConnectedActor(entityID) as EREntity;
+                        val posDebugStr = transformSoA.getDebugString(actor.transformHandle);
+                        println("HITLIST -> [$j] : ${actor.javaClass.simpleName} ${actor.transformHandle.entityID} ${actor.obbHandle.entityID} isValid : ${isValid(actor.obbHandle)}"); // 디버깅용
+                    }
+                }
+            }
+        }
+    }
 }

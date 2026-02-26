@@ -37,6 +37,11 @@ abstract class EREntity( // extends MonobehaviourActor()
      */
 ) : MonobehaviourActor(erEngine) {
 
+    val erEngine : EREngine
+        get(){
+            return dpEngine as EREngine;
+        }
+
     val transformHandle : Handle = erEngine.transformSoA.create(
         entity.location.x, entity.location.y,entity.location.z,
         entity.location.yaw.toDouble(), entity.location.pitch.toDouble(), 0.0 );
@@ -58,13 +63,13 @@ abstract class EREntity( // extends MonobehaviourActor()
         shootRay = true;
     }
 
+    /**
+     * 해당 객체를 소유하고 있는 EREngine의 삭제 리스트에 해당 객체를 삽입한다.
+     * */
     override fun remove(){
         if(referenceCount == 0)return;
         super.remove();
-        val engine = super.dpEngine as EREngine;
-        engine.transformSoA.remove(transformHandle); transformHandle.actor = null;
-        engine.orientedBoxSoA.remove(obbHandle); obbHandle.actor = null;
-        println("[SoA REMOVE] ${this.javaClass.simpleName} T${transformHandle.entityID} O${obbHandle.entityID}")
+        erEngine.remove(this);
     }
 
     init {
