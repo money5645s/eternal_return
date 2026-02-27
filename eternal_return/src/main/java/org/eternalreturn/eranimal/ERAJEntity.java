@@ -87,6 +87,9 @@ public class ERAJEntity extends AJEntity {
         actor.setInvisible(true);
         actor.setSilent(true);
 
+        var cmp = Component.text(" ");
+        actor.customName(cmp);
+
         hpbar = (TextDisplay) world.spawnEntity(location, EntityType.TEXT_DISPLAY);
 
         //TextComponent textComponent = Component.text("").font("");

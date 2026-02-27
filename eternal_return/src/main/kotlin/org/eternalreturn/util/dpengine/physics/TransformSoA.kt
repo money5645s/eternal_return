@@ -25,10 +25,7 @@ class TransformSoA(size : Int) : SoAModule(size){
      * 위치벡터 [x, y, z], 각도(호도법 : -180 ~ 180) [rotX, rotY, rotZ]를 전달받아 Handle 생성 & 반환
      * */
     fun create(x : Double, y : Double, z : Double, rotX : Double, rotY : Double, rotZ : Double) : Handle{
-        val triple = super.createHandle(); // (entityID, denseID, generation)
-        val entityID = triple.first;
-        val denseID = triple.second;
-        val generation = triple.third;
+        val (entityID, denseID, generation) = super.createHandle(); // (entityID, denseID, generation)
         position.allocSoA(denseID, x, y, z);
         rotation.allocSoA(denseID, rotX, rotY, rotZ);
 
@@ -58,10 +55,6 @@ class TransformSoA(size : Int) : SoAModule(size){
             rotation.x[denseID] = rx;
             rotation.y[denseID] = ry;
             rotation.z[denseID] = rz;
-            val xz = cos(ry)
-            direction.x[denseID] = -xz * sin(rx);
-            direction.y[denseID] = -sin(ry);
-            direction.z[denseID] = xz * cos(rx);
         }
     }
 
@@ -81,6 +74,8 @@ class TransformSoA(size : Int) : SoAModule(size){
     fun remove(handle : Handle){
         val pair = super.removeHandle(handle);
         position.overwrite(pair.first, pair.second);
+        rotation.overwrite(pair.first, pair.second);
+        direction.overwrite(pair.first, pair.second);
     }
 
     fun getDebugString(handle: Handle) : String{
@@ -88,25 +83,4 @@ class TransformSoA(size : Int) : SoAModule(size){
         return position.getDebugString(denseID);
     }
 
-}
-
-fun main(){
-    val module = TransformSoA(512);
-
-    val handleList = ArrayList<Handle>();
-    for(i in 0 .. 4){
-        val x = Math.random();
-        val y = Math.random();
-        val z = Math.random();
-        val rx = Math.random();
-        val ry = Math.random();
-        val rz = Math.random();
-        handleList.add(module.create(x, y, z, rx, ry, rz));
-        println("$x, $y, $z")
-    }
-
-    module.remove(handleList[1]);
-    module.remove(handleList[3]);
-    module.remove(handleList[2]);
-    println(module.getDebugString(handleList[4]));
 }

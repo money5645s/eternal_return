@@ -12,7 +12,7 @@ class SoATest(size : Int) : SoAModule(size){
 
     fun createTestEntity(x : Double, y : Double, z : Double, bx : Double, by : Double, bz : Double, rx : Double, ry : Double, rz : Double) : TestEntity{
         val tHandle = transformSoA.create(x, y, z, rx, ry, rz);
-        val bHandle = orientedBoxSoA.create(tHandle, bx, by, bz);
+        val bHandle = orientedBoxSoA.create(tHandle, bx, by, bz, 0.0, 0.0, 0.0);
         return TestEntity(tHandle, bHandle);
     }
 
@@ -72,8 +72,7 @@ fun main(){
 
     val rayCount = 1000
 
-    module.orientedBoxSoA.updatePosCache();
-    module.orientedBoxSoA.updateRotCache();
+    module.orientedBoxSoA.updateCacheFromTransform();
     module.orientedBoxSoA.rebuildGrid();
 
     val posX = DoubleArrayList();

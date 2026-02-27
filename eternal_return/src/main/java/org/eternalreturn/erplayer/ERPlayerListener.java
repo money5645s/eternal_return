@@ -116,6 +116,4 @@ public class ERPlayerListener implements Listener {
         erPlayer.submitEvent(new CharacterLeftClickEvent());
 
     }
-
-
 }

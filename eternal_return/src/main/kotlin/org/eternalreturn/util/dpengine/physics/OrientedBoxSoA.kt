@@ -1,7 +1,13 @@
 package org.eternalreturn.util.dpengine.physics
 
 import it.unimi.dsi.fastutil.ints.IntArrayList
+import org.bukkit.Color
+import org.bukkit.Location
+import org.bukkit.Particle
+import org.bukkit.command.defaults.BukkitCommand
+import org.bukkit.scheduler.BukkitScheduler
 import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 import kotlin.math.cos
 import kotlin.math.sin
@@ -11,8 +17,8 @@ class OrientedBoxSoA(
     private val transformSoA : TransformSoA,
     val grid : UniformGrid
 ) : SoAModule(size) {
-
-    val size = Vec3SoA(size); // width, height, depth 저장
+    private val size = Vec3SoA(size); // width, height, depth 저장
+    private val locPos = Vec3SoA(size);
 
     private val posCache = Vec3SoA(size); //transform.pos 캐싱
     private val isValidPos = IntArray(size){ 0 };//해당 포지션이 valid한 포지션인지 확인
@@ -23,12 +29,10 @@ class OrientedBoxSoA(
     private val transformHandleList = ArrayList<Handle>(size);
 
 
-    fun create(transformHandle : Handle, width : Double, height : Double, depth : Double) : Handle{
-        val triple = super.createHandle(); // (entityID, denseID, generation)
-        val entityID = triple.first;
-        val denseID = triple.second;
-        val generation = triple.third;
+    fun create(transformHandle : Handle, width : Double, height : Double, depth : Double, locX : Double, locY : Double, locZ : Double) : Handle{
+        val (entityID, denseID, generation) = super.createHandle(); // (entityID, denseID, generation)
         size.allocSoA(denseID, width, height, depth);
+        locPos.allocSoA(denseID, locX, locY, locZ);
         rotMatCache.allocSoA(denseID, 0.0, 0.0, 0.0 ,0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
         posCache.allocSoA(denseID, 0.0,0.0,0.0);
         transformHandleList.addLast(transformHandle);
@@ -36,19 +40,63 @@ class OrientedBoxSoA(
     }
 
     fun remove(handle : Handle){
-        val pair = super.removeHandle(handle);
-        size.overwrite(pair.first, pair.second);
-        rotMatCache.overwrite(pair.first, pair.second);
-        posCache.overwrite(pair.first, pair.second);
+        val (idx0, idx1) = super.removeHandle(handle);
+        size.overwrite(idx0, idx1);
+        locPos.overwrite(idx0, idx1);
 
-        isValidPos[pair.first] = 0;
-        isValidRotMat[pair.first] = 0;
+        rotMatCache.overwrite(idx0, idx1);
+        posCache.overwrite(idx0, idx1);
 
-        transformHandleList[pair.first] = transformHandleList[pair.second];
+        isValidPos[idx0] = 0;
+        isValidRotMat[idx0] = 0;
+
+        transformHandleList[idx0] = transformHandleList[idx1];
         transformHandleList.removeLast();
     }
 
-    fun updateCacheFromTransfrom(){
+    val pivot =  arrayOf(
+        arrayOf( 1,  1,  1),
+        arrayOf(-1,  1,  1),
+        arrayOf( 1, -1,  1),
+        arrayOf( 1,  1, -1),
+        arrayOf(-1, -1,  1),
+        arrayOf( 1, -1, -1),
+        arrayOf(-1,  1, -1),
+        arrayOf(-1, -1, -1),
+    )
+
+    fun debugOrientedBox(){
+        val world = PluginInstance.getServerInstance().server.worlds.first();
+        val num = getNumOfEntities();
+        val mat = rotMatCache;
+        for(i in 0 until num){
+            val px = posCache.x[i];
+            val py = posCache.y[i];
+            val pz = posCache.z[i];
+            val sx = size.x[i];
+            val sy = size.y[i];
+            val sz = size.z[i];
+
+            val m00 = mat.m00[i]; val m10 = mat.m10[i]; val m20 = mat.m20[i]
+            val m01 = mat.m01[i]; val m11 = mat.m11[i]; val m21 = mat.m21[i]
+            val m02 = mat.m02[i]; val m12 = mat.m12[i]; val m22 = mat.m22[i]
+
+            for(p in 0 until 8){
+                val sxr = sx * pivot[p][0]; // +인지 -인지 위의 pivot테이블에서 구해줌
+                val syr = sy * pivot[p][1]; //
+                val szr = sz * pivot[p][2]; //
+
+                val sxr_ = sxr * m00 + syr * m01 + szr * m02;
+                val syr_ = sxr * m10 + syr * m11 + szr * m12;
+                val szr_ = sxr * m20 + syr * m21 + szr * m22;
+
+                world.spawnParticle(Particle.DUST, Location(world, sxr_ + px, syr_ + py, szr_ + pz),1,Particle.DustOptions(Color.BLUE, 1.0f))
+
+            }
+        }
+    }
+
+    fun updateCacheFromTransform(){
         updatePosCache();
         updateRotCache();
     }
@@ -62,9 +110,9 @@ class OrientedBoxSoA(
             //if(isValidPos[id] == 1) continue;
             //isValidPos[id] = 1;
             val tID = tsparse[transformHandleList[id].entityID];
-            posCache.x[id] = position.x[tID]
-            posCache.y[id] = position.y[tID]
-            posCache.z[id] = position.z[tID]
+            posCache.x[id] = position.x[tID] + locPos.x[tID];
+            posCache.y[id] = position.y[tID] + locPos.y[tID];
+            posCache.z[id] = position.z[tID] + locPos.z[tID];
         }
     }
 
@@ -78,7 +126,6 @@ class OrientedBoxSoA(
             //if(isValidRotMat[id] == 1) continue;
             //isValidRotMat[id] = 1;
             val tID = tsparse[transformHandleList[id].entityID];
-
 
             val a = rotation.x[tID]; val sinA = sin(a); val cosA = cos(a)
             val b = rotation.y[tID]; val sinB = sin(b); val cosB = cos(b)
@@ -143,20 +190,6 @@ class OrientedBoxSoA(
         }
     }
 
-
-
-    fun rebuildGrid() {
-        // posCache는 Vec3SoA니까 내부 DoubleArray를 넘긴다고 가정
-        val m = rotMatCache;
-        grid.updateGrid(
-            posCache.x, posCache.y, posCache.z,
-            size.x, size.y, size.z,
-            m.m00, m.m01, m.m02,
-            m.m10, m.m11, m.m12,
-            m.m20, m.m21, m.m22,
-            getNumOfEntities());
-    }
-
     private fun rayTestOne(
         id: Int,
         px: Double, py: Double, pz: Double,
@@ -211,6 +244,19 @@ class OrientedBoxSoA(
         if (tmin > tmax) return false
 
         return tmax >= kotlin.math.max(tmin, 0.0)
+    }
+
+
+    fun rebuildGrid() {
+        // posCache는 Vec3SoA니까 내부 DoubleArray를 넘긴다고 가정
+        val m = rotMatCache;
+        grid.updateGrid(
+            posCache.x, posCache.y, posCache.z,
+            size.x, size.y, size.z,
+            m.m00, m.m01, m.m02,
+            m.m10, m.m11, m.m12,
+            m.m20, m.m21, m.m22,
+            getNumOfEntities());
     }
 
     fun rayCastGrid(
@@ -295,8 +341,7 @@ class OrientedBoxSoA(
 
         if(lastRay > 0){
             for(i in 0 until lastRay){
-                println("rayCasting... : [${posX[i]}, ${posY[i]}, ${posZ[i]}] + t * [${dirX[i]}, ${dirY[i]}, ${dirZ[i]}]")
-
+                //println("rayCasting... : [${posX[i]}, ${posY[i]}, ${posZ[i]}] + t * [${dirX[i]}, ${dirY[i]}, ${dirZ[i]}]")
                 val hitList = IntArrayList(8); //배열을 만들어 반환 -> 나중에 고쳐야 할 수도
                 rayCastGridOptim(rayGeneration, i, hitList,posX[i], posY[i], posZ[i], dirX[i], dirY[i], dirZ[i]);
 

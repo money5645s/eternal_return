@@ -17,7 +17,7 @@ abstract class ERAnimalMonobehaviour<T : ERAnimalEvent> : Monobehaviour<T>() {
             throw ClassCastException("Actor가 ERCharacter가 아닙니다.")
         }
         erAnimal = this.actor as ERAnimal
-        erAJEntity = erAnimal!!.ajEntity
+        erAJEntity = erAnimal!!.aJEntity
     }
 
     val eRAJEntity: ERAJEntity?

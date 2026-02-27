@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.ints.IntArrayList
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
+import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.util.dpengine.DPEngine
@@ -26,8 +27,11 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
     /**
      * EREntity들을 쿼리하기 위한 해시맵
      */
-    private val erEntityMap = HashMap<Entity, EREntity>(); //절대 loop돌리지 말 것.
-    private val mcEntities = ArrayList<Entity>();
+    private val erEntityMap = HashMap<Entity, EREntity>();
+    //private val erEntityLookupTable = Array<EREntity?>(bufferSize shl 1){null};
+    //fun lookup(sparseID : Int) : EREntity?{
+    //    return erEntityLookupTable[sparseID];
+    //}
 
     /**
      * 플레이어들을 따로 업데이트하기 위한 리스트
@@ -44,7 +48,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
      * SoA ECS
      * */
     val transformSoA = TransformSoA(bufferSize);
-    private val uniformGrid = UniformGrid(
+    val uniformGrid = UniformGrid(
         -247.0, 582.0, 832.0,
         -1047.0, 70.0, 168.0,
         50.0, bufferSize);
@@ -74,16 +78,20 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
             val py = loc.y;
             val pz = loc.z;
             val rx = Math.toRadians(loc.yaw.toDouble());
-            val ry = Math.toRadians(loc.yaw.toDouble());
-            val rz = Math.toRadians(loc.yaw.toDouble());
+            val ry = Math.toRadians(loc.pitch.toDouble());
+            //val rz = Math.toRadians(loc.roll.toDouble());
 
-            transformSoA.setPosition(erEntity.transformHandle, rx, ry, rz);
-            transformSoA.setRotation(erEntity.transformHandle, rx, 0.0, 0.0);
+            if(erEntity is ERAnimal){
+                erEntity.aJEntity.setDebugDisplay("T${erEntity.transformHandle.entityID} O${erEntity.obbHandle.entityID} rot : [${loc.yaw.toDouble()}, ${loc.pitch.toDouble()}]\n\n\n\n\n\n")
+            }
+
+            transformSoA.setPosition(erEntity.transformHandle, px, py, pz);
+            transformSoA.setRotation(erEntity.transformHandle, 0.0, -rx, 0.0); //디버깅해보니 이게 맞음.
             transformSoA.setDirection(erEntity.transformHandle, rx, ry, 0.0);
             if(erEntity.isShootingRay()){
                 filterBool = true;
                 println("OBB : ${orientedBoxSoA.getNumOfEntities()} TRSF : ${transformSoA.getNumOfEntities()}");
-                raySoA.addRay(erEntity, px, py, pz, rx, ry);
+                raySoA.addRay(erEntity, px, py + 1.5, pz, rx, ry);
             }
         }
 
@@ -94,12 +102,15 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
             }
         }
 
-        orientedBoxSoA.updateCacheFromTransfrom();
+        orientedBoxSoA.updateCacheFromTransform();
         orientedBoxSoA.rebuildGrid();
     }
 
     public override fun update() {
         cachingForSoA();
+
+        orientedBoxSoA.debugOrientedBox(); //성능 이슈 심함
+
         orientedBoxSoA.rayCastSoA(raySoA);
         raySoA.freeRays();
         removeAll();

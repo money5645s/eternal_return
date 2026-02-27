@@ -15,7 +15,7 @@ import org.eternalreturn.util.dpengine.physics.Handle
 abstract class ERCharacter(
     val player : Player,
     erEngine: EREngine,
-) : EREntity(erEngine, player, 0.5, 1.0, 0.5) {
+) : EREntity(erEngine, player, 0.5, 1.0, 0.5, 0.0, 1.0, 0.0) {
 
     @JvmField
     var ActiveCooldownSeconds: Long = 0

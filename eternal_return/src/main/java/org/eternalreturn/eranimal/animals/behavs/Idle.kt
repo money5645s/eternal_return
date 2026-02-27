@@ -21,10 +21,15 @@ class Idle : ERAnimalMonobehaviour<IdleEvent>() {
             }
         }
 
-        val animal = eRAnimal!!.ajEntity;
+        val animal = eRAnimal!!.aJEntity;
         if(animal.actor.passengers.isEmpty()){
             animal.actor.addPassenger(animal.rootEntity)
         }
+
+        //루트 엔티티가 지정된 방향을 가리키도록 하여 히트박스의 각도를 정확히 맞추도록 함.
+        //
+        val animalLoc = animal.location;
+        animal.rootEntity.setRotation(animalLoc.yaw, animalLoc.pitch);
 
         //플레이어가 하나라도 16칸 이내에 있는 경우 -> Ready & stopMonobehav
         val engine = dpEngine as EREngine

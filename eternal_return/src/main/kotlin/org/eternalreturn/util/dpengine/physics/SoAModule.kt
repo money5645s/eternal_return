@@ -4,19 +4,23 @@ import it.unimi.dsi.fastutil.ints.IntArrayList
 
 open class SoAModule(size : Int) {
 
-    val dense = IntArray(size);
-    val sparse = IntArray(size) { -1 };
+    val dense = IntArray(size); // denseID --f--> entityID
+    val sparse = IntArray(size) { -1 }; //entityID --f--> denseID
     val generation = IntArray(size) { 0 };
 
     /**
      * 엔티티 핸들의 인덱스를 발행하는 함수
      * */
-    private val freeIds = IntArrayList(size);
+    var lastRemovedEntityID = -1; //freeHead
     var lastSparseIdx = 0;
     internal fun allocID() : Int{
         var id = -1;
-        if(!freeIds.isEmpty()){
-            id = freeIds.removeLast(); //마지막 요소 삭제
+        if(lastRemovedEntityID > -1){
+            // sparse set의 빈 공간들을 리스트처럼 엮어 사용.
+            // n0 := sparse[lastRemovedEntityID] n1 := lastRemovedEntityID
+            // therefore n1->next == n0 관계가 성립
+            id = lastRemovedEntityID;
+            lastRemovedEntityID = sparse[lastRemovedEntityID];
         }else{
             id = lastSparseIdx++;//same as -> id=lastIdx; lastIdx++;
         }
@@ -28,7 +32,7 @@ open class SoAModule(size : Int) {
      * 아닌 경우 false
      * */
     fun isValid(handle : Handle) : Boolean{
-        return generation[sparse[handle.entityID]] == handle.generation;
+        return generation[handle.entityID] == handle.generation;
     }
 
     /**
@@ -82,9 +86,9 @@ open class SoAModule(size : Int) {
         dense[rmvDenseIdx] = lastEntityId
         sparse[lastEntityId] = rmvDenseIdx
 
-        sparse[entityId] = -1
+        sparse[entityId] = lastRemovedEntityID;
+        lastRemovedEntityID = entityId;
         generation[entityId]++
-        freeIds.add(entityId)
 
         lastDenseIdx--
 

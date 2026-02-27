@@ -23,17 +23,24 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
         //val startNano = System.nanoTime();
 
         for(erAJAnimal in event.aleadySummonedAnimals){
+
+            val erAJAnimalLoc = erAJAnimal.location;
+
             val newAnimal = when (erAJAnimal.name) {
-                "animal_alpha" -> Alpha(dpEngine as EREngine, erAJAnimal, erAJAnimal.location)
-                "animal_bear"  -> Bear (dpEngine as EREngine, erAJAnimal, erAJAnimal.location)
-                "animal_boar"  -> Boar (dpEngine as EREngine, erAJAnimal, erAJAnimal.location)
-                "animal_wolf"  -> Wolf (dpEngine as EREngine, erAJAnimal, erAJAnimal.location)
+                "animal_alpha" -> Alpha(dpEngine as EREngine, erAJAnimal, erAJAnimalLoc)
+                "animal_bear"  -> Bear (dpEngine as EREngine, erAJAnimal, erAJAnimalLoc)
+                "animal_boar"  -> Boar (dpEngine as EREngine, erAJAnimal, erAJAnimalLoc)
+                "animal_wolf"  -> Wolf (dpEngine as EREngine, erAJAnimal, erAJAnimalLoc)
                 else -> null
             }
             val engine = dpEngine as EREngine;
             engine.monobehaviourModule.register(newAnimal!!);
             engine.registerBukkitActor(newAnimal.entity, newAnimal);
             animals.add(newAnimal);
+
+            erAJAnimal.rootEntity.setRotation(erAJAnimalLoc.yaw, erAJAnimalLoc.pitch);
+            erAJAnimal.actor.setRotation(erAJAnimalLoc.yaw, erAJAnimalLoc.pitch);
+
         }
 
         //println("Nano spent : ${System.nanoTime() - startNano}");
@@ -55,7 +62,7 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
     fun removeAll(){
         val engine = dpEngine as EREngine;
         for(animal in animals){
-            animal.ajEntity.remove();
+            animal.aJEntity.remove();
             animal.remove();
             engine.removeBukkitActor(animal.entity);
         }

@@ -1,5 +1,6 @@
 package org.eternalreturn.erentity
 
+import org.bukkit.Location
 import org.eternalreturn.ercharacter.character.fiora.ToucheCount
 import org.eternalreturn.ercharacter.character.fiora.ToucheEffect
 import org.eternalreturn.ercharacter.character.hart.Passive_Timer
@@ -31,7 +32,7 @@ abstract class EREntity( // extends MonobehaviourActor()
     erEngine: EREngine,
     val entity : Entity,
     obbHalfX : Double, obbHalfY : Double, obbHalfZ : Double,
-
+    obbLocX : Double, obbLocY : Double, obbLocZ : Double
     /**
      * 해당 MonobehaviourActor의 Collider 설정
      */
@@ -44,9 +45,13 @@ abstract class EREntity( // extends MonobehaviourActor()
 
     val transformHandle : Handle = erEngine.transformSoA.create(
         entity.location.x, entity.location.y,entity.location.z,
-        entity.location.yaw.toDouble(), entity.location.pitch.toDouble(), 0.0 );
+        0.0, 0.0, 0.0 );
 
-    val obbHandle : Handle = erEngine.orientedBoxSoA.create(transformHandle, obbHalfX, obbHalfY, obbHalfZ);
+    val obbHandle : Handle = erEngine.orientedBoxSoA.create(transformHandle,
+        obbHalfX, obbHalfY, obbHalfZ,
+        obbLocX, obbLocY, obbLocZ
+    );
+
     init{
         transformHandle.actor = this;
         obbHandle.actor = this;

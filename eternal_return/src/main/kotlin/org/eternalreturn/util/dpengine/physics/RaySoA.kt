@@ -28,7 +28,8 @@ class RaySoA(bufferSize : Int) {
     }
 
     fun freeRays(){
-        rayGeneration = (rayGeneration xor 1) //generation변경
+        actors.clear();
+        rayGeneration = (rayGeneration + 1) //generation변경
         lastRay = 0; //ray들 초기화
     }
 
