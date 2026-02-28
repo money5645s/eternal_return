@@ -1,12 +1,11 @@
 package org.eternalreturn.util.AJEntity;
 
-import org.eternalreturn.system.PluginInstance;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 
 import java.util.HashMap;
-
 
 
 /**
@@ -58,9 +57,7 @@ public abstract class AJEntity{
      *
      * */
     public void remove(){
-        Bukkit.dispatchCommand(
-                Bukkit.getConsoleSender(),
-                getExecuteAsRunFuncPrefix() + "animated_java:" + this.name + "/remove/this");
+        AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + "animated_java:" + this.name + "/remove/this");
     }
 
     /**
@@ -139,8 +136,8 @@ public abstract class AJEntity{
         this.animationEndTime = durationTicks * 50 + currentTime;
         this.animationState = ANIMATION_STATE.PLAY;
         String command = getExecuteAsRunFuncPrefix() + animation + "/play";
-        PluginInstance.dfLogUTF8(command);
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+        //PluginInstance.dfLogUTF8(command);
+        AJEntityManager.sendCommand(command);
     }
 
     /**
@@ -149,9 +146,7 @@ public abstract class AJEntity{
      * */
     public void pauseAnim(){
         this.animationState = ANIMATION_STATE.PAUSE;
-        Bukkit.dispatchCommand(
-                Bukkit.getConsoleSender(),
-                getExecuteAsRunFuncPrefix() + animationPlaying + "/pause");
+        AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + animationPlaying + "/pause");
     }
 
     /**
@@ -175,11 +170,11 @@ public abstract class AJEntity{
      * getAnimationState()메소드로 얻을 수 있는 값은 ANIMATION_STOP의 값이 된다.
      * */
     public void stopAnim(){
-        Bukkit.dispatchCommand(
-                Bukkit.getConsoleSender(),
-                getExecuteAsRunFuncPrefix() + animationPlaying + "/stop");
-        this.animationState = ANIMATION_STATE.STOP;
-        this.animationPlaying = null;
+        if(animationState == ANIMATION_STATE.PLAY){
+            AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + animationPlaying + "/stop");
+            this.animationState = ANIMATION_STATE.STOP;
+            this.animationPlaying = null;
+        }
     }
 
     /**

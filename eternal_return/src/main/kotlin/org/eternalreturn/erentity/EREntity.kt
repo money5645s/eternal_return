@@ -17,6 +17,8 @@ import org.eternalreturn.util.dpengine.geometry.Collider
 import org.eternalreturn.util.dpengine.geometry.GeometryModule
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import org.bukkit.entity.Entity
+import org.eternalreturn.erentity.events.EREntityAttackedEvent
+import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.DPEngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourModule
@@ -42,6 +44,8 @@ abstract class EREntity( // extends MonobehaviourActor()
         get(){
             return dpEngine as EREngine;
         }
+
+    var maxRange : Double = 5.0; //바뀔 수 있음
 
     val transformHandle : Handle = erEngine.transformSoA.create(
         entity.location.x, entity.location.y,entity.location.z,
@@ -85,6 +89,7 @@ abstract class EREntity( // extends MonobehaviourActor()
         this.registerMonobehaviour(Passive_Timer())
         this.registerMonobehaviour(LiDailinPassiveTimer())
         this.registerMonobehaviour(PassiveCount())
+        this.registerMonobehaviour(EntityRayCastingMeleeAttack())
     }
 
     /**

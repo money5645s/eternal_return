@@ -48,7 +48,7 @@ class DetectingPlayersInRange : Monobehaviour<DetectingPlayerEvent>() {
             val avg = vec3(px, py, pz);
             val pos = player.getPosition()
             val dis = magnitudeSqr(avg - pos);
-            if(dis <= 64 * 64){
+            if(dis <= 128 * 128){
                 isInDistance = true;
                 break;
             }
@@ -60,8 +60,7 @@ class DetectingPlayersInRange : Monobehaviour<DetectingPlayerEvent>() {
             removeERAJEntities();
             actor.submitEvent(RemoveAllERAnimals())
             summoned = false;
-        }
-        else if(isInDistance && !summoned){ //플레이어가 하나라도 있지만, 소환되지는 않은 경우
+        }else if(isInDistance && !summoned){ //플레이어가 하나라도 있지만, 소환되지는 않은 경우
             val listReference = summonERAJEntities();
             actor.submitEvent(WaitForSummoning(listReference))
             summoned = true;
@@ -72,7 +71,7 @@ class DetectingPlayersInRange : Monobehaviour<DetectingPlayerEvent>() {
     private fun summonERAJEntities() : MutableList<ERAJEntity>{
         val list = (actor as ERAnimalManager).entities;
         for(erAJAnimal in list){
-            erAJAnimal.summon();
+            erAJAnimal.summon(0.0, 2.0, 0.0);
         }
         return list;
     }

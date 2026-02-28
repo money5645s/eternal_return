@@ -1,11 +1,11 @@
 package org.eternalreturn.eranimal
 
 import org.bukkit.entity.Entity
-import org.eternalreturn.eranimal.animals.events.ERAnimalEvent
+import org.eternalreturn.erentity.events.EREntityEvent
 import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
-abstract class ERAnimalMonobehaviour<T : ERAnimalEvent> : Monobehaviour<T>() {
+abstract class ERAnimalMonobehaviour<T : EREntityEvent> : Monobehaviour<T>() {
     private var erAJEntity: ERAJEntity? = null
     private var erAnimal: ERAnimal? = null
 
@@ -40,7 +40,7 @@ abstract class ERAnimalMonobehaviour<T : ERAnimalEvent> : Monobehaviour<T>() {
         return System.currentTimeMillis() - startTime < durationTicks * 50
     }
 
-    fun isContainedIn(eventType: Class<out ERAnimalEvent>, eventList: MutableList<MonobehaviourEvent>): Boolean {
+    fun isContainedIn(eventType: Class<out EREntityEvent>, eventList: MutableList<MonobehaviourEvent>): Boolean {
         for (event in eventList) {
             if (eventType.isInstance(event)) {
                 return true

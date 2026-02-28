@@ -1,7 +1,9 @@
 package org.eternalreturn.eranimal;
 
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.eternalreturn.erplayer.ERPlayer;
+import org.eternalreturn.system.PluginInstance;
 import org.eternalreturn.system.SystemManager;
 import org.eternalreturn.util.AJEntity.AJEntity;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
@@ -49,7 +51,12 @@ public class ERAJEntity extends AJEntity {
     }
 
     public void summon() {
-        AJEntityManager.summon(this, location);
+        AJEntityManager.summon(this, location, 0.0, 0.0 ,0.0);
+        this.isShown = true;
+    }
+
+    public void summon(double lx, double ly, double lz) {
+        AJEntityManager.summon(this, location, lx, ly, lz);
         this.isShown = true;
     }
 
@@ -72,23 +79,14 @@ public class ERAJEntity extends AJEntity {
         this.isHit = false;
     }
 
-    @Override
-    protected void afterSummoning() {
+    /**
+     *
+     * */
+    @Override protected void afterSummoning() {
         World world = location.getWorld();
         if(world == null){
             throw new NullPointerException("전달된 매개변수 Location에 World 정보가 없습니다.");
         }
-
-        //해당 AJEntity를 조종할 엔티티를 Actor라고 한다.
-        //해당 Actor 위에 AJEntity를 태운다.
-        actor = (Husk) world.spawnEntity(location, EntityType.HUSK);
-        actor.setAdult();
-        actor.setAI(false);
-        actor.setInvisible(true);
-        actor.setSilent(true);
-
-        var cmp = Component.text(" ");
-        actor.customName(cmp);
 
         hpbar = (TextDisplay) world.spawnEntity(location, EntityType.TEXT_DISPLAY);
 
@@ -107,21 +105,18 @@ public class ERAJEntity extends AJEntity {
     public void remove() {
         if(rootEntity != null){
             super.remove();
-            this.actor.remove();
+        }
+        if(actor != null){
+            actor.remove();
         }
         this.isShown = false;
     }
 
     @Override
     protected void afterSpawnEvent(Entity spawnedRootEntity){
-        if(actor == null){
-            throw new NullPointerException("ACTOR가 null입니다.");
-        }
-
-        ///actor(CraftHusk)에 2개 이상의 엔티티를 태우려고 시도 시에는 전부 다 내려지는 버그가 있음.
         rootEntity = spawnedRootEntity;
         rootEntity.addPassenger(hpbar);
-        actor.addPassenger(rootEntity);
+        System.out.println("rootEntity가 성공적으로 전달되었습니다.");
     }
 
 
@@ -132,6 +127,18 @@ public class ERAJEntity extends AJEntity {
      * */
     public Entity getActor(){
         return this.actor;
+    }
+
+    /**
+     * 해당 객체의 Actor을 설정한다. (invisible, adult, silent, invulnerable)
+     * */
+    public void setActor(Husk actor){
+        this.actor = actor;
+        this.actor.setAdult();
+        this.actor.setSilent(true);
+        this.actor.setInvisible(true);
+        this.actor.setInvulnerable(true);
+        this.actor.addPassenger(this.rootEntity);
     }
 
     /**

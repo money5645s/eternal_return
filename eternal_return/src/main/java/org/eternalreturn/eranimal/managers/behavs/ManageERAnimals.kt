@@ -39,7 +39,6 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
             animals.add(newAnimal);
 
             erAJAnimal.rootEntity.setRotation(erAJAnimalLoc.yaw, erAJAnimalLoc.pitch);
-            erAJAnimal.actor.setRotation(erAJAnimalLoc.yaw, erAJAnimalLoc.pitch);
 
         }
 
@@ -56,8 +55,9 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
                 return;
             }
         }
-
     }
+
+
 
     fun removeAll(){
         val engine = dpEngine as EREngine;

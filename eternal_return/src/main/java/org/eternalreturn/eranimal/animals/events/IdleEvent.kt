@@ -1,4 +1,6 @@
 package org.eternalreturn.eranimal.animals.events
 
-class IdleEvent : ERAnimalEvent {
+import org.eternalreturn.erentity.events.EREntityEvent
+
+class IdleEvent : EREntityEvent {
 }

@@ -7,6 +7,8 @@ import org.bukkit.Particle
 import org.bukkit.command.defaults.BukkitCommand
 import org.bukkit.scheduler.BukkitScheduler
 import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.erentity.events.EREntityRayCastEvent
+import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 import kotlin.math.cos
@@ -345,14 +347,25 @@ class OrientedBoxSoA(
                 val hitList = IntArrayList(8); //배열을 만들어 반환 -> 나중에 고쳐야 할 수도
                 rayCastGridOptim(rayGeneration, i, hitList,posX[i], posY[i], posZ[i], dirX[i], dirY[i], dirZ[i]);
 
+                val shooter = raySoA.actors[i];
+                val hitActorList = ArrayList<EREntity>();
+
                 if(hitList.isNotEmpty()){
                     for(j in 0 until hitList.size){
                         val entityID = hitList.getInt(j);
-                        val actor = getConnectedActor(entityID) as EREntity;
-                        val posDebugStr = transformSoA.getDebugString(actor.transformHandle);
-                        println("HITLIST -> [$j] : ${actor.javaClass.simpleName} ${actor.transformHandle.entityID} ${actor.obbHandle.entityID} isValid : ${isValid(actor.obbHandle)}"); // 디버깅용
+                        val hitActor = getConnectedActor(entityID) as EREntity;
+                        hitActorList.add(hitActor)
+                        println("HITLIST -> [$j] : ${hitActor.javaClass.simpleName} ${hitActor.transformHandle.entityID} ${hitActor.obbHandle.entityID} isValid : ${isValid(hitActor.obbHandle)}"); // 디버깅용
                     }
                 }
+
+                //이벤트를 전달한다.
+                if(shooter is EREntity){ //광선을 쏜 개체가 EREntity라면
+                    shooter.submitEvent(EREntityRayCastEvent(shooter,hitActorList));
+                }else{
+                    //광선을 쏜 개체가 Projectile이라면
+                }
+
             }
         }
     }

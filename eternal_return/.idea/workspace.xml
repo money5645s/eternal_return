@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0e01f0-2f44-4923-ba15-8c4d09d27f4c" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/ERAnimal.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Alpha.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Bear.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Boar.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Wolf.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/events/EREntityAttacked.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/events/EREntityRayCastEvent.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/globalmonobehav/PlayerRayCastingMeleeAttack.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/checksums/sha1-checksums.bin" afterDir="false" />
@@ -21,24 +19,19 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/EternalReturn/ERAnimal/ERAnimal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/META-INF/eternal_return.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/META-INF/eternal_return.kotlin_module" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream.len" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream.len" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab" afterDir="false" />
@@ -56,7 +49,6 @@
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab" afterDir="false" />
@@ -68,14 +60,12 @@
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream.len" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.len" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/counters.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/counters.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream.len" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/id-to-file.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/id-to-file.tab" afterDir="false" />
@@ -95,23 +85,26 @@
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/local-state/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/local-state/build-history.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/ERAJEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/ERAJEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/ERAnimal.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/ERAnimalMonobehaviour.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/ERAnimalMonobehaviour.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Alpha.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Bear.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Boar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Wolf.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Alpha.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Alpha.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Bear.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Bear.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Boar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Boar.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Wolf.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/actors/Wolf.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/behavs/Battle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/behavs/Battle.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/behavs/Idle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/behavs/Idle.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/events/ERAnimalAttackedByPlayerEvent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/events/ERAnimalEvent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/events/IdleEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/events/IdleEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/managers/behavs/DetectingPlayersInRange.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/managers/behavs/DetectingPlayersInRange.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/managers/behavs/ManageERAnimals.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/managers/behavs/ManageERAnimals.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/erplayer/ERPlayerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/erplayer/ERPlayerListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/system/EREngine.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/system/EREngine.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/managers/behavs/WaitForSummoningERAJEntities.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/managers/behavs/WaitForSummoningERAJEntities.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/util/AJEntity/AJEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/util/AJEntity/AJEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/util/AJEntity/AJEntityManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/util/AJEntity/AJEntityManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/ERCharacter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/ERCharacter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/ERDummy.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/ERDummy.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/globalmonobehav/PlayerRayCastingByLeftClicking.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/globalmonobehav/PlayerRayCastingByLeftClicking.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/globalmonobehav/PlayerRayCastingMeleeAttack.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/EREntity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/EREntity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/OrientedBoxSoA.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/OrientedBoxSoA.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/RaySoA.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/RaySoA.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/SoAModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/SoAModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/SoATest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/SoATest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/TransformSoA.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/TransformSoA.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -267,11 +260,11 @@
       <recent name="org.EternalReturn.Util.dpengine.command" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="org.eternalreturn.erentity.globalmonobehav" />
       <recent name="org.EternalReturn.ERCharacter.Character.adriana.monobehavs" />
       <recent name="org.EternalReturn.ERCharacter.Character.adriana.entities" />
       <recent name="org.EternalReturn.ERCharacter.Character.fiora" />
       <recent name="org.EternalReturn.ERCharacter.Character.fiora.event" />
-      <recent name="org.EternalReturn.EREntity" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.EternalReturn.EREntity.Event" />
@@ -281,7 +274,7 @@
       <recent name="org.EternalReturn.ERAnimal" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.eternal_return [build]">
+  <component name="RunManager" selected="Gradle.eternal_return [jar]">
     <configuration name="eternal_return [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -326,12 +319,27 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="OrientedBoxSoAKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.eternalreturn.util.dpengine.physics.OrientedBoxSoAKt" />
-      <module name="git.eternal_return.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="eternal_return [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
     </configuration>
     <configuration name="SoATestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.eternalreturn.util.dpengine.physics.SoATestKt" />
@@ -349,11 +357,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.eternal_return [jar]" />
         <item itemvalue="Gradle.eternal_return [build]" />
+        <item itemvalue="Gradle.eternal_return [clean]" />
         <item itemvalue="Kotlin.TransformSoAKt" />
         <item itemvalue="Kotlin.SoATestKt" />
-        <item itemvalue="Gradle.eternal_return [clean]" />
-        <item itemvalue="Kotlin.OrientedBoxSoAKt" />
       </list>
     </recent_temporary>
   </component>

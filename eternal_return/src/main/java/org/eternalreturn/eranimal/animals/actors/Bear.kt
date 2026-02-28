@@ -6,7 +6,7 @@ import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.system.EREngine
 
 class Bear(engine: EREngine, erAjEntity: ERAJEntity, location: Location) :
-    ERAnimal(engine, erAjEntity, 3.0, 3.0, 2.0, 0.0, 0.0, 0.0) {
+    ERAnimal(engine, erAjEntity, 1.5, 1.5, 2.5, 0.0, -1.0, 0.0) {
     init {
         this.aJEntity.registerAnimation("ready", 2.0)
         this.aJEntity.registerAnimation("attack", 2.3)

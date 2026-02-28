@@ -1,41 +1,35 @@
 package org.eternalreturn.eranimal.animals.behavs
 
 import org.bukkit.entity.Entity
+import org.bukkit.entity.EntityType
 import org.bukkit.entity.Husk
 import org.eternalreturn.eranimal.ERAJEntity
 import org.eternalreturn.eranimal.ERAnimalMonobehaviour
-import org.eternalreturn.eranimal.animals.events.ERAnimalAttackedByPlayerEvent
+import org.eternalreturn.erentity.events.EREntityAttackedEvent
+import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
-class Battle : ERAnimalMonobehaviour<ERAnimalAttackedByPlayerEvent>() {
+class Battle : ERAnimalMonobehaviour<EREntityAttackedEvent>() {
     var ajEntity: ERAJEntity? = null
 
-    var animalState: AnimalState? = null
+    var animalState: AnimalState = AnimalState.MOVE
 
     enum class AnimalState {
         ATTACK,
         MOVE
     }
 
-    public override fun start(event: ERAnimalAttackedByPlayerEvent) {
+    override fun start(event: EREntityAttackedEvent) {
         ajEntity = eRAJEntity
         if (!ajEntity!!.isShown()) return
-        animalState = AnimalState.MOVE
+
+        val world = PluginInstance.getServerInstance().server.worlds.first();
+        ajEntity!!.setActor(world.spawnEntity(ajEntity!!.location, EntityType.HUSK) as Husk);
         (ajEntity!!.getActor() as Husk).setAI(true)
-        println("attacked by player")
+        println("attacked by a player")
     }
 
-    public override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
-        //for(MonobehaviourEvent event : eventList){
-        //    if(event instanceof ERAnimalPlayerToFarAwayEvent){
-        //        ajEntity.stopAnim();
-        //        stopMonobehav();
-        //    }
-        //}
-
-        //System.out.println("updating");
-
-        //rotating == look at a target
+    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
 
         val actor = ajEntity!!.getActor() as Husk
         val target: Entity? = actor.target
@@ -49,7 +43,7 @@ class Battle : ERAnimalMonobehaviour<ERAnimalAttackedByPlayerEvent>() {
         val isInDistance = isInDistance(3.0, actor, target)
 
         //상태 결정
-        if (isInDistance && animalState != AnimalState.ATTACK) {
+        if (isInDistance) {//범위 내에 있으면 계속 공격 해야 함.
             animalState = AnimalState.ATTACK
         } else if (!ajEntity!!.isPlaying("attack")) {
             animalState = AnimalState.MOVE

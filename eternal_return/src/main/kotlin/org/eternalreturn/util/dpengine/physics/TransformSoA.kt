@@ -72,10 +72,10 @@ class TransformSoA(size : Int) : SoAModule(size){
     }
 
     fun remove(handle : Handle){
-        val pair = super.removeHandle(handle);
-        position.overwrite(pair.first, pair.second);
-        rotation.overwrite(pair.first, pair.second);
-        direction.overwrite(pair.first, pair.second);
+        val (idx0, idx1) = super.removeHandle(handle);
+        position.overwrite(idx0, idx1);
+        rotation.overwrite(idx0, idx1);
+        direction.overwrite(idx0, idx1);
     }
 
     fun getDebugString(handle: Handle) : String{

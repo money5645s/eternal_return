@@ -1,5 +1,6 @@
 package org.eternalreturn.util.AJEntity;
 
+import org.bukkit.command.CommandSender;
 import org.eternalreturn.util.Free.FreeAble;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -20,6 +21,8 @@ public class AJEntityManager implements Listener , FreeAble {
 
     private static AJEntityManager manager = null;
 
+    private static CommandSender commandSender = Bukkit.createCommandSender(builder -> {});//Bukkit.getConsoleSender();
+
     private static HashMap<Entity, AJEntity> ajEntityMap = new HashMap<>(8);
 
     private static List<AJEntity> ajEntities = new ArrayList<>(8);
@@ -27,6 +30,10 @@ public class AJEntityManager implements Listener , FreeAble {
     private static Plugin plugin = null;
 
     private static List<AJEntity> ajEntitySummonQueue = new LinkedList<>();
+
+    public static void sendCommand(String cmd){
+        Bukkit.dispatchCommand(commandSender, cmd);
+    }
 
     @Override
     public void free() {
@@ -77,7 +84,7 @@ public class AJEntityManager implements Listener , FreeAble {
     /**
      * 해당 Location에 AJEntity 객체의 명세대로 엔티티를 소환한다.
      * */
-    public static void summon(@NotNull AJEntity ajEntity, @NotNull Location location){
+    public static void summon(@NotNull AJEntity ajEntity, @NotNull Location location, double lx, double ly, double lz){
 
         if(location.getWorld() == null){
             throw new NullPointerException("해당 함수의 매개변수로 전달된 Location 객체는 반드시 World 객체 정보를 가지고 있어야 합니다.");
@@ -95,10 +102,10 @@ public class AJEntityManager implements Listener , FreeAble {
             ajEntity.afterSummoning();
 
             String command =  "execute"
-                    +" positioned " + location.getX() + " " + location.getY() + " " + location.getZ()
+                    +" positioned " + (location.getX() + lx) + " " + (location.getY() + ly) + " " + (location.getZ() + lz)
                     +" rotated " + location.getYaw() + " " + location.getPitch()
                     +" run function animated_java:" + ajEntity.getName() + "/summon {args:0}";
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+            AJEntityManager.sendCommand(command);
 
             //소환 이후 로직
         }
@@ -173,7 +180,7 @@ public class AJEntityManager implements Listener , FreeAble {
 
             ajEntity.afterSpawnEvent(entity);
 
-            //System.out.println("ajEntity가 생성되었습니다. : " + ajEntity.getRootEntity().getUniqueId());
+            System.out.println("ajEntity가 생성되었습니다. : " + ajEntity.getRootEntity().getUniqueId());
         }
 
 
