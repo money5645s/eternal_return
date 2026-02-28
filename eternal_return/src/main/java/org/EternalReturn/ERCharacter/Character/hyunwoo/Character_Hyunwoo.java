@@ -2,15 +2,6 @@ package org.EternalReturn.ERCharacter.Character.hyunwoo;
 
 import org.EternalReturn.ERCharacter.ERCharacter;
 import org.EternalReturn.ERPlayer.ERPlayer;
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
-
-import java.util.*;
 
 public class Character_Hyunwoo extends ERCharacter {
 
@@ -20,8 +11,8 @@ public class Character_Hyunwoo extends ERCharacter {
         super(player);
         this.ActiveCooldownSeconds = 8;
         this.PassiveCooldownSeconds = 8;
-        registerMonobehaviour(new WallSlamDash());
-        registerMonobehaviour(new StackingPunch());
+        registerMonobehaviour(new Active());
+        registerMonobehaviour(new Passive());
     }
 
 

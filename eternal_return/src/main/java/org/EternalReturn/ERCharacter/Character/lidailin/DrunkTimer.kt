@@ -14,7 +14,6 @@ class DrunkTimer : EREntityMonobehaviour<DrunkTimerEvent>() {
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
         val liDailin = actor as Character_LiDailin
-        val currentTime = System.currentTimeMillis()
         for (event in eventList) {
             if (event is DrunkTimerEvent) {
 //                liDailin.player.sendMessage("§a[시스템] 취기 타이머가 초기화되었습니다.")

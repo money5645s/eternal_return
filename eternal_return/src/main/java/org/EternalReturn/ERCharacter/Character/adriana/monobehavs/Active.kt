@@ -8,7 +8,7 @@ import org.EternalReturn.ERCharacter.Event.CharacterSwapHandEvent
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Location
 
-class BurningGround : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
+class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
     var skillActiveMillis: Long = 0
 
@@ -17,6 +17,13 @@ class BurningGround : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         // 1. 플레이어가 바라보는 방향 가져오기
 
         val adriana = actor as Character_Adriana;
+        val cd = adriana.cooldown
+
+        if (cd.isWaiting("Active")) {
+            val remain = String.format("%.1f", cd.getLeft("Active"))
+            getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
+            return
+        }
 
         var dir = adriana.direction;
         var world = adriana.player.world;
@@ -29,6 +36,8 @@ class BurningGround : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
         skillActiveMillis = System.currentTimeMillis();
         adriana.player.sendMessage("§8[Adriana] §f급속 돌진!")
+        // 쿨타임 등록
+        adriana.cooldown.set("Active", adriana.ActiveCooldownSeconds)
     }
 
 
