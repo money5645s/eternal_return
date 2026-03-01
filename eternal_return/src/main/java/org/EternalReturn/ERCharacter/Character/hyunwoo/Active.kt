@@ -17,7 +17,6 @@ import org.bukkit.entity.Player
 import org.bukkit.util.Vector
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
-    var skillActiveTick: Long = 0
     var direction: Vector? = null
     var hitEntities: HashMap<EREntity, Int?>? = null
     private var isWallSlam = false
@@ -47,14 +46,13 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         this.hitEntities = HashMap<EREntity, Int?>()
         // 시선과 무관하게 수평 방향 벡터로 고정 (y=0)
         this.direction = player.getLocation().getDirection().setY(0).normalize().multiply(1)
-        this.skillActiveTick = System.currentTimeMillis()
         this.isWallSlam = false
         tick = 0
     }
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
         val player = getPlayer()
-        val engine = dpEngine as EREngine // 엔진 캐스팅
+        val engine = dpEngine as EREngine
         val hyunwoo = actor as Character_Hyunwoo
         val cd = hyunwoo.cooldown
 
@@ -105,12 +103,11 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                     )
                     damage(getPlayer(), bukkitVictim, 2.0)
                 }
-                // 적을 플레이어 속도에 맞춰 밀어냄
+                // 3. 적을 플레이어 속도에 맞춰 밀어냄
                 bukkitVictim.setVelocity(direction!!.clone().multiply(1.2))
             }
 
-            // 4. [중요] 수정된 레이캐스팅 벽꿍 판정
-            // 시작점: 플레이어 발 위치(getLocation)에서 배 높이(0.8) 정도 위
+            // 4. 레이캐스팅 벽꿍 판정
             val startRay = player.getLocation().add(0.0, 0.8, 0.0)
             val rayDir = direction!!.clone().normalize()
 
@@ -123,7 +120,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             }
         }
 
-        if (!isNotEnd(skillActiveTick, 6)){
+        if (tick > 6){
             player.sendMessage("§c[디버깅] §f돌진 종료")
             // 쿨타임 등록
             hyunwoo.cooldown.set("Active", hyunwoo.ActiveCooldownSeconds)

@@ -4,6 +4,7 @@ import org.EternalReturn.ERCharacter.Character.lidailin.event.DrunkTimerEvent
 import org.EternalReturn.EREntity.EREntityMonobehaviour
 import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent
 
+// 취기 클래스
 class DrunkTimer : EREntityMonobehaviour<DrunkTimerEvent>() {
 
     var tick = 0;
@@ -36,17 +37,5 @@ class DrunkTimer : EREntityMonobehaviour<DrunkTimerEvent>() {
             stopMonobehav() // 타이머 종료
         }
 
-        // 5초가 경과하면
-//        if (currentTime - startTime >= duration) {
-//            if (liDailin.isDrunk) {
-//                liDailin.player.sendMessage("§7[리 다이린] 맨정신이 되었습니다.")
-//                liDailin.isDrunk = false
-//            } else if (liDailin.drinkCount > 0) {
-//                liDailin.player.sendMessage("§7[리 다이린] 취기가 사라졌습니다.")
-//                liDailin.drinkCount = 0
-//            }
-//
-//            stopMonobehav() // 타이머 종료
-//        }
     }
 }

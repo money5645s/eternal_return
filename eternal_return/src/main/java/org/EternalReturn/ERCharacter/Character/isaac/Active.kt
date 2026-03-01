@@ -30,12 +30,6 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
         val isaac = actor as Character_Isaac
-//        val cd = isaac.cooldown
-//
-//        if (cd.isWaiting("Active")) {
-//            stopMonobehav()
-//            return
-//        }
 
         if (!isaac.isActiveSkill) {
             stopMonobehav()

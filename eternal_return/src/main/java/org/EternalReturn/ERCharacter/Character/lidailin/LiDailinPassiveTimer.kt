@@ -8,6 +8,7 @@ import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 
+// 만취 했을 때 평타 2번 때리는 클래스
 class LiDailinPassiveTimer : EREntityMonobehaviour<LiDailinPassiveTimerEvent>(){
 
     var tick = 0;

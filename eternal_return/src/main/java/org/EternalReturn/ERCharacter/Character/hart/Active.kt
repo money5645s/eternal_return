@@ -9,7 +9,6 @@ import org.bukkit.potion.PotionEffectType
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var skillActiveTick: Long = 0
     private val durationMillis: Long = 5000
-    private var isActive = false
     override fun start(event: CharacterSwapHandEvent) {
         val player = getPlayer()
 
@@ -22,12 +21,10 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             return
         }
 
-        if (isActive) return
 
         player.addPotionEffect(PotionEffect(PotionEffectType.STRENGTH, 100, 0, false, false))
 
         this.skillActiveTick = System.currentTimeMillis()
-        this.isActive = true
         player.sendMessage("§c[하트] §f스킬 발동! 5초간 유지됩니다.")
     }
 
@@ -40,17 +37,15 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             return
         }
 
-        if (isActive) {
-            val currentTime = System.currentTimeMillis()
+        val currentTime = System.currentTimeMillis()
 
-            // 시작한 시간으로부터 5초가 지났는지 확인
-            if (currentTime - skillActiveTick > durationMillis) {
-                getPlayer().sendMessage("§7[하트] 스킬 상태가 종료되었습니다.")
-                isActive = false
-                // 쿨타임 등록
-                hart.cooldown.set("Active", hart.ActiveCooldownSeconds)
-                stopMonobehav()
-            }
+        // 시작한 시간으로부터 5초가 지났는지 확인
+        if (currentTime - skillActiveTick > durationMillis) {
+            getPlayer().sendMessage("§7[하트] 스킬 상태가 종료되었습니다.")
+            // 쿨타임 등록
+            hart.cooldown.set("Active", hart.ActiveCooldownSeconds)
+            stopMonobehav()
+
         }
     }
 }
