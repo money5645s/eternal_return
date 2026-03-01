@@ -9,12 +9,12 @@ import org.bukkit.entity.LivingEntity
 import java.util.*
 import kotlin.math.min
 
-class StackingPunch : ERCharacterMonobehaviour<CharacterAttackEvent>() {
+class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
     private val hitCountMap: MutableMap<UUID?, Int?> = HashMap<UUID?, Int?>()
     private var punchTimeMillis: Long = 0
 
-    public override fun start(event: CharacterAttackEvent) {
-        val victimEntity = event.victim!!.entity
+    override fun start(event: CharacterAttackEvent) {
+        val victimEntity = event.victim.entity
 
         if (victimEntity !is LivingEntity) {
             return
@@ -50,7 +50,7 @@ class StackingPunch : ERCharacterMonobehaviour<CharacterAttackEvent>() {
         }
     }
 
-    public override fun update(event: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
         stopMonobehav()
     }
 }

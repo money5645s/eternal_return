@@ -4,6 +4,9 @@ import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Sound
+import org.bukkit.entity.Entity
+import org.eternalreturn.ercharacter.character.jackie.Character_Jackie
+import javax.management.Attribute
 
 class Attack : ERCharacterMonobehaviour<CharacterAttackEvent>() {
 

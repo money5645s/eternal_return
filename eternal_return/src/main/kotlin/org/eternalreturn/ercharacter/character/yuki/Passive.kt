@@ -4,10 +4,12 @@ import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.erentity.events.EREntityStunEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.bukkit.Location
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
+import org.eternalreturn.ercharacter.character.yuki.Character_Yuki
 
 class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
     private var reloadStartTime: Long = 0
@@ -52,6 +54,7 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
             if (yuki.isActiveSkill) {
                 player.sendMessage("§f[유키] 머리!")
                 event.victim.submitEvent(EREntityStunEvent(1 * 20)) //2초
+                // 쿨타임 등록
                 yuki.cooldown.set("Active", yuki.ActiveCooldownSeconds)
                 yuki.isActiveSkill = false
             }

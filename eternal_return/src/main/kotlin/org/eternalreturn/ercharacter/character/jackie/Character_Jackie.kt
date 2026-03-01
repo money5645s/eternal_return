@@ -1,12 +1,14 @@
 package org.eternalreturn.ercharacter.character.jackie
 
-import org.eternalreturn.ercharacter.ERCharacter
 import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.character.jackie.Active
+import org.eternalreturn.ercharacter.character.jackie.Attack
+import org.eternalreturn.ercharacter.character.jackie.Passive
+import org.eternalreturn.ercharacter.ERCharacter
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.DPEngine
 
-class Character_Jackie(engine : EREngine,player: Player) : ERPlayer(player, engine) {
+class Character_Jackie(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     var isBloodSweep: Boolean = false
 
     init {

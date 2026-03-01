@@ -1,17 +1,18 @@
 package org.eternalreturn.ercharacter.character.lidailin
 
-import org.eternalreturn.ercharacter.ERCharacter
 import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.character.lidailin.Active
+import org.eternalreturn.ercharacter.character.lidailin.Passive
+import org.eternalreturn.ercharacter.ERCharacter
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.DPEngine
 
-class Character_LiDailin(engine : EREngine,player: Player) : ERPlayer(player, engine) {
+class Character_LiDailin(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     var isDrunk: Boolean = false
     var drinkCount: Int = 0
 
     init {
-        this.ActiveCooldownSeconds = 8
+        this.ActiveCooldownSeconds = 3
         this.PassiveCooldownSeconds = 8
         registerMonobehaviour(Passive())
         registerMonobehaviour(Active())

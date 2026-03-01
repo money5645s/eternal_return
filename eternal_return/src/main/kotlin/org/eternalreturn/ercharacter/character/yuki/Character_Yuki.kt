@@ -1,16 +1,19 @@
 package org.eternalreturn.ercharacter.character.yuki
 
-import org.eternalreturn.ercharacter.ERCharacter
+
+import org.bukkit.Location
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.character.yuki.Passive
+import org.eternalreturn.ercharacter.ERCharacter
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.DPEngine
 
-
-class Character_Yuki(engine : EREngine,player: Player) : ERPlayer(player, engine) {
+class Character_Yuki(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     var buttonCount: Int = 4
     var isReloading: Boolean = false
     var isActiveSkill: Boolean = false
+    var stunnedVictims: MutableMap<LivingEntity?, Location?> = HashMap<LivingEntity?, Location?>()
 
     init {
         this.ActiveCooldownSeconds = 3

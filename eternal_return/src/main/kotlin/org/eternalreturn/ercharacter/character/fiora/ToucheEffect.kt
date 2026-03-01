@@ -5,6 +5,7 @@ import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Location
 import org.bukkit.Particle
+import org.bukkit.entity.LivingEntity
 
 class ToucheEffect : EREntityMonobehaviour<ToucheEffectStartEvent>(){
 

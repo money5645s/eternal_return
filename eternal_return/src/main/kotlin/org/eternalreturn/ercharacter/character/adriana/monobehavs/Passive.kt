@@ -6,11 +6,12 @@ import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.entity.Entity
 import java.util.*
 
-class LitFireOnAttack : ERCharacterMonobehaviour<CharacterAttackEvent>() {
+class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
     public override fun start(event: CharacterAttackEvent) {
-        Objects.requireNonNull<Entity>(event.victim!!.entity).setFireTicks(100)
+        Objects.requireNonNull<Entity?>(event.victim.entity).setFireTicks(100)
     }
 
     public override fun update(event: MutableCollection<MonobehaviourEvent>) {
+        stopMonobehav()
     }
 }

@@ -1,16 +1,17 @@
 package org.eternalreturn.ercharacter.character.isaac
 
-import org.eternalreturn.ercharacter.ERCharacter
 import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.character.isaac.Active
+import org.eternalreturn.ercharacter.character.isaac.Passive
+import org.eternalreturn.ercharacter.ERCharacter
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.DPEngine
 
-class Character_Isaac(engine : EREngine,player: Player) : ERPlayer(player, engine) {
+class Character_Isaac(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     var isActiveSkill: Boolean = false
 
     init {
-        this.ActiveCooldownSeconds = 8
+        this.ActiveCooldownSeconds = 3
         this.PassiveCooldownSeconds = 8
         registerMonobehaviour(Passive())
         registerMonobehaviour(Active())

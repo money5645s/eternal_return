@@ -1,15 +1,18 @@
 package org.eternalreturn.ercharacter.character.fiora
 
-import org.eternalreturn.ercharacter.ERCharacter
 import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.character.fiora.Active
+import org.eternalreturn.ercharacter.character.fiora.Passive
+import org.eternalreturn.ercharacter.ERCharacter
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.DPEngine
 
 
-class Character_Fiora(engine : EREngine,player: Player) : ERPlayer(player, engine) {
+class Character_Fiora(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
+    var isActiveSkill: Boolean = false
+
     init {
-        this.ActiveCooldownSeconds = 8
+        this.ActiveCooldownSeconds = 3
         registerMonobehaviour(Passive())
         registerMonobehaviour(Active())
     }

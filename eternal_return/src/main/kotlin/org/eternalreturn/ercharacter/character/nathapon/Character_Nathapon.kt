@@ -1,12 +1,13 @@
 package org.eternalreturn.ercharacter.character.nathapon
 
-import org.eternalreturn.ercharacter.ERCharacter
 import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.character.nathapon.Active
+import org.eternalreturn.ercharacter.character.nathapon.Passive
+import org.eternalreturn.ercharacter.ERCharacter
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.DPEngine
 
-class Character_Nathapon(engine : EREngine,player: Player) : ERPlayer(player, engine) {
+class Character_Nathapon(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     // 플레이어별 공격 횟수를 저장하는 맵
     init {
         this.ActiveCooldownSeconds = 8

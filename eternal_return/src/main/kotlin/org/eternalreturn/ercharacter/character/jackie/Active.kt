@@ -1,6 +1,7 @@
 package org.eternalreturn.ercharacter.character.jackie
 
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
+import org.eternalreturn.ercharacter.character.jackie.Character_Jackie
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
@@ -9,7 +10,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private val durationMillis: Long = 5000 // 5초 (5000ms)
     private var isActive = false
 
-    public override fun start(event: CharacterSwapHandEvent) {
+    override fun start(event: CharacterSwapHandEvent) {
         val player = getPlayer()
         val jackie = actor as Character_Jackie
         val cd = jackie.cooldown
@@ -31,7 +32,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         player.sendMessage("§c[재키] §f스킬 발동! 5초간 유지됩니다.")
     }
 
-    public override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
         // 스킬이 활성화된 상태에서만 시간 체크
         val jackie = actor as Character_Jackie
         if (!jackie.isBloodSweep) {

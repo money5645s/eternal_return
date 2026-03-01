@@ -12,7 +12,7 @@ abstract class EREntityMonobehaviour<T : EREntityEvent>() : Monobehaviour<T>() {
     }
 
     val entity: Entity
-        get() = (super.actor as EREntity).entity!!
+        get() = (super.actor as EREntity).entity
 
     fun isNotEnd(startTimeMillis: Long, durationTicks: Long): Boolean {
         return System.currentTimeMillis() - startTimeMillis < durationTicks * 50

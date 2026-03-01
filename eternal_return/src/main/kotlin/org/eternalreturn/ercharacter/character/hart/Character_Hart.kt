@@ -1,12 +1,13 @@
 package org.eternalreturn.ercharacter.character.hart
 
-import org.eternalreturn.ercharacter.ERCharacter
 import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.character.hart.Active
+import org.eternalreturn.ercharacter.character.hart.Passive
+import org.eternalreturn.ercharacter.ERCharacter
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.DPEngine
 
-class Character_Hart(engine : EREngine,player: Player) : ERPlayer(player, engine) {
+class Character_Hart(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     init {
         this.ActiveCooldownSeconds = 8
         this.PassiveCooldownSeconds = 8

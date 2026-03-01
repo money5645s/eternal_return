@@ -11,20 +11,46 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
+import org.eternalreturn.ercharacter.character.fiora.Character_Fiora
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var skillTimer = 0
+    private var CooldownCheck = false
 
     override fun start(event: CharacterSwapHandEvent) {
+        val fiora = actor as Character_Fiora
+        val cd = fiora.cooldown
+
         skillTimer = 0
+        CooldownCheck = false
+
+        if (cd.isWaiting("Active")) {
+            val remain = String.format("%.1f", cd.getLeft("Active"))
+            getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
+            return
+        }
+
+        CooldownCheck = true
+
         getPlayer().sendMessage("§f[피오라] §b아따끄 꽁뽀제!")
         getPlayer().addPotionEffect(PotionEffect(PotionEffectType.RESISTANCE, 14, 2, false, false))
+        // 쿨타임 등록
+        fiora.cooldown.set("Active", fiora.ActiveCooldownSeconds)
     }
 
     override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
 
+        // 스킬 시전 즉시 쿨타임 돌리기
+        if(!CooldownCheck){
+            stopMonobehav()
+            return
+        }
+
         skillTimer++
         val player = getPlayer()
+
+        // 디버깅 용도
+//        player.sendMessage("${skillTimer}")
 
         // 1타 (4틱)
         if (skillTimer == 4) {

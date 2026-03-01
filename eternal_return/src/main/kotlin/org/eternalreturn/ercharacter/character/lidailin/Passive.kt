@@ -1,11 +1,12 @@
 package org.eternalreturn.ercharacter.character.lidailin
 
-import org.eternalreturn.ercharacter.character.lidailin.event.LiDailinPassiveTimerEvent
-import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.character.lidailin.event.LiDailinPassiveTimerEvent
+import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
+import org.eternalreturn.ercharacter.character.lidailin.Character_LiDailin
+import org.eternalreturn.ercharacter.event.CharacterAttackEvent
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
 class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
     private var punchTimeMillis: Long = 0

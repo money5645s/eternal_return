@@ -1,12 +1,12 @@
 package org.eternalreturn.ercharacter.character.adriana.monobehavs
 
-import org.eternalreturn.ercharacter.character.adriana.entities.BurningGroundVirtualEntity
-import org.eternalreturn.ercharacter.character.adriana.events.LetsBurn
 import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.entity.LivingEntity
+import org.eternalreturn.ercharacter.character.adriana.entities.BurningGroundVirtualEntity
+import org.eternalreturn.ercharacter.character.adriana.events.LetsBurn
 
 class BurningGroundMonobehav : Monobehaviour<LetsBurn>() {
 
