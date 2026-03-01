@@ -1,8 +1,6 @@
 package org.eternalreturn.util.AJEntity;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 
 import java.util.HashMap;
@@ -25,7 +23,7 @@ public abstract class AJEntity{
 
     protected String name;
 
-    protected HashMap<String, AJAnimationInfoBlock> animationMap;
+    protected HashMap<String, AJAnimation> animationMap;
 
     /**
      * 현재 실행 중인 애니메이션의 상태 <br>
@@ -70,9 +68,26 @@ public abstract class AJEntity{
     public void registerAnimation(String animationState,double durationSeconds){
         animationMap.put(
                 animationState,
-                new AJAnimationInfoBlock(
+                new AJAnimation(
                          "animated_java:"+this.name+"/animations/"+animationState,
                         (long)durationSeconds * 20
+                )
+        );
+    }
+
+    /**
+     * 애니메이션을 등록하는 메소드.<br>
+     * HashMap<>에 다음과 같이 등록된다
+     * <code>
+     *     .put(animationState,"animated_java:"+this.name+"/animations/"+animationState);
+     * <code/>
+     * */
+    public void registerAnimation(String animationState,long durationTicks){
+        animationMap.put(
+                animationState,
+                new AJAnimation(
+                        "animated_java:"+this.name+"/animations/"+animationState,
+                        durationTicks
                 )
         );
     }
@@ -85,7 +100,7 @@ public abstract class AJEntity{
      * */
     public void playAnimForce(String selectedAnimation)throws AJAnimationNotFoundException{
 
-        AJAnimationInfoBlock acb = this.animationMap.get(selectedAnimation);
+        AJAnimation acb = this.animationMap.get(selectedAnimation);
         long durationTicks = acb.durationTicks();
         long currentTime = System.currentTimeMillis();
         String animation = acb.animation();
@@ -112,7 +127,7 @@ public abstract class AJEntity{
      * */
     public void playAnim(String selectedAnimation)throws AJAnimationNotFoundException{
 
-        AJAnimationInfoBlock acb = this.animationMap.get(selectedAnimation);
+        AJAnimation acb = this.animationMap.get(selectedAnimation);
         long durationTicks = acb.durationTicks();
         long currentTime = System.currentTimeMillis();
         String animation = acb.animation();
@@ -160,7 +175,7 @@ public abstract class AJEntity{
      * 해당하는 애니메이션이 실행 중인지 확인하는 쿼리함수
      * */
     public boolean isPlaying(String animation){
-        AJAnimationInfoBlock acb = this.animationMap.get(animation);
+        AJAnimation acb = this.animationMap.get(animation);
         return acb.animation().equals(animationPlaying) && isCurrentAnimEnd();
     }
 
