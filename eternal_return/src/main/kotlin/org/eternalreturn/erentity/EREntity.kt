@@ -10,10 +10,12 @@ import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
 import org.eternalreturn.erentity.globalmonobehav.Stun
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.command.AddSpigotEntityVelocity
 import org.eternalreturn.util.dpengine.command.SetSpigotEntityPosition
 import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import org.eternalreturn.util.dpengine.physics.Handle
+import java.util.Vector
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -95,23 +97,31 @@ abstract class EREntity( // extends MonobehaviourActor()
         return this.geometryModule.vec3(-xz * sin(radX), -sin(radY), xz * cos(radX));
     }
 
-    fun getPosition(): Vector3 {
+    open fun getPosition(): Vector3 {
         val location = entity.location
         return this.geometryModule.vec3(location.x, location.y, location.z)
     }
 
-    fun setPosition(pos : Vector3) {
+    open fun setPosition(pos : Vector3) {
         val x = geometryModule.x(pos);
         val y = geometryModule.y(pos);
         val z = geometryModule.z(pos);
-        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityPosition(entity!!, x, y, z))
+        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityPosition(entity, x, y, z))
     }
 
-    fun setVelocity(pos : Vector3){
-        val x = geometryModule.x(pos);
-        val y = geometryModule.y(pos);
-        val z = geometryModule.z(pos);
-        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity!!, x, y, z))
+    open fun setVelocity(vec : Vector3){
+        val x = geometryModule.x(vec);
+        val y = geometryModule.y(vec);
+        val z = geometryModule.z(vec);
+        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity, x, y, z))
+    }
+
+    open fun setVelocity(x : Double, y : Double, z : Double){
+        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity, x, y, z))
+    }
+
+    open fun addVelocity(x : Double, y : Double, z : Double){
+        this.geometryModule.dpEngine.appendCommandQueue(AddSpigotEntityVelocity(entity, x, y, z))
     }
 
 

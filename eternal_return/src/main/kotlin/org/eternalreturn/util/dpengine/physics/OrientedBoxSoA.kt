@@ -11,8 +11,13 @@ import org.eternalreturn.erentity.events.EREntityRayCastEvent
 import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.geometry.OBB
+import org.eternalreturn.util.dpengine.geometry.Vector3
+import kotlin.math.abs
 import kotlin.math.cos
+import kotlin.math.floor
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 class OrientedBoxSoA(
     size : Int,
@@ -148,28 +153,6 @@ class OrientedBoxSoA(
 
         }
     }
-
-//    fun updateRotCache(){
-//        var id = 0;
-//        val mat = matCache;
-//        val numOfEntity = getNumOfEntities();
-//        while(id < numOfEntity){
-//            //OBB의 위치 구하기
-//            if(isValidMat[id] == 1) continue;
-//            val qx = quat.x[id]; val qy = quat.y[id]; val qz = quat.z[id]; val qw = quat.w[id]
-//
-//            val xx = qx * qx; val yy = qy * qy; val zz = qz * qz;
-//            val xy = qx * qy; val xz = qx * qz; val yz = qy * qz;
-//            val wx = qw * qx; val wy = qw * qy; val wz = qw * qz;
-//
-//            mat.m00[id] = 1.0 - 2.0 * (yy + zz)  ; mat.m10[id] = 2.0 * (xy + wz)       ; mat.m20[id] = 2.0 * (xz - wy)
-//            mat.m01[id] = 2.0 * (xy - wz)        ; mat.m11[id] = 1.0 - 2.0 * (xx + zz) ; mat.m21[id] = 2.0 * (yz + wx)
-//            mat.m02[id] = 2.0 * (xz + wy)        ; mat.m12[id] = 2.0 * (yz - wx)       ; mat.m22[id] = 1.0 - 2.0 * (xx + yy)
-//
-//            isValidMat[id] = 1;
-//            id++;
-//        }
-//    }
 
 
     /**
@@ -328,6 +311,7 @@ class OrientedBoxSoA(
     }
 
 
+
     fun rayCastSoA(raySoA : RaySoA){
 
         val lastRay = raySoA.lastRay;
@@ -369,4 +353,101 @@ class OrientedBoxSoA(
             }
         }
     }
+
+    fun collideGridAABB(){
+
+        val colliderNum = getNumOfEntities()
+        val totalCells = grid.dimX * grid.dimY * grid.dimZ
+
+        val checked = BooleanArray(colliderNum * colliderNum)
+
+        for(cell in 0 until totalCells){
+
+            val start = grid.cellStart[cell]
+            val end = start + grid.cellCount[cell]
+
+            for(i in start until end){
+
+                val obbA = grid.cellIndices[i]
+
+                for(j in i+1 until end){
+
+                    val obbB = grid.cellIndices[j]
+
+                    val id = obbA * colliderNum + obbB
+                    if(checked[id]) continue
+                    checked[id] = true
+                    collideAABB(obbA,obbB)
+                }
+            }
+        }
+    }
+
+    val EPSAABB = 1e-4
+    private fun collideAABB(obb0: Int, obb1: Int): Boolean {
+
+        val m = rotMatCache
+
+        val m00a = m.m00[obb0]; val m01a = m.m01[obb0]; val m02a = m.m02[obb0]
+        val m10a = m.m10[obb0]; val m11a = m.m11[obb0]; val m12a = m.m12[obb0]
+        val m20a = m.m20[obb0]; val m21a = m.m21[obb0]; val m22a = m.m22[obb0]
+
+        val m00b = m.m00[obb1]; val m01b = m.m01[obb1]; val m02b = m.m02[obb1]
+        val m10b = m.m10[obb1]; val m11b = m.m11[obb1]; val m12b = m.m12[obb1]
+        val m20b = m.m20[obb1]; val m21b = m.m21[obb1]; val m22b = m.m22[obb1]
+
+        val sxa = size.x[obb0]; val sya = size.y[obb0]; val sza = size.z[obb0]
+        val sxb = size.x[obb1]; val syb = size.y[obb1]; val szb = size.z[obb1]
+
+        val pxa = posCache.x[obb0]; val pya = posCache.y[obb0]; val pza = posCache.z[obb0]
+        val pxb = posCache.x[obb1]; val pyb = posCache.y[obb1]; val pzb = posCache.z[obb1]
+
+        // OBB → world AABB half extents
+        val hxa = (abs(m00a)*sxa + abs(m01a)*sya + abs(m02a)*sza) * 0.5
+        val hya = (abs(m10a)*sxa + abs(m11a)*sya + abs(m12a)*sza) * 0.5
+        val hza = (abs(m20a)*sxa + abs(m21a)*sya + abs(m22a)*sza) * 0.5
+        val hxb = (abs(m00b)*sxb + abs(m01b)*syb + abs(m02b)*szb) * 0.5
+        val hyb = (abs(m10b)*sxb + abs(m11b)*syb + abs(m12b)*szb) * 0.5
+        val hzb = (abs(m20b)*sxb + abs(m21b)*syb + abs(m22b)*szb) * 0.5
+
+        val dx = pxb - pxa
+        val dy = pyb - pya
+        val dz = pzb - pza
+
+        val adx = abs(dx)
+        val ady = abs(dy)
+        val adz = abs(dz)
+
+        val px = hxa + hxb - adx + EPSAABB
+        if (px <= 0.0) return false
+
+        val py = hya + hyb - ady + EPSAABB
+        if (py <= 0.0) return false
+
+        val pz = hza + hzb - adz + EPSAABB
+        if (pz <= 0.0) return false
+
+        // MTV axis 선택
+        var mtvX = 0.0
+        var mtvY = 0.0
+        var mtvZ = 0.0
+
+        if (px < py && px < pz) {
+            mtvX = if (dx > 0) px else -px
+        }
+        else if (py < pz) {
+            mtvY = if (dy > 0) py else -py
+        }
+        else {
+            mtvZ = if (dz > 0) pz else -pz
+        }
+
+        val obbActor0 = transformHandleList[obb0].actor as EREntity;
+        val obbActor1 = transformHandleList[obb1].actor as EREntity;
+        obbActor0.addVelocity(-mtvX * 0.5, -mtvY * 0.5, -mtvZ * 0.5);
+        obbActor1.addVelocity(+mtvX * 0.5, +mtvY * 0.5, +mtvZ * 0.5);
+        return true
+    }
+
+
 }

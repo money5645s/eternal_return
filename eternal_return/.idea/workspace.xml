@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e0e01f0-2f44-4923-ba15-8c4d09d27f4c" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/adriana/monobehavs/Passive.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hyunwoo/Active.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/lidailin/DrunkTimer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/lidailin/event/DrunkTimerEvent.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/command/AddSpigotEntityVelocity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.8/fileHashes/fileHashes.bin" afterDir="false" />
@@ -55,8 +52,6 @@
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.len" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab" afterDir="false" />
@@ -86,38 +81,17 @@
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/last-build.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/local-state/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/local-state/build-history.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/plugin.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/adriana/Character_Adriana.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/adriana/Character_Adriana.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/adriana/entities/BurningGroundVirtualEntity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/adriana/entities/BurningGroundVirtualEntity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/adriana/monobehavs/BurningGround.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/adriana/monobehavs/Active.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/adriana/monobehavs/BurningGroundMonobehav.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/adriana/monobehavs/BurningGroundMonobehav.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/adriana/monobehavs/LitFireOnAttack.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/fiora/Active.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/fiora/Active.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/fiora/Character_Fiora.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/fiora/Character_Fiora.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/fiora/ToucheCount.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/fiora/ToucheCount.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/fiora/ToucheEffect.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/fiora/ToucheEffect.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hart/Active.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hart/Active.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hart/Character_Hart.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hart/Character_Hart.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hart/event/PassiveTimerEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hart/event/PassiveTimerEvent.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hyunwoo/Character_Hyunwoo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hyunwoo/Character_Hyunwoo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hyunwoo/StackingPunch.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hyunwoo/Passive.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/hyunwoo/WallSlamDash.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/isaac/Active.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/isaac/Active.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/isaac/Character_Isaac.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/isaac/Character_Isaac.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/isaac/Passive.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/isaac/Passive.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/jackie/Active.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/jackie/Active.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/jackie/Attack.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/jackie/Attack.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/jackie/Character_Jackie.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/jackie/Character_Jackie.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/lidailin/Active.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/lidailin/Active.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/lidailin/Character_LiDailin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/lidailin/Character_LiDailin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/lidailin/LiDailinPassiveTimer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/lidailin/LiDailinPassiveTimer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/lidailin/Passive.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/lidailin/Passive.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/nathapon/Character_Nathapon.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/nathapon/Character_Nathapon.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/yuki/Character_Yuki.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/yuki/Character_Yuki.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/yuki/Passive.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/yuki/Passive.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/ERAJEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/ERAJEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/ERAnimal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/ERAnimal.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/behavs/Battle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/eranimal/animals/behavs/Battle.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eternalreturn/system/EREngine.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eternalreturn/system/EREngine.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/fiora/event/ERToucheCountEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/character/fiora/event/ERToucheCountEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/event/CharacterAttackEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/ercharacter/event/CharacterAttackEvent.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/EREntity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/EREntity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/EREntityMonobehaviour.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/EREntityMonobehaviour.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/globalmonobehav/PlayerRayCastingMeleeAttack.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/erentity/globalmonobehav/PlayerRayCastingMeleeAttack.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/OrientedBoxSoA.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/OrientedBoxSoA.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/UniformGrid.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/eternalreturn/util/dpengine/physics/UniformGrid.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,11 +239,11 @@
       <recent name="org.EternalReturn.System" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="org.eternalreturn.util.dpengine.command" />
       <recent name="org.eternalreturn.util.dpengine.physics" />
       <recent name="org.eternalreturn.util.dpengine.geometry" />
       <recent name="org.EternalReturn.ERCharacter.Character.lidailin" />
       <recent name="org.EternalReturn.ERCharacter.Character.lidailin.event" />
-      <recent name="org.EternalReturn.Util.dpengine.command" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
       <recent name="org.eternalreturn.erentity.globalmonobehav" />

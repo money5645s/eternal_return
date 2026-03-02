@@ -6,6 +6,8 @@ import org.eternalreturn.eranimal.animals.behavs.Idle
 import org.eternalreturn.eranimal.animals.events.IdleEvent
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.system.EREngine
+import org.eternalreturn.util.dpengine.command.AddSpigotEntityVelocity
+import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
 
 /**
  * MonobehaviourActor역할을 하는 야생동물 클래스.
@@ -27,7 +29,7 @@ open class ERAnimal(
     protected var cooldownSeconds: Long = 0
 
     init {
-        //System.out.println(collider.getClass());
+
         registerMonobehaviour(Battle())
         registerMonobehaviour(Idle())
 
@@ -35,6 +37,32 @@ open class ERAnimal(
 
         this.submitEvent(IdleEvent())
 
+    }
+
+    /**
+     * ERAJEntity의 속도를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
+     * */
+    override fun setVelocity(x : Double, y : Double, z : Double){
+        if(aJEntity.actor == null){
+            return;
+        }
+        if(!aJEntity.actor.isValid){
+            return;
+        }
+        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(aJEntity.actor, x, y, z))
+    }
+
+    /**
+     * ERAJEntity의 속도를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
+     * */
+    override fun addVelocity(x : Double, y : Double, z : Double){
+        if(aJEntity.actor == null){
+            return;
+        }
+        if(!aJEntity.actor.isValid){
+            return;
+        }
+        this.geometryModule.dpEngine.appendCommandQueue(AddSpigotEntityVelocity(aJEntity.actor, x, y, z))
     }
 
     val isShown: Boolean

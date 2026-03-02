@@ -50,7 +50,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
     val transformSoA = TransformSoA(bufferSize);
     val uniformGrid = UniformGrid(
         -247.0, 582.0, 832.0,
-        -1047.0, 70.0, 168.0,
+        -1047.0, 70.0, 32.0,
         50.0, bufferSize);
     val orientedBoxSoA = OrientedBoxSoA(bufferSize, transformSoA, uniformGrid);
     val raySoA = RaySoA(bufferSize * 4);
@@ -110,8 +110,9 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
         cachingForSoA();
 
         orientedBoxSoA.debugOrientedBox(); //성능 이슈 심함
-
         orientedBoxSoA.rayCastSoA(raySoA);
+        orientedBoxSoA.collideGridAABB(); //일단 AABB로 콜라이딩
+
         raySoA.freeRays();
         removeAll();
     }

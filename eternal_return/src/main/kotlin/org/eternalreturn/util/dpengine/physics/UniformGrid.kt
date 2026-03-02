@@ -19,10 +19,31 @@ class UniformGrid(
     val dimY = ((worldMaxY - worldMinY) / cellSize).toInt();
     val dimZ = ((worldMaxZ - worldMinZ) / cellSize).toInt();
 
+    /**
+     * 해당 Cell이 포함하고 있는 Collider의 denseID들의 UniformGrid.cellIndices 내 시작인덱스.
+     * ```
+     * val start = cellStart[cellID];
+     * val end = start + cellCount[cellID];
+     * for(i in start until end){...}
+     * ```
+     * */
     val cellStart = IntArray(dimX * dimY * dimZ) {-1}; //이 cell의 OBB목록이 시작되는 인덱스
+
+    /**
+     * 해당 Cell이 포함하고 있는 Collider의 denseID들의 개수
+     * ```
+     * val start = cellStart[cellID];
+     * val end = start + cellCount[cellID];
+     * for(i in start until end){...}
+     * ```
+     * */
     val cellCount = IntArray(dimX * dimY * dimZ) {0}; //이 cell에 Entity가 몇 개 있는지
+
+    /**
+     * 실제로 해당 UniformGrid가 관리하는 Collider의 denseID들을 저장함.
+     * */
     var cellIndices = IntArray(initialEntitySize) {-1}; //실제 denseID저장 부분 배열의 집합
-    //sizeX * sizeY * iz + sizeZ * iy + ix <-이렇게 접근할 것
+    //sizeX * sizeY * iz + sizeX * iy + ix <-이렇게 접근할 것
 
 
     var alreadyChecked = IntArray(initialEntitySize) {-1}; //광선이 이미 지나쳤는지 확인하는 배열

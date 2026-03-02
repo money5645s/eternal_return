@@ -2,6 +2,7 @@ package org.eternalreturn.eranimal;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
 import org.eternalreturn.erplayer.ERPlayer;
 import org.eternalreturn.system.PluginInstance;
 import org.eternalreturn.system.SystemManager;
@@ -15,8 +16,7 @@ import org.bukkit.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.Objects;
 
 
 public class ERAJEntity extends AJEntity {
@@ -134,6 +134,8 @@ public class ERAJEntity extends AJEntity {
      * */
     public void setActor(Husk actor){
         this.actor = actor;
+        var attribute = this.actor.getAttribute(Attribute.ATTACK_DAMAGE);
+        Objects.requireNonNull(attribute).setBaseValue(0.0);
         this.actor.setAdult();
         this.actor.setSilent(true);
         this.actor.setInvisible(true);

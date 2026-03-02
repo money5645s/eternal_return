@@ -1,5 +1,6 @@
 package org.eternalreturn.erentity.globalmonobehav
 
+import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.erentity.events.EREntityAttackedEvent
@@ -40,8 +41,7 @@ class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>(
         }
 
         closestTarget.submitEvent(EREntityAttackedEvent(actor as EREntity))
-
-        //character.submitEvent(CharacterAttackEvent(character, closestTarget))
+        event.shooter.submitEvent(CharacterAttackEvent(event.shooter, closestTarget))
     }
 
 
