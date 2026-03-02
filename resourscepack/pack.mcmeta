@@ -1,6 +1,9 @@
 {
-"pack": {
-"pack_format": 76,
-"description": "eternal return resourcespack 1.21.11v"
-}
+  "pack": {
+    "pack_format": 15,
+    "supported_formats": [15, 255],
+    "min_format": 15,
+    "max_format": 255,
+    "description": "이터널리턴 리소스팩 v0.1"
+  }
 }
