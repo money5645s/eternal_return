@@ -6,16 +6,20 @@ import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.command.defaults.BukkitCommand
 import org.bukkit.scheduler.BukkitScheduler
+import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.events.EREntityRayCastEvent
 import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
+import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 import org.eternalreturn.util.dpengine.geometry.OBB
 import org.eternalreturn.util.dpengine.geometry.Vector3
+import java.lang.Math.fma
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.floor
+import kotlin.math.sign
 import kotlin.math.sin
 import kotlin.math.sqrt
 
@@ -26,6 +30,8 @@ class OrientedBoxSoA(
 ) : SoAModule(size) {
     private val size = Vec3SoA(size); // width, height, depth 저장
     private val locPos = Vec3SoA(size);
+
+    private val velocityCache = Vec3SoA(size); //transform.velocity 캐싱
 
     private val posCache = Vec3SoA(size); //transform.pos 캐싱
     private val isValidPos = IntArray(size){ 0 };//해당 포지션이 valid한 포지션인지 확인
@@ -42,6 +48,7 @@ class OrientedBoxSoA(
         locPos.allocSoA(denseID, locX, locY, locZ);
         rotMatCache.allocSoA(denseID, 0.0, 0.0, 0.0 ,0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
         posCache.allocSoA(denseID, 0.0,0.0,0.0);
+        velocityCache.allocSoA(denseID, 0.0, 0.0, 0.0)
         transformHandleList.addLast(transformHandle);
         return Handle(entityID, generation)
     }
@@ -53,6 +60,7 @@ class OrientedBoxSoA(
 
         rotMatCache.overwrite(idx0, idx1);
         posCache.overwrite(idx0, idx1);
+        velocityCache.overwrite(idx0, idx1);
 
         isValidPos[idx0] = 0;
         isValidRotMat[idx0] = 0;
@@ -106,6 +114,7 @@ class OrientedBoxSoA(
     fun updateCacheFromTransform(){
         updatePosCache();
         updateRotCache();
+        updateVelocityCache();
     }
 
     private fun updatePosCache(){
@@ -120,6 +129,21 @@ class OrientedBoxSoA(
             posCache.x[id] = position.x[tID] + locPos.x[tID];
             posCache.y[id] = position.y[tID] + locPos.y[tID];
             posCache.z[id] = position.z[tID] + locPos.z[tID];
+        }
+    }
+
+    private fun updateVelocityCache(){
+        val tsparse = transformSoA.sparse;
+        val velocity = transformSoA.velocity;
+        val numOfEntity = getNumOfEntities();
+        for(id in 0 until numOfEntity){
+            //OBB의 위치 구하기 from 소유자의 Transform 데이터
+            //if(isValidPos[id] == 1) continue;
+            //isValidPos[id] = 1;
+            val tID = tsparse[transformHandleList[id].entityID];
+            velocityCache.x[id] = velocity.x[tID]
+            velocityCache.y[id] = velocity.y[tID]
+            velocityCache.z[id] = velocity.z[tID]
         }
     }
 
@@ -354,12 +378,14 @@ class OrientedBoxSoA(
         }
     }
 
-    fun collideGridAABB(){
+
+    val checked = BooleanArray(size * size)
+    fun collideGridCylinder(){
 
         val colliderNum = getNumOfEntities()
         val totalCells = grid.dimX * grid.dimY * grid.dimZ
 
-        val checked = BooleanArray(colliderNum * colliderNum)
+        java.util.Arrays.fill(checked, false);
 
         for(cell in 0 until totalCells){
 
@@ -374,13 +400,58 @@ class OrientedBoxSoA(
 
                     val obbB = grid.cellIndices[j]
 
-                    val id = obbA * colliderNum + obbB
+                    val a = minOf(obbA, obbB)
+                    val b = maxOf(obbA, obbB)
+
+                    val id = a * colliderNum + b
                     if(checked[id]) continue
                     checked[id] = true
-                    collideAABB(obbA,obbB)
+                    collideCylinder(obbA,obbB)
                 }
             }
         }
+    }
+
+    private fun collideCylinder(obb0: Int, obb1: Int): Boolean{
+        val deltaTick = 0.05
+        val pxa = posCache.x[obb0] + velocityCache.x[obb0] * deltaTick;
+        val pza = posCache.z[obb0] + velocityCache.z[obb0] * deltaTick;
+        val pxb = posCache.x[obb1] + velocityCache.x[obb1] * deltaTick;
+        val pzb = posCache.z[obb1] + velocityCache.z[obb1] * deltaTick;
+
+        val ra = ((size.x[obb0] + size.z[obb0]) * 0.5) * 0.5
+        val rb = ((size.x[obb1] + size.z[obb1]) * 0.5) * 0.5
+
+        val dx = pxb - pxa
+        val dz = pzb - pza
+
+        val r = sqrt(dx * dx + dz * dz);
+        val mag = (ra + rb) - r + EPSAABB;
+
+        if(mag <= 0) return false;
+
+        val nx: Double
+        val nz: Double
+
+        if(r < 1e-6){
+            nx = 1.0
+            nz = 0.0
+        }else{
+            nx = dx / r
+            nz = dz / r
+        }
+
+        val mtvX = nx * mag
+        val mtvZ = nz * mag
+
+        val obbActor0 = transformHandleList[obb0].actor as EREntity;
+        val obbActor1 = transformHandleList[obb1].actor as EREntity;
+
+        obbActor0.addVelocity(-(mtvX + EPSAABB), 0.0, -mtvZ); //살짝 변수를 줘서, 서로 겹치게 하는 것 제거
+        obbActor1.addVelocity(+mtvX, 0.0, +mtvZ);
+
+        return true
+
     }
 
     val EPSAABB = 1e-4
@@ -399,8 +470,12 @@ class OrientedBoxSoA(
         val sxa = size.x[obb0]; val sya = size.y[obb0]; val sza = size.z[obb0]
         val sxb = size.x[obb1]; val syb = size.y[obb1]; val szb = size.z[obb1]
 
-        val pxa = posCache.x[obb0]; val pya = posCache.y[obb0]; val pza = posCache.z[obb0]
-        val pxb = posCache.x[obb1]; val pyb = posCache.y[obb1]; val pzb = posCache.z[obb1]
+        val pxa = posCache.x[obb0] + velocityCache.x[obb0] * 0.05 * 4;
+        val pya = posCache.y[obb0] + velocityCache.y[obb0] * 0.05 * 4;
+        val pza = posCache.z[obb0] + velocityCache.z[obb0] * 0.05 * 4;
+        val pxb = posCache.x[obb1] + velocityCache.x[obb1] * 0.05 * 4;
+        val pyb = posCache.y[obb1] + velocityCache.y[obb1] * 0.05 * 4;
+        val pzb = posCache.z[obb1] + velocityCache.z[obb1] * 0.05 * 4;
 
         // OBB → world AABB half extents
         val hxa = (abs(m00a)*sxa + abs(m01a)*sya + abs(m02a)*sza) * 0.5
@@ -414,17 +489,13 @@ class OrientedBoxSoA(
         val dy = pyb - pya
         val dz = pzb - pza
 
-        val adx = abs(dx)
-        val ady = abs(dy)
-        val adz = abs(dz)
-
-        val px = hxa + hxb - adx + EPSAABB
+        val px = (hxa + hxb) - abs(dx) + EPSAABB
         if (px <= 0.0) return false
 
-        val py = hya + hyb - ady + EPSAABB
+        val py = (hya + hyb) - abs(dy) + EPSAABB
         if (py <= 0.0) return false
 
-        val pz = hza + hzb - adz + EPSAABB
+        val pz = (hza + hzb) - abs(dz) + EPSAABB
         if (pz <= 0.0) return false
 
         // MTV axis 선택
@@ -441,11 +512,13 @@ class OrientedBoxSoA(
         else {
             mtvZ = if (dz > 0) pz else -pz
         }
-
         val obbActor0 = transformHandleList[obb0].actor as EREntity;
         val obbActor1 = transformHandleList[obb1].actor as EREntity;
-        obbActor0.addVelocity(-mtvX * 0.5, -mtvY * 0.5, -mtvZ * 0.5);
-        obbActor1.addVelocity(+mtvX * 0.5, +mtvY * 0.5, +mtvZ * 0.5);
+
+
+        obbActor0.addVelocity(-mtvX * 0.5, 0.0, -mtvZ * 0.5);
+        obbActor1.addVelocity(+mtvX * 0.5, 0.0, +mtvZ * 0.5);
+
         return true
     }
 

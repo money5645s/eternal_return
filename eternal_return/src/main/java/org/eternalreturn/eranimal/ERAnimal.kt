@@ -1,6 +1,7 @@
 package org.eternalreturn.eranimal
 
 import org.bukkit.Location
+import org.bukkit.util.Vector
 import org.eternalreturn.eranimal.animals.behavs.Battle
 import org.eternalreturn.eranimal.animals.behavs.Idle
 import org.eternalreturn.eranimal.animals.events.IdleEvent
@@ -29,41 +30,53 @@ open class ERAnimal(
     protected var cooldownSeconds: Long = 0
 
     init {
-
         registerMonobehaviour(Battle())
         registerMonobehaviour(Idle())
-
         this.aJEntity.setDebugDisplay("T" + transformHandle.entityID + " | O" + obbHandle.entityID + "\n\n\n\n")
-
         this.submitEvent(IdleEvent())
+    }
 
+    private fun isActorNotValid() : Boolean{
+        return (aJEntity.actor == null) || !aJEntity.actor.isValid
     }
 
     /**
      * ERAJEntity의 속도를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
      * */
     override fun setVelocity(x : Double, y : Double, z : Double){
-        if(aJEntity.actor == null){
-            return;
-        }
-        if(!aJEntity.actor.isValid){
-            return;
-        }
-        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(aJEntity.actor, x, y, z))
+        if(isActorNotValid()) return;
+        erEngine.transformSoA.setVelocity(transformHandle, x, y, z);
     }
 
     /**
      * ERAJEntity의 속도를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
      * */
     override fun addVelocity(x : Double, y : Double, z : Double){
-        if(aJEntity.actor == null){
-            return;
-        }
-        if(!aJEntity.actor.isValid){
-            return;
-        }
-        this.geometryModule.dpEngine.appendCommandQueue(AddSpigotEntityVelocity(aJEntity.actor, x, y, z))
+        if(isActorNotValid()) return;
+        erEngine.transformSoA.addVelocity(transformHandle, x, y, z);
     }
+
+    /**
+     * ERAJEntity의 속도를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
+     * */
+    override fun setPosition(x : Double, y : Double, z : Double){
+        if(isActorNotValid()) return;
+        erEngine.transformSoA.setPosition(transformHandle, x, y, z);
+    }
+
+    /**
+     * ERAJEntity의 속도를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
+     * */
+    override fun addPosition(x : Double, y : Double, z : Double){
+        if(isActorNotValid()) return;
+        erEngine.transformSoA.addPosition(transformHandle, x, y, z);
+    }
+
+    override fun applyBukkitVelocityOnMainThread(x: Double, y: Double, z: Double) {
+        val velocity = Vector(x, y, z);
+        aJEntity.actor.velocity = velocity;
+    }
+
 
     val isShown: Boolean
         get() = this.aJEntity.isShown

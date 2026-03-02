@@ -21,7 +21,8 @@ public class AJEntityManager implements Listener , FreeAble {
 
     private static AJEntityManager manager = null;
 
-    private static CommandSender commandSender = Bukkit.createCommandSender(builder -> {});//Bukkit.getConsoleSender();
+    //private static CommandSender commandSender = Bukkit.getConsoleSender();
+    private static CommandSender commandSender = Bukkit.createCommandSender(builder -> {});
 
     private static HashMap<Entity, AJEntity> ajEntityMap = new HashMap<>(8);
 
@@ -87,7 +88,12 @@ public class AJEntityManager implements Listener , FreeAble {
     public static void summon(@NotNull AJEntity ajEntity, @NotNull Location location, double lx, double ly, double lz){
 
         if(location.getWorld() == null){
-            throw new NullPointerException("해당 함수의 매개변수로 전달된 Location 객체는 반드시 World 객체 정보를 가지고 있어야 합니다.");
+            try{
+                throw new NullPointerException("해당 함수의 매개변수로 전달된 Location 객체는 반드시 World 객체 정보를 가지고 있어야 합니다.");
+            }catch (NullPointerException e){
+                e.printStackTrace();
+                return;
+            }
         }
 
         if(manager.thisSingletoneIsAlreadAllocated()){

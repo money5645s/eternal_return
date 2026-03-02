@@ -1,6 +1,7 @@
 package org.eternalreturn.erentity
 
 import org.bukkit.entity.Entity
+import org.bukkit.util.Vector
 import org.eternalreturn.ercharacter.character.fiora.ToucheCount
 import org.eternalreturn.ercharacter.character.fiora.ToucheEffect
 import org.eternalreturn.ercharacter.character.hart.Passive_Timer
@@ -15,7 +16,6 @@ import org.eternalreturn.util.dpengine.command.SetSpigotEntityPosition
 import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import org.eternalreturn.util.dpengine.physics.Handle
-import java.util.Vector
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -113,15 +113,28 @@ abstract class EREntity( // extends MonobehaviourActor()
         val x = geometryModule.x(vec);
         val y = geometryModule.y(vec);
         val z = geometryModule.z(vec);
-        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity, x, y, z))
+        erEngine.transformSoA.setVelocity(transformHandle, x, y, z);
     }
 
     open fun setVelocity(x : Double, y : Double, z : Double){
-        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity, x, y, z))
+        erEngine.transformSoA.setVelocity(transformHandle, x, y, z);
     }
 
     open fun addVelocity(x : Double, y : Double, z : Double){
-        this.geometryModule.dpEngine.appendCommandQueue(AddSpigotEntityVelocity(entity, x, y, z))
+        erEngine.transformSoA.addVelocity(transformHandle, x, y, z);
+    }
+
+    open fun setPosition(x : Double, y : Double, z : Double){
+        erEngine.transformSoA.setPosition(transformHandle, x, y, z);
+    }
+
+    open fun addPosition(x : Double, y : Double, z : Double){
+        erEngine.transformSoA.addPosition(transformHandle, x, y, z);
+    }
+
+    open fun applyBukkitVelocityOnMainThread(x: Double, y: Double, z: Double) {
+        val velocity = Vector(x, y, z);
+        entity.velocity = velocity;
     }
 
 

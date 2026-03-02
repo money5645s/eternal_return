@@ -1,23 +1,18 @@
 package org.eternalreturn.system
 
-import it.unimi.dsi.fastutil.doubles.DoubleArrayList
-import it.unimi.dsi.fastutil.ints.IntArrayList
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
-import org.bukkit.scheduler.BukkitRunnable
+import org.bukkit.util.Vector
 import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.util.dpengine.DPEngine
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 import org.eternalreturn.util.dpengine.datastructure.DeadActorException
 import org.eternalreturn.util.dpengine.datastructure.UpdateView
 import org.eternalreturn.util.dpengine.physics.OrientedBoxSoA
 import org.eternalreturn.util.dpengine.physics.RaySoA
 import org.eternalreturn.util.dpengine.physics.TransformSoA
 import org.eternalreturn.util.dpengine.physics.UniformGrid
-import kotlin.math.cos
-import kotlin.math.sin
 
 /**
  * Bukkit 객체들과 유연하게 상호작용하기위한 엔진
@@ -60,60 +55,86 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
 
     /**
      * 외부 객체의 pos, rot 모두 가져와서 캐싱하는 함수.
+     *
+     * ```for(erEntity in erEntityMap.values){}```
      * */
-    private fun cachingForSoA(){
-        var filterBool = false;
-        var filterCount = 0; var deadActor = 0;
-        val filterEREntity = ArrayList<EREntity>();
-        
+    private fun cachingTransformSoAFromBukkit(){
         for(erEntity in erEntityMap.values){ //일단 전부 돌기
 
-            //디버깅용 필터
-            filterCount++;
-            if(erEntity.referenceCount == 0) deadActor++;
-            filterEREntity.add(erEntity);
-
-            val loc = erEntity.entity.location;
+            val entity = erEntity.entity;
+            val loc = entity.location;
             val px = loc.x;
             val py = loc.y;
             val pz = loc.z;
             val rx = Math.toRadians(loc.yaw.toDouble());
             val ry = Math.toRadians(loc.pitch.toDouble());
-            //val rz = Math.toRadians(loc.roll.toDouble());
+            val velocity = entity.velocity;
 
-            if(erEntity is ERAnimal){
-                erEntity.aJEntity.setDebugDisplay("T${erEntity.transformHandle.entityID} O${erEntity.obbHandle.entityID} rot : [${loc.yaw.toDouble()}, ${loc.pitch.toDouble()}]\n\n\n\n\n\n")
-            }
-
-            transformSoA.setPosition(erEntity.transformHandle, px, py, pz);
-            transformSoA.setRotation(erEntity.transformHandle, 0.0, -rx, 0.0); //디버깅해보니 이게 맞음.
-            transformSoA.setDirection(erEntity.transformHandle, rx, ry, 0.0);
+            transformSoA.cachePosition(erEntity.transformHandle, px, py, pz);
+            transformSoA.cacheVelocity(erEntity.transformHandle, velocity.x, velocity.y, velocity.z);
+            transformSoA.cacheRotation(erEntity.transformHandle, 0.0, -rx, 0.0); //디버깅해보니 이게 맞음.
+            transformSoA.cacheDirection(erEntity.transformHandle, rx, ry, 0.0);
             if(erEntity.isShootingRay()){
-                filterBool = true;
-                println("OBB : ${orientedBoxSoA.getNumOfEntities()} TRSF : ${transformSoA.getNumOfEntities()}");
                 raySoA.addRay(erEntity, px, py + 1.5, pz, rx, ry);
             }
         }
+    }
 
-        if(filterBool){
-            println("[FILTER] EREntityCount : $filterCount deadActorCount : $deadActor")
-            for(actor in filterEREntity){
-                println("T${actor.transformHandle.entityID} O${actor.obbHandle.entityID}");
+    /**
+     * EREngine상에서 수정된 velocity를 Bukkit 객체에 적용하는 함수
+     *
+     * ```for(erEntity in erEntityMap.values){}```
+     * */
+    fun applyVelocities(){
+
+        val velocityIsModified = transformSoA.isModifiedVelocity;
+        val positionIsModified = transformSoA.isModifiedPosition;
+        val sparse = transformSoA.sparse;
+        val velocitySoA = transformSoA.velocity;
+        val positionSoA = transformSoA.position;
+
+        for(erEntity in erEntityMap.values){
+            val entityID = erEntity.transformHandle.entityID
+            val denseID = sparse[entityID];
+
+            if(velocityIsModified[denseID]){
+                val x = velocitySoA.x[denseID];
+                val y = velocitySoA.y[denseID];
+                val z = velocitySoA.z[denseID];
+                erEntity.applyBukkitVelocityOnMainThread(x, y, z);
             }
+
+            //if(positionIsModified[denseID]){
+            //    val x = positionSoA.x[denseID];
+            //    val y = positionSoA.y[denseID];
+            //    val z = positionSoA.z[denseID];
+            //    val entity = erEntity.entity;
+            //    val loc = entity.location;
+            //    loc.x = x;
+            //    loc.y = y;
+            //    loc.z = z;
+            //    entity.teleport(loc);
+            //}
+
         }
+    }
+
+
+    public override fun update() {
+        cachingTransformSoAFromBukkit();
 
         orientedBoxSoA.updateCacheFromTransform();
         orientedBoxSoA.rebuildGrid();
-    }
-
-    public override fun update() {
-        cachingForSoA();
 
         orientedBoxSoA.debugOrientedBox(); //성능 이슈 심함
         orientedBoxSoA.rayCastSoA(raySoA);
-        orientedBoxSoA.collideGridAABB(); //일단 AABB로 콜라이딩
 
-        raySoA.freeRays();
+        orientedBoxSoA.collideGridCylinder(); //일단 Cylinder로 콜라이딩
+
+        raySoA.freeRays(); //Ray 들 모두 제거
+
+        applyVelocities(); //속도 적용
+
         removeAll();
     }
 
@@ -122,7 +143,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
      * 일반 registerMonobehaviourActor를 통해 등록 시 Entity를 통해 접근이 불가해짐.
      */
     fun registerBukkitActor(entity: Entity, actor: EREntity) {
-        erEntityMap[entity]?.remove(); //remove prev actor
+        removeBukkitActor(entity);
         monobehaviourModule.register(actor)
         erEntities.add(actor);
         try {

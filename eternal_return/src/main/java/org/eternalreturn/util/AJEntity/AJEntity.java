@@ -111,6 +111,10 @@ public abstract class AJEntity{
                             +"Solution : Check the animated_java project name and your JAVA code");
         }
 
+        if(animationPlaying == null){
+            return;
+        }
+
         if(animationEndTime > currentTime && animationPlaying.equals(animation)){
             return;
         }
@@ -185,7 +189,7 @@ public abstract class AJEntity{
      * getAnimationState()메소드로 얻을 수 있는 값은 ANIMATION_STOP의 값이 된다.
      * */
     public void stopAnim(){
-        if(animationState == ANIMATION_STATE.PLAY){
+        if(animationPlaying != null && animationState == ANIMATION_STATE.PLAY){
             AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + animationPlaying + "/stop");
             this.animationState = ANIMATION_STATE.STOP;
             this.animationPlaying = null;

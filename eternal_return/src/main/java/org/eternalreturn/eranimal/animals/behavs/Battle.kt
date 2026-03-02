@@ -55,18 +55,11 @@ class Battle : ERAnimalMonobehaviour<EREntityAttackedEvent>() {
 
         //상태에 따라 행동 : MOVE
         if (animalState == AnimalState.MOVE) {
-            //actor.setAI(true)
-            if (actor.velocity.isZero) {
-                ajEntity.stopAnim()
-                return
-            }
             ajEntity.playAnim("move")
         }
 
         //상태에 따라 행동 : ATTACK
         if (animalState == AnimalState.ATTACK) {
-            //actor.setAI(false)
-            (this.actor as EREntity).setVelocity(0.0, 0.0, 0.0);
             ajEntity.playAnimForce("attack")
         }
     }

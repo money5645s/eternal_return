@@ -1,6 +1,7 @@
 package org.eternalreturn.erplayer;
 
 import com.destroystokyo.paper.event.player.PlayerReadyArrowEvent;
+import io.papermc.paper.event.entity.EntityMoveEvent;
 import org.bukkit.Material;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.eternalreturn.ercharacter.ERCharacter;
@@ -50,6 +51,7 @@ public class ERPlayerListener implements Listener {
             erPlayer.submitEvent(new CharacterLeftClickEvent());
         }
     }
+
 
     @EventHandler
     public void onPlayerAttack(EntityDamageByEntityEvent e) {

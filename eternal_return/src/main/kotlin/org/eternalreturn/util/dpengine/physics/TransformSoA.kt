@@ -20,6 +20,9 @@ class TransformSoA(size : Int) : SoAModule(size){
     val position = Vec3SoA(size); //위치
     val rotation = Vec3SoA(size); //몸 자체의 회전
     val direction = Vec3SoA(size); //바라보는 방향
+    val velocity = Vec3SoA(size);
+    val isModifiedVelocity = BooleanArray(size){false};
+    val isModifiedPosition = BooleanArray(size){false};
 
     /**
      * 위치벡터 [x, y, z], 각도(호도법 : -180 ~ 180) [rotX, rotY, rotZ]를 전달받아 Handle 생성 & 반환
@@ -28,6 +31,7 @@ class TransformSoA(size : Int) : SoAModule(size){
         val (entityID, denseID, generation) = super.createHandle(); // (entityID, denseID, generation)
         position.allocSoA(denseID, x, y, z);
         rotation.allocSoA(denseID, rotX, rotY, rotZ);
+        velocity.allocSoA(denseID, 0.0, 0.0, 0.0);
 
         val radX = Math.toRadians(rotY)
         val radY = Math.toRadians(rotX)
@@ -37,19 +41,20 @@ class TransformSoA(size : Int) : SoAModule(size){
         return Handle(entityID, generation);
     }
 
-    fun setPosition(handle : Handle, x : Double, y : Double, z : Double){
+    fun cachePosition(handle : Handle, x : Double, y : Double, z : Double){
         if(isValid(handle)){
             val denseID = sparse[handle.entityID];
             position.x[denseID] = x;
             position.y[denseID] = y;
             position.z[denseID] = z;
+            isModifiedPosition[denseID] = false;
         }
     }
     
     /**
      * 라디안 각도 전달
      * */
-    fun setRotation(handle : Handle, rx : Double, ry : Double, rz : Double){
+    fun cacheRotation(handle : Handle, rx : Double, ry : Double, rz : Double){
         if(isValid(handle)){
             val denseID = sparse[handle.entityID];
             rotation.x[denseID] = rx;
@@ -61,7 +66,7 @@ class TransformSoA(size : Int) : SoAModule(size){
     /**
      * 라디안 각도 전달
      * */
-    fun setDirection(handle : Handle, rx : Double, ry : Double, rz : Double){
+    fun cacheDirection(handle : Handle, rx : Double, ry : Double, rz : Double){
         if(isValid(handle)){
             val denseID = sparse[handle.entityID];
             val xz = cos(ry)
@@ -76,11 +81,64 @@ class TransformSoA(size : Int) : SoAModule(size){
         position.overwrite(idx0, idx1);
         rotation.overwrite(idx0, idx1);
         direction.overwrite(idx0, idx1);
+        velocity.overwrite(idx0, idx1);
+        isModifiedVelocity[idx0] = isModifiedVelocity[idx1];
+        isModifiedPosition[idx0] = isModifiedPosition[idx1];
     }
 
     fun getDebugString(handle: Handle) : String{
         val denseID = super.sparse[handle.entityID];
         return position.getDebugString(denseID);
+    }
+
+    fun cacheVelocity(handle: Handle, x: Double, y: Double, z: Double) {
+        if(isValid(handle)){
+            val denseID = sparse[handle.entityID];
+            velocity.x[denseID] = x;
+            velocity.y[denseID] = y;
+            velocity.z[denseID] = z;
+            isModifiedVelocity[denseID] = false;
+        }
+    }
+
+    fun setPosition(handle: Handle, x: Double, y: Double, z: Double) {
+        if(isValid(handle)){
+            val denseID = sparse[handle.entityID];
+            position.x[denseID] = x;
+            position.y[denseID] = y;
+            position.z[denseID] = z;
+            isModifiedPosition[denseID] = true;
+        }
+    }
+
+    fun addPosition(handle: Handle, x: Double, y: Double, z: Double) {
+        if(isValid(handle)){
+            val denseID = sparse[handle.entityID];
+            position.x[denseID] += x;
+            position.y[denseID] += y;
+            position.z[denseID] += z;
+            isModifiedPosition[denseID] = true;
+        }
+    }
+
+    fun setVelocity(handle: Handle, x: Double, y: Double, z: Double) {
+        if(isValid(handle)){
+            val denseID = sparse[handle.entityID];
+            velocity.x[denseID] = x;
+            velocity.y[denseID] = y;
+            velocity.z[denseID] = z;
+            isModifiedVelocity[denseID] = true;
+        }
+    }
+
+    fun addVelocity(handle: Handle, x: Double, y: Double, z: Double) {
+        if(isValid(handle)){
+            val denseID = sparse[handle.entityID];
+            velocity.x[denseID] += x;
+            velocity.y[denseID] += y;
+            velocity.z[denseID] += z;
+            isModifiedVelocity[denseID] = true;
+        }
     }
 
 }
