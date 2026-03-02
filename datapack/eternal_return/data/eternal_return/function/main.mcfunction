@@ -43,29 +43,27 @@
 
 ## 플레이어
     # 플레이어 설정
+
     execute as @a run function eternal_return:player/tick
         # [debug] 플레이어가 맞은 경우 
-        execute as @a if data entity @s {HurtTime:6s} run function eternal_return:test
+        #execute as @a if data entity @s {HurtTime:6s} run function eternal_return:test
     # GUI
         # 로딩바
-        execute as @a if entity @s[tag=player] run function eternal_return:gui/loading/tick
+        #execute as @a if entity @s[tag=player] run function eternal_return:gui/loading/tick
         # 커스텀 스크린
-        execute as @a if entity @s[tag=player] run function eternal_return:gui/camera_overlay/tick
+        #execute as @a if entity @s[tag=player] run function eternal_return:gui/camera_overlay/tick
         # 커스텀 스크린
-        execute as @a if entity @s[tag=player] run function eternal_return:gui/screen/tick
-        # 사이드바
-        execute as @a if entity @s[tag=player] run function eternal_return:gui/sidebar/tick
+        #execute as @a if entity @s[tag=player] run function eternal_return:gui/screen/tick
     
     # 맵 창 / 키오스크 / 부활 선택창
-    function eternal_return:object/tick
+    #function eternal_return:object/tick
 
 ## 캐릭터
-    execute as @a if entity @s[tag=player] run function eternal_return:character/tick
-
+    #execute as @a if entity @s[tag=player] run function eternal_return:character/tick
 ## 게임 
-    function eternal_return:game/tick
+    #function eternal_return:game/tick
 ## 맵
-    execute as @a if entity @s[tag=player] run function eternal_return:map/tick
+    # execute as @a if entity @s[tag=player] run function eternal_return:map/tick
 ## 기물
 
 # 부시
@@ -92,9 +90,9 @@ function eternal_return:sys/meteor/main
 
 
 # 야생동물 업데이트
-execute \
-as @e[type=!player,tag=ER] run \
-function eternal_return:entity/main/main
+#execute \
+#as @e[type=!player,tag=ER] run \
+#function eternal_return:entity/main/main
 
 # 벽뚫화살 업데이트
 #execute \

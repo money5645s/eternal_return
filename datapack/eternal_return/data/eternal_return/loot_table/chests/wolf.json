@@ -1,0 +1,167 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flow_banner_pattern",
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:max_stack_size": 3
+              }
+            },
+
+            {
+              "function": "minecraft:set_lore",
+              "lore": [
+                {
+                  "text": "음식",
+                  "color": "gray",
+                  "italic": false
+                }
+              ],
+              "mode": "append"
+            },
+            {
+              "function": "minecraft:set_custom_model_data",
+              "floats": {
+                "values": [
+                  6
+                ],
+                "mode": "append"
+              },
+              "strings": {
+                "values": [
+                  "food"
+                ],
+                "mode": "append"
+              }
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "text": "고기",
+                "color": "#ffffff",
+                "italic": false
+              },
+              "conditions": []
+            }
+          ],
+          "conditions": []
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "empty",
+          "weight": 92
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flow_banner_pattern",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:max_stack_size": 3
+              }
+            },
+
+            {
+              "function": "minecraft:set_lore",
+              "lore": [
+                {
+                  "text": "재료",
+                  "color": "gray",
+                  "italic": false
+                }
+              ],
+              "mode": "append"
+            },
+            {
+              "function": "minecraft:set_custom_model_data",
+              "floats": {
+                "values": [
+                  4
+                ],
+                "mode": "append"
+              },
+              "strings": {
+                "values": [
+                  "epic"
+                ],
+                "mode": "append"
+              }
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "text": "생명의 나무",
+                "color": "#d22eff",
+                "italic": false
+              },
+              "conditions": []
+            }
+          ],
+          "conditions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flow_banner_pattern",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:max_stack_size": 3
+              }
+            },
+
+            {
+              "function": "minecraft:set_lore",
+              "lore": [
+                {
+                  "text": "재료",
+                  "color": "gray",
+                  "italic": false
+                }
+              ],
+              "mode": "append"
+            },
+            {
+              "function": "minecraft:set_custom_model_data",
+              "floats": {
+                "values": [
+                  2
+                ],
+                "mode": "append"
+              },
+              "strings": {
+                "values": [
+                  "epic"
+                ],
+                "mode": "append"
+              }
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "text": "운석",
+                "color": "#d22eff",
+                "italic": false
+              },
+              "conditions": []
+            }
+          ],
+          "conditions": []
+        }
+      ]
+    }
+  ]
+}

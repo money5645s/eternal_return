@@ -4,7 +4,7 @@
 # 출력 : 사이드바, 팀 제거
 
 # 팀 제거
-    $team remove $(UUID0)
+    team leave @s
 
 # 스코어보드 제거
     $scoreboard objectives remove sidebar.$(UUID0)

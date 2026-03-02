@@ -10,10 +10,8 @@
 
 # 색깔 배정
     # 배열에서 가져오기
-        data modify storage pdb:main in.team set from storage team colors_copy[0]
-        data modify storage pdb:main args.color set from storage team colors_copy[0]
-        data remove storage team colors_copy[0]
+        data modify storage pdb:main args.color set from storage pdb:main in.team
     # 가져온 색깔로 설정
-        function eternal_return:gui/sidebar/set_team_color with storage pdb:main args
-    # args Free
+        function eternal_return:gui/sidebar/setdisplay with storage pdb:main args
+    # args.color Free
         data remove storage pdb:main args.color

@@ -22,9 +22,6 @@ forceload add -243 485 -243 479
         function eternal_return:game/game_timer_reset
 
 ## 게임 룰
-    # 포탈 대기시간 무한
-    gamerule playersNetherPortalCreativeDelay 1000000000
-    gamerule playersNetherPortalDefaultDelay 1000000000
 
 
 ## 팀 추가
@@ -39,12 +36,10 @@ forceload add -243 485 -243 479
         scoreboard objectives add loading.tick dummy
         scoreboard objectives add loading.pixel dummy
     # 스크린
-        scoreboard objectives add Page.slot dummy
-        scoreboard objectives add Page.ct dummy
+        scoreboard objectives add Page.loading dummy
+        scoreboard objectives add Page.loading.tick dummy
         scoreboard objectives add Page.tick dummy
         scoreboard objectives add Page.sec dummy
-        scoreboard objectives add Page.num dummy
-        scoreboard objectives add Page.frame dummy
     # 스크롤
         scoreboard objectives add old.scroll.num dummy
         scoreboard objectives add now.scroll.num dummy
@@ -73,19 +68,31 @@ forceload add -243 485 -243 479
                 scoreboard objectives add passive_tick dummy
     # 크레딧
         scoreboard objectives add credit dummy
+    # 캐릭터
+        scoreboard objectives add character dummy
+
+
     # 센터 스코어
         scoreboard objectives add centerbar.tick dummy
         scoreboard objectives add centerbar.sec dummy
-        
     # 부활 스코어
         scoreboard objectives add resurretion.tick dummy
         scoreboard objectives add resurretion.sec dummy
-
-    # 정수
+    # 임시변수/넘버링변수
+        scoreboard objectives add TEMP dummy
         scoreboard objectives add NUM dummy
-        # 정수 리스트
-            scoreboard players set #1 NUM 1
-            scoreboard players set #1000 NUM 1000
+    # 상수
+        scoreboard objectives add CONST dummy
+        # 상수 리스트
+            scoreboard players set #1 CONST 1
+            scoreboard players set #2 CONST 2
+            scoreboard players set #3 CONST 3
+            scoreboard players set #20 CONST 20
+            scoreboard players set #100 CONST 100
+            scoreboard players set #200 CONST 200
+            scoreboard players set #600 CONST 600
+            scoreboard players set #1000 CONST 1000
+            scoreboard players set #100000 CONST 100000
 
     # 금지구역 남은 시간
         scoreboard objectives add bantime dummy
@@ -93,7 +100,8 @@ forceload add -243 485 -243 479
     # 쿨타임
         scoreboard objectives add ct1 dummy
         scoreboard objectives add ct2 dummy
-
+    ## 선택지 트리거 명령어
+        scoreboard objectives add select trigger
 
     # 야생동물 관련 스코어보드 생성
         scoreboard objectives add ER.sys dummy
@@ -139,11 +147,9 @@ forceload add -243 485 -243 479
             scoreboard players set #ER.animal.alpha.attack_tick_first ER.sys 12
             scoreboard players set #ER.animal.alpha.attack_tick_second ER.sys 34
 
-    #UUID 스코어보드 추가
-        scoreboard objectives add UUID0 dummy
-        scoreboard objectives add UUID1 dummy
-        scoreboard objectives add UUID2 dummy
-        scoreboard objectives add UUID3 dummy
+            
+
+
 
     # 하이퍼루프 영역 번호 지정
         scoreboard players set #ER.place.null ER.sys 0

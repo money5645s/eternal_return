@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    [
+      "armadillo_scute"
+    ],
+    [
+      "apple"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:porkchop",
+    "components": {
+      "minecraft:consumable": {
+        "consume_seconds": 0,
+        "sound": "block.chest.open",
+        "on_consume_effects": []
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:food": {
+        "nutrition": 0,
+        "saturation": 0,
+        "can_always_eat": true
+      }
+    }
+  }
+}
