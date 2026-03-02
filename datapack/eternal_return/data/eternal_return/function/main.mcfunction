@@ -40,6 +40,10 @@
 #function eternal_return:sys/player/shift
 
 
+## 인게임
+function eternal_return:game/tick
+
+
 
 ## 플레이어
     # 플레이어 설정

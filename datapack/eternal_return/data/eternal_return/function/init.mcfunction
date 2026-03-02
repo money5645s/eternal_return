@@ -1,12 +1,6 @@
 ## 게임 최초 초기값 설정
 
 
-# 사이드바 init
-    function eternal_return:gui/sidebar/init
-
-
-
-
 # df_library 전용 스코어보드 생성
 #function df_library:init
 

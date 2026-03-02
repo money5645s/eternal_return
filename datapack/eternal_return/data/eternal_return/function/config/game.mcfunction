@@ -11,6 +11,6 @@
     day5:{halfday1:{min:1,sec:0},halfday2:{min:1,sec:0}},\
     day6:{halfday1:{min:0,sec:30},halfday2:{min:1,sec:0}}}
 
-## 게임 진행 중
+## 게임 시스템 상수
     # 크래딧 지급 간격
         scoreboard players set #credit.tick.value NUM 40

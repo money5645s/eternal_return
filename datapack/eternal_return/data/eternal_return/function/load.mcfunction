@@ -88,8 +88,10 @@ forceload add -243 485 -243 479
             scoreboard players set #2 CONST 2
             scoreboard players set #3 CONST 3
             scoreboard players set #20 CONST 20
+            scoreboard players set #60 CONST 60
             scoreboard players set #100 CONST 100
             scoreboard players set #200 CONST 200
+            scoreboard players set #360 CONST 360
             scoreboard players set #600 CONST 600
             scoreboard players set #1000 CONST 1000
             scoreboard players set #100000 CONST 100000
