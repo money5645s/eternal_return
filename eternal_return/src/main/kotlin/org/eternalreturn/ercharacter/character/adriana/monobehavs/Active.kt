@@ -41,7 +41,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     }
 
 
-    public override fun update(event: MutableCollection<MonobehaviourEvent>) {
+    public override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
 
         val adriana = actor as Character_Adriana;
         var pos = adriana.getPosition();

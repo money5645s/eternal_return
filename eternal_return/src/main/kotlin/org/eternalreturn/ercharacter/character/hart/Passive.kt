@@ -26,7 +26,7 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
 
     }
 
-    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
             stopMonobehav()
     }
 }

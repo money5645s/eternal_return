@@ -11,6 +11,8 @@ import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.events.EREntityRayCastEvent
 import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
 import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.projectile.ERProjectile
+import org.eternalreturn.projectile.events.ProjectileRayCastEvent
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 import org.eternalreturn.util.dpengine.geometry.OBB
@@ -365,21 +367,23 @@ class OrientedBoxSoA(
                         hitActorList.add(hitActor)
                         println("HITLIST -> [$j] : ${hitActor.javaClass.simpleName} ${hitActor.transformHandle.entityID} ${hitActor.obbHandle.entityID} isValid : ${isValid(hitActor.obbHandle)}"); // 디버깅용
                     }
-                }
 
-                //이벤트를 전달한다.
-                if(shooter is EREntity){ //광선을 쏜 개체가 EREntity라면
-                    shooter.submitEvent(EREntityRayCastEvent(shooter,hitActorList));
-                }else{
-                    //광선을 쏜 개체가 Projectile이라면
-                }
+                    //이벤트를 전달한다.
+                    if(shooter is EREntity){ //광선을 쏜 개체가 EREntity라면
+                        shooter.submitEvent(EREntityRayCastEvent(shooter,hitActorList));
+                    }else if(shooter is ERProjectile){
+                        //광선을 쏜 개체가 Projectile이라면
+                        shooter.submitEvent(ProjectileRayCastEvent(shooter, hitActorList));
+                    }
 
+                }
             }
         }
     }
 
 
     val checked = BooleanArray(size * size)
+    val collidingCell = IntArrayList(512);
     fun collideGridCylinder(){
 
         val colliderNum = getNumOfEntities()
@@ -388,7 +392,14 @@ class OrientedBoxSoA(
         java.util.Arrays.fill(checked, false);
 
         for(cell in 0 until totalCells){
-
+            if(grid.cellCount[cell] <= 0){
+                continue;
+            }
+            collidingCell.add(cell);
+        }
+        val size = collidingCell.size
+        for(idx in 0 until size){
+            val cell = collidingCell.getInt(idx);
             val start = grid.cellStart[cell]
             val end = start + grid.cellCount[cell]
 
@@ -410,6 +421,9 @@ class OrientedBoxSoA(
                 }
             }
         }
+
+        collidingCell.clear();
+
     }
 
     private fun collideCylinder(obb0: Int, obb1: Int): Boolean{
@@ -447,8 +461,8 @@ class OrientedBoxSoA(
         val obbActor0 = transformHandleList[obb0].actor as EREntity;
         val obbActor1 = transformHandleList[obb1].actor as EREntity;
 
-        obbActor0.addVelocity(-(mtvX + EPSAABB), 0.0, -mtvZ); //살짝 변수를 줘서, 서로 겹치게 하는 것 제거
-        obbActor1.addVelocity(+mtvX, 0.0, +mtvZ);
+        obbActor0.addVelocity(-mtvX * 2.0, 0.0, -mtvZ * 2.0); //살짝 변수를 줘서, 서로 겹치게 하는 것 제거
+        obbActor1.addVelocity(+mtvX * 2.0, 0.0, +mtvZ * 2.0);
 
         return true
 

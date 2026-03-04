@@ -1,10 +1,13 @@
 package org.eternalreturn.util.dpengine.physics
 
+import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 import kotlin.math.cos
 import kotlin.math.sin
 
-class RaySoA(bufferSize : Int) {
+class RaySoA(
+    val erEngine: EREngine,
+    bufferSize : Int) {
 
     val posX = DoubleArray(bufferSize);// 레이캐스팅용 객체
     val posY = DoubleArray(bufferSize);// 레이캐스팅용 객체
@@ -21,6 +24,13 @@ class RaySoA(bufferSize : Int) {
 
         val xz = cos(rotY)
         val dx = -xz * sin(rotX); val dy = -sin(rotY); val dz =  xz * cos(rotX)
+        posX[lastRay] = px; posY[lastRay] = py; posZ[lastRay] = pz;
+        dirX[lastRay] = dx; dirY[lastRay] = dy; dirZ[lastRay] = dz;
+        actors.add(actor);
+        lastRay++;
+    }
+
+    fun addRay(actor : MonobehaviourActor, px : Double, py : Double, pz : Double, dx : Double, dy : Double, dz : Double){
         posX[lastRay] = px; posY[lastRay] = py; posZ[lastRay] = pz;
         dirX[lastRay] = dx; dirY[lastRay] = dy; dirZ[lastRay] = dz;
         actors.add(actor);

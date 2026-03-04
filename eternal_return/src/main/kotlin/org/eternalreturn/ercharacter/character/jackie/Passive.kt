@@ -17,7 +17,7 @@ class Passive : ERCharacterMonobehaviour<CharacterKillEvent>() {
 
     }
 
-    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         if(endTimeMillis >= System.currentTimeMillis()){
             val loc : Location = getPlayer().location;
             val world = getPlayer().world;

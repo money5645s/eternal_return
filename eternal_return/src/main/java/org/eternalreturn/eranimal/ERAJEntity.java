@@ -105,9 +105,11 @@ public class ERAJEntity extends AJEntity {
     public void remove() {
         if(rootEntity != null){
             super.remove();
+            rootEntity = null;
         }
         if(actor != null){
             actor.remove();
+            actor = null;
         }
         this.isShown = false;
     }
@@ -116,7 +118,7 @@ public class ERAJEntity extends AJEntity {
     protected void afterSpawnEvent(Entity spawnedRootEntity){
         rootEntity = spawnedRootEntity;
         rootEntity.addPassenger(hpbar);
-        System.out.println("rootEntity가 성공적으로 전달되었습니다.");
+        //System.out.println("rootEntity가 성공적으로 전달되었습니다.");
     }
 
 
@@ -134,13 +136,18 @@ public class ERAJEntity extends AJEntity {
      * */
     public void setActor(Husk actor){
         this.actor = actor;
-        var attribute = this.actor.getAttribute(Attribute.ATTACK_DAMAGE);
-        Objects.requireNonNull(attribute).setBaseValue(0.0);
         this.actor.setAdult();
         this.actor.setSilent(true);
         this.actor.setInvisible(true);
-        this.actor.setInvulnerable(true);
         this.actor.addPassenger(this.rootEntity);
+        try{
+            Objects.requireNonNull(actor.getAttribute(Attribute.ATTACK_DAMAGE)).setBaseValue(0.0);
+            Objects.requireNonNull(actor.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(1024.0);
+            Objects.requireNonNull(actor.getAttribute(Attribute.ARMOR)).setBaseValue(1024.0);
+            this.actor.setHealth(1024.0);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -165,5 +172,6 @@ public class ERAJEntity extends AJEntity {
     public boolean isShown(){
         return this.isShown;
     }
+
 
 }

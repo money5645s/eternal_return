@@ -1,4 +1,4 @@
-package org.eternalreturn.eranimal.managers.events
+package org.eternalreturn.eranimal.manager.events
 
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 

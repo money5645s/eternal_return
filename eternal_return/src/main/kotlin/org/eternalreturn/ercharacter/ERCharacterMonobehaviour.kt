@@ -1,12 +1,10 @@
 package org.eternalreturn.ercharacter
 
+import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.event.CharacterEvent
 import org.eternalreturn.erentity.EREntityMonobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
-import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.Player
 import org.eternalreturn.erplayer.ERPlayer
-import org.eternalreturn.erplayer.ERPlayerListener
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 
 abstract class ERCharacterMonobehaviour<T : CharacterEvent> : EREntityMonobehaviour<T>() {
     private lateinit var erCharacter: ERCharacter

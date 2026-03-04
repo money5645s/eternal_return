@@ -18,7 +18,7 @@ class Stun : EREntityMonobehaviour<EREntityStunEvent>() {
         println("Stun event dispatched")
     }
 
-    public override fun update(event: MutableCollection<MonobehaviourEvent>) {
+    public override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         if (isNotEnd(startStunMillies, duration)) {
             entity.teleport(stunLocation!!)
             stunLocation!!.getWorld()!!.spawnParticle(

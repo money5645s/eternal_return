@@ -1,16 +1,19 @@
 package org.eternalreturn.erentity.globalmonobehav
 
+import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.erentity.events.EREntityAttackedEvent
 import org.eternalreturn.erentity.events.EREntityRayCastEvent
+import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.eternalreturn.util.dpengine.geometry.Vector3
 
 class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>() {
 
     override fun start(event: EREntityRayCastEvent) {
+        stopMonobehav();
 
         val erEntity = getEREntity();
         var minDist = erEntity.maxRange * erEntity.maxRange; //제곱해서 비교
@@ -33,7 +36,6 @@ class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>(
                 closestTarget = e;
                 println("Melee-attacked to -> " + e.javaClass)
             }
-
         }
 
         if(closestTarget == null){
@@ -41,12 +43,14 @@ class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>(
         }
 
         closestTarget.submitEvent(EREntityAttackedEvent(actor as EREntity))
-        event.shooter.submitEvent(CharacterAttackEvent(event.shooter, closestTarget))
+        event.shooter.submitEvent(CharacterAttackEvent(closestTarget))
+        val shootPlayer = event.shooter.entity as Player;
+        closestTarget.damage(shootPlayer.getAttribute(org.bukkit.attribute.Attribute.ATTACK_DAMAGE)!!.value, event.shooter as ERPlayer);
     }
 
 
 
-    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         stopMonobehav();
     }
 

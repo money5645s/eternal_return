@@ -1,7 +1,9 @@
 package org.eternalreturn.erplayer;
 
+import com.destroystokyo.paper.event.player.PlayerAttackEntityCooldownResetEvent;
 import com.destroystokyo.paper.event.player.PlayerReadyArrowEvent;
 import io.papermc.paper.event.entity.EntityMoveEvent;
+import io.papermc.paper.event.entity.EntityPushedByEntityAttackEvent;
 import org.bukkit.Material;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.eternalreturn.ercharacter.ERCharacter;
@@ -44,35 +46,34 @@ public class ERPlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerInteraction(PlayerInteractEvent e){
-        Action action = e.getAction();
         var engine = PluginInstance.getEREngine();
-        if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)){
-            ERPlayer erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
+        ERPlayer erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
+        if(erPlayer != null){
             erPlayer.submitEvent(new CharacterLeftClickEvent());
         }
     }
 
+    public void onPlayerLeftClick(){
+
+    }
 
     @EventHandler
     public void onPlayerAttack(EntityDamageByEntityEvent e) {
-
         if (!(e.getDamager() instanceof Player p)) return;
-
         var engine = PluginInstance.getEREngine();
         ERPlayer erPlayer = (ERPlayer)engine.getEREntity(p);
-
-        if(e.getEntity() instanceof Husk){
+        if(erPlayer != null) {
             erPlayer.submitEvent(new CharacterLeftClickEvent());
         }
-
-        erPlayer.submitEvent(new CharacterLeftClickEvent());
     }
 
     @EventHandler
     public void onPlayerSwap(PlayerSwapHandItemsEvent e){
         var engine = PluginInstance.getEREngine();
         var erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
-        erPlayer.submitEvent(new CharacterSwapHandEvent(erPlayer));
+        if(erPlayer != null) {
+            erPlayer.submitEvent(new CharacterSwapHandEvent(erPlayer));
+        }
         e.setCancelled(true);
     }
 
@@ -105,9 +106,6 @@ public class ERPlayerListener implements Listener {
         float force = e.getForce();
         player.sendMessage("Force : " + force);
 
-        if(force <= 0.9f){
-            return;
-        }
 
         var inv = (player).getInventory();
         inv.remove(Material.ARROW);
@@ -115,7 +113,8 @@ public class ERPlayerListener implements Listener {
         var engine = PluginInstance.getEREngine();
         var erPlayer = engine.getEREntity(player);
 
-        erPlayer.submitEvent(new CharacterLeftClickEvent());
-
+        if(erPlayer != null) {
+            erPlayer.submitEvent(new CharacterShootProjectileEvent(force));
+        }
     }
 }

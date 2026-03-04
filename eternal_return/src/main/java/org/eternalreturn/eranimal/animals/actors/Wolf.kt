@@ -5,7 +5,7 @@ import org.eternalreturn.eranimal.ERAJEntity
 import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.system.EREngine
 
-class Wolf(engine: EREngine, erAjEntity: ERAJEntity, location: Location) :
+class Wolf(engine: EREngine, erAjEntity: ERAJEntity) :
     ERAnimal(engine, erAjEntity,  1.0, 1.0, 2.0, 0.0, -1.0, 0.0) {
     init {
         this.aJEntity.registerAnimation("ready",    2.0)
@@ -14,6 +14,9 @@ class Wolf(engine: EREngine, erAjEntity: ERAJEntity, location: Location) :
         this.aJEntity.registerAnimation("skill",    3.25)
         this.aJEntity.registerAnimation("death",    2.0)
     }
+
+    override var hp: Double = 15.0;
+    var damage : Double = 6.0;
 }
 
 /**

@@ -6,36 +6,7 @@ import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
 abstract class ERAnimalMonobehaviour<T : EREntityEvent> : Monobehaviour<T>() {
-    private var erAJEntity: ERAJEntity? = null
-    private var erAnimal: ERAnimal? = null
 
-    private fun __init() {
-        if (erAJEntity != null) {
-            return
-        }
-        if (this.actor !is ERAnimal) {
-            throw ClassCastException("Actor가 ERCharacter가 아닙니다.")
-        }
-        erAnimal = this.actor as ERAnimal
-        erAJEntity = erAnimal!!.aJEntity
-    }
-
-    val eRAJEntity: ERAJEntity?
-        get() {
-            __init()
-            return this.erAJEntity
-        }
-
-    val eRAnimal: ERAnimal?
-        get() {
-            __init()
-            return this.erAnimal
-        }
-
-    //protected void damage(Player attacker, LivingEntity victim, double dmg){
-    //    ERPlayerListener.addAPIAttacker(attacker);
-    //    victim.damage(dmg, attacker);
-    //}
     protected fun isNotEnd(startTime: Long, durationTicks: Long): Boolean {
         return System.currentTimeMillis() - startTime < durationTicks * 50
     }

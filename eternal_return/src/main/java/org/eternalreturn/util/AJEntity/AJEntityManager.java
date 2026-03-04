@@ -186,7 +186,7 @@ public class AJEntityManager implements Listener , FreeAble {
 
             ajEntity.afterSpawnEvent(entity);
 
-            System.out.println("ajEntity가 생성되었습니다. : " + ajEntity.getRootEntity().getUniqueId());
+            //System.out.println("ajEntity가 생성되었습니다. : " + ajEntity.getRootEntity().getUniqueId());
         }
 
 

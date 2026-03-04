@@ -6,13 +6,7 @@ import kotlin.collections.set
 import kotlin.math.cos
 import kotlin.math.sin
 
-/**
- * SparseIdx와 GenerationIdx를 함께 저장
- * SparseIdx가 같아도 Gen이 다르면 바로 SoA모듈 상에서 resolve() 메소드 호출됨.
- * */
-class Handle(val entityID : Int, val generation : Int, var actor : MonobehaviourActor? = null){
 
-}
 
 
 class TransformSoA(size : Int) : SoAModule(size){
@@ -86,11 +80,6 @@ class TransformSoA(size : Int) : SoAModule(size){
         isModifiedPosition[idx0] = isModifiedPosition[idx1];
     }
 
-    fun getDebugString(handle: Handle) : String{
-        val denseID = super.sparse[handle.entityID];
-        return position.getDebugString(denseID);
-    }
-
     fun cacheVelocity(handle: Handle, x: Double, y: Double, z: Double) {
         if(isValid(handle)){
             val denseID = sparse[handle.entityID];
@@ -140,5 +129,24 @@ class TransformSoA(size : Int) : SoAModule(size){
             isModifiedVelocity[denseID] = true;
         }
     }
+
+    val eps7 = 1E-7;
+    fun isNotTranslating(handle: Handle): Boolean {
+        if(isValid(handle)){
+            val denseID = sparse[handle.entityID];
+            val vx = velocity.x[denseID];
+            val vy = velocity.y[denseID];
+            val vz = velocity.z[denseID];
+            return (eps7 > vx && vx > -eps7) && (eps7 > vy && vy > -eps7) && (eps7 > vz && vz > -eps7)
+        }
+        return true;
+    }
+
+
+    fun getDebugString(handle: Handle) : String{
+        val denseID = super.sparse[handle.entityID];
+        return position.getDebugString(denseID);
+    }
+
 
 }

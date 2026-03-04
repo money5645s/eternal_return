@@ -16,7 +16,7 @@ class BurningGroundMonobehav : Monobehaviour<LetsBurn>() {
 
     }
 
-    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
 
         val burningGround = actor as BurningGroundVirtualEntity;
 

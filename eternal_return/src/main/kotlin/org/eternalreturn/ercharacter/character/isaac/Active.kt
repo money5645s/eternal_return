@@ -29,7 +29,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         getPlayer().playSound(getPlayer().location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
     }
 
-    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         val isaac = actor as Character_Isaac
 
         if (!isaac.isActiveSkill) {

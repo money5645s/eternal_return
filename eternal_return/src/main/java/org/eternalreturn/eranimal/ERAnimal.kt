@@ -1,19 +1,18 @@
 package org.eternalreturn.eranimal
 
-import org.bukkit.Location
+import net.kyori.adventure.sound.Sound
 import org.bukkit.util.Vector
 import org.eternalreturn.eranimal.animals.behavs.Battle
 import org.eternalreturn.eranimal.animals.behavs.Idle
 import org.eternalreturn.eranimal.animals.events.IdleEvent
+import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.command.AddSpigotEntityVelocity
-import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
 
 /**
  * MonobehaviourActor역할을 하는 야생동물 클래스.
  */
-open class ERAnimal(
+abstract class ERAnimal(
     engine: EREngine,
     var aJEntity: ERAJEntity,
     obbHalfX: Double, obbHalfY: Double,
@@ -27,7 +26,9 @@ open class ERAnimal(
     /**
      * 야생동물 스킬 쿨다운
      */
-    protected var cooldownSeconds: Long = 0
+    var cooldownSeconds: Long = 0
+
+    abstract var hp : Double;
 
     init {
         registerMonobehaviour(Battle())
@@ -77,6 +78,19 @@ open class ERAnimal(
         aJEntity.actor.velocity = velocity;
     }
 
+    override fun remove() {
+        super.remove()
+        aJEntity.remove();
+    }
+
+    override fun damage(amount: Double, attacker: EREntity) {
+        this.hp -= amount;
+        attacker.submitEvent(CharacterAttackEvent(this))
+        val sound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT).build()
+        aJEntity.setDebugDisplay("HP : ${this.hp}\n\n\n\n")
+        attacker.entity.playSound(sound);
+        println("${this.javaClass.simpleName} is attacked by ${attacker.javaClass.simpleName}")
+    }
 
     val isShown: Boolean
         get() = this.aJEntity.isShown

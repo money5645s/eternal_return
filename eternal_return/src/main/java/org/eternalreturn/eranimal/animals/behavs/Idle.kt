@@ -1,5 +1,6 @@
 package org.eternalreturn.eranimal.animals.behavs
 
+import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.eranimal.ERAnimalMonobehaviour
 import org.eternalreturn.eranimal.animals.events.IdleEvent
 import org.eternalreturn.erentity.events.EREntityAttackedEvent
@@ -11,32 +12,29 @@ class Idle : ERAnimalMonobehaviour<IdleEvent>() {
 
     }
 
-    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         
         //플레이어에게 공격받았을 경우
-        for(event in eventList){
-            if(event is EREntityAttackedEvent) {
-                stopMonobehav();
-                break;
-            }
+        if(eventMap[EREntityAttackedEvent::class.java] != null){
+            stopMonobehav();
+            return;
         }
 
-        val animal = eRAnimal!!.aJEntity;
+        val animal = actor as ERAnimal;
+        val ajEntity = animal.aJEntity;
 
-        //루트 엔티티가 지정된 방향을 가리키도록 하여 히트박스의 각도를 정확히 맞추도록 함.
-        val animalLoc = animal.location;
-        animal.rootEntity.setRotation(animalLoc.yaw, animalLoc.pitch);
 
         //플레이어가 하나라도 16칸 이내에 있는 경우 -> Ready & stopMonobehav
         val engine = dpEngine as EREngine
         for(p in engine.players.curQueue){
-            val pos = vec3(animal.location.x, animal.location.y, animal.location.z)
+            //생성 좌표
+            val pos = vec3(ajEntity.location.x, ajEntity.location.y, ajEntity.location.z)
             if(magnitudeSqr(pos - p.getPosition()) <= 16 * 16){
-                eRAJEntity!!.playAnim("ready");
+                ajEntity.playAnim("ready");
                 return;
             }
         }
-        eRAJEntity!!.stopAnim();
+        ajEntity.stopAnim();
 
     }
 }

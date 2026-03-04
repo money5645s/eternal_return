@@ -88,7 +88,7 @@ abstract class MonobehaviourActor(
      * 해당 이벤트는 다시 checkedEvent 내에 삽입됨.
      * 실행중인 Monobehaviour이면 무시됨.
      */
-    protected var checkedEvent: ArrayDeque<MonobehaviourEvent> = ArrayDeque<MonobehaviourEvent>()
+    protected var checkedEvent: HashMap<Class<out MonobehaviourEvent>, MonobehaviourEvent> = HashMap<Class<out MonobehaviourEvent>, MonobehaviourEvent>()
 
     fun dispatchEvents() {
         while (!submittedEvent.isEmpty()) {
@@ -100,7 +100,7 @@ abstract class MonobehaviourActor(
                 println("Event consumed :  ${event.javaClass.simpleName} \ton ${this.javaClass.simpleName}");
                 monobehav.dispatchEvent(event)
             }
-            checkedEvent.addLast(event)
+            checkedEvent.putIfAbsent(event.javaClass, event)
         }
     }
 

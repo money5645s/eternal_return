@@ -12,6 +12,7 @@ import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.eternalreturn.ercharacter.character.fiora.Character_Fiora
+import org.eternalreturn.erplayer.ERPlayer
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var skillTimer = 0
@@ -38,7 +39,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         fiora.cooldown.set("Active", fiora.ActiveCooldownSeconds)
     }
 
-    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
 
         // 스킬 시전 즉시 쿨타임 돌리기
         if(!CooldownCheck){
@@ -84,9 +85,10 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                     entity.damage(damage, player)
                     entity.addPotionEffect(PotionEffect(PotionEffectType.WEAKNESS, 40, 100, false, true))
 
-                    val victim = PluginInstance.getEREngine().getEREntity(entity);
+                    val victim = eREngine.getEREntity(entity);
+                    val attacker = eREngine.getEREntity(player) as ERPlayer;
                     if(victim == null)return;
-                    victim.submitEvent(ERToucheCountEvent(player));
+                    victim.submitEvent(ERToucheCountEvent(attacker));
                 }
             }
         }

@@ -20,7 +20,7 @@ class LiDailinPassiveTimer : EREntityMonobehaviour<LiDailinPassiveTimerEvent>(){
     }
 
 
-    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         val victim : LivingEntity =  this.getEREntity().entity as LivingEntity;
         val player = attacker ?: return
         val loc = victim.location

@@ -1,10 +1,9 @@
-package org.eternalreturn.eranimal.managers.actors;
+package org.eternalreturn.eranimal.manager;
 
 import org.eternalreturn.eranimal.*;
-import org.eternalreturn.eranimal.managers.behavs.DetectingPlayersInRange;
-import org.eternalreturn.eranimal.managers.behavs.ManageERAnimals;
-import org.eternalreturn.eranimal.managers.behavs.WaitForSummoningERAJEntities;
-import org.eternalreturn.eranimal.managers.events.DetectingPlayerEvent;
+import org.eternalreturn.eranimal.manager.behavs.DetectingPlayersInRange;
+import org.eternalreturn.eranimal.manager.behavs.ManageERAnimals;
+import org.eternalreturn.eranimal.manager.events.DetectingPlayerEvent;
 import org.eternalreturn.util.dpengine.DPEngine;
 import org.eternalreturn.system.PluginInstance;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
@@ -60,18 +59,15 @@ public class ERAnimalManager extends MonobehaviourActor {
     /**
      * 실제 ERAnimalManager가 갖는 필드들
      * */
-    private World world;
-    private String areaName;
-    private DPEngine engine;
-    private List<ERAJEntity> entities;
+    private @NotNull World world;
+    public @NotNull World getWorld(){return world;}
 
-    public ERAnimalManager(AJEntityManager ajEntityManager, DPEngine engine, World world, AreaERAnimalInfo info){
+    private @NotNull String areaName;
+    private @NotNull DPEngine engine;
+    private @NotNull List<ERAJEntity> entities;
+
+    public ERAnimalManager(@NotNull AJEntityManager ajEntityManager, @NotNull DPEngine engine, @NotNull World world, @NotNull AreaERAnimalInfo info){
         super(engine);
-        if(ajEntityManager == null){
-            throw new RuntimeException("Cannot instantiate(register) ERAnimalManager, ajEntityManager is null.");
-        }
-
-
         this.world = world;
         this.areaName = info.name();
         this.engine = engine;
@@ -84,7 +80,6 @@ public class ERAnimalManager extends MonobehaviourActor {
 
         registerMonobehaviour(new ManageERAnimals());
         registerMonobehaviour(new DetectingPlayersInRange());
-        registerMonobehaviour(new WaitForSummoningERAJEntities());
 
         //한번만 제출하면 됨. 매 틱마다 동작할 것.
         this.submitEvent(new DetectingPlayerEvent());

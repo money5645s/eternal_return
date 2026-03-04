@@ -59,14 +59,14 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
         }
     }
 
-    fun updateMonobehav(eventList: MutableCollection<MonobehaviourEvent>) {
+    fun updateMonobehav(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         dpEngine.geometryModule.setVecScope().use { scope ->
-            update(eventList)
+            update(eventMap)
         }
     }
 
     abstract fun start(event: T)
-    abstract fun update(eventList: MutableCollection<MonobehaviourEvent>)
+    abstract fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>)
 
     /**
      * MonobehaviourActor 내 스케줄러로 하여금 해당 Monobehaviour을 제거하도록 마킹합니다. <br></br>
@@ -91,4 +91,5 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
         this.dpEngine = actor.monobehaviourModule.dpEngine
         geometryCalculatableInit(dpEngine.geometryModule)
     }
+
 }

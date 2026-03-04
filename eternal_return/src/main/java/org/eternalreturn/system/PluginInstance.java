@@ -3,15 +3,13 @@ package org.eternalreturn.system;
 
 import java.io.UnsupportedEncodingException;
 
-import org.eternalreturn.eranimal.managers.actors.ERAnimalManager;
+import org.eternalreturn.eranimal.manager.ERAnimalManager;
 import org.eternalreturn.erplayer.ERPlayerDebugCommand;
 import org.eternalreturn.erplayer.ERPlayerListener;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 public final class PluginInstance extends JavaPlugin{
 

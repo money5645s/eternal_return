@@ -1,6 +1,7 @@
 package org.eternalreturn.erentity
 
 import org.bukkit.entity.Entity
+import org.bukkit.entity.LivingEntity
 import org.bukkit.util.Vector
 import org.eternalreturn.ercharacter.character.fiora.ToucheCount
 import org.eternalreturn.ercharacter.character.fiora.ToucheEffect
@@ -116,6 +117,13 @@ abstract class EREntity( // extends MonobehaviourActor()
         erEngine.transformSoA.setVelocity(transformHandle, x, y, z);
     }
 
+    open fun addVelocity(vec : Vector3){
+        val x = geometryModule.x(vec);
+        val y = geometryModule.y(vec);
+        val z = geometryModule.z(vec);
+        erEngine.transformSoA.addVelocity(transformHandle, x, y, z);
+    }
+
     open fun setVelocity(x : Double, y : Double, z : Double){
         erEngine.transformSoA.setVelocity(transformHandle, x, y, z);
     }
@@ -135,6 +143,16 @@ abstract class EREntity( // extends MonobehaviourActor()
     open fun applyBukkitVelocityOnMainThread(x: Double, y: Double, z: Double) {
         val velocity = Vector(x, y, z);
         entity.velocity = velocity;
+    }
+
+    open fun isNotTranslating(): Boolean {
+        return erEngine.transformSoA.isNotTranslating(transformHandle);
+    }
+
+    open fun damage(amount : Double, attacker : EREntity){
+        if(entity is LivingEntity){
+            entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
+        }
     }
 
 

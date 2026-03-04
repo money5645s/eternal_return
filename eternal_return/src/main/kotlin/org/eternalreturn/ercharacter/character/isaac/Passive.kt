@@ -40,7 +40,7 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
         event.victim.submitEvent(PassiveCountEvent(this.getEREntity().entity as Player))
     }
 
-    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         stopMonobehav();
     }
 

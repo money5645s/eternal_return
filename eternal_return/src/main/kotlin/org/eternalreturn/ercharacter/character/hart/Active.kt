@@ -29,7 +29,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         player.sendMessage("§c[하트] §f스킬 발동! 5초간 유지됩니다.")
     }
 
-    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         val hart = actor as Character_Hart
         val cd = hart.cooldown
 

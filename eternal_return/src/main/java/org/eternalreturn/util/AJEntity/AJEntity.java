@@ -234,6 +234,10 @@ public abstract class AJEntity{
         return this.rootEntity;
     }
 
+    public boolean isValid(){
+        return (this.rootEntity != null);
+    }
+
     /**
      * 현재 AJEntity가 처리되고 있는 World를 가져온다.
      * */

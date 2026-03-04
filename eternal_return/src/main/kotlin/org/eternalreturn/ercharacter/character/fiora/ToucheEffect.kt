@@ -21,13 +21,12 @@ class ToucheEffect : EREntityMonobehaviour<ToucheEffectStartEvent>(){
 
 
     var count = 0;
-    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         if(isNotEnd(startDurationMillis, durationTicks)){
-            for(event in eventList){
-                if(event is ToucheEffectStartEvent){
-                    count = event.count;
-                    println("$count of point");
-                }
+            val event : ToucheEffectStartEvent? = eventMap[ToucheEffectStartEvent::class.java] as ToucheEffectStartEvent;
+            if(event != null){
+                count = event.count;
+                println("$count of point");
             }
             drawParticles(loc, count);
             return;
