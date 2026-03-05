@@ -3,7 +3,6 @@ package org.eternalreturn.ercharacter
 import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.globalmonobehav.ParabolicFly
 import org.eternalreturn.ercharacter.globalmonobehav.PlayerRayCastingByLeftClicking
-import org.eternalreturn.ercharacter.globalmonobehav.ShootProjectile
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.system.EREngine
 
@@ -20,7 +19,6 @@ abstract class ERCharacter(
 
     init {
         registerMonobehaviour(ParabolicFly())
-        registerMonobehaviour(ShootProjectile())
         registerMonobehaviour(PlayerRayCastingByLeftClicking())
     }
 

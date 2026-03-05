@@ -85,7 +85,7 @@ abstract class ERAnimal(
 
     override fun damage(amount: Double, attacker: EREntity) {
         this.hp -= amount;
-        attacker.submitEvent(CharacterAttackEvent(this))
+        attacker.submitEvent(CharacterAttackEvent(attacker, this))
         val sound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT).build()
         aJEntity.setDebugDisplay("HP : ${this.hp}\n\n\n\n")
         attacker.entity.playSound(sound);

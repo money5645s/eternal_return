@@ -3,13 +3,15 @@ package org.eternalreturn.ercharacter.character.hart
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
-import org.bukkit.potion.PotionEffect
-import org.bukkit.potion.PotionEffectType
-import org.eternalreturn.ercharacter.character.hart.Character_Hart
+import org.bukkit.util.Vector
+import org.eternalreturn.ercharacter.character.hart.event.HartActiveEvent
+import org.eternalreturn.ercharacter.event.CooldownEvent
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
-    private var skillActiveTick: Long = 0
-    private val durationMillis: Long = 5000
+    var direction: Vector? = null
+    private var isWallSlam = false
+    private var tick = 0
+
     override fun start(event: CharacterSwapHandEvent) {
         val player = getPlayer()
 
@@ -21,32 +23,61 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
             return
         }
+        player.sendMessage("F 디버깅")
+        // 시선과 무관하게 수평 방향 벡터로 고정 (y=0)
+        this.direction = player.getLocation().getDirection().setY(0).normalize().multiply(1)
+        tick = 0
 
+        if (hart.stack == 0) {
+            player.sendMessage("스킬")
+            this.getEREntity().submitEvent(HartActiveEvent())
+            hart.stack++
+        } else if (hart.stack == 1) {
+            player.sendMessage("재사용")
+            hart.stack = 0
+        }
 
-        player.addPotionEffect(PotionEffect(PotionEffectType.STRENGTH, 100, 0, false, false))
-
-        this.skillActiveTick = System.currentTimeMillis()
-        player.sendMessage("§c[하트] §f스킬 발동! 5초간 유지됩니다.")
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         val hart = actor as Character_Hart
         val cd = hart.cooldown
+        val player = getPlayer()
 
         if (cd.isWaiting("Active")) {
             stopMonobehav()
             return
         }
 
-        val currentTime = System.currentTimeMillis()
+        tick ++
 
-        // 시작한 시간으로부터 5초가 지났는지 확인
-        if (currentTime - skillActiveTick > durationMillis) {
-            getPlayer().sendMessage("§7[하트] 스킬 상태가 종료되었습니다.")
-            // 쿨타임 등록
-            hart.cooldown.set("Active", hart.ActiveCooldownSeconds)
+        if (!isWallSlam && tick < 4) {
+            player.sendMessage("§c[디버깅] §f${tick}")
+
+            // 1. 돌진 물리 적용
+            val curVelocity = player.getVelocity()
+            direction!!.setY(curVelocity.getY())
+            player.setVelocity(direction!!)
+        }
+
+        if (tick > 3){
+            player.sendMessage("§c[디버깅] §f돌진 종료")
+            if(hart.stack == 0) {
+                // 쿨타임 등록
+                hart.cooldown.set("Active", hart.ActiveCooldownSeconds)
+                this.getEREntity().submitEvent(CooldownEvent("Active", hart.ActiveCooldownSeconds))
+            }
             stopMonobehav()
+        }
 
+        if (isWallSlam){
+            player.sendMessage("§c[디버깅] §f돌진 종료")
+            if(hart.stack == 0) {
+                // 쿨타임 등록
+                hart.cooldown.set("Active", hart.ActiveCooldownSeconds)
+                this.getEREntity().submitEvent(CooldownEvent("Active", hart.ActiveCooldownSeconds))
+            }
+            stopMonobehav()
         }
     }
 }

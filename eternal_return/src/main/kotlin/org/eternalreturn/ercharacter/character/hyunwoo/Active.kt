@@ -51,7 +51,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         tick = 0
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         val player = getPlayer()
         val engine = dpEngine as EREngine
         val hyunwoo = actor as Character_Hyunwoo
@@ -97,7 +97,10 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                     hitEntities!!.put(victim, 1)
 
                     getERCharacter().submitEvent(
-                        CharacterAttackEvent(victim)
+                        CharacterAttackEvent(
+                            getERPlayer(),
+                            victim
+                        )
                     )
                     bukkitVictim.damage(2.0, getPlayer())
                 }
@@ -139,7 +142,10 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
             // 도그파이트 패시브를 위한 공격 이벤트 제출 (안되는 것 같음)
             getERCharacter().submitEvent(
-                CharacterAttackEvent(victim)
+                CharacterAttackEvent(
+                    getERCharacter(),
+                    victim
+                )
             )
 
             // 벽꿍 추가 피해 (10.0)

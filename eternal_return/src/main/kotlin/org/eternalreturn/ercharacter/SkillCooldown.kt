@@ -19,4 +19,13 @@ class SkillCooldown {
         if (!isWaiting(skillName)) return 0.0
         return (cooldowns.get(skillName)!! - System.currentTimeMillis()) / 1000.0
     }
+
+    // SkillCooldown.kt 내부에 추가
+    fun getLeftInt(skillName: String?): Int {
+        val left = getLeft(skillName) // 원래 실수 값 (예: 1.54)
+        if (left <= 0) return 0
+
+        // 소수점 첫째 자리까지만 살리고 10을 곱함 (예: 1.54 -> 1.5 -> 15)
+        return (left * 10).toInt()
+    }
 }

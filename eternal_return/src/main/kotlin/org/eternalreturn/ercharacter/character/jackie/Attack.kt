@@ -22,7 +22,7 @@ class Attack : ERCharacterMonobehaviour<CharacterAttackEvent>() {
 
     }
 
-    public override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         stopMonobehav();
     }
 }

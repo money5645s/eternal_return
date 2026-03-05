@@ -39,7 +39,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         this.getEREntity().submitEvent(DrunkTimerEvent())
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         val liDailin = actor as Character_LiDailin
         val currentTime = System.currentTimeMillis()
 

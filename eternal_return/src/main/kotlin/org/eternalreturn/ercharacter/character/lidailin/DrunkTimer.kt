@@ -14,13 +14,12 @@ class DrunkTimer : EREntityMonobehaviour<DrunkTimerEvent>() {
         tick = 0;
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         val liDailin = actor as Character_LiDailin
-        if(eventMap[DrunkTimerEvent::class.java] != null){
+        val event = eventMap[DrunkTimerEvent::class.java] as DrunkTimerEvent?
+        if(event != null){
             this.tick = 0
-//          liDailin.player.sendMessage("§a[시스템] 취기 타이머가 초기화되었습니다.")
         }
-
 //        liDailin.player.sendMessage("${tick}")
         tick++
 

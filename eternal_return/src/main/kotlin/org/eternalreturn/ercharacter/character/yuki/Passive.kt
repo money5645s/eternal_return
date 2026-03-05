@@ -70,7 +70,7 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
         }
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         val yuki = actor as Character_Yuki
         // 4. 재봉 시간 체크
         if (yuki.isReloading) {

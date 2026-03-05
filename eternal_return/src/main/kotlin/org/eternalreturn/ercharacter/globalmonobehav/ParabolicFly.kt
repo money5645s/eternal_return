@@ -37,7 +37,7 @@ class ParabolicFly : ERCharacterMonobehaviour<CharacterParabolicFlyEvent>() {
         g = (8 * height) / (etaSeconds * etaSeconds)
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
 
         if (t <= etaSeconds) {
 

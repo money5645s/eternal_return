@@ -9,7 +9,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
 
     }
 }

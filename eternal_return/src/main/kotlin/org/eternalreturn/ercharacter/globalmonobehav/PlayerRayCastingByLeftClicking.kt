@@ -19,7 +19,7 @@ class PlayerRayCastingByLeftClicking : ERCharacterMonobehaviour<CharacterLeftCli
         stopMonobehav();
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         stopMonobehav();
     }
 

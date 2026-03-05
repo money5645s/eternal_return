@@ -11,7 +11,7 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
         Objects.requireNonNull<Entity?>(event.victim.entity).setFireTicks(100)
     }
 
-    public override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         stopMonobehav()
     }
 }

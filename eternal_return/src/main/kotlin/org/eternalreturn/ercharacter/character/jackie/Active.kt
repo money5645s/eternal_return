@@ -32,7 +32,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         player.sendMessage("§c[재키] §f스킬 발동! 5초간 유지됩니다.")
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         // 스킬이 활성화된 상태에서만 시간 체크
         val jackie = actor as Character_Jackie
         if (!jackie.isBloodSweep) {

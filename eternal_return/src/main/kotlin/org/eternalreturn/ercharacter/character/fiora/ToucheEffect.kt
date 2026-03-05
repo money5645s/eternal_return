@@ -21,9 +21,9 @@ class ToucheEffect : EREntityMonobehaviour<ToucheEffectStartEvent>(){
 
 
     var count = 0;
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         if(isNotEnd(startDurationMillis, durationTicks)){
-            val event : ToucheEffectStartEvent? = eventMap[ToucheEffectStartEvent::class.java] as ToucheEffectStartEvent;
+            val event = eventMap[ToucheEffectStartEvent::class.java] as ToucheEffectStartEvent?
             if(event != null){
                 count = event.count;
                 println("$count of point");

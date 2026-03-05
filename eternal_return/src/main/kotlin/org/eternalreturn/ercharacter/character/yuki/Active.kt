@@ -28,7 +28,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         getPlayer().playSound(getPlayer().location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         val yuki = actor as Character_Yuki
 
         if (!yuki.isActiveSkill) {
