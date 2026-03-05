@@ -1,6 +1,6 @@
-package org.EternalReturn.util.Geometry.Matrix;
+package org.eternalreturn.util.Geometry.Matrix;
 
-import org.EternalReturn.util.Geometry.MathVector.Vec3d;
+import org.eternalreturn.util.Geometry.MathVector.Vec3d;
 
 /**
  * 3x3 Matrix 클래스.

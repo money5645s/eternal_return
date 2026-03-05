@@ -1,4 +1,4 @@
-package org.EternalReturn.util.Geometry.MathVector;
+package org.eternalreturn.util.Geometry.MathVector;
 
 import org.bukkit.Location;
 

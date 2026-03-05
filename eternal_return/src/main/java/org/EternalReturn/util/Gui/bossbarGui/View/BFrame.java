@@ -1,7 +1,7 @@
-package org.EternalReturn.util.Gui.bossbarGui.View;
+package org.eternalreturn.util.Gui.bossbarGui.View;
 
-import org.EternalReturn.util.Geometry.MathVector.Vec2d;
-import org.EternalReturn.System.PluginInstance;
+import org.eternalreturn.util.Geometry.MathVector.Vec2d;
+import org.eternalreturn.system.PluginInstance;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -56,7 +56,6 @@ public class BFrame implements BComponentManager{
         this.components = new ArrayList<>(16);
         this.bComponents = new ArrayList<>(16);
         this.bButtons = new ArrayList<>(16);
-        this.audience = PluginInstance.adventure().player(player.getPlayer());
         this.currentButtonUnderCursor = null;
         this.name = name;
 

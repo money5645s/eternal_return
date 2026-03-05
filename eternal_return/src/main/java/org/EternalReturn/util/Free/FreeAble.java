@@ -1,4 +1,4 @@
-package org.EternalReturn.util.Free;
+package org.eternalreturn.util.Free;
 
 public interface FreeAble {
 

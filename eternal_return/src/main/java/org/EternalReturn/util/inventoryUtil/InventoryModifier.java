@@ -1,6 +1,6 @@
-package org.EternalReturn.util.inventoryUtil;
+package org.eternalreturn.util.inventoryUtil;
 
-import org.EternalReturn.System.PluginInstance;
+import org.eternalreturn.system.PluginInstance;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

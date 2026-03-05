@@ -1,4 +1,4 @@
-package org.EternalReturn.util.Gui.bossbarGui.Exception;
+package org.eternalreturn.util.Gui.bossbarGui.Exception;
 
 public class ButtonPolyNullException extends NullPointerException{
     public ButtonPolyNullException(String str){

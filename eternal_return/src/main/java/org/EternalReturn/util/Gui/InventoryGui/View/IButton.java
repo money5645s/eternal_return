@@ -1,4 +1,4 @@
-package org.EternalReturn.util.Gui.InventoryGui.View;
+package org.eternalreturn.util.Gui.InventoryGui.View;
 
 public abstract class IButton extends IComponent{
 

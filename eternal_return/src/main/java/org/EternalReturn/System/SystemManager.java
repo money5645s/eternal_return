@@ -1,12 +1,9 @@
-package org.EternalReturn.System;
+package org.eternalreturn.system;
 
-import org.EternalReturn.Area.ERAreaGraph;
-import org.EternalReturn.ERPlayer.ERPlayer;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import org.EternalReturn.ERPlayer.Gui.Inventory.UpgradeSystem.Model.Upgrader;
-import org.EternalReturn.util.itemUtill.CustomModelData;
-import org.EternalReturn.util.itemUtill.CustomModelDataManager;
-import org.EternalReturn.ERPlayer.Gui.Inventory.UpgradeSystem.Model.Enchanter;
+import org.eternalreturn.area.ERAreaSystem;
+import org.eternalreturn.erplayer.ERPlayer;
+import org.eternalreturn.util.itemUtill.CustomModelData;
+import org.eternalreturn.util.itemUtill.CustomModelDataManager;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,10 +18,6 @@ public class SystemManager {
     private static SystemManager instance;
     private static HashMap<Player, ERPlayer> erPlayerHashMap;
     private static List<ERPlayer> erPlayerList;
-    private static HashMap<UUID, Player> uuidPlayerHashMap;
-    private static BukkitAudiences bukkitAudiences;
-    private static Enchanter enchanter;
-    private static ERAreaGraph ERAreaGraph;
     private static CustomModelDataManager CustomModelDataManager;
 
     public static int RED_ZONE = 0;
@@ -64,23 +57,14 @@ public class SystemManager {
 
     //free (메모리 할당 해제)
     public void free() {
-        for(ERPlayer erPlayer : erPlayerHashMap.values()){
-            erPlayer.free();
-        }
         erPlayerList.clear();
         erPlayerHashMap.clear();
-        uuidPlayerHashMap.clear();
-        enchanter.free();
-        ERAreaGraph.free();
         CustomModelDataManager.free();
     }
 
     private SystemManager() {
         erPlayerList = new ArrayList<>();
         erPlayerHashMap = new HashMap<>();
-        uuidPlayerHashMap = new HashMap<>();
-        enchanter = new Upgrader();
-        ERAreaGraph = new ERAreaGraph(20);
         CustomModelDataManager = new CustomModelDataManager();
     }
 
@@ -96,44 +80,12 @@ public class SystemManager {
         return instance;
     }
 
-    public static Enchanter getEnchanter(){
-        return enchanter;
-    }
-
     public static @NotNull HashMap<Player, ERPlayer> getERPlayerHashMap(){
         return erPlayerHashMap;
     }
 
-    public static BukkitAudiences getBukkitAudiences(){
-        return bukkitAudiences;
-    }
-
-    public static ERAreaGraph getAreaGraph(){
-        return ERAreaGraph;
-    }
-
     public static CustomModelDataManager getCustomModelDataManager(){
         return CustomModelDataManager;
-    }
-
-    public static List<ERPlayer> getERPlayerList() {
-        return erPlayerList;
-    }
-
-    //setter
-    public static void addPlayer(Player p){//해시맵에서 플레이어 추가
-        ERPlayer erPlayer = new ERPlayer(p);
-        erPlayerList.add(erPlayer);
-        erPlayerHashMap.putIfAbsent(p,new ERPlayer(p));
-        uuidPlayerHashMap.putIfAbsent(p.getUniqueId(),p);
-    }
-
-    public static void removePlayer(Player p){//해시맵에서 플레이어 제거
-        ERPlayer erPlayer = erPlayerHashMap.get(p);
-        erPlayerList.remove(erPlayer);
-        erPlayerHashMap.remove(p);
-        uuidPlayerHashMap.remove(p.getUniqueId());
-        erPlayer.free();
     }
 
 }

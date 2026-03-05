@@ -1,4 +1,4 @@
-package org.EternalReturn.ERAnimal;
+package org.eternalreturn.eranimal;
 
 public class ERAnimalInfo {
 

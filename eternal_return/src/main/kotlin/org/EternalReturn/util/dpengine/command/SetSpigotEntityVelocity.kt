@@ -1,4 +1,4 @@
-package org.EternalReturn.util.dpengine.command
+package org.eternalreturn.util.dpengine.command
 
 import org.bukkit.entity.Entity
 import org.bukkit.util.Vector
@@ -10,11 +10,11 @@ class SetSpigotEntityVelocity(
 ) : Command(){
 
     override fun run() {
-        println("$entity's velocity = [${this.entity.velocity.x}, ${this.entity.velocity.y}, ${this.entity.velocity.z}]" )
+        //println("$entity's velocity = [${this.entity.velocity.x}, ${this.entity.velocity.y}, ${this.entity.velocity.z}]" )
 
         this.entity.velocity = Vector(x, y, z)
 
-        println("$entity's velocity = [${this.entity.velocity.x}, ${this.entity.velocity.y}, ${this.entity.velocity.z}]" )
+        //println("$entity's velocity = [${this.entity.velocity.x}, ${this.entity.velocity.y}, ${this.entity.velocity.z}]" )
 
     }
 }

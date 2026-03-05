@@ -1,14 +1,12 @@
-package org.EternalReturn.System;
+package org.eternalreturn.system;
 
 
 import java.io.UnsupportedEncodingException;
 
-import org.EternalReturn.ERPlayer.ERPlayerDebugCommand;
-import org.EternalReturn.ERPlayer.ERPlayerListener;
-import org.EternalReturn.ERPlayer.Gui.Inventory.InventoryGuiListener;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import org.EternalReturn.ERAnimal.ERAnimalManager;
-import org.EternalReturn.util.AJEntity.AJEntityManager;
+import org.eternalreturn.eranimal.managers.actors.ERAnimalManager;
+import org.eternalreturn.erplayer.ERPlayerDebugCommand;
+import org.eternalreturn.erplayer.ERPlayerListener;
+import org.eternalreturn.util.AJEntity.AJEntityManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -20,21 +18,12 @@ public final class PluginInstance extends JavaPlugin{
     private static PluginInstance serverInstance;
     private static AJEntityManager ajEntityManager;
     private static SystemManager systemManager;
-    private static BukkitAudiences adventure;
     private static ERAnimalManager erAnimalManager;
 
     /**
      * 나중에 병렬처리를 위해 List<>로 관리할 수도 있음.
      * */
     private static EREngine erEngine = new EREngine();
-
-    //BukkitAudience얻어오는 함수
-    public static @NotNull BukkitAudiences adventure(){
-        if(adventure == null){
-            throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
-        }
-        return adventure;
-    }
 
 
     //UTF-8로 인코딩 후 로거에게 전달하는 함수.
@@ -54,26 +43,20 @@ public final class PluginInstance extends JavaPlugin{
 
         //Animated JAVA Entity initialization
         ajEntityManager = AJEntityManager.registerAJEntityManager(this);
-        erAnimalManager = ERAnimalManager.registerERAnimalManager(ajEntityManager, erEngine = new EREngine());
+        
+        //ERAnimal들을 dpengine구현체에 register하는 구문
+        ERAnimalManager.initERAnimalManagers(ajEntityManager, erEngine);
 
         //시스템매니저 객체 생성
         systemManager = SystemManager.getInstance();
-        adventure = BukkitAudiences.create(this);
 
 
         //GuiOpen 리스너 등록. 이런 식으로 해야 함...
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new ERPlayerListener(), this);
-        pm.registerEvents(new InventoryGuiListener(), this);
         //pm.registerEvents(new BSwingListener(), this);
         pm.registerEvents(ajEntityManager, this);
         loadCommands();
-
-        //온라인인 플레이어들 다시 해시맵에 등록
-        for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
-            onlinePlayer.sendMessage("해시맵에 다시 등록");
-            systemManager.addPlayer(onlinePlayer);
-        }
 
 
         Bukkit.getScheduler().runTaskTimer(this, erEngine,0,1);
@@ -92,9 +75,6 @@ public final class PluginInstance extends JavaPlugin{
     public void onDisable() {
         systemManager.free();
         ajEntityManager.free();
-        if(adventure != null){
-            adventure.close();
-        }
     }
 
     public static PluginInstance getServerInstance(){

@@ -1,8 +1,8 @@
-package org.EternalReturn.EREntity
+package org.eternalreturn.erentity
 
-import org.EternalReturn.EREntity.Event.EREntityEvent
-import org.EternalReturn.System.EREngine
-import org.EternalReturn.util.dpengine.behaviour.Monobehaviour
+import org.eternalreturn.erentity.events.EREntityEvent
+import org.eternalreturn.system.EREngine
+import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
 import org.bukkit.entity.Entity
 
 abstract class EREntityMonobehaviour<T : EREntityEvent>() : Monobehaviour<T>() {
@@ -12,7 +12,7 @@ abstract class EREntityMonobehaviour<T : EREntityEvent>() : Monobehaviour<T>() {
     }
 
     val entity: Entity
-        get() = (super.actor as EREntity).entity!!
+        get() = (super.actor as EREntity).entity
 
     fun isNotEnd(startTimeMillis: Long, durationTicks: Long): Boolean {
         return System.currentTimeMillis() - startTimeMillis < durationTicks * 50

@@ -1,8 +1,8 @@
-package org.EternalReturn.EREntity.GlobalMonobehav
+package org.eternalreturn.erentity.globalmonobehav
 
-import org.EternalReturn.EREntity.EREntityMonobehaviour
-import org.EternalReturn.EREntity.Event.EREntityStunEvent
-import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.erentity.EREntityMonobehaviour
+import org.eternalreturn.erentity.events.EREntityStunEvent
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Location
 import org.bukkit.Particle
 

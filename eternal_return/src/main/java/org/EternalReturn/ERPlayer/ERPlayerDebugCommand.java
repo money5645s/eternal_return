@@ -1,20 +1,20 @@
-package org.EternalReturn.ERPlayer;
+package org.eternalreturn.erplayer;
 
-import org.EternalReturn.ERAnimal.*;
-import org.EternalReturn.ERCharacter.Character.adriana.Character_Adriana;
-import org.EternalReturn.ERCharacter.Character.fiora.Character_Fiora;
-import org.EternalReturn.ERCharacter.Character.hart.Character_Hart;
-import org.EternalReturn.ERCharacter.Character.hyunwoo.Character_Hyunwoo;
-import org.EternalReturn.ERCharacter.Character.isaac.Character_Isaac;
-import org.EternalReturn.ERCharacter.Character.jackie.Character_Jackie;
-import org.EternalReturn.ERCharacter.Character.lidailin.Character_LiDailin;
-import org.EternalReturn.ERCharacter.Character.nathapon.Character_Nathapon;
-import org.EternalReturn.ERCharacter.Character.yuki.Character_Yuki;
-import org.EternalReturn.ERCharacter.ERCharacter;
-import org.EternalReturn.EREntity.ERDummy;
-import org.EternalReturn.System.PluginInstance;
-import org.EternalReturn.System.SystemManager;
-import org.EternalReturn.util.AJEntity.AJEntityManager;
+import org.eternalreturn.ercharacter.character.adriana.Character_Adriana;
+import org.eternalreturn.ercharacter.character.fiora.Character_Fiora;
+import org.eternalreturn.ercharacter.character.hart.Character_Hart;
+import org.eternalreturn.ercharacter.character.hyunwoo.Character_Hyunwoo;
+import org.eternalreturn.ercharacter.character.isaac.Character_Isaac;
+import org.eternalreturn.ercharacter.character.jackie.Character_Jackie;
+import org.eternalreturn.ercharacter.character.jan.Character_Jan;
+import org.eternalreturn.ercharacter.character.lidailin.Character_LiDailin;
+import org.eternalreturn.ercharacter.character.nathapon.Character_Nathapon;
+import org.eternalreturn.ercharacter.character.yuki.Character_Yuki;
+import org.eternalreturn.ercharacter.ERCharacter;
+import org.eternalreturn.ercharacter.event.CharacterParabolicFlyEvent;
+import org.eternalreturn.erentity.ERDummy;
+import org.eternalreturn.system.PluginInstance;
+import org.eternalreturn.util.AJEntity.AJEntityManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
 public class ERPlayerDebugCommand implements CommandExecutor {
-    private ERAJEntity testAnimal;
+    private org.eternalreturn.eranimal.ERAJEntity testAnimal;
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -45,7 +45,6 @@ public class ERPlayerDebugCommand implements CommandExecutor {
         }
 
         Player p = (Player)sender;
-        ERPlayer erPlayer = SystemManager.getERPlayer(p);
         Set<String> tagSet = p.getScoreboardTags();
         if(args.length == 1 && args[0].equalsIgnoreCase("showtags")){
             p.sendMessage(tagSet.toString());
@@ -98,55 +97,77 @@ public class ERPlayerDebugCommand implements CommandExecutor {
                 return true;
             }
 
+            var engine = PluginInstance.getEREngine();
+
             String charName = args[1].toLowerCase();
             ERCharacter character = null;
-
             // 입력된 이름에 따라 캐릭터 인스턴스 생성
             switch (charName) {
                 case "lidailin":
-                    character = new Character_LiDailin(erPlayer);
+                    character = new Character_LiDailin(engine, p);
                     break;
                 case "fiora":
-                    character = new Character_Fiora(erPlayer);
+                    character = new Character_Fiora(engine, p);
                     break;
                 case "hart":
-                    character = new Character_Hart(erPlayer);
+                    character = new Character_Hart(engine, p);
                     break;
                 case "isaac":
-                    character = new Character_Isaac(erPlayer);
+                    character = new Character_Isaac(engine, p);
                     break;
                 case "jackie":
-                    character = new Character_Jackie(erPlayer);
+                    character = new Character_Jackie(engine, p);
                     break;
                 case "nathapon":
-                    character = new Character_Nathapon(erPlayer);
+                    character = new Character_Nathapon(engine, p);
                     break;
                 case "adriana":
-                    character = new Character_Adriana(erPlayer);
+                    character = new Character_Adriana(engine, p);
                     break;
                 case "hyunwoo":
-                    character = new Character_Hyunwoo(erPlayer);
+                    character = new Character_Hyunwoo(engine, p);
                     break;
                 case "yuki":
-                    character = new Character_Yuki(erPlayer);
+                    character = new Character_Yuki(engine, p);
+                    break;
+                case "jan":
+                    character = new Character_Jan(engine, p);
                     break;
                 default:
                     p.sendMessage("§c알 수 없는 캐릭터입니다: " + charName);
                     return true;
             }
+            
+            PluginInstance.getEREngine().registerBukkitActor(p, character);
+            p.sendMessage("§a캐릭터가 변경되었습니다: §f" + character.getName());
 
-            if (character != null) {
-                erPlayer.setCharacter(character);
-                PluginInstance.getEREngine().registerBukkitActor(p, character);
-                p.sendMessage("§a캐릭터가 변경되었습니다: §f" + character.getName());
-            }
             return true;
         }
 
         else if(args.length == 1 && args[0].equalsIgnoreCase("dummy")){
+            
+            var engine = PluginInstance.getEREngine();
+            var erPlayer = (ERPlayer)engine.getEREntity(p);
             Entity dummy = p.getWorld().spawnEntity(p.getLocation(), EntityType.VILLAGER);
-            PluginInstance.getEREngine().registerBukkitActor(dummy, new ERDummy(dummy));
-            erPlayer.sendMessage("Dummy set");
+            engine.registerBukkitActor(
+                    dummy,
+                    new ERDummy(engine, dummy, engine.createOrientedBox(p.getLocation(),1.0/2,3.0/2,1.0/2)));
+            p.sendMessage("Dummy set");
+        }
+
+        else if(args.length == 5 && args[0].equalsIgnoreCase("parabola")) {
+            var engine = PluginInstance.getEREngine();
+            var erPlayer = (ERPlayer)engine.getEREntity(p);
+            double dx, dy, dz, height;
+            dx = Double.parseDouble(args[1]);
+            dy = Double.parseDouble(args[2]);
+            dz = Double.parseDouble(args[3]);
+            height = Double.parseDouble(args[4]);
+            erPlayer.submitEvent(new CharacterParabolicFlyEvent(dx, dy, dz, height, 1.5));
+        }
+
+        else if(args.length == 1 && args[0].equalsIgnoreCase("r")){
+
         }
 
         return false;

@@ -9,8 +9,8 @@ version = '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
     maven {
-        name = "spigotmc-repo"
-        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
     }
     maven {
         name = "sonatype"
@@ -20,14 +20,12 @@ repositories {
 
 dependencies {
 
-    compileOnly("org.spigotmc:spigot-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
 
     //코틀린 스탠다드 라이브러리
     implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.0"
 
-    implementation "net.kyori:adventure-api:4.24.0"
-    implementation "net.kyori:adventure-platform-bukkit:4.4.1"
-    implementation "com.googlecode.json-simple:json-simple:1.1.1"
+    implementation "it.unimi.dsi:fastutil:8.5.15"
     implementation 'com.google.code.gson:gson:2.10.1'
 }
 
@@ -61,7 +59,7 @@ processResources {
 
 jar{
     archiveFileName = 'eternal_return.jar'
-    destinationDirectory = file("E:\\다운로드\\마크 1.21.11 서버\\plugins")
+    destinationDirectory = file("E:\\다운로드\\마크 1.21.11 서버 paper\\plugins")
     manifest{
         attributes 'Main-Class': 'eternal_return.system.PluginInstance'
     }

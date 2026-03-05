@@ -1,0 +1,42 @@
+package org.eternalreturn.ercharacter.character.lidailin
+
+import org.eternalreturn.ercharacter.character.lidailin.event.DrunkTimerEvent
+import org.eternalreturn.ercharacter.character.lidailin.Character_LiDailin
+import org.eternalreturn.erentity.EREntityMonobehaviour
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+
+// 취기 클래스
+class DrunkTimer : EREntityMonobehaviour<DrunkTimerEvent>() {
+
+    var tick = 0;
+
+    override fun start(event: DrunkTimerEvent) {
+        tick = 0;
+    }
+
+    override fun update(eventList: MutableCollection<MonobehaviourEvent>) {
+        val liDailin = actor as Character_LiDailin
+        for (event in eventList) {
+            if (event is DrunkTimerEvent) {
+//                liDailin.player.sendMessage("§a[시스템] 취기 타이머가 초기화되었습니다.")
+                this.tick = 0
+            }
+        }
+
+//        liDailin.player.sendMessage("${tick}")
+        tick++
+
+        if(tick >= 140){
+            if (liDailin.isDrunk) {
+                liDailin.player.sendMessage("§7[리 다이린] 맨정신이 되었습니다.")
+                liDailin.isDrunk = false
+            } else if (liDailin.drinkCount > 0) {
+                liDailin.player.sendMessage("§7[리 다이린] 취기가 사라졌습니다.")
+                liDailin.drinkCount = 0
+            }
+            tick = 0
+            stopMonobehav() // 타이머 종료
+        }
+
+    }
+}

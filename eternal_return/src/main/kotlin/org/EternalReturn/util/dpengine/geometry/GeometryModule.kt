@@ -1,6 +1,6 @@
-package org.EternalReturn.util.dpengine.geometry
+package org.eternalreturn.util.dpengine.geometry
 
-import org.EternalReturn.util.dpengine.DPEngine
+import org.eternalreturn.util.dpengine.DPEngine
 import org.bukkit.Location
 import org.joml.Quaterniond
 import org.joml.Vector3d
@@ -10,6 +10,7 @@ import kotlin.math.min
 import kotlin.math.sqrt
 
 public open class GeometryModule(val dpEngine : DPEngine, buffSize : Int = 512) : MatVecCalculator(buffSize) {
+
 
     /**
      *

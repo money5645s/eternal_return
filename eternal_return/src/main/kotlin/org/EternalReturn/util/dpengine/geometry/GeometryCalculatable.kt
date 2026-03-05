@@ -1,7 +1,7 @@
-package org.EternalReturn.util.geometryModule.Geometry
+package org.eternalreturn.util.geometryModule.Geometry
 
-import org.EternalReturn.util.dpengine.geometry.GeometryModule
-import org.EternalReturn.util.dpengine.geometry.Vector3
+import org.eternalreturn.util.dpengine.geometry.GeometryModule
+import org.eternalreturn.util.dpengine.geometry.Vector3
 import kotlin.math.sqrt
 
 

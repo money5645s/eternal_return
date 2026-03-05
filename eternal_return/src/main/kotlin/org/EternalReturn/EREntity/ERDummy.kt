@@ -1,24 +1,16 @@
-package org.EternalReturn.EREntity
+package org.eternalreturn.erentity
 
-import org.EternalReturn.System.PluginInstance
+import org.eternalreturn.system.PluginInstance
 import org.bukkit.entity.Entity
-import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
+import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.system.EREngine
+import org.eternalreturn.util.dpengine.DPEngine
+import org.eternalreturn.util.dpengine.geometry.Collider
 
-class ERDummy(entity: Entity) : EREntity(
-    PluginInstance.getEREngine().createCylinder(
-        PluginInstance.getEREngine().createInfStrightLine(
-            0.0, 1.0, 0.0,
-            entity.getLocation().getX(),
-            entity.getLocation().getY(),
-            entity.getLocation().getZ()
-        ),
-        1.0, 3.0
-    )
-) {
+class ERDummy(engine : EREngine, entity: Entity, collider: Collider) : EREntity(engine, entity, 0.5, 1.0, 0.5, 0.0, 1.0 ,0.0) {
     init {
-        this.entity = entity
-//        (entity as LivingEntity).setAI(false)
-
-        //        registerMonobehaviour(new InfinityHealing());
+        //(entity as LivingEntity).setAI(false)
+        //registerMonobehaviour(new InfinityHealing());
     }
 }

@@ -1,4 +1,4 @@
-package org.EternalReturn.util.dpengine.geometry
+package org.eternalreturn.util.dpengine.geometry
 
 import org.joml.Quaterniond
 

@@ -1,4 +1,4 @@
-package org.EternalReturn.util.DataStructure;
+package org.eternalreturn.util.DataStructure;
 
 import java.util.ArrayList;
 import java.util.HashMap;

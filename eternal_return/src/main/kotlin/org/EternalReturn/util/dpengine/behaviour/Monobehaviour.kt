@@ -1,7 +1,7 @@
-package org.EternalReturn.util.dpengine.behaviour
+package org.eternalreturn.util.dpengine.behaviour
 
-import org.EternalReturn.util.dpengine.DPEngine
-import org.EternalReturn.util.geometryModule.Geometry.GeometryCalculatable
+import org.eternalreturn.util.dpengine.DPEngine
+import org.eternalreturn.util.geometryModule.Geometry.GeometryCalculatable
 import java.lang.reflect.ParameterizedType
 
 
@@ -48,6 +48,7 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
 
     fun dispatchEvent(event: MonobehaviourEvent) {
         check(eventType.isInstance(event)) { "Wrong event type: " + event.javaClass }
+        //println("DispatchedEvent : " + event);
         startMonobehav(eventType.cast(event))
         this.state = State.RUNNING
     }

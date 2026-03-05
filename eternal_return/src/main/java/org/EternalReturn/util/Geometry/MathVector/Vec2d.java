@@ -1,4 +1,4 @@
-package org.EternalReturn.util.Geometry.MathVector;
+package org.eternalreturn.util.Geometry.MathVector;
 
 public class Vec2d{
 

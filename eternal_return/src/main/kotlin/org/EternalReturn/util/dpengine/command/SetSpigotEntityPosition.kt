@@ -1,4 +1,4 @@
-package org.EternalReturn.util.dpengine.command
+package org.eternalreturn.util.dpengine.command
 
 import org.bukkit.entity.Entity
 

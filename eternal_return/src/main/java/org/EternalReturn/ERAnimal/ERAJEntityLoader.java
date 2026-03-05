@@ -1,11 +1,10 @@
-package org.EternalReturn.ERAnimal;
+package org.eternalreturn.eranimal;
 
 import com.google.gson.Gson;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -43,8 +42,8 @@ public class ERAJEntityLoader {
 
     }
 
-    public HashMap<String, AreaERAnimalInfo> load(){
-        HashMap<String, AreaERAnimalInfo> areaInfoMap = new HashMap<>();
+    public List<AreaERAnimalInfo> load(){
+        List<AreaERAnimalInfo> areaInfoMap = new ArrayList<>();
 
         for (ERAJEntityLoader.JsonArea area : root.location()) {
 
@@ -62,10 +61,7 @@ public class ERAJEntityLoader {
                 ));
             }
 
-            areaInfoMap.put(
-                    area.name(),
-                    new AreaERAnimalInfo(area.name(), animals)
-            );
+            areaInfoMap.add(new AreaERAnimalInfo(area.name(), animals));
         }
 
         return areaInfoMap;
@@ -74,9 +70,10 @@ public class ERAJEntityLoader {
 
     public static void main(String[] args){
         ERAJEntityLoader loader = new ERAJEntityLoader("animal.json");
-        HashMap<String,AreaERAnimalInfo> map = loader.load();
+        List<AreaERAnimalInfo> list = loader.load();
 
-        for(AreaERAnimalInfo info : map.values()){
+        for(AreaERAnimalInfo info : list){
+            System.out.println(info.name());
             System.out.println(info);
         }
 

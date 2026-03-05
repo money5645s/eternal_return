@@ -1,12 +1,9 @@
-package org.EternalReturn.util.AJEntity;
+package org.eternalreturn.util.AJEntity;
 
-import org.EternalReturn.System.PluginInstance;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
 import java.util.HashMap;
-
 
 
 /**
@@ -26,7 +23,7 @@ public abstract class AJEntity{
 
     protected String name;
 
-    protected HashMap<String, AJAnimationInfoBlock> animationMap;
+    protected HashMap<String, AJAnimation> animationMap;
 
     /**
      * 현재 실행 중인 애니메이션의 상태 <br>
@@ -58,9 +55,7 @@ public abstract class AJEntity{
      *
      * */
     public void remove(){
-        Bukkit.dispatchCommand(
-                Bukkit.getConsoleSender(),
-                getExecuteAsRunFuncPrefix() + "animated_java:" + this.name + "/remove/this");
+        AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + "animated_java:" + this.name + "/remove/this");
     }
 
     /**
@@ -73,9 +68,26 @@ public abstract class AJEntity{
     public void registerAnimation(String animationState,double durationSeconds){
         animationMap.put(
                 animationState,
-                new AJAnimationInfoBlock(
+                new AJAnimation(
                          "animated_java:"+this.name+"/animations/"+animationState,
                         (long)durationSeconds * 20
+                )
+        );
+    }
+
+    /**
+     * 애니메이션을 등록하는 메소드.<br>
+     * HashMap<>에 다음과 같이 등록된다
+     * <code>
+     *     .put(animationState,"animated_java:"+this.name+"/animations/"+animationState);
+     * <code/>
+     * */
+    public void registerAnimation(String animationState,long durationTicks){
+        animationMap.put(
+                animationState,
+                new AJAnimation(
+                        "animated_java:"+this.name+"/animations/"+animationState,
+                        durationTicks
                 )
         );
     }
@@ -88,7 +100,7 @@ public abstract class AJEntity{
      * */
     public void playAnimForce(String selectedAnimation)throws AJAnimationNotFoundException{
 
-        AJAnimationInfoBlock acb = this.animationMap.get(selectedAnimation);
+        AJAnimation acb = this.animationMap.get(selectedAnimation);
         long durationTicks = acb.durationTicks();
         long currentTime = System.currentTimeMillis();
         String animation = acb.animation();
@@ -115,7 +127,7 @@ public abstract class AJEntity{
      * */
     public void playAnim(String selectedAnimation)throws AJAnimationNotFoundException{
 
-        AJAnimationInfoBlock acb = this.animationMap.get(selectedAnimation);
+        AJAnimation acb = this.animationMap.get(selectedAnimation);
         long durationTicks = acb.durationTicks();
         long currentTime = System.currentTimeMillis();
         String animation = acb.animation();
@@ -139,8 +151,8 @@ public abstract class AJEntity{
         this.animationEndTime = durationTicks * 50 + currentTime;
         this.animationState = ANIMATION_STATE.PLAY;
         String command = getExecuteAsRunFuncPrefix() + animation + "/play";
-        PluginInstance.dfLogUTF8(command);
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+        //PluginInstance.dfLogUTF8(command);
+        AJEntityManager.sendCommand(command);
     }
 
     /**
@@ -149,9 +161,7 @@ public abstract class AJEntity{
      * */
     public void pauseAnim(){
         this.animationState = ANIMATION_STATE.PAUSE;
-        Bukkit.dispatchCommand(
-                Bukkit.getConsoleSender(),
-                getExecuteAsRunFuncPrefix() + animationPlaying + "/pause");
+        AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + animationPlaying + "/pause");
     }
 
     /**
@@ -165,7 +175,7 @@ public abstract class AJEntity{
      * 해당하는 애니메이션이 실행 중인지 확인하는 쿼리함수
      * */
     public boolean isPlaying(String animation){
-        AJAnimationInfoBlock acb = this.animationMap.get(animation);
+        AJAnimation acb = this.animationMap.get(animation);
         return acb.animation().equals(animationPlaying) && isCurrentAnimEnd();
     }
 
@@ -175,11 +185,11 @@ public abstract class AJEntity{
      * getAnimationState()메소드로 얻을 수 있는 값은 ANIMATION_STOP의 값이 된다.
      * */
     public void stopAnim(){
-        Bukkit.dispatchCommand(
-                Bukkit.getConsoleSender(),
-                getExecuteAsRunFuncPrefix() + animationPlaying + "/stop");
-        this.animationState = ANIMATION_STATE.STOP;
-        this.animationPlaying = null;
+        if(animationState == ANIMATION_STATE.PLAY){
+            AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + animationPlaying + "/stop");
+            this.animationState = ANIMATION_STATE.STOP;
+            this.animationPlaying = null;
+        }
     }
 
     /**

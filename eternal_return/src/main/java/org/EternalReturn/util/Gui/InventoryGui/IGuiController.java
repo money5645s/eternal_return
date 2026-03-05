@@ -1,6 +1,6 @@
-package org.EternalReturn.util.Gui.InventoryGui;
+package org.eternalreturn.util.Gui.InventoryGui;
 
-import org.EternalReturn.util.Gui.InventoryGui.View.GuiPos;
+import org.eternalreturn.util.Gui.InventoryGui.View.GuiPos;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 

@@ -1,4 +1,4 @@
-package org.EternalReturn.util.DataStructure.Graph;
+package org.eternalreturn.util.DataStructure.Graph;
 
 import java.util.*;
 
@@ -84,6 +84,12 @@ public class Graph<T>{
 
     public Vertex<T> getVertex(T data){
         return vertices.get(data);
+    }
+
+    public void modifyAs(Graph<T> graph){
+        this.vertexList = graph.vertexList;
+        this.vertices = graph.vertices;
+        this.edges = graph.edges;
     }
 
 }

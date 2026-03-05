@@ -1,106 +1,140 @@
-package org.EternalReturn.EREntity
+package org.eternalreturn.erentity
 
-import org.EternalReturn.ERCharacter.Character.fiora.ToucheCount
-import org.EternalReturn.ERCharacter.Character.fiora.ToucheEffect
-import org.EternalReturn.ERCharacter.Character.hart.Passive_Timer
-import org.EternalReturn.ERCharacter.Character.isaac.PassiveCount
-import org.EternalReturn.ERCharacter.Character.lidailin.DrunkTimer
-import org.EternalReturn.ERCharacter.Character.lidailin.LiDailinPassiveTimer
-import org.EternalReturn.EREntity.GlobalMonobehav.Stun
-import org.EternalReturn.System.PluginInstance
-import org.EternalReturn.util.dpengine.behaviour.Monobehaviour
-import org.EternalReturn.util.dpengine.behaviour.MonobehaviourActor
-import org.EternalReturn.util.dpengine.behaviour.MonobehaviourEvent
-import org.EternalReturn.util.dpengine.command.SetSpigotEntityPosition
-import org.EternalReturn.util.dpengine.command.SetSpigotEntityVelocity
-import org.EternalReturn.util.dpengine.geometry.Collider
-import org.EternalReturn.util.dpengine.geometry.GeometryModule
-import org.EternalReturn.util.dpengine.geometry.Vector3
-import org.bukkit.Location
 import org.bukkit.entity.Entity
+import org.eternalreturn.ercharacter.character.fiora.ToucheCount
+import org.eternalreturn.ercharacter.character.fiora.ToucheEffect
+import org.eternalreturn.ercharacter.character.hart.HartActiveTimer
+import org.eternalreturn.ercharacter.character.hart.Passive_Timer
+import org.eternalreturn.ercharacter.character.isaac.PassiveCount
+import org.eternalreturn.ercharacter.character.lidailin.DrunkTimer
+import org.eternalreturn.ercharacter.character.lidailin.LiDailinPassiveTimer
+import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
+import org.eternalreturn.erentity.globalmonobehav.Stun
+import org.eternalreturn.system.EREngine
+import org.eternalreturn.ercharacter.CooldownDisplay
+import org.eternalreturn.ercharacter.character.jan.JanPassiveTimer
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.command.AddSpigotEntityVelocity
+import org.eternalreturn.util.dpengine.command.SetSpigotEntityPosition
+import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
+import org.eternalreturn.util.dpengine.geometry.Vector3
+import org.eternalreturn.util.dpengine.physics.Handle
+import java.util.Vector
 import kotlin.math.cos
 import kotlin.math.sin
 
 /**
  * 모든 EREntity의 Subclass에게 동시에 통용되는 성질을 저장하는 곳.
- *  - 생성자에 위험한 구문이 껴 있음. 그것만큼은 알아둘 것.
- *  - Entity는 처음에 init 되어있지 않음. 수동적으로 set 해주어야 함.
+ * 자신의 위치를 저장하는 Handle을 소유한다.
  */
 abstract class EREntity( // extends MonobehaviourActor()
-
+    erEngine: EREngine,
+    val entity : Entity,
+    obbHalfX : Double, obbHalfY : Double, obbHalfZ : Double,
+    obbLocX : Double, obbLocY : Double, obbLocZ : Double
     /**
      * 해당 MonobehaviourActor의 Collider 설정
      */
-    val collider: Collider
-) : MonobehaviourActor() {
+) : MonobehaviourActor(erEngine) {
+
+    val erEngine : EREngine
+        get(){
+            return dpEngine as EREngine;
+        }
+
+    var maxRange : Double = 5.0; //바뀔 수 있음
+
+    val transformHandle : Handle = erEngine.transformSoA.create(
+        entity.location.x, entity.location.y,entity.location.z,
+        0.0, 0.0, 0.0 );
+
+    val obbHandle : Handle = erEngine.orientedBoxSoA.create(transformHandle,
+        obbHalfX, obbHalfY, obbHalfZ,
+        obbLocX, obbLocY, obbLocZ
+    );
+
+    init{
+        transformHandle.actor = this;
+        obbHandle.actor = this;
+        println("[SoA CREATE] ${this.javaClass.simpleName} T${transformHandle.entityID} | O${obbHandle.entityID}")
+    }
+
+    private var shootRay : Boolean = false;
+    fun isShootingRay() : Boolean{
+        val ret = shootRay;
+        shootRay = false;
+        return ret;
+    }
+    fun shootRay(){
+        shootRay = true;
+    }
 
     /**
-     * 해당 MonobehaviourActor의 MNS 객체 설정
-     */
-    var entity: Entity? = null
-
-    val geometryModule : GeometryModule;
+     * 해당 객체를 소유하고 있는 EREngine의 삭제 리스트에 해당 객체를 삽입한다.
+     * */
+    override fun remove(){
+        if(referenceCount == 0)return;
+        super.remove();
+        erEngine.remove(this);
+    }
 
     init {
-
-
-        /**이거 존나 위험한 구문임. 나중에 어떻게든 수정해야 할 것. */
-        val monobehaviourModule = PluginInstance.getEREngine().monobehaviourModule;
-        monobehaviourModule.registerMonobehaviourActor(this);
-        this.monobehaviourModule = monobehaviourModule;
-        geometryModule = monobehaviourModule.dpEngine.geometryModule;
-        /**이거 존나 위험한 구문임. 나중에 어떻게든 수정해야 할 것.
-         * 해당 구문의 책임은 DPEngine에게 위임해야 할 것.
-         * */
-
         //Monobehaviour 등록
-        this.registerMonobehaviour(Stun() as Monobehaviour<out MonobehaviourEvent>)
-        this.registerMonobehaviour(ToucheCount() as Monobehaviour<out MonobehaviourEvent>)
-        this.registerMonobehaviour(ToucheEffect() as Monobehaviour<out MonobehaviourEvent>)
-        this.registerMonobehaviour(Passive_Timer() as Monobehaviour<out MonobehaviourEvent>)
-        this.registerMonobehaviour(LiDailinPassiveTimer() as Monobehaviour<out MonobehaviourEvent>)
-        this.registerMonobehaviour(PassiveCount() as Monobehaviour<out MonobehaviourEvent>)
-        this.registerMonobehaviour(DrunkTimer() as Monobehaviour<out MonobehaviourEvent>)
+        this.registerMonobehaviour(Stun())
+        this.registerMonobehaviour(ToucheCount())
+        this.registerMonobehaviour(ToucheEffect())
+        this.registerMonobehaviour(Passive_Timer())
+        this.registerMonobehaviour(LiDailinPassiveTimer())
+        this.registerMonobehaviour(PassiveCount())
+        this.registerMonobehaviour(DrunkTimer())
+        this.registerMonobehaviour(HartActiveTimer())
+        this.registerMonobehaviour(EntityRayCastingMeleeAttack())
+        this.registerMonobehaviour(CooldownDisplay())
+        this.registerMonobehaviour(JanPassiveTimer())
     }
 
     /**
      * 플레이어의 위치벡터 + 방향벡터를 얻어온다.
      * No Scoping
      */
-
     fun getDirection(): Vector3 {
-        val location = entity!!.location
+        val location = entity.location
         val radX = Math.toRadians(location.yaw.toDouble())
         val radY = Math.toRadians(location.pitch.toDouble())
         val xz = cos(radY)
         return this.geometryModule.vec3(-xz * sin(radX), -sin(radY), xz * cos(radX));
     }
 
-    fun getPosition(): Vector3 {
-        val location = entity!!.location
+    open fun getPosition(): Vector3 {
+        val location = entity.location
         return this.geometryModule.vec3(location.x, location.y, location.z)
     }
 
-    fun setPosition(pos : Vector3) {
+    open fun setPosition(pos : Vector3) {
         val x = geometryModule.x(pos);
         val y = geometryModule.y(pos);
         val z = geometryModule.z(pos);
-        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityPosition(entity!!, x, y, z))
+        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityPosition(entity, x, y, z))
     }
 
-    fun setVelocity(pos : Vector3){
-        val x = geometryModule.x(pos);
-        val y = geometryModule.y(pos);
-        val z = geometryModule.z(pos);
-        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity!!, x, y, z))
+    open fun setVelocity(vec : Vector3){
+        val x = geometryModule.x(vec);
+        val y = geometryModule.y(vec);
+        val z = geometryModule.z(vec);
+        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity, x, y, z))
     }
 
-    override fun update(){
-        if (entity == null)return;
-        val loc: Location = entity!!.location
-        val collider: Collider = collider
-        collider.setPosition(loc.x, loc.y, loc.z)
-        collider.setDirection(0.0, loc.pitch.toDouble(), 0.0)
+    open fun setVelocity(x : Double, y : Double, z : Double){
+        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity, x, y, z))
     }
+
+    open fun addVelocity(x : Double, y : Double, z : Double){
+        this.geometryModule.dpEngine.appendCommandQueue(AddSpigotEntityVelocity(entity, x, y, z))
+    }
+
+    open fun addMonobehaviour(monobehav: org.eternalreturn.util.dpengine.behaviour.Monobehaviour<*>) {
+        this.registerMonobehaviour(monobehav)
+    }
+
 
 }

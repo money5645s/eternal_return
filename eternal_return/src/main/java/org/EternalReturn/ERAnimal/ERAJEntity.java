@@ -1,11 +1,14 @@
-package org.EternalReturn.ERAnimal;
+package org.eternalreturn.eranimal;
 
-import org.EternalReturn.EREntity.EREntity;
-import org.EternalReturn.ERPlayer.ERPlayer;
-import org.EternalReturn.System.SystemManager;
-import org.EternalReturn.util.AJEntity.AJEntity;
-import org.EternalReturn.util.AJEntity.AJEntityManager;
-import org.EternalReturn.util.Geometry.MathVector.Vec3d;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
+import org.eternalreturn.erplayer.ERPlayer;
+import org.eternalreturn.system.PluginInstance;
+import org.eternalreturn.system.SystemManager;
+import org.eternalreturn.util.AJEntity.AJEntity;
+import org.eternalreturn.util.AJEntity.AJEntityManager;
+import org.eternalreturn.util.Geometry.MathVector.Vec3d;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -13,17 +16,10 @@ import org.bukkit.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.Objects;
 
 
 public class ERAJEntity extends AJEntity {
-
-    /**
-     * afterSpawnEvent 이후 entity 필드 초기화됨
-     * 그때까지는 erEntity.entity == null
-     * */
-    protected EREntity erEntity;
 
     protected boolean isHit;
 
@@ -32,7 +28,7 @@ public class ERAJEntity extends AJEntity {
     protected Husk actor;
 
     private TextDisplay hpbar;
-    
+
     /**
      * 해당 엔티티가 얼마나 많은 플레이어에게 보여지고 있는지 저장
      * */
@@ -55,7 +51,17 @@ public class ERAJEntity extends AJEntity {
     }
 
     public void summon() {
-        AJEntityManager.summon(this, location);
+        AJEntityManager.summon(this, location, 0.0, 0.0 ,0.0);
+        this.isShown = true;
+    }
+
+    public void summon(double lx, double ly, double lz) {
+        AJEntityManager.summon(this, location, lx, ly, lz);
+        this.isShown = true;
+    }
+
+    public void setDebugDisplay(String str) {
+        this.hpbar.text(Component.text(str));
     }
 
 
@@ -73,20 +79,14 @@ public class ERAJEntity extends AJEntity {
         this.isHit = false;
     }
 
-    @Override
-    protected void afterSummoning() {
+    /**
+     *
+     * */
+    @Override protected void afterSummoning() {
         World world = location.getWorld();
         if(world == null){
             throw new NullPointerException("전달된 매개변수 Location에 World 정보가 없습니다.");
         }
-
-        //해당 AJEntity를 조종할 엔티티를 Actor라고 한다.
-        //해당 Actor 위에 AJEntity를 태운다.
-        actor = (Husk) world.spawnEntity(location, EntityType.HUSK);
-        actor.setAdult();
-        actor.setAI(false);
-        actor.setInvisible(true);
-        actor.setSilent(true);
 
         hpbar = (TextDisplay) world.spawnEntity(location, EntityType.TEXT_DISPLAY);
 
@@ -105,23 +105,18 @@ public class ERAJEntity extends AJEntity {
     public void remove() {
         if(rootEntity != null){
             super.remove();
-            this.actor.remove();
         }
+        if(actor != null){
+            actor.remove();
+        }
+        this.isShown = false;
     }
 
     @Override
     protected void afterSpawnEvent(Entity spawnedRootEntity){
-        if(actor == null){
-            throw new NullPointerException("ACTOR가 null입니다.");
-        }
-
-        ///actor(CraftHusk)에 2개 이상의 엔티티를 태우려고 시도 시에는 전부 다 내려지는 버그가 있음.
-        //
-
         rootEntity = spawnedRootEntity;
         rootEntity.addPassenger(hpbar);
-        actor.addPassenger(rootEntity);
-        erEntity.setEntity(actor);
+        System.out.println("rootEntity가 성공적으로 전달되었습니다.");
     }
 
 
@@ -135,39 +130,24 @@ public class ERAJEntity extends AJEntity {
     }
 
     /**
+     * 해당 객체의 Actor을 설정한다. (invisible, adult, silent, invulnerable)
+     * */
+    public void setActor(Husk actor){
+        this.actor = actor;
+        var attribute = this.actor.getAttribute(Attribute.ATTACK_DAMAGE);
+        Objects.requireNonNull(attribute).setBaseValue(0.0);
+        this.actor.setAdult();
+        this.actor.setSilent(true);
+        this.actor.setInvisible(true);
+        this.actor.setInvulnerable(true);
+        this.actor.addPassenger(this.rootEntity);
+    }
+
+    /**
      * 해당 ER Animal의 Bar(체력, 이름, 레벨 등을 표시하는 막대)를 가져온다.
      * */
     public TextDisplay getBar(){
         return this.hpbar;
-    }
-
-    /**
-     * 선형탐색을 통해 범위 내의 플레이어를 가져옴 O(N)
-     * */
-    protected List<ERPlayer> getPlayersInRange(double radius) {
-        double r2 = radius * radius;
-
-        List<ERPlayer> list = new ArrayList<>(32);
-        List<ERPlayer> epList = SystemManager.getERPlayerList();
-
-        for(ERPlayer ep : epList){
-            if(getDistSq(ep) < r2){
-                list.add(ep);
-            }
-        }
-        return list;
-    }
-
-    public Vec3d getPos(){
-        return new Vec3d(actor.getLocation());
-    }
-
-
-    /**
-     * 플레이어와의 거리의 제곱을 구하는 클래스.
-     * */
-    private double getDistSq(ERPlayer ep){
-        return Vec3d.getSquareDistance(ep.getPos(), new Vec3d(actor.getLocation()));
     }
 
     /**
@@ -186,7 +166,4 @@ public class ERAJEntity extends AJEntity {
         return this.isShown;
     }
 
-    public void setShown(boolean bool){
-        this.isShown = bool;
-    }
 }

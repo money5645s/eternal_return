@@ -1,4 +1,4 @@
-package org.EternalReturn.util.itemUtill;
+package org.eternalreturn.util.itemUtill;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

@@ -1,16 +1,22 @@
-package org.EternalReturn.util.dpengine
+package org.eternalreturn.util.dpengine
 
-import org.EternalReturn.util.dpengine.behaviour.MonobehaviourActor
-import org.EternalReturn.util.dpengine.behaviour.MonobehaviourModule
-import org.EternalReturn.util.dpengine.command.Command
-import org.EternalReturn.util.dpengine.geometry.Cylinder
-import org.EternalReturn.util.dpengine.geometry.GeometryModule
-import org.EternalReturn.util.dpengine.geometry.InfPlane
-import org.EternalReturn.util.dpengine.geometry.InfStraightLine
-import org.EternalReturn.util.dpengine.geometry.OrientedBox
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourModule
+import org.eternalreturn.util.dpengine.command.Command
+import org.eternalreturn.util.dpengine.geometry.Cylinder
+import org.eternalreturn.util.dpengine.geometry.GeometryModule
+import org.eternalreturn.util.dpengine.geometry.InfPlane
+import org.eternalreturn.util.dpengine.geometry.InfStraightLine
+import org.eternalreturn.util.dpengine.geometry.OrientedBox
 import org.bukkit.Location
+import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.physics.OrientedBoxSoA
+import org.eternalreturn.util.dpengine.physics.TransformSoA
+import org.eternalreturn.util.dpengine.physics.UniformGrid
 import org.joml.Quaterniond
 import java.util.concurrent.ArrayBlockingQueue
+import kotlin.reflect.KClass
 
 /**
  * Made by Danpung (TDanfung)
@@ -20,43 +26,22 @@ abstract class DPEngine(bufferSize: Int = 512) : Runnable {
 
     val geometryModule = GeometryModule(this, bufferSize)
 
-    public fun createCylinder(line : InfStraightLine, height : Double, radius : Double) : Cylinder{
-        return Cylinder(geometryModule, line, height, radius);
-    }
-
-    public fun createCylinder(location : Location, height : Double, radius : Double) : Cylinder{
-        val dir = location.direction;
-        return Cylinder(geometryModule,
-            InfStraightLine(geometryModule, dir.x, dir.y, dir.z, location.x, location.y, location.z),
-            radius, height);
-    }
-
-    public fun createInfStrightLine(dirX: Double, dirY: Double, dirZ: Double, posX: Double, posY: Double, posZ: Double): InfStraightLine {
-        return InfStraightLine(geometryModule, dirX, dirY, dirZ, posX, posY, posZ);
-    }
-
-    public fun createInfPlane(dirX: Double, dirY: Double, dirZ: Double, posX: Double, posY: Double, posZ: Double): InfPlane {
-        return InfPlane(geometryModule, posX, posY, posZ, dirX, dirY, dirZ);
-    }
-
     public fun createOrientedBox(location : Location, halfX: Double, halfY: Double, halfZ: Double): OrientedBox {
         val dir = location.direction;
         return OrientedBox(geometryModule,location.x,location.y, location.z,Quaterniond(dir.x, dir.y, dir.z, 0.0), halfX, halfY, halfZ);
     }
 
-    public fun createOrientedBox(dirX: Double, dirY: Double, dirZ: Double, posX: Double, posY: Double, posZ: Double): OrientedBox {
-        return OrientedBox(geometryModule,posX,posY,posZ, Quaterniond(dirX, dirY, dirZ, 0.0), 0.0, 0.0, 0.0);
-    }
-
     public val monobehaviourModule = MonobehaviourModule(this)
 
     protected abstract fun update();
-
+    
+    /**
+     * 커맨드 큐
+     * */
     public val commandQueue = ArrayBlockingQueue<Command>(128);
 
     public fun appendCommandQueue(cmd : Command){
         commandQueue.add(cmd);
-        //println("Command queue length = " + commandQueue.size);
     }
 
     public fun flushCommandQueue(){
@@ -72,7 +57,7 @@ abstract class DPEngine(bufferSize: Int = 512) : Runnable {
     override fun run() {
         monobehaviourModule.consumeEvents();
         monobehaviourModule.updateMonobehaviours();
-        monobehaviourModule.monobehaviourActorList.updateQueue();
+        monobehaviourModule.monobehaviourActorList.update();
         update();
         flushCommandQueue();
     }

@@ -1,6 +1,6 @@
-package org.EternalReturn.util.Gui.InventoryGui.View;
+package org.eternalreturn.util.Gui.InventoryGui.View;
 
-import org.EternalReturn.util.Gui.InventoryGui.IGuiController;
+import org.eternalreturn.util.Gui.InventoryGui.IGuiController;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;

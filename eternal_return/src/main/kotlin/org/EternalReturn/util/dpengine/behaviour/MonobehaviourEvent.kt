@@ -1,3 +1,3 @@
-package org.EternalReturn.util.dpengine.behaviour
+package org.eternalreturn.util.dpengine.behaviour
 
 interface MonobehaviourEvent

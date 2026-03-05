@@ -1,5 +1,7 @@
-package org.EternalReturn.util.dpengine.behaviour
+package org.eternalreturn.util.dpengine.behaviour
 
+import org.eternalreturn.util.dpengine.DPEngine
+import org.eternalreturn.util.dpengine.geometry.GeometryModule
 import java.util.*
 
 /**
@@ -22,9 +24,38 @@ import java.util.*
  *
  *
  */
-abstract class MonobehaviourActor protected constructor() {
+abstract class MonobehaviourActor(
+    val dpEngine: DPEngine
+) {
+    val monobehaviourModule: MonobehaviourModule
+        get() = dpEngine.monobehaviourModule
 
-    open var referenceCount = 1;
+    val geometryModule: GeometryModule
+        get() = dpEngine.geometryModule
+
+    init{
+        dpEngine.monobehaviourModule.register(this);
+    }
+
+    open var referenceCount = 0;
+
+    inline fun isAlive() : Boolean {
+        return referenceCount >= 1;
+    }
+
+    /**
+     * 해당 객체의 레퍼런스 카운트를 0으로 설정하여 다음 틱 때 제거되도록 함.
+     * */
+    open fun remove(){
+        this.referenceCount = 0;
+    }
+    fun dereference(){
+        this.referenceCount--;
+    }
+    fun refer(){
+        this.referenceCount++;
+    }
+
 
     /**
      * (MonobehaviourEvent, Monobehaviour)의 키 쌍
@@ -40,16 +71,14 @@ abstract class MonobehaviourActor protected constructor() {
     /**
      * update(MonobehaviourEvent)를 호출할 Monobehaviour들을 스케줄링하기 위해 유지하는 링크드 리스트
      */
-    open var runningBehaviours: ArrayDeque<Monobehaviour<out MonobehaviourEvent>> = ArrayDeque<Monobehaviour<out MonobehaviourEvent>>()
-
-    lateinit var monobehaviourModule : MonobehaviourModule
+    open var runningBehaviours: LinkedList<Monobehaviour<out MonobehaviourEvent>> = LinkedList<Monobehaviour<out MonobehaviourEvent>>()
 
 
     /**
      * 외부에서 해당 객체에게 이벤트를 제출하기 위한 창구
      */
     fun submitEvent(event: MonobehaviourEvent) {
-        println("Event submitted ${event.javaClass} | Length = ${submittedEvent.size}");
+        println("Event submitted : ${event.javaClass.simpleName} \tto ${this.javaClass.simpleName}");
         submittedEvent.add(event)
         monobehaviourModule.submitActorWhoTriggeredEvent(this)
     }
@@ -68,7 +97,7 @@ abstract class MonobehaviourActor protected constructor() {
             //System.out.println(event.getClass());
             if (monobehav != null && !monobehav.isRunning){
                 runningBehaviours.add(monobehav)
-                //System.out.println("dispatch success");
+                println("Event consumed :  ${event.javaClass.simpleName} \ton ${this.javaClass.simpleName}");
                 monobehav.dispatchEvent(event)
             }
             checkedEvent.addLast(event)
@@ -85,23 +114,24 @@ abstract class MonobehaviourActor protected constructor() {
             return false
         }
 
+        //println("Updating monobehaviours : ${runningBehaviours.size}");
+
         //monobehaviour update() 스케줄링
         val monobehavNode = runningBehaviours.iterator()
         while (monobehavNode.hasNext()) {
-            val monobehaviour: Monobehaviour<*> = monobehavNode.next()!!
+            val monobehaviour: Monobehaviour<*> = monobehavNode.next()
             monobehaviour.updateMonobehav(checkedEvent)
 
-            //System.out.println("run");
             if (!monobehaviour.isRunning) {
                 monobehavNode.remove()
-                //System.out.println("removed : " + monobehaviour.getClass());
+                println("removed : " + monobehaviour.javaClass.simpleName);
             }
         }
         checkedEvent.clear()
         return true
     }
 
-    val isEmptyForRunningMonobehaviour: Boolean
+    val thereAreNoRunningMonobehaviours: Boolean
         get() = runningBehaviours.isEmpty()
 
     /**
@@ -116,15 +146,5 @@ abstract class MonobehaviourActor protected constructor() {
         monobehaviour.setMonobehaviourActor(this)
         //System.out.println("register event " + monobehaviour.getClass());
     }
-
-    /**
-     * 해당 MonobehaviourActor을 관리할 DPEngine을 설정.
-     */
-    fun setModule(module: MonobehaviourModule) {
-        this.monobehaviourModule = module
-        //System.out.println("DPEngine set");
-    }
-
-    abstract fun update();
 
 }

@@ -1,4 +1,4 @@
-package org.EternalReturn.util.Gui.bossbarGui.View;
+package org.eternalreturn.util.Gui.bossbarGui.View;
 
 //typedef struct BButtonPolygon {int x; int y;} BButtonPolygon;
 public class BDot {

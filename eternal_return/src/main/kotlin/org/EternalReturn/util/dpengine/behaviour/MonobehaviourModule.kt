@@ -1,12 +1,13 @@
-package org.EternalReturn.util.dpengine.behaviour
+package org.eternalreturn.util.dpengine.behaviour
 
-import org.EternalReturn.util.dpengine.DPEngine
-import org.EternalReturn.util.dpengine.datastructure.UpdateQueue
+import org.eternalreturn.util.dpengine.DPEngine
+import org.eternalreturn.util.dpengine.datastructure.UpdateList
+import org.eternalreturn.util.dpengine.datastructure.UpdateView
 
 
 class MonobehaviourModule(val dpEngine: DPEngine) {
 
-    internal val monobehaviourActorList = UpdateQueue<MonobehaviourActor>();
+    internal val monobehaviourActorList = UpdateList<MonobehaviourActor>();
 
     /**
      * 이벤트가 dispatch된 순서대로 MonobehaviourActor을 추가함.
@@ -17,7 +18,8 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
     /**
      * Running 중인 Monobehaviour을 소유한 MonobehaviourActor를 유지함.
      * */
-    internal var runningActors = ArrayDeque<MonobehaviourActor>();
+    internal var runningActors = Array<ArrayList<MonobehaviourActor>>(2){ArrayList<MonobehaviourActor>()};
+    var curIdx = 0;
 
     /**
      * 이벤트를 dispatch하고, Monobehaviour들을 업데이트함. <br>
@@ -29,25 +31,37 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
         while (eventTriggeredActors.isNotEmpty()) {
             val actor = eventTriggeredActors.removeFirst();
             //update() 하는 Monobehaviour이 있는가?
-            if (actor.isEmptyForRunningMonobehaviour) {
-                runningActors.addLast(actor);
+            if (actor.thereAreNoRunningMonobehaviours) {
+                runningActors[curIdx].addLast(actor);
             }
             actor.dispatchEvents();
         }
     }
 
+    /**
+     * 객체가 살아있는 경우 (referenceCounter >= 1)인 경우의 객체들의 Monobehaviour만 Update한다.
+     * */
     fun updateMonobehaviours(){
-        val newRunningActors = ArrayDeque<MonobehaviourActor>()
-        while(runningActors.isNotEmpty()){
-            val actor = runningActors.removeFirst();
+        //val newRunningActors = ArrayDeque<MonobehaviourActor>()
+        for(actor in  runningActors[curIdx]){
             val hasRunningMonobehav = actor.updateMonobehaviour();
             //여기도 isEmptyForRunningMonobehaviour() 써도 되긴 하는데, 일부러 안 건드림.
             //아무래도 메소드 한번 호출보다야 이미 저장된 값 쓰는 게 더 빠를 테니까.
-            if(hasRunningMonobehav){
-                newRunningActors.addLast(actor);
+            if(hasRunningMonobehav && actor.isAlive()){
+                runningActors[curIdx xor 1].addLast(actor);
             }
         }
-        this.runningActors = newRunningActors;
+        runningActors[curIdx].clear();
+        curIdx = curIdx xor 1
+        //this.runningActors = newRunningActors;
+
+    }
+
+    /**
+     * Global MonobehaviourActor 컨테이너의 UpdateView를 생성한다.
+     * */
+    fun registerUpdateView(view : UpdateView<out MonobehaviourActor>){
+        monobehaviourActorList.registerView(view);
     }
 
     fun getMonobehavActors() : MutableList<MonobehaviourActor>{
@@ -58,10 +72,11 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
         eventTriggeredActors.add(actor);
     }
 
-    fun registerMonobehaviourActor(actor : MonobehaviourActor){
-        //println("Registering : " + actor.javaClass)
-        actor.monobehaviourModule = this;
-        monobehaviourActorList.curQueue.add(actor);
+    /**
+     * 객체의 레퍼런스 카운터를 1 올리면서 MonobehaviourModule 내의 actorList에 등록한다.
+     * */
+    fun register(actor : MonobehaviourActor){
+        monobehaviourActorList.add(actor);
     }
 
 }

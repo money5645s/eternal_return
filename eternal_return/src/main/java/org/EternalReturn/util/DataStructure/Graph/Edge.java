@@ -1,4 +1,4 @@
-package org.EternalReturn.util.DataStructure.Graph;
+package org.eternalreturn.util.DataStructure.Graph;
 
 
 import org.jetbrains.annotations.NotNull;

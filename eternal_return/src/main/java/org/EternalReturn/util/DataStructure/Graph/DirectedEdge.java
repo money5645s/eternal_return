@@ -1,4 +1,4 @@
-package org.EternalReturn.util.DataStructure.Graph;
+package org.eternalreturn.util.DataStructure.Graph;
 
 public class DirectedEdge<T> extends Edge<T>{
 
