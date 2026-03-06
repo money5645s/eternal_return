@@ -124,7 +124,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
         orientedBoxSoA.updateCacheFromTransform();
         orientedBoxSoA.rebuildGrid();
 
-        orientedBoxSoA.debugOrientedBox(); //성능 이슈 심함
+        //orientedBoxSoA.debugOrientedBox(); //성능 이슈 심함
         orientedBoxSoA.rayCastSoA(raySoA);
 
         orientedBoxSoA.collideGridCylinder(); //일단 Cylinder로 콜라이딩

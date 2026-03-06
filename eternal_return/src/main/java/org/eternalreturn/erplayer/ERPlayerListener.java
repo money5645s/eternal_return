@@ -53,10 +53,6 @@ public class ERPlayerListener implements Listener {
         }
     }
 
-    public void onPlayerLeftClick(){
-
-    }
-
     @EventHandler
     public void onPlayerAttack(EntityDamageByEntityEvent e) {
         if (!(e.getDamager() instanceof Player p)) return;

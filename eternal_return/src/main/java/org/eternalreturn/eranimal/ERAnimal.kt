@@ -89,7 +89,7 @@ abstract class ERAnimal(
         val sound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT).build()
         aJEntity.setDebugDisplay("HP : ${this.hp}\n\n\n\n")
         attacker.entity.playSound(sound);
-        println("${this.javaClass.simpleName} is attacked by ${attacker.javaClass.simpleName}")
+        //println("${this.javaClass.simpleName} is attacked by ${attacker.javaClass.simpleName}")
     }
 
     val isShown: Boolean
