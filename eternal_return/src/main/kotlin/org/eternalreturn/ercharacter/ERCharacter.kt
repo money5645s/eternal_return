@@ -7,7 +7,7 @@ import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.system.EREngine
 
 abstract class ERCharacter(
-    val player : Player,
+    player : Player,
     erEngine: EREngine,
 ) : EREntity(erEngine, player, 0.5, 1.0, 0.5, 0.0, 1.0, 0.0) {
 

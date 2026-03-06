@@ -16,6 +16,7 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.util.Vector
 import org.eternalreturn.ercharacter.character.hyunwoo.Character_Hyunwoo
+import org.eternalreturn.erplayer.ERPlayer
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     var direction: Vector? = null
@@ -91,18 +92,13 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                 }
             }
 
+            val attacker = actor as Character_Hyunwoo
+
             for (victim in hitEntities!!.keys) {
                 val bukkitVictim = victim.entity as LivingEntity
                 if (hitEntities!!.get(victim) == 0) {
                     hitEntities!!.put(victim, 1)
-
-                    getERCharacter().submitEvent(
-                        CharacterAttackEvent(
-                            getERPlayer(),
-                            victim
-                        )
-                    )
-                    bukkitVictim.damage(2.0, getPlayer())
+                    victim.damage(2.0, attacker)
                 }
                 // 3. 적을 플레이어 속도에 맞춰 밀어냄
                 bukkitVictim.setVelocity(direction!!.clone().multiply(1.2))
@@ -117,7 +113,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
             if (result != null && result.getHitBlock() != null) {
                 isWallSlam = true
-                handleWallSlamSuccess(player)
+                handleWallSlamSuccess(attacker)
             }
         }
 
@@ -136,25 +132,18 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         }
     }
 
-    private fun handleWallSlamSuccess(player: Player) {
+    private fun handleWallSlamSuccess(player: ERPlayer) {
         for (victim in hitEntities!!.keys) {
             val bukkitVictim = victim.entity as? LivingEntity ?: continue
 
-            // 도그파이트 패시브를 위한 공격 이벤트 제출 (안되는 것 같음)
-            getERCharacter().submitEvent(
-                CharacterAttackEvent(
-                    getERCharacter(),
-                    victim
-                )
-            )
-
             // 벽꿍 추가 피해 (10.0)
-            bukkitVictim.damage(10.0, player)
+            victim.damage(10.0, player)
 
             victim.submitEvent(EREntityStunEvent(1 * 20)) // 40틱 = 2초
 
             player.sendMessage("§b[현우] §f벽꿍 성공!")
-            player.playSound(player.location, Sound.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, 1f, 1f)
+            val p = player.entity as Player
+            p.playSound(p.location, Sound.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, 1f, 1f)
 
         }
     }
