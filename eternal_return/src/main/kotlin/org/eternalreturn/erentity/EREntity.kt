@@ -8,6 +8,7 @@ import org.eternalreturn.ercharacter.character.fiora.ToucheEffect
 import org.eternalreturn.ercharacter.character.hart.Passive_Timer
 import org.eternalreturn.ercharacter.character.isaac.PassiveCount
 import org.eternalreturn.ercharacter.character.lidailin.LiDailinPassiveTimer
+import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
 import org.eternalreturn.erentity.globalmonobehav.Stun
 import org.eternalreturn.system.EREngine
@@ -50,12 +51,6 @@ abstract class EREntity( // extends MonobehaviourActor()
         obbLocX, obbLocY, obbLocZ
     );
 
-    init{
-        transformHandle.actor = this;
-        obbHandle.actor = this;
-        println("[SoA CREATE] ${this.javaClass.simpleName} T${transformHandle.entityID} | O${obbHandle.entityID}")
-    }
-
     private var shootRay : Boolean = false;
     fun isShootingRay() : Boolean{
         val ret = shootRay;
@@ -72,10 +67,15 @@ abstract class EREntity( // extends MonobehaviourActor()
     override fun remove(){
         if(referenceCount == 0)return;
         super.remove();
-        erEngine.remove(this);
+        erEngine.addRemoveList(this);
     }
 
     init {
+
+        transformHandle.actor = this;
+        obbHandle.actor = this;
+        println("[SoA CREATE] ${this.javaClass.simpleName} T${transformHandle.entityID} | O${obbHandle.entityID}")
+
         //Monobehaviour 등록
         this.registerMonobehaviour(Stun())
         this.registerMonobehaviour(ToucheCount())
@@ -151,6 +151,7 @@ abstract class EREntity( // extends MonobehaviourActor()
 
     open fun damage(amount : Double, attacker : EREntity){
         if(entity is LivingEntity){
+            attacker.submitEvent(CharacterAttackEvent(attacker, this))
             entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
         }
     }

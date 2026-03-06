@@ -1,13 +1,10 @@
 package org.eternalreturn.projectile.globalmonobehav
 
-import com.destroystokyo.paper.ParticleBuilder
 import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.World
-import org.eternalreturn.erentity.events.EREntityRayCastEvent
 import org.eternalreturn.projectile.ERProjectile
-import org.eternalreturn.projectile.events.ProjectileHitEvent
 import org.eternalreturn.projectile.events.ProjectileInitEvent
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.Monobehaviour

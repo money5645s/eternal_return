@@ -6,6 +6,7 @@ import org.eternalreturn.ercharacter.character.hart.Character_Hart;
 import org.eternalreturn.ercharacter.character.hyunwoo.Character_Hyunwoo;
 import org.eternalreturn.ercharacter.character.isaac.Character_Isaac;
 import org.eternalreturn.ercharacter.character.jackie.Character_Jackie;
+import org.eternalreturn.ercharacter.character.jan.Character_Jan;
 import org.eternalreturn.ercharacter.character.lidailin.Character_LiDailin;
 import org.eternalreturn.ercharacter.character.nathapon.Character_Nathapon;
 import org.eternalreturn.ercharacter.character.yuki.Character_Yuki;
@@ -129,12 +130,15 @@ public class ERPlayerDebugCommand implements CommandExecutor {
                 case "yuki":
                     character = new Character_Yuki(engine, p);
                     break;
+                case "jan":
+                    character = new Character_Jan(engine, p);
+                    break;
                 default:
                     p.sendMessage("§c알 수 없는 캐릭터입니다: " + charName);
                     return true;
             }
             
-            PluginInstance.getEREngine().registerBukkitActor(p, character);
+            engine.registerBukkitActor(p, character);
             p.sendMessage("§a캐릭터가 변경되었습니다: §f" + character.getName());
 
             return true;

@@ -4,6 +4,7 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.util.Vector
 import org.eternalreturn.eranimal.ERAnimal
+import org.eternalreturn.ercharacter.ERCharacter
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.projectile.ERProjectile
@@ -101,7 +102,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
         val sparse = transformSoA.sparse;
         val velocitySoA = transformSoA.velocity;
 
-        for(erEntity in erEntityMap.values){
+        for(erEntity in entities.curQueue){
             val entityID = erEntity.transformHandle.entityID
             val denseID = sparse[entityID];
 
@@ -123,7 +124,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
         orientedBoxSoA.updateCacheFromTransform();
         orientedBoxSoA.rebuildGrid();
 
-        //orientedBoxSoA.debugOrientedBox(); //성능 이슈 심함
+        orientedBoxSoA.debugOrientedBox(); //성능 이슈 심함
         orientedBoxSoA.rayCastSoA(raySoA);
 
         orientedBoxSoA.collideGridCylinder(); //일단 Cylinder로 콜라이딩
@@ -140,26 +141,26 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
      * 일반 registerMonobehaviourActor를 통해 등록 시 Entity를 통해 접근이 불가해짐.
      */
     fun registerBukkitActor(entity: Entity, actor: EREntity) {
-        erEntityMap[entity]?.remove();
-        erEntityMap.remove(entity);
+        if(erEntityMap.contains(entity)){
+            val oldEREntity = erEntityMap[entity]!!;
+            oldEREntity.remove();
+            println("Map disabled : {${entity.javaClass.simpleName}, ${oldEREntity.javaClass.simpleName}}")
+        }
+
         monobehaviourModule.register(actor);
-        erEntityMap[entity] = actor
-        entities.add(actor);
+        erEntityMap[entity] = actor;
         try {
+            entities.add(actor);
             if (entity is Player && actor is ERPlayer) {
                 players.add(actor);
             }
         } catch (e: DeadActorException) {
             e.printStackTrace()
         }
-    }
 
-    /**
-     * HashMap에서 버킷 객체를 제거한다.
-     * */
-    fun removeBukkitActor(entity: Entity){
-        erEntityMap[entity]?.remove()
-        erEntityMap.remove(entity);
+
+        println("Map added : {${entity.javaClass.simpleName}, ${actor.javaClass.simpleName}}")
+
     }
 
     /**
@@ -167,10 +168,13 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
      * 해당 객체가 더 이상 쓰이지 않는 객체인 경우 (isAlive() == false) 조회할 시점에서 제거함.
      */
     fun getEREntity(entity: Entity): EREntity? {
-        var erEntity = erEntityMap[entity]
-        if (!erEntity!!.isAlive()) {
+        val erEntity : EREntity? = erEntityMap[entity]
+        if(erEntity == null){
+            return null;
+        }
+        if (!erEntity.isAlive()) {
             erEntityMap.remove(entity, erEntity)
-            erEntity = null //제거 시에는 null을 반환하도록 설계
+            return null;
         }
         return erEntity
     }
@@ -179,7 +183,11 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
      * 제거될 EREntity들의 리스트. removeAll() 함수 호출 시 일괄 삭제됨.
      * */
     private val removeList = ArrayList<EREntity>();
-    fun remove(erEntity: EREntity){
+    fun addRemoveList(erEntity: EREntity){
+//        println("addRemoveList(${erEntity.javaClass.simpleName})")
+//        if(erEntity is ERCharacter){
+//            Thread.dumpStack()
+//        }
         removeList.add(erEntity);
     }
 
@@ -187,17 +195,14 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
      * 일괄삭제 함수.
      * */
     private fun removeAll() {
-        val size = removeList.size
-        for(i in 0 until size){
+        for(actorToRemove in removeList){
 
-            val erEntity = removeList[i];
+            val erEntity = actorToRemove;
             val transformHandle = erEntity.transformHandle;
             val obbHandle = erEntity.obbHandle;
 
             transformSoA.remove(transformHandle); transformHandle.actor = null;
             orientedBoxSoA.remove(obbHandle); obbHandle.actor = null;
-
-            removeBukkitActor(erEntity.entity);
 
             println("[SoA REMOVE] ${this.javaClass.simpleName} T${transformHandle.entityID} O${obbHandle.entityID}")
 

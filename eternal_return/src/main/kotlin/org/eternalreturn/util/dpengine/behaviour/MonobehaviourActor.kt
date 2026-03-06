@@ -38,7 +38,9 @@ abstract class MonobehaviourActor(
     }
 
     open var referenceCount = 0;
-
+    /**
+     * DPEngine상에서 계속 사용되는 객체라면 true, 더 이상 사용되지 않는 객체라면 false를 반환한다.
+     * */
     inline fun isAlive() : Boolean {
         return referenceCount >= 1;
     }

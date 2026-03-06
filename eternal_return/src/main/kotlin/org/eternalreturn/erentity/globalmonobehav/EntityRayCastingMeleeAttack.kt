@@ -43,7 +43,6 @@ class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>(
         }
 
         closestTarget.submitEvent(EREntityAttackedEvent(actor as EREntity))
-        event.shooter.submitEvent(CharacterAttackEvent(event.shooter, closestTarget))
         val shootPlayer = event.shooter.entity as Player;
         closestTarget.damage(shootPlayer.getAttribute(org.bukkit.attribute.Attribute.ATTACK_DAMAGE)!!.value, event.shooter as ERPlayer);
     }
