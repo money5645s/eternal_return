@@ -6,6 +6,8 @@ import org.eternalreturn.system.EREngine
 
 class Character_Jan(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     var Stack: Int = 0
+    var StackSkill: Boolean = false
+    var SkillReuse: Int = 0
 
     init {
         this.ActiveCooldownSeconds = 3
