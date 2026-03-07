@@ -3,6 +3,7 @@ package org.eternalreturn.system;
 
 import java.io.UnsupportedEncodingException;
 
+import org.eternalreturn.area.ERAreaSystem;
 import org.eternalreturn.eranimal.manager.ERAnimalManager;
 import org.eternalreturn.erplayer.ERPlayerDebugCommand;
 import org.eternalreturn.erplayer.ERPlayerListener;
@@ -16,7 +17,6 @@ public final class PluginInstance extends JavaPlugin{
     private static PluginInstance serverInstance;
     private static AJEntityManager ajEntityManager;
     private static SystemManager systemManager;
-    private static ERAnimalManager erAnimalManager;
 
     /**
      * 나중에 병렬처리를 위해 List<>로 관리할 수도 있음.
@@ -71,6 +71,7 @@ public final class PluginInstance extends JavaPlugin{
 
     @Override
     public void onDisable() {
+        erEngine.free();
         systemManager.free();
         ajEntityManager.free();
     }

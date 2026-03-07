@@ -9,14 +9,15 @@ class Bear(engine: EREngine, erAjEntity: ERAJEntity) :
     ERAnimal(engine, erAjEntity, 1.5, 1.5, 2.5, 0.0, -1.0, 0.0) {
     init {
         this.aJEntity.registerAnimation("ready",    2.0)
-        this.aJEntity.registerAnimation("attack",   2.3)
+        this.aJEntity.registerAnimation("attack",   3.0)
         this.aJEntity.registerAnimation("move",     3.5)
         this.aJEntity.registerAnimation("skill",    3.25)
         this.aJEntity.registerAnimation("death",    2.0)
     }
 
     override var hp: Double = 42.0;
-    var damage : Double = 5.0;
+    override var damage : Double = 5.0;
+    override val attackTicks = arrayOf(8, 8);
 }
 
 /**

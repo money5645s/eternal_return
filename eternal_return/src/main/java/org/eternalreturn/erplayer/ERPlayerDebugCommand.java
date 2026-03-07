@@ -13,6 +13,7 @@ import org.eternalreturn.ercharacter.character.yuki.Character_Yuki;
 import org.eternalreturn.ercharacter.ERCharacter;
 import org.eternalreturn.ercharacter.event.CharacterParabolicFlyEvent;
 import org.eternalreturn.erentity.ERDummy;
+import org.eternalreturn.system.EREngine;
 import org.eternalreturn.system.PluginInstance;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
 import org.bukkit.Bukkit;
@@ -46,7 +47,17 @@ public class ERPlayerDebugCommand implements CommandExecutor {
 
         Player p = (Player)sender;
         Set<String> tagSet = p.getScoreboardTags();
-        if(args.length == 1 && args[0].equalsIgnoreCase("showtags")){
+
+        if(args.length == 1 && args[0].equalsIgnoreCase("area")){
+            var areaSystem = PluginInstance.getEREngine().getAreaSystem();
+            areaSystem.update(3);
+            areaSystem.sendAreaStateToScoreboard();
+        }
+        else if(args.length == 1 && args[0].equalsIgnoreCase("reset")){
+            var areaSystem = PluginInstance.getEREngine().getAreaSystem();
+            areaSystem.reset();
+        }
+        else if(args.length == 1 && args[0].equalsIgnoreCase("showtags")){
             p.sendMessage(tagSet.toString());
             return true;
         }

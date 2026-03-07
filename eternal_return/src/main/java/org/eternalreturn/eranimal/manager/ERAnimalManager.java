@@ -44,8 +44,6 @@ public class ERAnimalManager extends MonobehaviourActor {
      * */
     public static void initERAnimalManagers(AJEntityManager ajEntityManager, DPEngine engine){
         areaInfoList = erAnimalLoader.load();
-        var monobehaviourModule = engine.getMonobehaviourModule();
-
         var world = PluginInstance.getServerInstance().getServer().getWorlds().getFirst();
 
         /// areaInfoList를 순회하며 해당하는 ERAnimalManager들을 생성, 등록

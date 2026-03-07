@@ -13,9 +13,8 @@ import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
 import org.eternalreturn.erentity.globalmonobehav.Stun
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
-import org.eternalreturn.util.dpengine.command.AddSpigotEntityVelocity
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourModule
 import org.eternalreturn.util.dpengine.command.SetSpigotEntityPosition
-import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import org.eternalreturn.util.dpengine.physics.Handle
 import kotlin.math.cos
@@ -25,56 +24,24 @@ import kotlin.math.sin
  * 모든 EREntity의 Subclass에게 동시에 통용되는 성질을 저장하는 곳.
  * 자신의 위치를 저장하는 Handle을 소유한다.
  */
-abstract class EREntity( // extends MonobehaviourActor()
-    erEngine: EREngine,
-    val entity : Entity,
-    obbHalfX : Double, obbHalfY : Double, obbHalfZ : Double,
-    obbLocX : Double, obbLocY : Double, obbLocZ : Double
-    /**
-     * 해당 MonobehaviourActor의 Collider 설정
-     */
-) : MonobehaviourActor(erEngine) {
+abstract class EREntity(
+    erEngine : EREngine,
+    val entity : Entity
+) : MonobehaviourActor(erEngine){
+
+    var maxRange : Double = 5.0;
 
     val erEngine : EREngine
         get(){
             return dpEngine as EREngine;
         }
 
-    var maxRange : Double = 5.0; //바뀔 수 있음
-
     val transformHandle : Handle = erEngine.transformSoA.create(
         entity.location.x, entity.location.y,entity.location.z,
         0.0, 0.0, 0.0 );
 
-    val obbHandle : Handle = erEngine.orientedBoxSoA.create(transformHandle,
-        obbHalfX, obbHalfY, obbHalfZ,
-        obbLocX, obbLocY, obbLocZ
-    );
-
-    private var shootRay : Boolean = false;
-    fun isShootingRay() : Boolean{
-        val ret = shootRay;
-        shootRay = false;
-        return ret;
-    }
-    fun shootRay(){
-        shootRay = true;
-    }
-
-    /**
-     * 해당 객체를 소유하고 있는 EREngine의 삭제 리스트에 해당 객체를 삽입한다.
-     * */
-    override fun remove(){
-        if(referenceCount == 0)return;
-        super.remove();
-        erEngine.addRemoveList(this);
-    }
-
     init {
-
         transformHandle.actor = this;
-        obbHandle.actor = this;
-        println("[SoA CREATE] ${this.javaClass.simpleName} T${transformHandle.entityID} | O${obbHandle.entityID}")
 
         //Monobehaviour 등록
         this.registerMonobehaviour(Stun())
@@ -84,6 +51,16 @@ abstract class EREntity( // extends MonobehaviourActor()
         this.registerMonobehaviour(LiDailinPassiveTimer())
         this.registerMonobehaviour(PassiveCount())
         this.registerMonobehaviour(EntityRayCastingMeleeAttack())
+    }
+
+    private var shootRay : Boolean = false;
+    fun isShootingRay() : Boolean{
+        val ret = shootRay;
+        shootRay = false;
+        return ret;
+    }
+    fun shootRay(){
+        shootRay = true;
     }
 
     /**
@@ -155,6 +132,5 @@ abstract class EREntity( // extends MonobehaviourActor()
             entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
         }
     }
-
-
 }
+

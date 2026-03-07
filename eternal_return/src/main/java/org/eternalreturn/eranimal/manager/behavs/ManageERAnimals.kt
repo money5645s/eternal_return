@@ -12,6 +12,7 @@ import org.eternalreturn.eranimal.animals.actors.Bear
 import org.eternalreturn.eranimal.animals.actors.Boar
 import org.eternalreturn.eranimal.animals.actors.Wolf
 import org.eternalreturn.eranimal.manager.ERAnimalManager
+import org.eternalreturn.eranimal.manager.TextDisplayer
 import org.eternalreturn.eranimal.manager.events.AnimalManageEvent
 import org.eternalreturn.eranimal.manager.events.RemoveAllERAnimals
 import org.eternalreturn.erentity.EREntity
@@ -72,9 +73,8 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
         //animal 루프
         val manager = actor as ERAnimalManager;
 
-
+        //checkingForSummoningIsDone
         for(erAJAnimal in manager.entities) {
-            //소환이 완료된 경우
             //hashmap에 등록이 되어있는지 확인 후 없다면 추가
             if (!animalMap.contains(erAJAnimal)) {
                 if (!erAJAnimal.isShown) {
@@ -89,6 +89,7 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
 
 
         //checkDeadOrRemoved
+        //여기서 삭제된 객체들은 재소환 절차
         val iterator = animalMap.entries.iterator()
         while (iterator.hasNext()){
 
@@ -147,6 +148,11 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
         )
         val textDisplay = manager.world.spawnEntity(loc, EntityType.TEXT_DISPLAY) as TextDisplay
         textDisplay.billboard = Display.Billboard.CENTER; //어느 방향에서 봐도 똑같이 보인다.
+
+        val textDisplayEREntity = TextDisplayer(textDisplay, dpEngine as EREngine); //어차피 생성되면서 MonobehaviourModule내에 들어가게 됨.
+        val engine = dpEngine as EREngine;
+        engine.registerBukkitActor(textDisplay, textDisplayEREntity);
+
         return AnimalUnit(newAnimal, textDisplay, erAJAnimal);
     }
 
@@ -154,7 +160,7 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
         for(animalUnit in animalMap.values){
             if(animalUnit.erEntity.isAlive()){
                 animalUnit.erEntity.remove(); //디스폰
-                animalUnit.cooldownTextShower.remove();//디스폰
+                animalUnit.cooldownTextShower.remove(); //디스폰
             }
         }
     }

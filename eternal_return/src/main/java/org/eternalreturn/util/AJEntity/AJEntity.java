@@ -11,6 +11,8 @@ import java.util.HashMap;
  * */
 public abstract class AJEntity{
 
+    private static final String NO_ANIM = "NO_ANIM";
+
     protected Location location;
 
     public enum ANIMATION_STATE{
@@ -105,20 +107,15 @@ public abstract class AJEntity{
         long currentTime = System.currentTimeMillis();
         String animation = acb.animation();
 
-        if(animation == null){
+        if(animation.equals(NO_ANIM)){
             throw new AJAnimationNotFoundException(
                     "AJAnimation is not found : \"" + selectedAnimation + "\"\n"
                             +"Solution : Check the animated_java project name and your JAVA code");
         }
 
-        if(animationPlaying == null){
+        if(animationEndTime > currentTime && animation.equals(animationPlaying)){
             return;
         }
-
-        if(animationEndTime > currentTime && animationPlaying.equals(animation)){
-            return;
-        }
-
 
         __setAnim(animation, durationTicks, currentTime);
     }
@@ -131,16 +128,16 @@ public abstract class AJEntity{
      * */
     public void playAnim(String selectedAnimation)throws AJAnimationNotFoundException{
 
-        AJAnimation acb = this.animationMap.get(selectedAnimation);
-        long durationTicks = acb.durationTicks();
         long currentTime = System.currentTimeMillis();
-        String animation = acb.animation();
-
         if(animationEndTime > currentTime){
             return;
         }
 
-        if(animation == null){
+        AJAnimation acb = this.animationMap.get(selectedAnimation);
+        long durationTicks = acb.durationTicks();
+        String animation = acb.animation();
+
+        if(animation.equals(NO_ANIM)){
             throw new AJAnimationNotFoundException(
                     "AJAnimation is not found : \"" + selectedAnimation + "\"\n"
                             +"Solution : Check the animated_java project name and your JAVA code");
@@ -154,8 +151,7 @@ public abstract class AJEntity{
         this.animationPlaying = animation;
         this.animationEndTime = durationTicks * 50 + currentTime;
         this.animationState = ANIMATION_STATE.PLAY;
-        String command = getExecuteAsRunFuncPrefix() + animation + "/play";
-        //PluginInstance.dfLogUTF8(command);
+        String command = getExecuteAsRunFuncPrefix() + this.animationPlaying + "/play";
         AJEntityManager.sendCommand(command);
     }
 
@@ -172,7 +168,7 @@ public abstract class AJEntity{
      * 현재 애니메이션의 종류와는 무관하게 애니메이션이 실행 중인지만 파악하는 쿼리함수.
      * */
     public boolean isCurrentAnimEnd(){
-        return animationEndTime > System.currentTimeMillis();
+        return animationEndTime < System.currentTimeMillis();
     }
 
     /**
@@ -180,19 +176,21 @@ public abstract class AJEntity{
      * */
     public boolean isPlaying(String animation){
         AJAnimation acb = this.animationMap.get(animation);
-        return acb.animation().equals(animationPlaying) && isCurrentAnimEnd();
+        boolean thisAnimIsExist = acb.animation().equals(this.animationPlaying);
+        boolean thisAnimIsNotEnd = !isCurrentAnimEnd();
+        return  thisAnimIsNotEnd && thisAnimIsExist;
     }
 
     /**
      * 실행 중인 해당 애니메이션을 완전히 끈다.<br>
-     * getAnimationPlaying()메소드로 얻을 수 있는 값은 null이 되며,<br>
+     * getAnimationPlaying()메소드로 얻을 수 있는 값은 NO_ANIM 이 되며,<br>
      * getAnimationState()메소드로 얻을 수 있는 값은 ANIMATION_STOP의 값이 된다.
      * */
     public void stopAnim(){
-        if(animationPlaying != null && animationState == ANIMATION_STATE.PLAY){
+        if(!animationPlaying.equals(NO_ANIM) && animationState == ANIMATION_STATE.PLAY){
             AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + animationPlaying + "/stop");
             this.animationState = ANIMATION_STATE.STOP;
-            this.animationPlaying = null;
+            this.animationPlaying = NO_ANIM;
         }
     }
 

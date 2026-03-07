@@ -13,16 +13,15 @@ class Idle : ERAnimalMonobehaviour<IdleEvent>() {
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
-        
-        //플레이어에게 공격받았을 경우
-        if(eventMap[EREntityAttackedEvent::class.java] != null){
-            stopMonobehav();
-            return;
-        }
 
         val animal = actor as ERAnimal;
         val ajEntity = animal.aJEntity;
-
+        //플레이어에게 공격받았을 경우
+        if(eventMap[EREntityAttackedEvent::class.java] != null){
+            ajEntity.stopAnim();
+            stopMonobehav();
+            return;
+        }
 
         //플레이어가 하나라도 16칸 이내에 있는 경우 -> Ready & stopMonobehav
         val engine = dpEngine as EREngine
@@ -34,7 +33,5 @@ class Idle : ERAnimalMonobehaviour<IdleEvent>() {
                 return;
             }
         }
-        ajEntity.stopAnim();
-
     }
 }

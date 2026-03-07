@@ -1,6 +1,5 @@
 package org.eternalreturn.system;
 
-import org.eternalreturn.area.ERAreaSystem;
 import org.eternalreturn.erplayer.ERPlayer;
 import org.eternalreturn.util.itemUtill.CustomModelData;
 import org.eternalreturn.util.itemUtill.CustomModelDataManager;

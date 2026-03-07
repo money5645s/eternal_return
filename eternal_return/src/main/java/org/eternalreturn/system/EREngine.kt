@@ -2,10 +2,9 @@ package org.eternalreturn.system
 
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
-import org.bukkit.util.Vector
-import org.eternalreturn.eranimal.ERAnimal
-import org.eternalreturn.ercharacter.ERCharacter
+import org.eternalreturn.area.ERAreaSystem
 import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.projectile.ERProjectile
 import org.eternalreturn.util.dpengine.DPEngine
@@ -20,6 +19,8 @@ import org.eternalreturn.util.dpengine.physics.UniformGrid
  * Bukkit 객체들과 유연하게 상호작용하기위한 엔진
  */
 class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
+
+    val areaSystem: ERAreaSystem = ERAreaSystem()
 
     /**
      * EREntity들을 쿼리하기 위한 해시맵
@@ -144,7 +145,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
         if(erEntityMap.contains(entity)){
             val oldEREntity = erEntityMap[entity]!!;
             oldEREntity.remove();
-            println("Map disabled : {${entity.javaClass.simpleName}, ${oldEREntity.javaClass.simpleName}}")
+            //println("Map disabled : {${entity.javaClass.simpleName}, ${oldEREntity.javaClass.simpleName}}")
         }
 
         monobehaviourModule.register(actor);
@@ -159,7 +160,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
         }
 
 
-        println("Map added : {${entity.javaClass.simpleName}, ${actor.javaClass.simpleName}}")
+        //println("Map added : {${entity.javaClass.simpleName}, ${actor.javaClass.simpleName}}")
 
     }
 
@@ -199,14 +200,23 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
 
             val erEntity = actorToRemove;
             val transformHandle = erEntity.transformHandle;
-            val obbHandle = erEntity.obbHandle;
-
             transformSoA.remove(transformHandle); transformHandle.actor = null;
-            orientedBoxSoA.remove(obbHandle); obbHandle.actor = null;
 
-            println("[SoA REMOVE] ${this.javaClass.simpleName} T${transformHandle.entityID} O${obbHandle.entityID}")
+            if(erEntity is ERHitboxEntity){ //ERHitboxEntity라면
+                val obbHandle = erEntity.obbHandle;
+                orientedBoxSoA.remove(obbHandle); obbHandle.actor = null;
+            }
+
+            //println("[SoA REMOVE] ${this.javaClass.simpleName} T${transformHandle.entityID} O${obbHandle.entityID}")
 
         }
         removeList.clear();
     }
+
+    fun free(){
+        for(erEntity in entities.curQueue){
+            erEntity.remove();
+        }
+    }
+
 }

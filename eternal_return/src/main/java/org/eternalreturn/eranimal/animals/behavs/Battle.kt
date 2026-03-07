@@ -14,6 +14,7 @@ import org.eternalreturn.erentity.events.EREntityAttackedEvent
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
 
 class Battle : ERAnimalMonobehaviour<EREntityAttackedEvent>() {
 
@@ -25,15 +26,11 @@ class Battle : ERAnimalMonobehaviour<EREntityAttackedEvent>() {
         DEATH
     }
 
-    val stateFuncTable = HashMap<AnimalState, () -> Unit>();
-
     var xSpawn : Double = 0.0;
     var ySpawn : Double = 0.0;
     var zSpawn : Double = 0.0;
 
     override fun start(event: EREntityAttackedEvent) {
-        stateFuncTable[AnimalState.MOVE] = this::move;
-        stateFuncTable[AnimalState.ATTACK] = this::attack;
 
         val erAnimal = actor as ERAnimal;
         val ajEntity = erAnimal.aJEntity;
@@ -78,9 +75,11 @@ class Battle : ERAnimalMonobehaviour<EREntityAttackedEvent>() {
             return;
         }
 
-        val actor = ajEntity.getActor() as Husk
+        val actor = ajEntity.actor as Husk
         val target: Entity? = actor.target
-        if (target == null) return
+        if (target == null) return;
+        val targetEREntity = engine.getEREntity(target);
+        if(targetEREntity == null) return;
 
         val root = ajEntity.getRootEntity()
         val actorLoc = actor.location
@@ -91,13 +90,27 @@ class Battle : ERAnimalMonobehaviour<EREntityAttackedEvent>() {
 
         //상태 결정
         if (isInDistance) {//범위 내에 있으면 계속 공격 해야 함.
-            animalState = AnimalState.ATTACK
-        } else if (!ajEntity.isPlaying("attack")) {
-            animalState = AnimalState.MOVE
+            attack(targetEREntity)
+        } else if(!ajEntity.isPlaying("attack")) {
+            move();
         }
 
-        stateFuncTable[animalState]!!();
+    }
 
+    fun isInDistance(r: Double, e0: Entity, e1: Entity): Boolean {
+        val tx = e0.location.x
+        val ty = e0.location.y
+        val tz = e0.location.z
+
+        val ax = e1.location.x
+        val ay = e1.location.y
+        val az = e1.location.z
+
+        val dx = ax - tx
+        val dy = ay - ty
+        val dz = az - tz
+
+        return (dx * dx + dy * dy + dz * dz <= r * r)
     }
 
     fun move(){
@@ -111,10 +124,27 @@ class Battle : ERAnimalMonobehaviour<EREntityAttackedEvent>() {
         ajEntity.playAnim("move")
     }
 
-    fun attack(){
+    var animTick = 0;
+    fun attack(target : EREntity){
+
         val erEntity = (this.actor as ERAnimal);
         val ajEntity = erEntity.aJEntity
-        ajEntity.playAnimForce("attack")
+
+        //println("$animTick ticks, !ajEntity.isPlaying(\"attack\") == ${!ajEntity.isPlaying("attack")}");
+
+        if(!ajEntity.isPlaying("attack")){
+            //println(ajEntity.animationPlaying)
+            ajEntity.playAnimForce("attack")
+            animTick = 0;
+            return;
+        }
+
+        if(animTick == erEntity.attackTicks[0] || animTick == erEntity.attackTicks[1]){
+            target.damage(erEntity.damage, erEntity);
+        }
+
+        animTick++;
+
     }
 
 

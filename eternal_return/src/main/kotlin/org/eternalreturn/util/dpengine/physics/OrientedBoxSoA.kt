@@ -8,6 +8,7 @@ import org.bukkit.command.defaults.BukkitCommand
 import org.bukkit.scheduler.BukkitScheduler
 import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.erentity.events.EREntityRayCastEvent
 import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
 import org.eternalreturn.erplayer.ERPlayer
@@ -363,7 +364,7 @@ class OrientedBoxSoA(
                 if(hitList.isNotEmpty()){
                     for(j in 0 until hitList.size){
                         val entityID = hitList.getInt(j);
-                        val hitActor = getConnectedActor(entityID) as EREntity;
+                        val hitActor = getConnectedActor(entityID) as ERHitboxEntity;
                         hitActorList.add(hitActor)
                         println("HITLIST -> [$j] : ${hitActor.javaClass.simpleName} ${hitActor.transformHandle.entityID} ${hitActor.obbHandle.entityID} isValid : ${isValid(hitActor.obbHandle)}"); // 디버깅용
                     }

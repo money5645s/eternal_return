@@ -1,5 +1,7 @@
 package org.eternalreturn.area;
 
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.eternalreturn.system.PluginInstance;
 import org.eternalreturn.system.SystemManager;
 import org.eternalreturn.util.DataStructure.Graph.Edge;
@@ -15,9 +17,12 @@ import java.util.*;
  * */
 public class ERAreaSystem extends Graph<AreaNode>{
 
+    private CommandSender commandSender = Bukkit.createCommandSender(builder -> {});
+
     private List<AreaNode> nodes;
     private List<AreaNode> greenNodes;
     private List<AreaNode> yellowNodes;
+    private List<AreaNode> redNodes;
 
 
     public ERAreaSystem() {
@@ -25,14 +30,44 @@ public class ERAreaSystem extends Graph<AreaNode>{
         nodes = new ArrayList<>(20);
         greenNodes = new ArrayList<>();
         yellowNodes = new ArrayList<>();
+        redNodes = new ArrayList<>();
         super.modifyAs(GraphLoader.load(Path.of("lumia_graph.json")));
 
         for(var v : super.vertexList){
             nodes.add(v.getData());
             greenNodes.add(v.getData());
         }
+    }
 
+    public void reset(){
+        nodes.clear();
+        greenNodes.clear();
+        yellowNodes.clear();
+        redNodes.clear();
+        super.modifyAs(GraphLoader.load(Path.of("lumia_graph.json")));
+        for(var v : super.vertexList){
+            nodes.add(v.getData());
+            greenNodes.add(v.getData());
+        }
+    }
 
+    public void sendAreaStateToScoreboard(){
+
+        Bukkit.dispatchCommand(commandSender, "scoreboard objectives add Region dummy");
+        for(AreaNode n : greenNodes){
+            String s = n.getName();
+            Bukkit.dispatchCommand(commandSender, "scoreboard players set #" + s + " Region 0");
+        }
+
+        for(AreaNode n : yellowNodes){
+            String s = n.getName();
+            Bukkit.dispatchCommand(commandSender, "scoreboard players set #" + s + " Region 1");
+        }
+
+        for(AreaNode n : redNodes){
+            String s = n.getName();
+            Bukkit.dispatchCommand(commandSender, "scoreboard players set #" + s + " Region 2");
+        }
     }
 
 
@@ -41,20 +76,17 @@ public class ERAreaSystem extends Graph<AreaNode>{
         return nodes;
     }
 
-    //setter
-    //...
 
     /**
      * dfs알고리즘을 사용하여 yellow 노드를 설정하는 함수
      * */
     public void update(int numToBeYellow){
-
-        int numOfSelectedYellowNode = 0;
         
         //옐로 존 모두 레드존으로 변경
         if(!yellowNodes.isEmpty()){
             for(AreaNode yellowNode : yellowNodes){
                 yellowNode.setZoneState(AreaNode.State.Red);
+                redNodes.add(yellowNode);
             }
             yellowNodes.clear();
         }
@@ -125,6 +157,4 @@ public class ERAreaSystem extends Graph<AreaNode>{
         }
         return length; //길이 반환
     }
-
-
 }

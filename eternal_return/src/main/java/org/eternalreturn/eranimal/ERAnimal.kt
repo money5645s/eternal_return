@@ -7,6 +7,7 @@ import org.eternalreturn.eranimal.animals.behavs.Idle
 import org.eternalreturn.eranimal.animals.events.IdleEvent
 import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.system.EREngine
 
 /**
@@ -17,7 +18,7 @@ abstract class ERAnimal(
     var aJEntity: ERAJEntity,
     obbHalfX: Double, obbHalfY: Double,
     obbHalfZ: Double, obbLocX: Double, obbLocY: Double, obbLocZ: Double
-) : EREntity(
+) : ERHitboxEntity(
     engine,
     aJEntity.rootEntity,
     obbHalfX, obbHalfY, obbHalfZ,
@@ -29,6 +30,8 @@ abstract class ERAnimal(
     var cooldownSeconds: Long = 0
 
     abstract var hp : Double;
+    abstract var damage : Double;
+    abstract val attackTicks : Array<Int>;
 
     init {
         registerMonobehaviour(Battle())
@@ -74,8 +77,7 @@ abstract class ERAnimal(
     }
 
     override fun applyBukkitVelocityOnMainThread(x: Double, y: Double, z: Double) {
-        val velocity = Vector(x, y, z);
-        aJEntity.actor.velocity = velocity;
+        aJEntity.actor.velocity = Vector(x, y, z);
     }
 
     override fun remove() {
@@ -89,7 +91,6 @@ abstract class ERAnimal(
         val sound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT).build()
         aJEntity.setDebugDisplay("HP : ${this.hp}\n\n\n\n")
         attacker.entity.playSound(sound);
-        //println("${this.javaClass.simpleName} is attacked by ${attacker.javaClass.simpleName}")
     }
 
     val isShown: Boolean

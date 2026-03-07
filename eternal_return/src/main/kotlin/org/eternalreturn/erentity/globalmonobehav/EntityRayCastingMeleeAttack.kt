@@ -15,7 +15,7 @@ class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>(
     override fun start(event: EREntityRayCastEvent) {
         stopMonobehav();
 
-        val erEntity = getEREntity();
+        val erEntity = actor as EREntity
         var minDist = erEntity.maxRange * erEntity.maxRange; //제곱해서 비교
         var closestTarget: EREntity? = null;
 

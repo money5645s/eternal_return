@@ -20,19 +20,5 @@ abstract class ERAnimalMonobehaviour<T : EREntityEvent> : Monobehaviour<T>() {
         return false
     }
 
-    fun isInDistance(r: Double, e0: Entity, e1: Entity): Boolean {
-        val tx = e0.location.x
-        val ty = e0.location.y
-        val tz = e0.location.z
 
-        val ax = e1.location.x
-        val ay = e1.location.y
-        val az = e1.location.z
-
-        val dx = ax - tx
-        val dy = ay - ty
-        val dz = az - tz
-
-        return (dx * dx + dy * dy + dz * dz <= r * r)
-    }
 }
