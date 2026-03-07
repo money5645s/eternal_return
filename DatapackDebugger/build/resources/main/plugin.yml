@@ -1,4 +1,0 @@
-name: DatapackDebugger
-version: '1.0-SNAPSHOT'
-main: org.datapakcDebugger.Main
-api-version: '1.21'

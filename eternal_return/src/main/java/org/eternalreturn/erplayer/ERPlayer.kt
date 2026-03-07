@@ -9,7 +9,7 @@ open class ERPlayer(p: Player, engine: EREngine) : ERCharacter(p, engine) {
 
     val player : Player
         get() {
-            return entity as Player            
+            return entity as Player
         }
 
     fun sendMessage(str: String) {
