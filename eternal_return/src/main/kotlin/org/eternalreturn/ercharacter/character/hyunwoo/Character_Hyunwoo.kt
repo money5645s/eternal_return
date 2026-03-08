@@ -8,7 +8,9 @@ import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
 
 class Character_Hyunwoo(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
-    // 플레이어별 공격 횟수를 저장하는 맵
+
+    var Stack: Int = 0
+
     init {
         this.ActiveCooldownSeconds = 8
         this.PassiveCooldownSeconds = 8

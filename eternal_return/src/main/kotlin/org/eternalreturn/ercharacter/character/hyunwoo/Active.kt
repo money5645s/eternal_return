@@ -139,7 +139,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             // 벽꿍 추가 피해 (10.0)
             victim.damage(10.0, player)
 
-            victim.submitEvent(EREntityStunEvent(1 * 20)) // 40틱 = 2초
+            victim.submitEvent(EREntityStunEvent(2 * 20)) // 40틱 = 2초
 
             player.sendMessage("§b[현우] §f벽꿍 성공!")
             val p = player.entity as Player

@@ -1,17 +1,17 @@
-package org.eternalreturn.ercharacter.character.jan
+package org.eternalreturn.ercharacter.character.hyunwoo
 
-import org.eternalreturn.ercharacter.character.jan.event.JanPassiveTimerEvent
+import org.eternalreturn.ercharacter.character.hyunwoo.event.HyunwooPassiveTimerEvent
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
-class JanPassiveTimer : EREntityMonobehaviour<JanPassiveTimerEvent>() {
+class HyunwooPassiveTimer : EREntityMonobehaviour<HyunwooPassiveTimerEvent>() {
     var tick = 0
-    override fun start(event: JanPassiveTimerEvent) {
+    override fun start(event: HyunwooPassiveTimerEvent) {
         tick = 0
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
-        val jan = actor as Character_Jan
+        val hyunwoo = actor as Character_Hyunwoo
 
         for (event in eventMap) {
             this.tick = 0
@@ -19,9 +19,8 @@ class JanPassiveTimer : EREntityMonobehaviour<JanPassiveTimerEvent>() {
 
         tick ++
         if(tick >= 100){
-            jan.Stack = 0
-            jan.StackSkill = false
-            jan.player.sendMessage("스택 초기화")
+            hyunwoo.Stack = 0
+            hyunwoo.player.sendMessage("스택 초기화")
             stopMonobehav()
         }
 
