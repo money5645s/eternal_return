@@ -1,13 +1,12 @@
 package org.eternalreturn.ercharacter.character.fiora
 
 import org.eternalreturn.ercharacter.character.fiora.event.ERToucheCountEvent
+import org.eternalreturn.ercharacter.character.fiora.event.ToucheEffectStartEvent
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.attribute.Attribute
-import org.bukkit.potion.PotionEffect
-import org.bukkit.potion.PotionEffectType
 
 /**
  * 이거는 EREntity에게 적용되는 Monobehaviour입니다.
@@ -25,13 +24,11 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
         val victim : LivingEntity =  this.getEREntity().entity as LivingEntity;
 
         println("CurrentCount : $count ");
-        if(count >= 2) {
+        if(count >= 4) {
             event.player.sendMessage("§f[피오라] §b§l뚜셰! §f적중");
             event.player.playSound(event.player.location, Sound.ITEM_MACE_SMASH_GROUND_HEAVY, 1f, 1.5f)
 
-            victim.addPotionEffect(PotionEffect(PotionEffectType.WEAKNESS, 40, 100, false, true))
-            victim.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 40, 1, false, true))
-            victim.damage(20.0)
+            victim.damage(20.0, event.player);
             val healAmount = 3.0
             val maxHealth = event.player.getAttribute(Attribute.MAX_HEALTH)?.value ?: 20.0
             val finalHealth = Math.min(event.player.health + healAmount, maxHealth)

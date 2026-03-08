@@ -13,16 +13,10 @@ class JanPassiveTimer : EREntityMonobehaviour<JanPassiveTimerEvent>() {
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         val jan = actor as Character_Jan
 
-        for (event in eventMap) {
-            this.tick = 0
-        }
-
         tick ++
         if(tick >= 100){
             jan.Stack = 0
-            jan.StackSkill = false
-            jan.player.sendMessage("스택 초기화")
-            stopMonobehav()
+            jan.sendMessage("스택 초기화")
         }
 
     }

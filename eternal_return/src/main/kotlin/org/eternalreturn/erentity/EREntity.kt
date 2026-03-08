@@ -4,11 +4,9 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.util.Vector
 import org.eternalreturn.ercharacter.character.fiora.ToucheCount
+import org.eternalreturn.ercharacter.character.fiora.ToucheEffect
 import org.eternalreturn.ercharacter.character.hart.Passive_Timer
-import org.eternalreturn.ercharacter.character.hyunwoo.HyunwooPassiveTimer
 import org.eternalreturn.ercharacter.character.isaac.PassiveCount
-import org.eternalreturn.ercharacter.character.jan.JanActiveTimer
-import org.eternalreturn.ercharacter.character.jan.JanPassiveTimer
 import org.eternalreturn.ercharacter.character.lidailin.LiDailinPassiveTimer
 import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
@@ -47,13 +45,11 @@ abstract class EREntity(
 
         //Monobehaviour 등록
         this.registerMonobehaviour(Stun())
+        this.registerMonobehaviour(ToucheCount())
+        this.registerMonobehaviour(ToucheEffect())
         this.registerMonobehaviour(Passive_Timer())
         this.registerMonobehaviour(LiDailinPassiveTimer())
         this.registerMonobehaviour(PassiveCount())
-        this.registerMonobehaviour(JanPassiveTimer())
-        this.registerMonobehaviour(JanActiveTimer())
-        this.registerMonobehaviour(HyunwooPassiveTimer())
-        this.registerMonobehaviour(ToucheCount())
         this.registerMonobehaviour(EntityRayCastingMeleeAttack())
     }
 

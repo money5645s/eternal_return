@@ -1,7 +1,5 @@
 package org.eternalreturn.ercharacter.character.jackie
 
-import org.bukkit.potion.PotionEffect
-import org.bukkit.potion.PotionEffectType
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.character.jackie.Character_Jackie
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
@@ -41,17 +39,17 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             stopMonobehav()
             return
         }
-        jackie.player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 2, 1, false, true))
-        val currentTime = System.currentTimeMillis()
 
-        // 시작한 시간으로부터 5초가 지났는지 확인
-        if (currentTime - skillActiveTick > durationMillis) {
-            isActive = false // 상태 종료
-            // 쿨타임 등록
-            jackie.cooldown.set("Active", jackie.ActiveCooldownSeconds)
-            (actor as Character_Jackie).isBloodSweep = false
-            getPlayer().sendMessage("§7[재키] 스킬 상태가 종료되었습니다.")
-            stopMonobehav()
-        }
+            val currentTime = System.currentTimeMillis()
+
+            // 시작한 시간으로부터 5초가 지났는지 확인
+            if (currentTime - skillActiveTick > durationMillis) {
+                isActive = false // 상태 종료
+                // 쿨타임 등록
+                jackie.cooldown.set("Active", jackie.ActiveCooldownSeconds)
+                (actor as Character_Jackie).isBloodSweep = false
+                getPlayer().sendMessage("§7[재키] 스킬 상태가 종료되었습니다.")
+                stopMonobehav()
+            }
     }
 }

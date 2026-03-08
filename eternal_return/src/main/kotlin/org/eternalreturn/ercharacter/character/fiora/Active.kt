@@ -12,7 +12,6 @@ import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.eternalreturn.ercharacter.character.fiora.Character_Fiora
-import org.eternalreturn.erentity.EREntity
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var skillTimer = 0
@@ -55,7 +54,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
         // 1타 (4틱)
         if (skillTimer == 4) {
-            handleHit(player, 3.0, true) // 1타는 자연스럽게 이벤트로 스택 쌓기
+            handleHit(player, 3.0, false) // 1타는 자연스럽게 이벤트로 스택 쌓기
         }
 
         // 2타 (10틱)
@@ -70,20 +69,20 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     // 공격 로직 통합
     private fun handleHit(player: Player, damage: Double, forceStack: Boolean) {
         player.playSound(player.location, Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1f, if (forceStack) 1.4f else 1.0f)
-        player.world.spawnParticle(Particle.SWEEP_ATTACK, player.eyeLocation.add(player.location.direction.multiply(3.5)), 1)
+        player.world.spawnParticle(Particle.SWEEP_ATTACK, player.eyeLocation.add(player.location.direction.multiply(1.5)), 1)
 
-        for (entity in player.getNearbyEntities(4.0, 4.0, 4.0)) {
+        for (entity in player.getNearbyEntities(2.5, 2.5, 2.5)) {
             if (entity is LivingEntity && entity != player) {
 
                 val victim = PluginInstance.getEREngine().getEREntity(entity)
                 if (victim == null) continue
 
                 val toTarget = entity.location.toVector().subtract(player.location.toVector()).normalize()
-                if (player.location.direction.dot(toTarget) > 0.9) {
+                if (player.location.direction.dot(toTarget) > 0.7) {
 
-                    entity.addPotionEffect(PotionEffect(PotionEffectType.WEAKNESS, 40, 100, false, true))
                     entity.noDamageTicks = 0
                     entity.damage(damage, player)
+                    entity.addPotionEffect(PotionEffect(PotionEffectType.WEAKNESS, 40, 100, false, true))
 
                     val victim = PluginInstance.getEREngine().getEREntity(entity);
                     if(victim == null)return;
