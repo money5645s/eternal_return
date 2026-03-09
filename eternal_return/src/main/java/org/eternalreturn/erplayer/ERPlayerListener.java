@@ -49,7 +49,7 @@ public class ERPlayerListener implements Listener {
         var engine = PluginInstance.getEREngine();
         ERPlayer erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
         if(erPlayer != null){
-            erPlayer.submitEvent(new CharacterLeftClickEvent());
+            erPlayer.shootRay();
         }
     }
 
@@ -59,7 +59,7 @@ public class ERPlayerListener implements Listener {
         var engine = PluginInstance.getEREngine();
         ERPlayer erPlayer = (ERPlayer)engine.getEREntity(p);
         if(erPlayer != null) {
-            erPlayer.submitEvent(new CharacterLeftClickEvent());
+            erPlayer.shootRay();
         }
     }
 

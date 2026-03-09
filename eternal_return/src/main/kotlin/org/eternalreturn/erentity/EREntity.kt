@@ -50,7 +50,6 @@ abstract class EREntity(
         this.registerMonobehaviour(Passive_Timer())
         this.registerMonobehaviour(LiDailinPassiveTimer())
         this.registerMonobehaviour(PassiveCount())
-        this.registerMonobehaviour(EntityRayCastingMeleeAttack())
     }
 
     private var shootRay : Boolean = false;

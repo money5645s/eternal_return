@@ -24,6 +24,8 @@ public class ERAreaSystem extends Graph<AreaNode>{
     private List<AreaNode> yellowNodes;
     private List<AreaNode> redNodes;
 
+    private static final Path path = Path.of("plugins/lumia_graph.json");
+
 
     public ERAreaSystem() {
         super(1);
@@ -31,7 +33,7 @@ public class ERAreaSystem extends Graph<AreaNode>{
         greenNodes = new ArrayList<>();
         yellowNodes = new ArrayList<>();
         redNodes = new ArrayList<>();
-        super.modifyAs(GraphLoader.load(Path.of("lumia_graph.json")));
+        super.modifyAs(GraphLoader.load(path));
 
         for(var v : super.vertexList){
             nodes.add(v.getData());
@@ -44,7 +46,7 @@ public class ERAreaSystem extends Graph<AreaNode>{
         greenNodes.clear();
         yellowNodes.clear();
         redNodes.clear();
-        super.modifyAs(GraphLoader.load(Path.of("lumia_graph.json")));
+        super.modifyAs(GraphLoader.load(path));
         for(var v : super.vertexList){
             nodes.add(v.getData());
             greenNodes.add(v.getData());

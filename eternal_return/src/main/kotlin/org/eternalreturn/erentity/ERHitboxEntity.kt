@@ -1,6 +1,7 @@
 package org.eternalreturn.erentity
 
 import org.bukkit.entity.Entity
+import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.physics.Handle
 
@@ -34,6 +35,7 @@ abstract class ERHitboxEntity( // extends MonobehaviourActor()
     init {
         obbHandle.actor = this;
         println("[SoA CREATE] ${this.javaClass.simpleName} T${transformHandle.entityID} | O${obbHandle.entityID}")
+        this.registerMonobehaviour(EntityRayCastingMeleeAttack())
     }
 
 }
