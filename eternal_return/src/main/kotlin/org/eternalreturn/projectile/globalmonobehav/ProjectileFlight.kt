@@ -37,7 +37,6 @@ class ProjectileFlight : Monobehaviour<ProjectileInitEvent>(){
         val y = projectile.y;
         val z = projectile.z;
 
-        projectile.dy = (projectile.dy - 9.80665 * 0.05);  //(v0 - gt)
         projectile.x = x + projectile.dx * 0.05; // x(t+dt) = x + v * dt
         projectile.y = y + projectile.dy * 0.05; // x(t+dt) = x + v * dt
         projectile.z = z + projectile.dz * 0.05; // x(t+dt) = x + v * dt
@@ -52,6 +51,8 @@ class ProjectileFlight : Monobehaviour<ProjectileInitEvent>(){
         startPoint.x = projectile.x;
         startPoint.y = projectile.y;
         startPoint.z = projectile.z;
+
+        projectile.dy = (projectile.dy - ((9.80665) * 0.1) * 0.05);  //(v0 - gt)
 
     }
 

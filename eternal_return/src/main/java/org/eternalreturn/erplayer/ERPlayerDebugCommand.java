@@ -48,9 +48,17 @@ public class ERPlayerDebugCommand implements CommandExecutor {
         Player p = (Player)sender;
         Set<String> tagSet = p.getScoreboardTags();
 
-        if(args.length == 1 && args[0].equalsIgnoreCase("area")){
+        if(args.length == 2 && args[0].equalsIgnoreCase("area")){
+            int num = -1;
+            try{
+                num = Integer.parseInt(args[1]);
+            }catch (NumberFormatException e){
+                p.sendMessage("두 번째 매개변수는 양의 정수여야 합니다.");
+                return false;
+            }
+            if(num == -1) return false;
             var areaSystem = PluginInstance.getEREngine().getAreaSystem();
-            areaSystem.update(3);
+            areaSystem.update(num);
             areaSystem.sendAreaStateToScoreboard();
         }
         else if(args.length == 1 && args[0].equalsIgnoreCase("reset")){

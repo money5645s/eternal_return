@@ -41,4 +41,6 @@ public class GraphLoader {
             throw new RuntimeException("Graph load failed", e);
         }
     }
+
 }
+
