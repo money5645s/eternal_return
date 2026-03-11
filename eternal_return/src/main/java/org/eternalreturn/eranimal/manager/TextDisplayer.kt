@@ -6,12 +6,12 @@ import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 
 class TextDisplayer(
-    textDisplay : TextDisplay,
-    erEngine: EREngine) : EREntity(erEngine, textDisplay)
+    val textDisplay : TextDisplay,
+    erEngine: EREngine) : MonobehaviourActor(erEngine)
 {
     override fun remove() {
         super.remove()
-        entity.remove();
+        textDisplay.remove();
     }
 
     init{

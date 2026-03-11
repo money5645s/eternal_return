@@ -51,6 +51,10 @@ abstract class DPEngine(bufferSize: Int = 512) : Runnable {
         }
     }
 
+    fun free(){
+        monobehaviourModule.free();
+    }
+
     /**
      * In main thread
      * */

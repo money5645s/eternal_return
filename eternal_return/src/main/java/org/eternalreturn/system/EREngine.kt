@@ -26,10 +26,6 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
      * EREntity들을 쿼리하기 위한 해시맵
      */
     private val erEntityMap = HashMap<Entity, EREntity>();
-    //private val erEntityLookupTable = Array<EREntity?>(bufferSize shl 1){null};
-    //fun lookup(sparseID : Int) : EREntity?{
-    //    return erEntityLookupTable[sparseID];
-    //}
 
     /**
      * 플레이어들을 따로 업데이트하기 위한 리스트
@@ -174,7 +170,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
             return null;
         }
         if (!erEntity.isAlive()) {
-            erEntityMap.remove(entity, erEntity)
+            erEntityMap.remove(entity, erEntity);
             return null;
         }
         return erEntity
@@ -213,10 +209,6 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
         removeList.clear();
     }
 
-    fun free(){
-        for(erEntity in entities.curQueue){
-            erEntity.remove();
-        }
-    }
+
 
 }

@@ -34,8 +34,8 @@ abstract class ERAnimal(
     abstract val attackTicks : Array<Int>;
 
     init {
-        registerMonobehaviour(Battle())
         registerMonobehaviour(Idle())
+        registerMonobehaviour(Battle())
         this.aJEntity.setDebugDisplay("T" + transformHandle.entityID + " | O" + obbHandle.entityID + "\n\n\n\n")
         this.submitEvent(IdleEvent())
     }

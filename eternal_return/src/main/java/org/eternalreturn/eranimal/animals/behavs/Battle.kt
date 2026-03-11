@@ -60,7 +60,7 @@ class Battle : ERAnimalMonobehaviour<EREntityAttackedEvent>() {
 
         val distFromSpawn = erAnimal.getPosition() - vec3(xSpawn, ySpawn, zSpawn);
         val distSqr = magnitudeSqr(distFromSpawn);
-        if(distSqr >= 10.0 * 10.0){
+        if(distSqr >= 25.0 * 25.0){
             println("Too far");
             erAnimal.remove();
             stopMonobehav();
@@ -70,12 +70,15 @@ class Battle : ERAnimalMonobehaviour<EREntityAttackedEvent>() {
         //사망 시
         if(erAnimal.hp <= 0.0){
             erAnimal.aJEntity.playAnimForce("death");
+            //if(erAnimal.aJEntity.isPlaying("death")) return; <- BUG?
             erAnimal.remove();
             stopMonobehav();
             return;
         }
 
+        if(ajEntity.actor == null)return;
         val actor = ajEntity.actor as Husk
+
         val target: Entity? = actor.target
         if (target == null) return;
         val targetEREntity = engine.getEREntity(target);

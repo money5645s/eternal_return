@@ -19,47 +19,38 @@ import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import java.util.LinkedList
 import kotlin.collections.remove
 import kotlin.collections.set
 
-enum class UnitState{
-    SUMMONING,
-    ALIVE,
-    DEAD_COOLDOWN
-}
 
-class AnimalUnit(
-    var erEntity : ERAnimal, //죽은 객체를 계속 들고 있다가, 쓰임을 다하면 객체 째로 놓아진다.
-    var cooldownTextShower : TextDisplay,
-    val erAJAnimal : ERAJEntity,
-    var deadTimestamp : Long = -1,
-    var summonTimestamp : Long = -1,
-    val summonCooldown : Long = 2 * 20, //ticks
-){
-    var state = UnitState.SUMMONING
+class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>() {
 
-    fun initCooldown(){
-        println("[${this.javaClass.simpleName}] ${erEntity.javaClass.simpleName}'s refCount == ${erEntity.referenceCount}")
-        deadTimestamp = System.currentTimeMillis();
-        summonTimestamp = deadTimestamp + summonCooldown * 50;
-        state = UnitState.DEAD_COOLDOWN
-    }
+    val erAnimalMap = HashMap<ERAJEntity, ERAnimal>();
+    val animalIsSummoned = Array<Boolean>(animalSize){false};
+    val animalSummoningTicks = Array<Int>(animalSize){-1};
+    val textDisplayList = ArrayList<TextDisplayer>();
 
-    fun coolDownIsDone() : Boolean{
-        val textShower = cooldownTextShower;
-        val timeLeftMillis = summonTimestamp - System.currentTimeMillis();
-        textShower.text(Component.text("${timeLeftMillis.toDouble() * 0.001}"))
-        return (timeLeftMillis <= 0)
-    }
-}
-
-
-class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
-
-    val animalMap = HashMap<ERAJEntity, AnimalUnit>();
 
     override fun start(event: AnimalManageEvent) {
 
+        val manager = actor as ERAnimalManager;
+        
+        //초기화
+        for(erAJAnimal in manager.entities){
+            val loc = Location(
+                manager.world,
+                erAJAnimal.location.x,
+                erAJAnimal.location.y + 3.0,
+                erAJAnimal.location.z
+            )
+            val textDisplay = manager.world.spawnEntity(loc, EntityType.TEXT_DISPLAY) as TextDisplay
+            textDisplay.billboard = Display.Billboard.CENTER; //어느 방향에서 봐도 똑같이 보인다.
+
+            val textDisplayEREntity = TextDisplayer(textDisplay, dpEngine as EREngine); //어차피 생성되면서 MonobehaviourModule내에 들어가게 됨.
+            dpEngine.monobehaviourModule.register(textDisplayEREntity);
+            textDisplayList.add(textDisplayEREntity)
+        }
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
@@ -69,55 +60,66 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
             stopMonobehav();
             return;
         }
+        //legacyCode();
 
-        //animal 루프
         val manager = actor as ERAnimalManager;
 
-        //checkingForSummoningIsDone
-        for(erAJAnimal in manager.entities) {
-            //hashmap에 등록이 되어있는지 확인 후 없다면 추가
-            if (!animalMap.contains(erAJAnimal)) {
-                if (!erAJAnimal.isShown) {
+        val testTicksForSummoning = 100;
+
+        for(i in 0 until animalSize){
+            if(!animalIsSummoned[i]){
+
+                val ticksLeft = animalSummoningTicks[i]
+                val textDisplay = textDisplayList[i].textDisplay
+
+                if(ticksLeft == -1){
+                    animalSummoningTicks[i] = testTicksForSummoning;
+                    textDisplay.text(Component.text("$ticksLeft"))
+                    continue;
+                }else if(ticksLeft > 0){
+                    animalSummoningTicks[i]--;
+                    textDisplay.text(Component.text("$ticksLeft"))
+                    continue;
+                }
+
+                //if ticksLeft == 0 then
+
+                val erAJAnimal = manager.entities[i]
+
+                if(!manager.entities[i].isShown){
                     println("[${this.javaClass.simpleName}] AJEntity가 아직 소환되지 않았으므로, 소환합니다.");
                     erAJAnimal.summon(0.0, 2.0, 0.0);
-                } else if (erAJAnimal.isValid) {
-                    //AnimalUnit 생성
-                    animalMap[erAJAnimal] = createAnimalUnit(manager, erAJAnimal)
+                }else if(erAJAnimal.isValid){
+                    erAnimalMap[erAJAnimal] = createAnimal(erAJAnimal)
+                    animalIsSummoned[i] = true;
                 }
             }
         }
 
-
-        //checkDeadOrRemoved
-        //여기서 삭제된 객체들은 재소환 절차
-        val iterator = animalMap.entries.iterator()
-        while (iterator.hasNext()){
-
-            val animalUnit = iterator.next().value;
-
-            if(animalUnit.erEntity.isAlive()){
+        for(i in 0 until animalSize){
+            if(!animalIsSummoned[i]){
                 continue;
             }
 
-            if(animalUnit.erEntity.hp <= 0){ //야생동물이 죽은 경우
-                if(animalUnit.state != UnitState.DEAD_COOLDOWN){
-                    animalUnit.initCooldown();
+            val erAJAnimal = manager.entities[i];
+            val erAnimal = erAnimalMap[erAJAnimal]!!;
+            if(!erAnimal.isAlive()){
+                if(erAnimal.hp <= 0){
+                    animalSummoningTicks[i] = -1;
                 }
-                if(animalUnit.coolDownIsDone()){
-                    animalUnit.erAJAnimal.summon(0.0, 2.0, 0.0);
-                    animalUnit.cooldownTextShower.remove()
-                    iterator.remove(); //소환 완료 시 정상적으로 객체 생성되도록 제거.
-                }
-            }else{ //단순히 디스폰 된 경우 즉 야생동물이 살아있는 경우
-                iterator.remove();
+
+                erAnimalMap.remove(erAJAnimal, erAnimal);
+                erAnimal.remove();
+                erAJAnimal.remove();
+                animalIsSummoned[i] = false;
             }
 
 
         }
+
+
+
     }
-
-
-
 
     /**
      * 소환된 ERAJEntity에 맞는 ERAnimal객체를 생성하는 함수
@@ -137,30 +139,11 @@ class ManageERAnimals : Monobehaviour<AnimalManageEvent>() {
         return newAnimal;
     }
 
-    private fun createAnimalUnit(manager : ERAnimalManager,erAJAnimal : ERAJEntity) : AnimalUnit{
-        println("[${this.javaClass.simpleName}] AJEntity가 소환이 완료되었으므로, ERAnimal객체를 생성합니다.");
-        val newAnimal = createAnimal(erAJAnimal);
-        val loc = Location(
-            manager.world,
-            erAJAnimal.location.x,
-            erAJAnimal.location.y + 3.0,
-            erAJAnimal.location.z
-        )
-        val textDisplay = manager.world.spawnEntity(loc, EntityType.TEXT_DISPLAY) as TextDisplay
-        textDisplay.billboard = Display.Billboard.CENTER; //어느 방향에서 봐도 똑같이 보인다.
-
-        val textDisplayEREntity = TextDisplayer(textDisplay, dpEngine as EREngine); //어차피 생성되면서 MonobehaviourModule내에 들어가게 됨.
-        val engine = dpEngine as EREngine;
-        engine.registerBukkitActor(textDisplay, textDisplayEREntity);
-
-        return AnimalUnit(newAnimal, textDisplay, erAJAnimal);
-    }
 
     fun removeAll(){
-        for(animalUnit in animalMap.values){
-            if(animalUnit.erEntity.isAlive()){
-                animalUnit.erEntity.remove(); //디스폰
-                animalUnit.cooldownTextShower.remove(); //디스폰
+        for(animal in erAnimalMap.values){
+            if(animal.isAlive()){
+                animal.remove(); //디스폰
             }
         }
     }

@@ -37,7 +37,7 @@ public abstract class AJEntity{
      * 현재 실행 중인 애니메이션의 이름<br>
      * registerAnimation(String,String) 메소드를 통해 등록해야 함.
      * */
-    protected String animationPlaying;
+    protected String animationPlaying = NO_ANIM;
 
     protected long animationEndTime;
 

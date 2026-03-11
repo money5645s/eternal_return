@@ -16,9 +16,9 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
     internal val eventTriggeredActors = ArrayDeque<MonobehaviourActor>();
 
     /**
-     * Running 중인 Monobehaviour을 소유한 MonobehaviourActor를 유지함.
+     * Update() 중인 Monobehaviour을 소유한 MonobehaviourActor를 유지함.
      * */
-    internal var runningActors = Array<ArrayList<MonobehaviourActor>>(2){ArrayList<MonobehaviourActor>()};
+    internal var updatingActors = Array<ArrayList<MonobehaviourActor>>(2){ArrayList<MonobehaviourActor>()};
     var curIdx = 0;
 
     /**
@@ -32,7 +32,7 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
             val actor = eventTriggeredActors.removeFirst();
             //update() 하는 Monobehaviour이 있는가?
             if (actor.thereAreNoRunningMonobehaviours) {
-                runningActors[curIdx].addLast(actor);
+                updatingActors[curIdx].addLast(actor);
             }
             actor.dispatchEvents();
         }
@@ -43,15 +43,15 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
      * */
     fun updateMonobehaviours(){
         //val newRunningActors = ArrayDeque<MonobehaviourActor>()
-        for(actor in  runningActors[curIdx]){
+        for(actor in  updatingActors[curIdx]){
             val hasRunningMonobehav = actor.updateMonobehaviour();
             //여기도 isEmptyForRunningMonobehaviour() 써도 되긴 하는데, 일부러 안 건드림.
             //아무래도 메소드 한번 호출보다야 이미 저장된 값 쓰는 게 더 빠를 테니까.
             if(hasRunningMonobehav && actor.isAlive()){
-                runningActors[curIdx xor 1].addLast(actor);
+                updatingActors[curIdx xor 1].addLast(actor);
             }
         }
-        runningActors[curIdx].clear();
+        updatingActors[curIdx].clear();
         curIdx = curIdx xor 1
         //this.runningActors = newRunningActors;
 
@@ -77,6 +77,12 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
      * */
     fun register(actor : MonobehaviourActor){
         monobehaviourActorList.add(actor);
+    }
+
+    fun free() {
+        for(actor in monobehaviourActorList.curQueue){
+            actor.remove();
+        }
     }
 
 }

@@ -48,8 +48,8 @@ public class ERPlayerListener implements Listener {
     public void onPlayerInteraction(PlayerInteractEvent e){
         var engine = PluginInstance.getEREngine();
         ERPlayer erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
-        
-        if(erPlayer != null){
+
+        if(e.getAction().isLeftClick() && erPlayer != null){
             erPlayer.shootRay();
         }
     }

@@ -76,7 +76,7 @@ public class ERAnimalManager extends MonobehaviourActor {
             entities.add(animal);
         }
 
-        registerMonobehaviour(new ManageERAnimals());
+        registerMonobehaviour(new ManageERAnimals(this.entities.size()));
         registerMonobehaviour(new DetectingPlayersInRange());
 
         //한번만 제출하면 됨. 매 틱마다 동작할 것.

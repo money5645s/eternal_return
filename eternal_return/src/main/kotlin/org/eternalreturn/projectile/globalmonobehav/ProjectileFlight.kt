@@ -43,16 +43,16 @@ class ProjectileFlight : Monobehaviour<ProjectileInitEvent>(){
 
         for(i in 0 until 10){
             world.spawnParticle(Particle.DUST, startPoint, 1, Particle.DustOptions(Color.SILVER, 1.0f));
-            startPoint.x += i * (projectile.dx * 0.05) * 0.1;
-            startPoint.y += i * (projectile.dy * 0.05) * 0.1;
-            startPoint.z += i * (projectile.dz * 0.05) * 0.1;
+            startPoint.x += i * (projectile.dx * 0.05);
+            startPoint.y += i * (projectile.dy * 0.05);
+            startPoint.z += i * (projectile.dz * 0.05);
         }
 
         startPoint.x = projectile.x;
         startPoint.y = projectile.y;
         startPoint.z = projectile.z;
 
-        projectile.dy = (projectile.dy - ((9.80665) * 0.1) * 0.05);  //(v0 - gt)
+        projectile.dy = (projectile.dy - ((9.80665) * 0.5) * 0.05);  //(v0 - gt)
 
     }
 
