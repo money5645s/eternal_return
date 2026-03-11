@@ -3,8 +3,8 @@
 		{
 			"type": "bitmap",
 			"file": "minecraft:font/mono_color/black.png",
-			"ascent": 300,
-			"height": 1000,
+			"ascent": 3000,
+			"height": 10000,
 			"chars": ["b"]
 		}
 	]
