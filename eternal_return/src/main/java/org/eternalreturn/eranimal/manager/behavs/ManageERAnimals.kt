@@ -63,16 +63,27 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
         //legacyCode();
 
         val manager = actor as ERAnimalManager;
-
-        val testTicksForSummoning = 100;
+        val animalList = manager.entities;
 
         for(i in 0 until animalSize){
+            val animal = animalList[i];
+            if(animal.name == "animal_alpha"){
+                continue;
+            }
+
             if(!animalIsSummoned[i]){
 
                 val ticksLeft = animalSummoningTicks[i]
                 val textDisplay = textDisplayList[i].textDisplay
 
                 if(ticksLeft == -1){
+                    val testTicksForSummoning = when(animal.name){
+                        "animal_boar" -> 120;
+                        "animal_wolf" -> 140;
+                        "animal_bear" -> 160;
+                        else -> Integer.MAX_VALUE
+                    }
+
                     animalSummoningTicks[i] = testTicksForSummoning;
                     textDisplay.text(Component.text("$ticksLeft"))
                     continue;
@@ -87,7 +98,7 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
                 val erAJAnimal = manager.entities[i]
 
                 if(!manager.entities[i].isShown){
-                    println("[${this.javaClass.simpleName}] AJEntity가 아직 소환되지 않았으므로, 소환합니다.");
+                    //println("[${this.javaClass.simpleName}] AJEntity가 아직 소환되지 않았으므로, 소환합니다.");
                     erAJAnimal.summon(0.0, 2.0, 0.0);
                 }else if(erAJAnimal.isValid){
                     erAnimalMap[erAJAnimal] = createAnimal(erAJAnimal)

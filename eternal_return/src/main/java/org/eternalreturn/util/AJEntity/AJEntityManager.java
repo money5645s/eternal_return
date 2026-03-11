@@ -17,20 +17,20 @@ import java.util.*;
 /**
  * AJEntity를 원활하게 관리하기 위한 싱글톤 클래스<br>
  * */
-public class AJEntityManager implements Listener , FreeAble {
+public class AJEntityManager implements FreeAble, Runnable {
 
     private static AJEntityManager manager = null;
 
     //private static CommandSender commandSender = Bukkit.getConsoleSender();
     private static CommandSender commandSender = Bukkit.createCommandSender(builder -> {});
 
-    private static HashMap<Entity, AJEntity> ajEntityMap = new HashMap<>(8);
+    static HashMap<Entity, AJEntity> ajEntityMap = new HashMap<>(8);
 
-    private static List<AJEntity> ajEntities = new ArrayList<>(8);
+    static List<AJEntity> ajEntities = new ArrayList<>(8);
 
     private static Plugin plugin = null;
 
-    private static List<AJEntity> ajEntitySummonQueue = new LinkedList<>();
+    static List<AJEntity> ajEntitySummonQueue = new LinkedList<>();
 
     public static void sendCommand(String cmd){
         Bukkit.dispatchCommand(commandSender, cmd);
@@ -85,8 +85,9 @@ public class AJEntityManager implements Listener , FreeAble {
     /**
      * 해당 Location에 AJEntity 객체의 명세대로 엔티티를 소환한다.
      * */
+    private static StringBuilder cmdBuilder = new StringBuilder();
+    private static ArrayDeque<String> commandQueue = new ArrayDeque<>(512);
     public static void summon(@NotNull AJEntity ajEntity, @NotNull Location location, double lx, double ly, double lz){
-
         if(location.getWorld() == null){
             try{
                 throw new NullPointerException("해당 함수의 매개변수로 전달된 Location 객체는 반드시 World 객체 정보를 가지고 있어야 합니다.");
@@ -97,7 +98,6 @@ public class AJEntityManager implements Listener , FreeAble {
         }
 
         if(manager.thisSingletoneIsAlreadAllocated()){
-
             /// 이거 명령어 순서 바꾸면 좆된다!!!!!!!!!!!!!!!!!!!
 
             //해당 명세서를 큐에 넣는다. 위의 명령어가 실행이 완료될 때마다, 순차적으로 dequeue(poll)되어
@@ -107,13 +107,21 @@ public class AJEntityManager implements Listener , FreeAble {
             ajEntity.location = location;
             ajEntity.afterSummoning();
 
-            String command =  "execute"
-                    +" positioned " + (location.getX() + lx) + " " + (location.getY() + ly) + " " + (location.getZ() + lz)
-                    +" rotated " + location.getYaw() + " " + location.getPitch()
-                    +" run function animated_java:" + ajEntity.getName() + "/summon {args:0}";
-            AJEntityManager.sendCommand(command);
+            cmdBuilder.append("execute").append(" positioned ")
+                    .append((location.getX() + lx)).append(" ").append((location.getY() + ly)).append(" ").append((location.getZ() + lz))
+                    .append(" rotated ").append(location.getYaw()).append(" ").append(location.getPitch()).append(" run function animated_java:")
+                    .append(ajEntity.getName()).append("/summon {args:0}");
 
-            //소환 이후 로직
+//            String command =  "execute"
+//                    +" positioned " + (location.getX() + lx) + " " + (location.getY() + ly) + " " + (location.getZ() + lz)
+//                    +" rotated " + location.getYaw() + " " + location.getPitch()
+//                    +" run function animated_java:" + ajEntity.getName() + "/summon {args:0}";
+
+            //var cache = new AJCache(location.getX() + lx, location.getY() + ly, location.getZ() + lz, location.getYaw(), location.getPitch(), ajEntity.getName());
+            //AJEntityManager.sendCommand(cmdBuilder.toString());
+            commandQueue.addLast(cmdBuilder.toString());
+            cmdBuilder.delete(0, cmdBuilder.length());
+
         }
     }
 
@@ -137,59 +145,30 @@ public class AJEntityManager implements Listener , FreeAble {
      * 소환된 엔티티를 대상으로 태그를 선형으로 조사하여<br>
      * "aj."로 시작, ".root"로 끝나는 태그가 있는지 확인하고, 해당 엔티티인 경우 true 반환 그 외에는 false 반환
      * */
-    private boolean isAJEntityRoot(@NotNull Entity entity){
-        if(!entity.getType().equals(EntityType.ITEM_DISPLAY)){
-            return false;
-        }
-        for(String tag : entity.getScoreboardTags()){
-            if(tag.equals("aj.global.root")){
-                return true; //아도겐!!
-            }
-        }
-        return false;
+    static boolean isAJEntityRoot(@NotNull Entity entity){
+        return entity.getType().equals(EntityType.ITEM_DISPLAY) && entity.getScoreboardTags().contains("aj.global.root");
     }
 
     public static void registerAJEntity(AJEntity ajEntity){
         AJEntityManager.ajEntities.add(ajEntity);
     }
 
-    //getter
     public static List<AJEntity> getAjEntities(){
         return AJEntityManager.ajEntities;
     }
 
-    //Listener code
-    @EventHandler
-    public void event(EntitySpawnEvent e){
 
-        Entity entity = e.getEntity();
+    private int commandDispatchLimit = 1;
+    @Override
+    public void run() {
 
-        //ajEntitySummonQueue가 비어있는지 확인한다.
-        //비어있지 않는 경우, 해당 엔티티가 root entity 인지 확인한다.
-        // root entity 라면, ajEntityMap에 등록한다.
+        int i = 0;
 
-        if(ajEntitySummonQueue.isEmpty()){
-            return;
+        while(!commandQueue.isEmpty() && i < commandDispatchLimit){
+            var cmd = commandQueue.removeFirst();
+            sendCommand(cmd);
+            i++;
         }
-
-        if(isAJEntityRoot(entity)){
-            System.out.println(entity);
-
-            AJEntity ajEntity = ajEntitySummonQueue.removeLast();
-
-            //System.out.println(ajEntity +" 에서 소환 명세를 받았습니다. 길이 : " + (ajEntitySummonQueue.size() + 1));
-
-            assert ajEntity != null : "ajEntity가 Null 입니다. AJEntityManager.summon(AJEntity, Location) AJEntity에 잘못된 값이 들어갔습니다.";
-
-            ajEntityMap.put(entity, ajEntity);
-            ajEntities.add(ajEntity);
-
-            ajEntity.afterSpawnEvent(entity);
-
-            //System.out.println("ajEntity가 생성되었습니다. : " + ajEntity.getRootEntity().getUniqueId());
-        }
-
 
     }
-
 }

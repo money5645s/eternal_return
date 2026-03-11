@@ -23,7 +23,7 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
 
         val victim : LivingEntity =  this.getEREntity().entity as LivingEntity;
 
-        println("CurrentCount : $count ");
+        //println("CurrentCount : $count ");
         if(count >= 4) {
             event.player.sendMessage("§f[피오라] §b§l뚜셰! §f적중");
             event.player.playSound(event.player.location, Sound.ITEM_MACE_SMASH_GROUND_HEAVY, 1f, 1.5f)

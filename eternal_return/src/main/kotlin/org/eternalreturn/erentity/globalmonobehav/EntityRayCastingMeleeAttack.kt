@@ -34,7 +34,7 @@ class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>(
             if(distanceSqr < minDist){
                 minDist = distanceSqr;
                 closestTarget = e;
-                println("Melee-attacked to -> " + e.javaClass)
+                //println("Melee-attacked to -> " + e.javaClass)
             }
         }
 

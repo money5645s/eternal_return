@@ -130,7 +130,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
 
         applyVelocities(); //속도 적용
 
-        removeAll();
+        deferDisabledEREntity();
     }
 
     /**
@@ -191,7 +191,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
     /**
      * 일괄삭제 함수.
      * */
-    private fun removeAll() {
+    private fun deferDisabledEREntity() {
         for(actorToRemove in removeList){
 
             val erEntity = actorToRemove;

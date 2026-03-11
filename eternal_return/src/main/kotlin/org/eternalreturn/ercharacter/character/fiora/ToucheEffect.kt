@@ -26,7 +26,7 @@ class ToucheEffect : EREntityMonobehaviour<ToucheEffectStartEvent>(){
             val event = eventMap[ToucheEffectStartEvent::class.java] as ToucheEffectStartEvent?
             if(event != null){
                 count = event.count;
-                println("$count of point");
+                //println("$count of point");
             }
             drawParticles(loc, count);
             return;

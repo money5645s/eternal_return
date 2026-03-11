@@ -23,7 +23,7 @@ class PassiveCount : EREntityMonobehaviour<PassiveCountEvent>() {
 
         val victim : LivingEntity =  this.getEREntity().entity as LivingEntity;
 
-        println("CurrentCount : $count ");
+        //println("CurrentCount : $count ");
         if(count >= 2) {
             event.player.sendMessage("§f[아이작] 착취 발동");
             event.player.playSound(event.player.location, Sound.ITEM_MACE_SMASH_GROUND_HEAVY, 1f, 1.5f)

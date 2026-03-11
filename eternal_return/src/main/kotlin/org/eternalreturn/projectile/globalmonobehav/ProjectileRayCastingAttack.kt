@@ -46,7 +46,7 @@ class ProjectileRayCastingAttack : Monobehaviour<ProjectileRayCastEvent>() {
             if(distanceSqr < minDist){
                 minDist = distanceSqr;
                 closestTarget = e;
-                println("Projectile-attacked to -> " + e.javaClass)
+                //println("Projectile-attacked to -> " + e.javaClass)
             }
         }
 

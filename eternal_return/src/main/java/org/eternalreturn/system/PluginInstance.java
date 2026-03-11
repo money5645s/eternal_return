@@ -7,6 +7,7 @@ import org.eternalreturn.area.ERAreaSystem;
 import org.eternalreturn.eranimal.manager.ERAnimalManager;
 import org.eternalreturn.erplayer.ERPlayerDebugCommand;
 import org.eternalreturn.erplayer.ERPlayerListener;
+import org.eternalreturn.util.AJEntity.AJEntityListener;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -53,11 +54,12 @@ public final class PluginInstance extends JavaPlugin{
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new ERPlayerListener(), this);
         //pm.registerEvents(new BSwingListener(), this);
-        pm.registerEvents(ajEntityManager, this);
+        pm.registerEvents(new AJEntityListener(), this);
         loadCommands();
 
 
         Bukkit.getScheduler().runTaskTimer(this, erEngine,0,1);
+        Bukkit.getScheduler().runTaskTimer(this, ajEntityManager,0, 1);
 
         //로드 종료 시 로그
         dfLogUTF8("이터널 리턴 플러그인 구동 준비 완료!");

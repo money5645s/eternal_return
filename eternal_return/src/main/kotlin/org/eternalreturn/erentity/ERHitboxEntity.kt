@@ -34,7 +34,7 @@ abstract class ERHitboxEntity( // extends MonobehaviourActor()
 
     init {
         obbHandle.actor = this;
-        println("[SoA CREATE] ${this.javaClass.simpleName} T${transformHandle.entityID} | O${obbHandle.entityID}")
+        //println("[SoA CREATE] ${this.javaClass.simpleName} T${transformHandle.entityID} | O${obbHandle.entityID}")
         this.registerMonobehaviour(EntityRayCastingMeleeAttack())
     }
 

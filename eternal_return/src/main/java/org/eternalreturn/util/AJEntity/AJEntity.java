@@ -58,6 +58,7 @@ public abstract class AJEntity{
      * */
     public void remove(){
         AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + "animated_java:" + this.name + "/remove/this");
+        EXECUTE_AS_UUID_RUN_FUNCTION = null;
     }
 
     /**
@@ -146,13 +147,16 @@ public abstract class AJEntity{
     }
 
     //요청받은 애니메이션을 설정 & 실행한다.
+    private StringBuilder cmdBuilder = new StringBuilder();
     private void __setAnim(String animation, long durationTicks, long currentTime)throws AJAnimationNotFoundException{
         //현재 실행하는 애니메이션의 이름과 경로
         this.animationPlaying = animation;
         this.animationEndTime = durationTicks * 50 + currentTime;
         this.animationState = ANIMATION_STATE.PLAY;
-        String command = getExecuteAsRunFuncPrefix() + this.animationPlaying + "/play";
-        AJEntityManager.sendCommand(command);
+        //String command = getExecuteAsRunFuncPrefix() + this.animationPlaying + "/play";
+        cmdBuilder.append(getExecuteAsRunFuncPrefix()).append(this.animationPlaying).append("/play");
+        AJEntityManager.sendCommand(cmdBuilder.toString());
+        cmdBuilder.delete(0, cmdBuilder.length());
     }
 
     /**
@@ -161,7 +165,9 @@ public abstract class AJEntity{
      * */
     public void pauseAnim(){
         this.animationState = ANIMATION_STATE.PAUSE;
-        AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + animationPlaying + "/pause");
+        cmdBuilder.append(getExecuteAsRunFuncPrefix()).append(this.animationPlaying).append("/pause");
+        AJEntityManager.sendCommand(cmdBuilder.toString());
+        cmdBuilder.delete(0, cmdBuilder.length());
     }
 
     /**
@@ -188,7 +194,11 @@ public abstract class AJEntity{
      * */
     public void stopAnim(){
         if(!animationPlaying.equals(NO_ANIM) && animationState == ANIMATION_STATE.PLAY){
-            AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + animationPlaying + "/stop");
+
+            cmdBuilder.append(getExecuteAsRunFuncPrefix()).append(this.animationPlaying).append("/stop");
+            AJEntityManager.sendCommand(cmdBuilder.toString());
+            cmdBuilder.delete(0, cmdBuilder.length());
+
             this.animationState = ANIMATION_STATE.STOP;
             this.animationPlaying = NO_ANIM;
         }
@@ -196,10 +206,17 @@ public abstract class AJEntity{
 
     /**
      * 다음 문자열을 반환한다.
-     * @return "execute as "+ rootEntity.getUniqueId() +" run function "
+     * <p>
+     * "execute as "+ rootEntity.getUniqueId() +" run function "
+     * <p>
      * */
+    private static String EXECUTE_AS_UUID_RUN_FUNCTION = null;
     private String getExecuteAsRunFuncPrefix(){
-        return "execute as "+ rootEntity.getUniqueId() +" run function ";
+//        if(EXECUTE_AS_UUID_RUN_FUNCTION == null){
+//            EXECUTE_AS_UUID_RUN_FUNCTION = "execute as " + rootEntity.getUniqueId() + " run function ";
+//        }
+//        return EXECUTE_AS_UUID_RUN_FUNCTION;
+        return "execute as " + rootEntity.getUniqueId() + " run function ";
     }
 
     //getter

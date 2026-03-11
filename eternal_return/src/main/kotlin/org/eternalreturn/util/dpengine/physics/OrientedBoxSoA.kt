@@ -366,7 +366,7 @@ class OrientedBoxSoA(
                         val entityID = hitList.getInt(j);
                         val hitActor = getConnectedActor(entityID) as ERHitboxEntity;
                         hitActorList.add(hitActor)
-                        println("HITLIST -> [$j] : ${hitActor.javaClass.simpleName} ${hitActor.transformHandle.entityID} ${hitActor.obbHandle.entityID} isValid : ${isValid(hitActor.obbHandle)}"); // 디버깅용
+                        //println("HITLIST -> [$j] : ${hitActor.javaClass.simpleName} ${hitActor.transformHandle.entityID} ${hitActor.obbHandle.entityID} isValid : ${isValid(hitActor.obbHandle)}"); // 디버깅용
                     }
 
                     //이벤트를 전달한다.

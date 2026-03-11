@@ -15,7 +15,7 @@ class Stun : EREntityMonobehaviour<EREntityStunEvent>() {
         startStunMillies = event.startStunMillies
         duration = event.duration
         stunLocation = entity.location
-        println("Stun event dispatched")
+        //println("Stun event dispatched")
     }
 
     public override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {

@@ -39,7 +39,7 @@ class Battle : ERAnimalMonobehaviour<EREntityAttackedEvent>() {
         val world = PluginInstance.getServerInstance().server.worlds.first();
         ajEntity.setActor(world.spawnEntity(ajEntity.location, EntityType.HUSK) as Husk);
         (ajEntity.getActor() as Husk).setAI(true)
-        println("attacked by a player")
+        //println("attacked by a player")
 
         xSpawn = ajEntity.location.x;
         ySpawn = ajEntity.location.y;
@@ -61,7 +61,7 @@ class Battle : ERAnimalMonobehaviour<EREntityAttackedEvent>() {
         val distFromSpawn = erAnimal.getPosition() - vec3(xSpawn, ySpawn, zSpawn);
         val distSqr = magnitudeSqr(distFromSpawn);
         if(distSqr >= 25.0 * 25.0){
-            println("Too far");
+            //println("Too far");
             erAnimal.remove();
             stopMonobehav();
             return;
