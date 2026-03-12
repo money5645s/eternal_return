@@ -22,7 +22,7 @@ public final class PluginInstance extends JavaPlugin{
     /**
      * 나중에 병렬처리를 위해 List<>로 관리할 수도 있음.
      * */
-    private static EREngine erEngine = new EREngine();
+    private static EREngine erEngine;
 
 
     //UTF-8로 인코딩 후 로거에게 전달하는 함수.
@@ -37,6 +37,7 @@ public final class PluginInstance extends JavaPlugin{
     @Override
     public void onEnable() {
         serverInstance = this;
+        erEngine = new EREngine(this, 512);
         //로드 시작 시 로그
         dfLogUTF8("이터널 리턴 플러그인 구동 준비...");
 
@@ -57,8 +58,6 @@ public final class PluginInstance extends JavaPlugin{
         pm.registerEvents(new AJEntityListener(), this);
         loadCommands();
 
-
-        Bukkit.getScheduler().runTaskTimer(this, erEngine,0,1);
         Bukkit.getScheduler().runTaskTimer(this, ajEntityManager,0, 1);
 
         //로드 종료 시 로그

@@ -4,8 +4,12 @@ import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 
 open class UpdateContainer<E : MonobehaviourActor>{
 
+
     private val queue = Array<ArrayList<E>>(2) { ArrayList() };
+
+    @Volatile
     private var curIdx = 0;
+
     val curQueue : ArrayList<E>
         get() = queue[curIdx]
 

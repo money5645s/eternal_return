@@ -14,6 +14,7 @@ import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.projectile.ERProjectile
 import org.eternalreturn.projectile.events.ProjectileRayCastEvent
+import org.eternalreturn.system.EREngine
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 import org.eternalreturn.util.dpengine.geometry.OBB
@@ -339,7 +340,7 @@ class OrientedBoxSoA(
 
 
 
-    fun rayCastSoA(raySoA : RaySoA){
+    fun rayCastSoA(eventCommandQueue : ArrayDeque<EREngine.EventCmd>, raySoA : RaySoA){
 
         val lastRay = raySoA.lastRay;
         val posX = raySoA.posX;
@@ -371,12 +372,11 @@ class OrientedBoxSoA(
 
                     //이벤트를 전달한다.
                     if(shooter is EREntity){ //광선을 쏜 개체가 EREntity라면
-                        shooter.submitEvent(EREntityRayCastEvent(shooter,hitActorList));
+                        eventCommandQueue.addLast(EREngine.EventCmd(shooter, EREntityRayCastEvent(shooter,hitActorList)))
                     }else if(shooter is ERProjectile){
                         //광선을 쏜 개체가 Projectile이라면
-                        shooter.submitEvent(ProjectileRayCastEvent(shooter, hitActorList));
+                        eventCommandQueue.addLast(EREngine.EventCmd(shooter, ProjectileRayCastEvent(shooter, hitActorList)))
                     }
-
                 }
             }
         }
@@ -462,8 +462,8 @@ class OrientedBoxSoA(
         val obbActor0 = transformHandleList[obb0].actor as EREntity;
         val obbActor1 = transformHandleList[obb1].actor as EREntity;
 
-        obbActor0.addVelocity(-mtvX * 2.0, 0.0, -mtvZ * 2.0); //살짝 변수를 줘서, 서로 겹치게 하는 것 제거
-        obbActor1.addVelocity(+mtvX * 2.0, 0.0, +mtvZ * 2.0);
+        obbActor0.addVelocity(-mtvX, 0.0, -mtvZ);
+        obbActor1.addVelocity(+mtvX, 0.0, +mtvZ);
 
         return true
 

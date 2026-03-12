@@ -14,7 +14,10 @@ import org.eternalreturn.erentity.globalmonobehav.Stun
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourModule
+import org.eternalreturn.util.dpengine.command.AddSpigotEntityPosition
+import org.eternalreturn.util.dpengine.command.AddSpigotEntityVelocity
 import org.eternalreturn.util.dpengine.command.SetSpigotEntityPosition
+import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import org.eternalreturn.util.dpengine.physics.Handle
 import kotlin.math.cos
@@ -83,37 +86,37 @@ abstract class EREntity(
         val x = geometryModule.x(pos);
         val y = geometryModule.y(pos);
         val z = geometryModule.z(pos);
-        this.geometryModule.dpEngine.appendCommandQueue(SetSpigotEntityPosition(entity, x, y, z))
+        this.dpEngine.appendCommandQueue(SetSpigotEntityPosition(entity, x, y, z))
     }
 
     open fun setVelocity(vec : Vector3){
         val x = geometryModule.x(vec);
         val y = geometryModule.y(vec);
         val z = geometryModule.z(vec);
-        erEngine.transformSoA.setVelocity(transformHandle, x, y, z);
+        this.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity, x, y, z))
     }
 
     open fun addVelocity(vec : Vector3){
         val x = geometryModule.x(vec);
         val y = geometryModule.y(vec);
         val z = geometryModule.z(vec);
-        erEngine.transformSoA.addVelocity(transformHandle, x, y, z);
+        this.dpEngine.appendCommandQueue(AddSpigotEntityVelocity(entity, x, y, z))
     }
 
     open fun setVelocity(x : Double, y : Double, z : Double){
-        erEngine.transformSoA.setVelocity(transformHandle, x, y, z);
+        this.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity, x, y, z))
     }
 
     open fun addVelocity(x : Double, y : Double, z : Double){
-        erEngine.transformSoA.addVelocity(transformHandle, x, y, z);
+        this.dpEngine.appendCommandQueue(AddSpigotEntityVelocity(entity, x, y, z))
     }
 
     open fun setPosition(x : Double, y : Double, z : Double){
-        erEngine.transformSoA.setPosition(transformHandle, x, y, z);
+        this.dpEngine.appendCommandQueue(SetSpigotEntityPosition(entity, x, y, z))
     }
 
     open fun addPosition(x : Double, y : Double, z : Double){
-        erEngine.transformSoA.addPosition(transformHandle, x, y, z);
+        this.dpEngine.appendCommandQueue(AddSpigotEntityPosition(entity, x, y, z))
     }
 
     open fun applyBukkitVelocityOnMainThread(x: Double, y: Double, z: Double) {

@@ -13,7 +13,8 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
      * 이벤트가 dispatch된 순서대로 MonobehaviourActor을 추가함.
      * 해당 큐는 run() 내에서 앞에서부터 순서대로 소비됨.
      * */
-    internal val eventTriggeredActors = ArrayDeque<MonobehaviourActor>();
+    internal val eventTriggeredActors = Array<ArrayDeque<MonobehaviourActor>>(2){ArrayDeque<MonobehaviourActor>()};
+    var triggeredActorQueueIdx = 0;
 
     /**
      * Update() 중인 Monobehaviour을 소유한 MonobehaviourActor를 유지함.
@@ -28,14 +29,23 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
      * (즉 실행될 여지가 남아있는 경우, 추가하고 그렇지 않은 경우 추가하지 않음.)
      * */
     fun consumeEvents() {
-        while (eventTriggeredActors.isNotEmpty()) {
-            val actor = eventTriggeredActors.removeFirst();
+
+        triggeredActorQueueIdx = triggeredActorQueueIdx xor 1
+        val triggeredActorQueue = eventTriggeredActors[triggeredActorQueueIdx]
+
+        //println("triggeredActorQueueIdx == $curIdx, size == ${triggeredActorQueue.size}")
+
+        while (triggeredActorQueue.isNotEmpty()) {
+            val actor = triggeredActorQueue.removeFirst();
             //update() 하는 Monobehaviour이 있는가?
             if (actor.thereAreNoRunningMonobehaviours) {
                 updatingActors[curIdx].addLast(actor);
             }
             actor.dispatchEvents();
         }
+        
+        //다음 큐로 이동
+        triggeredActorQueue.clear();
     }
 
     /**
@@ -69,7 +79,7 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
     }
 
     fun submitActorWhoTriggeredEvent(actor : MonobehaviourActor){
-        eventTriggeredActors.add(actor);
+        eventTriggeredActors[triggeredActorQueueIdx xor 1].add(actor);
     }
 
     /**

@@ -22,7 +22,7 @@ import kotlin.reflect.KClass
  * Made by Danpung (TDanfung)
  * 기본적 엔진
  * */
-abstract class DPEngine(bufferSize: Int = 512) : Runnable {
+abstract class DPEngine(bufferSize: Int = 512) {
 
     val geometryModule = GeometryModule(this, bufferSize)
 
@@ -32,8 +32,6 @@ abstract class DPEngine(bufferSize: Int = 512) : Runnable {
     }
 
     public val monobehaviourModule = MonobehaviourModule(this)
-
-    protected abstract fun update();
     
     /**
      * 커맨드 큐
@@ -44,7 +42,7 @@ abstract class DPEngine(bufferSize: Int = 512) : Runnable {
         commandQueue.add(cmd);
     }
 
-    public fun flushCommandQueue(){
+    public open fun flushCommandQueue(){
         while(!commandQueue.isEmpty()){
             val cmd = commandQueue.poll();
             cmd.run();
@@ -58,11 +56,10 @@ abstract class DPEngine(bufferSize: Int = 512) : Runnable {
     /**
      * In main thread
      * */
-    override fun run() {
+    open fun updateMonobehaviourModule() {
         monobehaviourModule.consumeEvents();
         monobehaviourModule.updateMonobehaviours();
         monobehaviourModule.monobehaviourActorList.update();
-        update();
         flushCommandQueue();
     }
 

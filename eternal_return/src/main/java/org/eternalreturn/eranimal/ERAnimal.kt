@@ -9,6 +9,10 @@ import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.system.EREngine
+import org.eternalreturn.util.dpengine.command.AddSpigotEntityPosition
+import org.eternalreturn.util.dpengine.command.AddSpigotEntityVelocity
+import org.eternalreturn.util.dpengine.command.SetSpigotEntityPosition
+import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
 
 /**
  * MonobehaviourActor역할을 하는 야생동물 클래스.
@@ -49,7 +53,7 @@ abstract class ERAnimal(
      * */
     override fun setVelocity(x : Double, y : Double, z : Double){
         if(isActorNotValid()) return;
-        erEngine.transformSoA.setVelocity(transformHandle, x, y, z);
+        this.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(aJEntity.actor, x, y, z))
     }
 
     /**
@@ -57,7 +61,7 @@ abstract class ERAnimal(
      * */
     override fun addVelocity(x : Double, y : Double, z : Double){
         if(isActorNotValid()) return;
-        erEngine.transformSoA.addVelocity(transformHandle, x, y, z);
+        this.dpEngine.appendCommandQueue(AddSpigotEntityVelocity(aJEntity.actor, x, y, z))
     }
 
     /**
@@ -65,7 +69,7 @@ abstract class ERAnimal(
      * */
     override fun setPosition(x : Double, y : Double, z : Double){
         if(isActorNotValid()) return;
-        erEngine.transformSoA.setPosition(transformHandle, x, y, z);
+        this.dpEngine.appendCommandQueue(SetSpigotEntityPosition(aJEntity.actor, x, y, z))
     }
 
     /**
@@ -73,7 +77,7 @@ abstract class ERAnimal(
      * */
     override fun addPosition(x : Double, y : Double, z : Double){
         if(isActorNotValid()) return;
-        erEngine.transformSoA.addPosition(transformHandle, x, y, z);
+        this.dpEngine.appendCommandQueue(AddSpigotEntityPosition(aJEntity.actor, x, y, z))
     }
 
     override fun applyBukkitVelocityOnMainThread(x: Double, y: Double, z: Double) {

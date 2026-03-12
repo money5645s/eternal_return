@@ -1,5 +1,6 @@
 package org.eternalreturn.erplayer;
 
+import com.destroystokyo.paper.event.brigadier.AsyncPlayerSendCommandsEvent;
 import com.destroystokyo.paper.event.player.PlayerAttackEntityCooldownResetEvent;
 import com.destroystokyo.paper.event.player.PlayerReadyArrowEvent;
 import io.papermc.paper.event.entity.EntityMoveEvent;

@@ -1,24 +1,39 @@
 package org.eternalreturn.system
 
+
+import org.bukkit.Bukkit
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
+import org.bukkit.plugin.Plugin
 import org.eternalreturn.area.ERAreaSystem
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.projectile.ERProjectile
 import org.eternalreturn.util.dpengine.DPEngine
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.eternalreturn.util.dpengine.datastructure.DeadActorException
 import org.eternalreturn.util.dpengine.datastructure.UpdateView
 import org.eternalreturn.util.dpengine.physics.OrientedBoxSoA
 import org.eternalreturn.util.dpengine.physics.RaySoA
 import org.eternalreturn.util.dpengine.physics.TransformSoA
 import org.eternalreturn.util.dpengine.physics.UniformGrid
+import java.lang.Thread.sleep
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.atomic.AtomicLong
+import kotlin.math.acos
 
 /**
  * Bukkit 객체들과 유연하게 상호작용하기위한 엔진
  */
-class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
+class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSize) {
+
+    init{
+        val scheduler = Bukkit.getScheduler();
+        scheduler.runTaskTimer(plugin, Runnable{this.update()}, 0, 1);
+        //scheduler.runTaskTimerAsynchronously(plugin, Runnable{this.updatePhysicsModule()}, 0, 1);
+    }
 
     val areaSystem: ERAreaSystem = ERAreaSystem()
 
@@ -58,9 +73,6 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
      * */
     private fun cachingTransformSoAFromBukkit(){
         for(erEntity in entities.curQueue){ //일단 전부 돌기
-            if(!(erEntity.entity.isValid)){
-                erEntity.remove();
-            }
             val entity = erEntity.entity;
             val loc = entity.location;
             val px = loc.x;
@@ -79,6 +91,18 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
         }
     }
 
+    class EventCmd(val actor : MonobehaviourActor, val event : MonobehaviourEvent);
+    val eventCommandQueue = ArrayDeque<EventCmd>();
+    private fun updatePhysicsModule() {
+        cachingTransformSoAFromBukkit();
+        createRaysFromProjectile();
+        orientedBoxSoA.updateCacheFromTransform();
+        orientedBoxSoA.rebuildGrid();
+        orientedBoxSoA.rayCastSoA(eventCommandQueue, raySoA);
+        orientedBoxSoA.collideGridCylinder(); //일단 Cylinder로 콜라이딩
+        raySoA.freeRays(); //Ray 들 모두 제거
+    }
+
     private fun createRaysFromProjectile(){
         for(projectile in projectile.curQueue){
             if(!projectile.isAlive())continue;
@@ -94,12 +118,12 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
      * ```for(erEntity in erEntityMap.values){}```
      * */
     fun applyVelocities(){
-
         val velocityIsModified = transformSoA.isModifiedVelocity;
         val sparse = transformSoA.sparse;
         val velocitySoA = transformSoA.velocity;
 
         for(erEntity in entities.curQueue){
+            if(!erEntity.isAlive())continue;
             val entityID = erEntity.transformHandle.entityID
             val denseID = sparse[entityID];
 
@@ -113,24 +137,64 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
         }
     }
 
+    override fun flushCommandQueue(){
+        super.flushCommandQueue();
+        while(eventCommandQueue.isNotEmpty()){
+            val command = eventCommandQueue.removeFirst();
+            val actor = command.actor;
+            val event = command.event;
+            if(actor.isAlive()){
+                actor.submitEvent(event);
+            }
+        }
+    }
 
-    public override fun update() {
-        cachingTransformSoAFromBukkit();
-        createRaysFromProjectile();
+    /**
+     * 일괄삭제 함수.
+     * */
+    private fun deferDisabledEREntity() {
+        for(erEntity in entities.curQueue){
+            if(!(erEntity.entity.isValid)){
+                erEntity.remove();
+            }
+        }
+        for(actorToRemove in removeList){
 
-        orientedBoxSoA.updateCacheFromTransform();
-        orientedBoxSoA.rebuildGrid();
+            val erEntity = actorToRemove;
+            val transformHandle = erEntity.transformHandle;
+            transformSoA.remove(transformHandle); transformHandle.actor = null;
 
-        //orientedBoxSoA.debugOrientedBox(); //성능 이슈 심함
-        orientedBoxSoA.rayCastSoA(raySoA);
+            if(erEntity is ERHitboxEntity){ //ERHitboxEntity라면
+                val obbHandle = erEntity.obbHandle;
+                orientedBoxSoA.remove(obbHandle); obbHandle.actor = null;
+            }
 
-        orientedBoxSoA.collideGridCylinder(); //일단 Cylinder로 콜라이딩
+            //println("[SoA REMOVE] ${this.javaClass.simpleName} T${transformHandle.entityID} O${obbHandle.entityID}")
 
-        raySoA.freeRays(); //Ray 들 모두 제거
+        }
+        removeList.clear();
+    }
 
-        applyVelocities(); //속도 적용
+    fun update(){
+        val physicsFuture = CompletableFuture.runAsync { updatePhysicsModule(); }
 
+        monobehaviourModule.consumeEvents();
+        monobehaviourModule.updateMonobehaviours();
+
+        physicsFuture.join();
+
+        applyVelocities();
+        flushCommandQueue();
         deferDisabledEREntity();
+        monobehaviourModule.monobehaviourActorList.update();
+    }
+
+    /**
+     * 제거될 EREntity들의 리스트. removeAll() 함수 호출 시 일괄 삭제됨.
+     * */
+    private val removeList = ArrayList<EREntity>();
+    fun addRemoveList(erEntity: EREntity){
+        removeList.add(erEntity);
     }
 
     /**
@@ -176,38 +240,7 @@ class EREngine(bufferSize : Int = 512) : DPEngine(bufferSize) {
         return erEntity
     }
 
-    /**
-     * 제거될 EREntity들의 리스트. removeAll() 함수 호출 시 일괄 삭제됨.
-     * */
-    private val removeList = ArrayList<EREntity>();
-    fun addRemoveList(erEntity: EREntity){
-//        println("addRemoveList(${erEntity.javaClass.simpleName})")
-//        if(erEntity is ERCharacter){
-//            Thread.dumpStack()
-//        }
-        removeList.add(erEntity);
-    }
 
-    /**
-     * 일괄삭제 함수.
-     * */
-    private fun deferDisabledEREntity() {
-        for(actorToRemove in removeList){
-
-            val erEntity = actorToRemove;
-            val transformHandle = erEntity.transformHandle;
-            transformSoA.remove(transformHandle); transformHandle.actor = null;
-
-            if(erEntity is ERHitboxEntity){ //ERHitboxEntity라면
-                val obbHandle = erEntity.obbHandle;
-                orientedBoxSoA.remove(obbHandle); obbHandle.actor = null;
-            }
-
-            //println("[SoA REMOVE] ${this.javaClass.simpleName} T${transformHandle.entityID} O${obbHandle.entityID}")
-
-        }
-        removeList.clear();
-    }
 
 
 

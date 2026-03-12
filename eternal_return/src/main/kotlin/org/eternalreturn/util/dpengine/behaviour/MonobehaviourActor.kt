@@ -37,6 +37,7 @@ abstract class MonobehaviourActor(
         dpEngine.monobehaviourModule.register(this);
     }
 
+
     open var referenceCount = 0;
     /**
      * DPEngine상에서 계속 사용되는 객체라면 true, 더 이상 사용되지 않는 객체라면 false를 반환한다.
@@ -68,7 +69,8 @@ abstract class MonobehaviourActor(
     /**
      * 제출된 엔티티를 담는 큐 ( LinkedList )
      */
-    open var submittedEvent: ArrayDeque<MonobehaviourEvent> = ArrayDeque<MonobehaviourEvent>()
+    open var submittedEvent: Array<ArrayDeque<MonobehaviourEvent>> = Array<ArrayDeque<MonobehaviourEvent>>(2){ArrayDeque<MonobehaviourEvent>()};
+    var curEventIdx = 0;
 
     /**
      * update(MonobehaviourEvent)를 호출할 Monobehaviour들을 스케줄링하기 위해 유지하는 링크드 리스트
@@ -80,8 +82,8 @@ abstract class MonobehaviourActor(
      * 외부에서 해당 객체에게 이벤트를 제출하기 위한 창구
      */
     fun submitEvent(event: MonobehaviourEvent) {
-        //println("Event 제출됨 : ${event.javaClass.simpleName} \t-> ${this.javaClass.simpleName}");
-        submittedEvent.add(event)
+        println("Event 제출됨 : ${event.javaClass.simpleName} \t-> ${this.javaClass.simpleName}");
+        submittedEvent[curEventIdx xor 1].addLast(event)
         monobehaviourModule.submitActorWhoTriggeredEvent(this)
     }
 
@@ -93,17 +95,24 @@ abstract class MonobehaviourActor(
     protected var checkedEvent: HashMap<Class<out MonobehaviourEvent>, MonobehaviourEvent> = HashMap<Class<out MonobehaviourEvent>, MonobehaviourEvent>()
 
     fun dispatchEvents() {
-        while (!submittedEvent.isEmpty()) {
-            val event = submittedEvent.removeFirst()
-            val monobehav = monobehaviourMap.get(event.javaClass)
+
+        curEventIdx = curEventIdx xor 1;
+        val currentEventQueue = submittedEvent[curEventIdx];
+
+        while (currentEventQueue.isNotEmpty()) {
+            val event = currentEventQueue.removeFirst()
+            val monobehav = monobehaviourMap[event.javaClass]
             //System.out.println(event.getClass());
             if (monobehav != null && !monobehav.isRunning){
                 runningBehaviours.add(monobehav)
-                //println("Event 소비됨 : ${event.javaClass.simpleName} \t<- ${this.javaClass.simpleName}");
+                println("Event 소비됨 : ${event.javaClass.simpleName} \t<- ${this.javaClass.simpleName}");
                 monobehav.dispatchEvent(event)
             }
             checkedEvent.putIfAbsent(event.javaClass, event)
         }
+
+        //다음 큐로 이동
+        currentEventQueue.clear();
     }
 
     /**
