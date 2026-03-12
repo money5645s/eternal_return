@@ -6,6 +6,13 @@
 			"ascent": 3000,
 			"height": 10000,
 			"chars": ["b"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/mono_color/op3_dark.png",
+			"ascent": 3000,
+			"height": 10000,
+			"chars": ["d"]
 		}
 	]
 }

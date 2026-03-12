@@ -1,1 +1,1 @@
-{"parent": "minecraft:item/handheld", "textures": { "layer0": "minecraft:item/weapon/force_core_helmet" } }
+{"parent": "minecraft:item/handheld", "textures": { "layer0": "minecraft:item/armor/force_core_helmet" } }
