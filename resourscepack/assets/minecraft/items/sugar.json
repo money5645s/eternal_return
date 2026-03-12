@@ -1,0 +1,37 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/sugar"
+    },
+    "cases": [
+      {
+        "when": "option_book",
+        "model": {
+          "type": "minecraft:range_dispatch",
+          "property": "minecraft:custom_model_data",
+          "entries": [
+              {"threshold": 1, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/absorption_book"}},
+              {"threshold": 2, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/armor_book"}},
+              {"threshold": 3, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/attackdamage_book"}},
+              {"threshold": 4, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/attackdamage_book2"}},
+              {"threshold": 5, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/attackrange_book"}},
+              {"threshold": 6, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/attackrange_book2"}},
+              {"threshold": 7, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/attackspeed_book"}},
+              {"threshold": 8, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/attackspeed_book2"}},
+              {"threshold": 9, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/cooltime_book"}},
+              {"threshold": 10, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/cooltime_book2"}},
+              {"threshold": 11, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/knockbackresistance_book"}},
+              {"threshold": 12, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/lunge_book"}},
+              {"threshold": 13, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/lunge_book2"}},
+              {"threshold": 14, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/maxhealth_book"}},
+              {"threshold": 15, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/movementspeed_book"}},
+              {"threshold": 16, "model": {"type": "minecraft:model", "model": "minecraft:item/epic/nightvision_book"}}
+          ]
+        }
+      }
+    ]
+  }
+}
