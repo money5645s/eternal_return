@@ -1,9 +1,17 @@
 {
   "pack": {
-    "pack_format": 15,
-    "supported_formats": [15, 255],
-    "min_format": 15,
-    "max_format": 255,
-    "description": "이터널리턴 리소스팩 v0.1"
-  }
+    "pack_format": 75,
+    "supported_formats": [0, 75],
+    "min_format": 0,
+    "max_format": 75,
+    "description": "Eternal_Return_resourse"
+  },
+	"filter": {
+		"block": [
+			{
+				"namespace": ".*",
+				"path": "recipe/.*"
+			}
+		]
+	}
 }

@@ -1,0 +1,5 @@
+{
+	"providers": [
+		{"type": "bitmap","file": "minecraft:font/bg/tutorial_icon.png","ascent": 25,"height": 80,"chars": ["t"]}
+	]
+}
