@@ -1,6 +1,6 @@
 {
     "parent": "minecraft:item/generated",
     "textures": {
-      "layer0": "minecraft:item/items/epic/attackrange_book"
+      "layer0": "minecraft:item/items/epic/maxhealth_book2"
     }
   }

@@ -1,6 +1,6 @@
 {
     "parent": "minecraft:item/generated",
     "textures": {
-      "layer0": "minecraft:item/items/epic/lunge_book"
+      "layer0": "minecraft:item/items/epic/knockbackresistance_book2"
     }
   }
