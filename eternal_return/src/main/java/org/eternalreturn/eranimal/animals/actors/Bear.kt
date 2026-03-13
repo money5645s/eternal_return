@@ -7,6 +7,8 @@ import org.eternalreturn.system.EREngine
 
 class Bear(engine: EREngine, erAjEntity: ERAJEntity) :
     ERAnimal(engine, erAjEntity, 1.5, 1.5, 2.5, 0.0, -1.0, 0.0) {
+
+
     init {
         this.aJEntity.registerAnimation("ready",    2.0)
         this.aJEntity.registerAnimation("attack",   3.0)
@@ -15,9 +17,20 @@ class Bear(engine: EREngine, erAjEntity: ERAJEntity) :
         this.aJEntity.registerAnimation("death",    2.0)
     }
 
+    override val maxLevel: Int = 5;
+
+    override var hp0: Double = 42.0;
     override var hp: Double = 42.0;
+    override var hpInc: Double = 10.0
+
+    override var damage0 : Double = 5.0;
     override var damage : Double = 5.0;
+    override var damageInc: Double = 2.0
     override val attackTicks = arrayOf(8, 8);
+
+    init{
+        updateHPBar()
+    }
 }
 
 /**

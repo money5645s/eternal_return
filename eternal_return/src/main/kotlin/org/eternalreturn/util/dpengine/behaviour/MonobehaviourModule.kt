@@ -84,6 +84,7 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
 
     /**
      * 객체의 레퍼런스 카운터를 1 올리면서 MonobehaviourModule 내의 actorList에 등록한다.
+     * Thread-safe 하다.
      * */
     fun register(actor : MonobehaviourActor){
         monobehaviourActorList.add(actor);

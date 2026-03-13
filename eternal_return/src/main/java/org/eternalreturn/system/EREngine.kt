@@ -5,6 +5,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
+import org.bukkit.scoreboard.Objective
 import org.eternalreturn.area.ERAreaSystem
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.ERHitboxEntity
@@ -32,7 +33,6 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
     init{
         val scheduler = Bukkit.getScheduler();
         scheduler.runTaskTimer(plugin, Runnable{this.update()}, 0, 1);
-        //scheduler.runTaskTimerAsynchronously(plugin, Runnable{this.updatePhysicsModule()}, 0, 1);
     }
 
     val areaSystem: ERAreaSystem = ERAreaSystem()
@@ -49,6 +49,7 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
     val players = UpdateView<ERPlayer>();
     val entities = UpdateView<EREntity>();
     val projectile = UpdateView<ERProjectile>();
+
     init {
         this.monobehaviourModule.registerUpdateView(players);
         this.monobehaviourModule.registerUpdateView(entities);
@@ -104,8 +105,7 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
     }
 
     private fun createRaysFromProjectile(){
-        for(projectile in projectile.curQueue){
-            if(!projectile.isAlive())continue;
+        for(projectile in projectile.curQueue){//동시성 문제 있음.
             raySoA.addRay(projectile,
                 projectile.x, projectile.y , projectile.z,
                 projectile.dx, projectile.dy, projectile.dz);
@@ -175,18 +175,35 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
         removeList.clear();
     }
 
-    fun update(){
-        val physicsFuture = CompletableFuture.runAsync { updatePhysicsModule(); }
+    @Volatile
+    private var day = 0;
+    val curDay : Int
+        get(){
+            return day;
+        }
 
+    var dayScoreboard : Objective? = null;
+    fun update(){
+
+        val physicsFuture = CompletableFuture.runAsync { updatePhysicsModule(); }
         monobehaviourModule.consumeEvents();
         monobehaviourModule.updateMonobehaviours();
-
         physicsFuture.join();
+
+        if(dayScoreboard == null){
+            dayScoreboard = Bukkit.getScoreboardManager().mainScoreboard.getObjective("time");
+        }
+
+        if(dayScoreboard != null){
+            day = dayScoreboard!!.getScore("day").score;
+        }
+
 
         applyVelocities();
         flushCommandQueue();
         deferDisabledEREntity();
         monobehaviourModule.monobehaviourActorList.update();
+
     }
 
     /**

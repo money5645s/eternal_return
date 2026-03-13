@@ -15,6 +15,7 @@ import org.eternalreturn.util.dpengine.physics.OrientedBoxSoA
 import org.eternalreturn.util.dpengine.physics.TransformSoA
 import org.eternalreturn.util.dpengine.physics.UniformGrid
 import org.joml.Quaterniond
+import java.util.Vector
 import java.util.concurrent.ArrayBlockingQueue
 import kotlin.reflect.KClass
 
@@ -36,17 +37,17 @@ abstract class DPEngine(bufferSize: Int = 512) {
     /**
      * 커맨드 큐
      * */
-    public val commandQueue = ArrayBlockingQueue<Command>(128);
+    public val commandQueue = Vector<Command>();
 
     public fun appendCommandQueue(cmd : Command){
         commandQueue.add(cmd);
     }
 
     public open fun flushCommandQueue(){
-        while(!commandQueue.isEmpty()){
-            val cmd = commandQueue.poll();
+        for(cmd in commandQueue){
             cmd.run();
         }
+        commandQueue.clear();
     }
 
     fun free(){

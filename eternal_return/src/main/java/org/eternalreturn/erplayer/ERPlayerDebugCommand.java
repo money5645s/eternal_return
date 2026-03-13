@@ -185,10 +185,19 @@ public class ERPlayerDebugCommand implements CommandExecutor {
             erPlayer.submitEvent(new CharacterParabolicFlyEvent(dx, dy, dz, height, 1.5));
         }
 
-        else if(args.length == 1 && args[0].equalsIgnoreCase("loc")){
-            var loc = p.getLocation();
-            loc.set(loc.x(), loc.y() + 10, loc.z());
-            p.teleport(loc);
+        else if(args.length == 1 && args[0].equalsIgnoreCase("benchmark")){
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
         return false;

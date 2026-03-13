@@ -1,16 +1,22 @@
 package org.eternalreturn.eranimal
 
 import net.kyori.adventure.sound.Sound
+import org.bukkit.entity.Player
 import org.bukkit.util.Vector
 import org.eternalreturn.eranimal.animals.behavs.Battle
+import org.eternalreturn.eranimal.animals.behavs.EnhanceStatByDay
 import org.eternalreturn.eranimal.animals.behavs.Idle
 import org.eternalreturn.eranimal.animals.events.IdleEvent
+import org.eternalreturn.eranimal.animals.events.StatEnhanceEvent
 import org.eternalreturn.ercharacter.event.CharacterAttackEvent
+import org.eternalreturn.ercharacter.event.CharacterKillAnimalEvent
+import org.eternalreturn.ercharacter.event.CharacterKillEvent
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.command.AddSpigotEntityPosition
 import org.eternalreturn.util.dpengine.command.AddSpigotEntityVelocity
+import org.eternalreturn.util.dpengine.command.AddTagToSpigotEntity
 import org.eternalreturn.util.dpengine.command.SetSpigotEntityPosition
 import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
 
@@ -28,20 +34,35 @@ abstract class ERAnimal(
     obbHalfX, obbHalfY, obbHalfZ,
     obbLocX, obbLocY, obbLocZ
 ) {
+
     /**
      * 야생동물 스킬 쿨다운
      */
     var cooldownSeconds: Long = 0
 
+    var level = 1;
+    abstract val maxLevel: Int
+
+    abstract var hp0 : Double;
     abstract var hp : Double;
+    abstract var hpInc : Double;
+
+    abstract var damage0 : Double;
     abstract var damage : Double;
+    abstract var damageInc : Double;
+
     abstract val attackTicks : Array<Int>;
 
     init {
+        registerMonobehaviour(EnhanceStatByDay())
         registerMonobehaviour(Idle())
         registerMonobehaviour(Battle())
-        this.aJEntity.setDebugDisplay("T" + transformHandle.entityID + " | O" + obbHandle.entityID + "\n\n\n\n")
         this.submitEvent(IdleEvent())
+        this.submitEvent(StatEnhanceEvent())
+    }
+
+    fun updateHPBar(){
+        this.aJEntity.setDebugDisplay("LV : ${this.level} | HP : ${this.hp}\n\n\n\n")
     }
 
     private fun isActorNotValid() : Boolean{
@@ -89,12 +110,23 @@ abstract class ERAnimal(
         aJEntity.remove();
     }
 
+    var nextAvailableBeingDamaged : Long = 0
     override fun damage(amount: Double, attacker: EREntity) {
-        this.hp -= amount;
-        attacker.submitEvent(CharacterAttackEvent(attacker, this))
-        val sound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT).build()
-        aJEntity.setDebugDisplay("HP : ${this.hp}\n\n\n\n")
-        attacker.entity.playSound(sound);
+
+        val currentTime = System.currentTimeMillis();
+        if(currentTime > nextAvailableBeingDamaged){
+
+            nextAvailableBeingDamaged = currentTime + 500; //1tick == 50ms
+
+            this.hp -= amount;
+            attacker.submitEvent(CharacterAttackEvent(attacker, this))
+            if(this.hp <= 0){
+                dpEngine.appendCommandQueue(AddTagToSpigotEntity(attacker.entity, "kill_" + this.aJEntity.name))
+            }
+            val sound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT).build()
+            aJEntity.setDebugDisplay("LV : ${this.level} | HP : ${this.hp}\n\n\n\n")
+            attacker.entity.playSound(sound);
+        }
     }
 
     val isShown: Boolean

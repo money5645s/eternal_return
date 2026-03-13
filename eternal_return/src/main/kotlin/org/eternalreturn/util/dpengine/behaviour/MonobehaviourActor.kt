@@ -82,7 +82,7 @@ abstract class MonobehaviourActor(
      * 외부에서 해당 객체에게 이벤트를 제출하기 위한 창구
      */
     fun submitEvent(event: MonobehaviourEvent) {
-        println("Event 제출됨 : ${event.javaClass.simpleName} \t-> ${this.javaClass.simpleName}");
+        //println("Event 제출됨 : ${event.javaClass.simpleName} \t-> ${this.javaClass.simpleName}");
         submittedEvent[curEventIdx xor 1].addLast(event)
         monobehaviourModule.submitActorWhoTriggeredEvent(this)
     }
@@ -105,7 +105,7 @@ abstract class MonobehaviourActor(
             //System.out.println(event.getClass());
             if (monobehav != null && !monobehav.isRunning){
                 runningBehaviours.add(monobehav)
-                println("Event 소비됨 : ${event.javaClass.simpleName} \t<- ${this.javaClass.simpleName}");
+                //println("Event 소비됨 : ${event.javaClass.simpleName} \t<- ${this.javaClass.simpleName}");
                 monobehav.dispatchEvent(event)
             }
             checkedEvent.putIfAbsent(event.javaClass, event)

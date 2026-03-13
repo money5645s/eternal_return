@@ -93,7 +93,7 @@ public class ERPlayerListener implements Listener {
             return;
         }
 
-        erKiller.submitEvent(new CharacterKillEvent());
+        erKiller.submitEvent(new CharacterKillEvent(erVictim));
 
     }
 

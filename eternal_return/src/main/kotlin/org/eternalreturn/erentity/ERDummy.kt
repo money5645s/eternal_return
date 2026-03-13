@@ -8,7 +8,7 @@ import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.DPEngine
 import org.eternalreturn.util.dpengine.geometry.Collider
 
-class ERDummy(engine : EREngine, entity: Entity, collider: Collider) : ERHitboxEntity(engine, entity, 0.5, 1.0, 0.5, 0.0, 1.0 ,0.0) {
+class ERDummy(engine : EREngine, entity: Entity, collider: Collider) : ERPlayer(entity, engine) {
     init {
         //(entity as LivingEntity).setAI(false)
         //registerMonobehaviour(new InfinityHealing());

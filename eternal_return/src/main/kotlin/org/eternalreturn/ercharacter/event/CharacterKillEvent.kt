@@ -1,3 +1,5 @@
 package org.eternalreturn.ercharacter.event
 
-class CharacterKillEvent : CharacterEvent
+import org.eternalreturn.erentity.EREntity
+
+class CharacterKillEvent(val victim : EREntity) : CharacterEvent

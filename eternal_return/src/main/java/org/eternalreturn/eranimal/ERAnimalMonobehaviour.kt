@@ -2,10 +2,16 @@ package org.eternalreturn.eranimal
 
 import org.bukkit.entity.Entity
 import org.eternalreturn.erentity.events.EREntityEvent
+import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
 abstract class ERAnimalMonobehaviour<T : EREntityEvent> : Monobehaviour<T>() {
+
+    val erEngine : EREngine
+        get() {
+            return dpEngine as EREngine
+        }
 
     protected fun isNotEnd(startTime: Long, durationTicks: Long): Boolean {
         return System.currentTimeMillis() - startTime < durationTicks * 50
