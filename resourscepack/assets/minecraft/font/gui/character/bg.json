@@ -4,6 +4,7 @@
 		{"type": "bitmap","file": "minecraft:font/bg/stats_bg.png","ascent": -128,"height": 47,"chars": ["b"]},
 		{"type": "bitmap","file": "minecraft:font/bg/stats_bg1.png","ascent": -128,"height": 47,"chars": ["c"]},
 		{"type": "bitmap","file": "minecraft:font/bg/stat.png","ascent": -128,"height": 47,"chars": ["d"]},
-		{"type": "bitmap","file": "minecraft:font/bg/kd.png","ascent": 10,"height": 13,"chars": ["e"]}
+		{"type": "bitmap","file": "minecraft:font/bg/kd.png","ascent": 10,"height": 13,"chars": ["e"]},
+		{"type": "bitmap","file": "minecraft:font/character/blank_window.png","ascent": 0,"height": 55,"chars": ["n"]}
 	]
 }

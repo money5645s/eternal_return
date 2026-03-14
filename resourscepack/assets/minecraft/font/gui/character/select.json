@@ -31,6 +31,8 @@
 		{"type": "bitmap", "file": "minecraft:font/character/list/celine.png", "ascent": 0, "height": 55, "chars": ["n"]},
 		{"type": "bitmap", "file": "minecraft:font/character/list/chloe.png", "ascent": 0, "height": 55, "chars": ["n"]},
 		{"type": "bitmap", "file": "minecraft:font/character/list/daniel.png", "ascent": 0, "height": 55, "chars": ["n"]},
-		{"type": "bitmap", "file": "minecraft:font/character/list/elena.png", "ascent": 0, "height": 55, "chars": ["n"]}
+		{"type": "bitmap", "file": "minecraft:font/character/list/elena.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/fiora.png", "ascent": 0, "height": 55, "chars": ["n"]},
+		{"type": "bitmap", "file": "minecraft:font/character/list/yan.png", "ascent": 0, "height": 55, "chars": ["n"]}
 	]
 }

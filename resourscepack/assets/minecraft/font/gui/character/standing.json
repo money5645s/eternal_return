@@ -32,6 +32,8 @@
 		{"type":"bitmap","file":"minecraft:font/character/standing/silvia.png","ascent":-70,"height":300,"chars":["\u1028"]},
 		{"type":"bitmap","file":"minecraft:font/character/standing/sissela.png","ascent":-70,"height":300,"chars":["\u1029"]},
 		{"type":"bitmap","file":"minecraft:font/character/standing/vanya.png","ascent":-70,"height":300,"chars":["\u1030"]},
-		{"type":"bitmap","file":"minecraft:font/character/standing/yuki.png","ascent":-70,"height":300,"chars":["\u1031"]}
+		{"type":"bitmap","file":"minecraft:font/character/standing/yuki.png","ascent":-70,"height":300,"chars":["\u1031"]},
+		{"type":"bitmap","file":"minecraft:font/character/standing/fiora.png","ascent":-70,"height":300,"chars":["\u1032"]},
+		{"type":"bitmap","file":"minecraft:font/character/standing/jan.png","ascent":-70,"height":300,"chars":["\u1033"]}
 	]
 }
