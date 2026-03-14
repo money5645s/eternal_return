@@ -1,0 +1,74 @@
+on load:
+    delete {character::*}
+    delete {characterlist::*}
+    delete {characterCount}
+
+    registerCharacter("adriana",1,"아드리아나","활활","스킬 피해 시 화상 부여 | 이동속도 -15/15/30/30/45%% | (갱신 가능,중첩 불가) | 불 피해 면역","없음","불길 쇄도","전방 돌진 후 화염지대 생성 | 방관 1/1/2/2/3 | 지속 3/4/5/6/8", "30/28/26/24/20")
+    registerCharacter("alex",2,"알렉스","잠입","line1 | line2 | line3","","타겟 마커 & 플라즈마 마인","line1 | line2 | line3","")
+    registerCharacter("arda",3,"아르다","유물 탐구","line1 | line2 | line3","","고고학적 분석","line1 | line2 | line3","")
+    registerCharacter("bernice",4,"버니스","산탄","다중발사 | 야생동물 처치 시 체력 회복 1/2/3/4/5","20/18/16/14/10","사냥 덫","덫 설치 | 속도감소15%%+독3(2초) | 지속15초 | 개수 1/1/2/2/3","50/45/40/35/30")
+    registerCharacter("bianca",5,"비앙카","흡혈귀","line1 | line2 | line3","","짧은 안식","line1 | line2 | line3","")
+    registerCharacter("celine",6,"셀린","폭발물 전문가","공격 적중 시 폭탄 +1 (최대3)","10/9/8/7/5","플라즈마 폭탄","설치 및 융합 폭발 | 1단계 4~8 | 2단계 6~10(슬로우) | 3단계 10~14(강슬로우)","없음")
+    registerCharacter("chloe",7,"클로에","살아 있는 마리오네트","line1 | line2 | line3","","생명 공유","line1 | line2 | line3","")
+    registerCharacter("daniel",8,"다니엘","고독한 예술가","공7 가위 | 처치 시 독5/4/3/2/0 | 밤: 야간투시+이속15%%","없음","그림자 가위","방관3/4/5/6/8 | 시야축소+이속15%%감소 | 지속2/3/4/5/6","40/35/30/25/20")
+    registerCharacter("elena",9,"엘레나","겨울여왕의 영지","밤 얼음지대 생성 | 적 이속15/15/30/30/45%%감소 | 기본사거리3.5","없음","죽음의 무도","7초간 얼음지대 생성 | 화염저항+근접공격력+3","60/55/50/45/40")
+    registerCharacter("estelle",10,"에스텔","","","","","","")
+    registerCharacter("hart",11,"하트","Peacemaker","낮에 피스존 선언 | 15초간 재생 + 근공-4 (레벨별 변화)","없음","Flanger","짧게 이동 후 방관1/2/3/4/5 | 5초 내 재사용","30/28/26/24/20")
+    registerCharacter("hyunwoo",12,"현우","도그파이트","공격 시 중첩 | 5중첩 시 회복 1/2/3/4/5","없음","선빵필승","돌진 피해7/8/9/10/12 | 벽 충돌 추가3/4/5/6/8 | 슬로우99%% 2초","30/26/22/18/14")
+    registerCharacter("isol",13,"아이솔","유격전","line1 | line2 | line3","","Mok제 폭탄","line1 | line2 | line3","")
+    registerCharacter("jackie",14,"재키","피의 축제","야생4 or 실험체1 처치 시 활성화 | 근공+3 | 비활성 시 이속-15%%","없음","전기톱 살인마","이속+20%% | 학살7~12 흡혈 | 1회30%%슬로우 | 지속5~10","50/47/44/41/35")
+    registerCharacter("jenny",15,"제니","죽음의 연기","체력0 시 3초간 추가체력4/4/8/8/12 | 화염저항 | 근공-4 | 이속-30%%","70(고정)","페르소나","전방 이동 후 배역 전환 | 블랙티: 이속+20%% 근공-4 | 레드와인: 공속+10%%","30/27/24/21/15")
+    registerCharacter("katja",16,"카티야","잿빛 사신","line1 | line2 | line3","","접근 금지","line1 | line2 | line3","")
+    registerCharacter("leni",17,"레니","곰돌이! 공격","점프20회 시 액티브 쿨감 1/1/2/2/3","없음","뿅! 망치","도약 후 5/7/9/11/13 피해 | 슬로우3초 | 이속15%%+점프강화","50/45/40/35/30")
+    registerCharacter("lenox",18,"레녹스","위풍당당","피해 시 2초 보호막4 | 낚시40%% 연어","30/27/24/21/15","회오리 비늘","범위 피해6/8/10/12/14 | 슬로우15/15/30/30/45","30/27/24/21/18")
+    registerCharacter("leon",19,"레온","인간 어뢰","물가 공속10%% | 외 지역 근공-4 | 조준 시 이속완화15/30/45/60/75%%","없음","물보라","지속7/9/11/13/15 | 삼지창 적중 시 체력4 회복","50/47/44/41/35")
+    registerCharacter("luke",20,"루크","청소 완료","line1 | line2 | line3","","클리닝 서비스","line1 | line2 | line3","")
+    registerCharacter("lyanh",21,"이안","사로잡힌 육신","line1 | line2 | line3","","해방","line1 | line2 | line3","")
+    registerCharacter("magnus",22,"매그너스","근성","line1 | line2 | line3","","강타","line1 | line2 | line3","")
+    registerCharacter("markus",23,"마커스","전사의 투지","피격 시 공속1~2.6 + 이속20~60%% | 지속 7/8/9/10/12","없음","지각변동","도약 후 방어관통 4/5/6/7/8 | 충격5초 이속-15%%","50/45/40/35/30")
+    registerCharacter("nadine",24,"나딘","야성","야생5 처치 시 속성화살1 | 지속3~7 | 신속22초","없음","늑대 맹습","폭죽 방관6 | 지속5/6/7/8/10","60/55/50/45/40")
+    registerCharacter("nathapon",25,"나타폰","슬로우 셔터","line1 | line2 | line3","","인스턴트 포토","line1 | line2 | line3","")
+    registerCharacter("piolo",26,"피올로","단련광","line1 | line2 | line3","","튕겨내기&휘두르기","line1 | line2 | line3","")
+    registerCharacter("shou",27,"쇼우","요리사의 열정","요리 제작 시 20~100%% 확률 +1 | 낚시·채집 연어·호박고구마 확정","없음","뜨거운 맛","체력20%% 소모 | 비율1:0.9~1.4 | 지속20초","70/65/60/55/50")
+    registerCharacter("silvia",28,"실비아","그란투리스모","지역8개 방문 시 200크레딧 | 말갑옷 없음/가죽/철/금/다이아","없음","기동전","말 소환 탑승 | 지속20초","60/55/50/45/40")
+    registerCharacter("sissela",29,"시셀라","삶은 고통이에요.","체력40%%↓ 근공+3 | 20%%↓ 근공+6 | 사거리2.5","없음","모두 해방이에요.","1.5초 후 지역 전체 방관4/6/8/10/12 | 발동조건 체력40%%↓","60/55/50/45/40")
+    registerCharacter("vanya",30,"바냐","몽환 나비","삼지창 복귀 시 보호막4(6초) | 중첩 시 높은 값 유지","30/27/24/21/15","꿈결 가루","피해 4/6/8/10/12 | 4초 점감 슬로우 후 1.5초 수면(실명+이속99%%)","70/65/60/55/50")
+    registerCharacter("yuki",31,"유키","완벽한 옷매무새","체력80%%↑ | 근접무기 추가 1/2/3/4/5","없음","화무십일홍","1차4~8 | 표식폭발 방관6~10 | 1초 이속-30%%","60/55/50/45/40")
+    registerCharacter("fiora",32,"피오라","완벽한 옷매무새","체력80%%↑ | 근접무기 추가 1/2/3/4/5","없음","화무십일홍","1차4~8 | 표식폭발 방관6~10 | 1초 이속-30%%","60/55/50/45/40")
+    registerCharacter("jan",33,"얀","완벽한 옷매무새","체력80%%↑ 근접무기 추가 1/2/3/4/5","없음","화무십일홍","1차4~8 | 표식폭발 방관6~10 | 1초 이속-30%%","60/55/50/45/40")
+
+
+function registerCharacter(name:text, number:int, ko_name:text, passive_name:text, passive_lore:string, passive_cool:string, active_name:text, active_lore:string, active_cool:string):
+    set {character::%{_name}%::number} to {_number}
+    set {character::%{_name}%::unicord} to "\u%({_number}+1000)%"
+    set {character::%{_name}%::ko_name} to {_ko_name}
+
+    set {character::%{_name}%::passive_name} to {_passive_name}
+    set {character::%{_name}%::passive_lore} to {_passive_lore}
+    set {character::%{_name}%::passive_cool} to {_passive_cool}
+
+    set {character::%{_name}%::active_name} to {_active_name}
+    set {character::%{_name}%::active_lore} to {_active_lore}
+    set {character::%{_name}%::active_cool} to {_active_cool}
+
+    add {_name} to {characterlist::*}
+    add 1 to {characterCount}
+
+
+command /캐릭터 <text>:
+    trigger:
+        send "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        send "&a%arg-1%&f의 캐릭터 정보입니다"
+        send "이름 : &7%{character::%arg-1%::ko_name}%&f, 번호 : &7%{character::%arg-1%::number}%&f, 유니코드 : &7%{character::%arg-1%::unicord}%"
+        send "패시브 스킬 정보:"
+        send "  &7%{character::%arg-1%::passive_name}%"
+        send "  &7%{character::%arg-1%::passive_lore}%"
+        send "  &7%{character::%arg-1%::passive_cool}%"
+        send "액티브 스킬 정보:"
+        send "  &7%{character::%arg-1%::active_name}%"
+        send "  &7%{character::%arg-1%::active_lore}%"
+        send "  &7%{character::%arg-1%::active_cool}%"
+        send "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+on tab complete of "/캐릭터":
+	set tab completions for position 1 to {characterlist::*}

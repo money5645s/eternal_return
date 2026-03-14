@@ -1,0 +1,51 @@
+every 1 ticks:
+    loop all players:
+        # 보스바 변경
+        if loop-player has the scoreboard tag "bos.blackout":
+            set {_t} to text component of "{text:""b"",font:""mono_color""}"
+            updateBossBar(loop-player, 1, {_t})
+            remove "bos.blackout" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "bos.null5":
+            set {_t} to text component of "{text:"" ""}"
+            updateBossBar(loop-player, 5, {_t})
+            remove "bos.null5" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "bos.dark5":
+            set {_t} to text component of "{text:""d"",font:""mono_color""}"
+            updateBossBar(loop-player, 5, {_t})
+            remove "bos.dark5" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "bos.reset":
+            manageAllBossBars(loop-player, "delete")
+            createBossBars(loop-player)
+            remove "bos.reset" from scoreboard tags of loop-player
+        # 점프패드
+        else if loop-player has the scoreboard tag "jump_factory":
+            set {_velocity} to setParabolicMotion(loop-player, -532, 100, 380, 10)
+            remove "jump_factory" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "jump_harbor":
+            set {_velocity} to setParabolicMotion(loop-player, -471, 90, 351, 10)
+            remove "jump_harbor" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "jump_residential_area":
+            set {_velocity} to setParabolicMotion(loop-player, -428, 100, 440 , 10)
+            remove "jump_residential_area" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "jump_pondA_1":
+            set {_velocity} to setParabolicMotion(loop-player, -688 ,90, 506 , 10)
+            remove "jump_pondA_1" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "jump_pondA_2":
+            set {_velocity} to setParabolicMotion(loop-player, -613, 90, 465 , 10)
+            remove "jump_pondA_2" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "jump_pondB_1":
+            set {_velocity} to setParabolicMotion(loop-player, -575, 93 ,485 , 10)
+            remove "jump_pondB_1" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "jump_pondB_2":
+            set {_velocity} to setParabolicMotion(loop-player, -642, 100 ,463 , 10)
+            remove "jump_pondB_2" from scoreboard tags of loop-player
+        
+        ## 로딩바
+        else if loop-player has the scoreboard tag "show_cctv_loading":
+            startLoadingBar(loop-player, 60, "minecraft:er.cctv.acitving", "minecraft:er.cctv.success_active", "cctv_loading", "보안콘솔 작동 중")
+            remove "show_cctv_loading" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "show_meteorite_loading":
+            startDoubleLoadingBar(loop-player, 150, "minecraft:er.item.collect.meteorite", "", "colleting_meteorite", "운석 채집 중")
+            add "colleting_meteorite" to scoreboard tags of loop-player
+            remove "show_meteorite_loading" from scoreboard tags of loop-player
+            remove "click_meteorite" from scoreboard tags of loop-player

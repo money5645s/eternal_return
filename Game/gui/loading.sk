@@ -1,0 +1,172 @@
+function getTextWidth(t: text) :: number:
+    set {_chars::*} to split {_t} at ""
+    set {_textCount} to 0 # 일반 글자 수
+    set {_spaceCount} to 0 # 공백 수
+
+    loop {_chars::*}:
+        if loop-value is " ":
+            add 1 to {_spaceCount}
+        else if loop-value is not "":
+            add 1 to {_textCount}
+
+    set {_totalPixel} to 0
+
+    if {_textCount} > 0:
+        # 기본 공식: 1 + (글자수 * 3)
+        set {_totalPixel} to 1 + ({_textCount} * 3)
+
+        # 7글자 이상일 때 1px 추가 보정
+        if {_textCount} >= 7:
+            add 1 to {_totalPixel}
+
+    # 공백(1px) 합산
+    add {_spaceCount} to {_totalPixel}
+    
+    return {_totalPixel}
+
+
+function getLoadingSuffix(current: number, total: number, max: int) :: text:
+    set {_num} to floor(({_current} / {_total}) * {_max})
+    
+    if {_num} < 10:
+        return "00%{_num}%"
+    else if {_num} < 100:
+        return "0%{_num}%"
+    
+    return "%{_num}%"
+
+function startLoadingBar(p: player, totalTicks: int, startsound: text, endsound: text, tag: text, showtext: text):
+    # --- [1] 함수를 이용한 텍스트 폭 계산 ---
+    set {_totalPixel} to getTextWidth({_showtext})
+
+    # --- [2] 애니메이션 루프 ---
+    play sound {_startsound} to {_p}
+    
+    loop {_totalTicks} times:
+        if {_p} has scoreboard tag "stopload":
+            remove "stopload" from scoreboard tags of {_p}
+            send action bar "" to {_p}
+            stop sound {_startsound} for {_p}
+            stop
+
+        # 로딩바 유니코드 계산
+        set {_hex} to getLoadingSuffix(loop-number,{_totalTicks},200)
+            
+        # --- [3] JSON 조립 ---
+        delete {_t::*}
+        add json component of "{""text"":""\u5%{_hex}%"",""font"":""gui/loading/bar"",""shadow_color"":0}" to {_t::*}
+
+        add translate component of "%space(-68)%" to {_t::*}
+        add translate component of "%space(-1 * {_totalPixel})%" to {_t::*}
+        
+        add json component of "{""text"":""%{_showtext}%"",""font"":""gui/loading/up"",""shadow_color"":0}" to {_t::*}
+        add translate component of "%space(69 - {_totalPixel})%" to {_t::*}
+
+        set {_t} to merge components {_t::*}
+        send action bar component {_t} to {_p}
+        
+        wait 1 tick
+
+    # --- [4] 완료 처리 ---
+    add "done.loading" to scoreboard tags of {_p}
+    send action bar "" to {_p}
+    play sound {_endsound} with volume 0.5 to {_p}
+    remove "%{_tag}%" from scoreboard tags of {_p}
+
+
+function startDoubleLoadingBar(p: player, totalTicks: int, startsound: text, endsound: text, tag: text, showtext: text):
+    # [1] 텍스트 폭 및 틱 계산
+    set {_totalPixel} to getTextWidth({_showtext})
+    set {_halfticks} to floor({_totalTicks} / 2)
+    
+    # --- 첫 번째 로딩바 구간 (0% ~ 50%) ---
+    if {_p} does not have scoreboard tag "done.half.loading":
+        play sound {_startsound} to {_p}
+        
+        loop {_halfticks} times:
+            if {_p} has scoreboard tag "stopload":
+                remove "stopload", "pauseload" and "done.half.loading" from scoreboard tags of {_p}
+                send action bar "" to {_p}
+                stop sound {_startsound} for {_p}
+                stop
+
+            set {_hex} to getLoadingSuffix(loop-number, {_halfticks}, 100)
+            
+            delete {_t::*}
+            add json component of "{""text"":""\u4%{_hex}%\u4000"",""font"":""gui/loading/bar"",""shadow_color"":0}" to {_t::*}
+            add translate component of "%space(-72)%" to {_t::*}
+            add translate component of "%space(-1 * {_totalPixel})%" to {_t::*}
+            add json component of "{""text"":""%{_showtext}%"",""font"":""gui/loading/up"",""shadow_color"":0}" to {_t::*}
+            add translate component of "%space(72 - {_totalPixel})%" to {_t::*}
+            
+            send action bar component (merge components {_t::*}) to {_p}
+            wait 1 tick
+            
+        add "done.half.loading" to scoreboard tags of {_p}
+        stop sound {_startsound} for {_p}
+
+    # --- 두 번째 로딩바 구간 (50% ~ 100%) ---
+    play sound {_startsound} to {_p}
+    
+    set {_currentTick} to 0
+    while {_currentTick} < {_halfticks}:
+        add 1 to {_currentTick}
+        
+        # [일시정지 로직]
+        if {_p} has scoreboard tag "pauseload":
+            # [핵심] 일시정지 태그 감지 즉시 소리 중지
+            stop sound {_startsound} for {_p}
+            
+            while {_p} has scoreboard tag "pauseload":
+                if {_p} has scoreboard tag "stopload":
+                    remove "stopload", "pauseload" and "done.half.loading" from scoreboard tags of {_p}
+                    send action bar "" to {_p}
+                    stop sound {_startsound} for {_p}
+                    stop
+                
+                # 멈춤 화면 출력
+                delete {_pauseT::*}
+                add json component of "{""text"":""\u4100\u4000"",""font"":""gui/loading/bar"",""shadow_color"":0}" to {_pauseT::*}
+                add translate component of "%space(-72)%" to {_pauseT::*}
+                add translate component of "%space(-1 * {_totalPixel})%" to {_pauseT::*}
+                add json component of "{""text"":""%{_showtext}%"",""font"":""gui/loading/up"",""shadow_color"":0}" to {_pauseT::*}
+                add translate component of "%space(72 - {_totalPixel})%" to {_pauseT::*}
+                send action bar component (merge components {_pauseT::*}) to {_p}
+                wait 1 tick
+            
+            # 일시정지 해제 시: 진행도 초기화 및 소리 다시 재생
+            set {_currentTick} to 1
+            play sound {_startsound} to {_p}
+
+        # [일반 상태] 강제 종료 체크
+        if {_p} has scoreboard tag "stopload":
+            remove "stopload" and "done.half.loading" from scoreboard tags of {_p}
+            send action bar "" to {_p}
+            stop sound {_startsound} for {_p}
+            stop
+            
+        # 게이지 출력 로직 (기존과 동일)
+        set {_hex} to getLoadingSuffix({_currentTick}, {_halfticks}, 100)
+        delete {_t::*}
+        add json component of "{""text"":""\u4100\u4%{_hex}%"",""font"":""gui/loading/bar"",""shadow_color"":0}" to {_t::*}
+        add translate component of "%space(-72)%" to {_t::*}
+        add translate component of "%space(-1 * {_totalPixel})%" to {_t::*}
+        add json component of "{""text"":""%{_showtext}%"",""font"":""gui/loading/up"",""shadow_color"":0}" to {_t::*}
+        add translate component of "%space(72 - {_totalPixel})%" to {_t::*}
+        send action bar component (merge components {_t::*}) to {_p}
+        
+        wait 1 tick
+
+    # --- 완료 처리 ---
+    add "done.loading" to scoreboard tags of {_p}
+    remove "done.half.loading" from scoreboard tags of {_p}
+    send action bar "" to {_p}
+    play sound {_endsound} with volume 0.5 to {_p}
+    remove "%{_tag}%" from scoreboard tags of {_p}
+
+
+# 호출 예시
+command /asdf <int> <text>:
+    trigger:
+        # 인자: 플레이어, 틱수, 시작사운드, 끝사운드, 태그명, 표시할텍스트
+        startLoadingBar(player, 30, "minecraft:er.item.collect.meteorite", "", "use_cctv", "보안콘솔 작동 중")

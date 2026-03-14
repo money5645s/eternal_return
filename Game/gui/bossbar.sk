@@ -1,0 +1,84 @@
+# [1] 보스바 초기 생성 함수 (6줄 생성)
+function createBossBars(p: player):
+    loop 6 times:
+        set {_id} to "bos_%loop-value%_%uuid of {_p}%"
+        # 보스바 생성 (기본 설정: 투명하게 보이고 싶으면 progress 0, 색상 설정)
+        set {_bar} to bossbar with id {_id} with title " " with color blue
+        set bar progress of {_bar} to 0
+        set bar style of {_bar} to solid_bar
+        add {_p} to {_bar}
+
+# [2] 특정 줄의 보스바를 수정하는 함수 (핵심 접근 함수)
+function updateBossBar(p: player, line: int, title: string):
+    set {_id} to "bos_%{_line}%_%uuid of {_p}%"
+    set {_bar} to bossbar with id {_id}
+    
+    dispatch {_p} command "/bossbar set %{_id}% name %{_title}%" with permission "minecraft.command.bossbar"
+# [3] 전체 보스바 숨기기/보이기/제거 함수
+function manageAllBossBars(p: player, action: text):
+    loop 6 times:
+        set {_id} to "bos_%loop-value%_%uuid of {_p}%"
+        set {_bar} to bossbar with id {_id}
+        if {_action} is "hide":
+            remove {_p} from {_bar}
+        else if {_action} is "show":
+            add {_p} to {_bar}
+        else if {_action} is "delete":
+            delete bossbar with id {_id}
+
+
+on join:
+    if player has not played before:
+        createBossBars(player)
+    manageAllBossBars(player, "hide")
+    manageAllBossBars(player, "show")
+
+
+command /bos:
+    trigger:
+        createBossBars(player)
+        send "&a6줄의 보스바가 생성되었습니다."
+
+command /bosrev:
+    trigger:
+        manageAllBossBars(player, "delete")
+        send "&c모든 보스바가 제거되었습니다."
+
+command /boshide:
+    trigger:
+        manageAllBossBars(player, "hide")
+
+command /bosshow:
+    trigger:
+        manageAllBossBars(player, "show")
+
+
+#every 1 ticks:
+#    loop all players:
+#        setPlayerStateGUIJson(loop-player)
+#        set {_t} to {stateGUI::%uuid of loop-player%}
+#        if {bossbar1.last::%{_p}%} is not {_t}:
+#            send "다름!" to loop-player
+#            updateBossBar(loop-player, 6, {_t})
+#            set {bossbar1.last::%{_p}%} to {_t}
+
+
+function space(space: int) :: text components:
+    set {_s} to translate component of "space.%{_space}%"
+    return {_s}
+
+
+command /투:
+    trigger:
+        set {_msg2} to mini message from "<font:haesu/8>이니다."
+
+        set {_msg} to mini message from "<font:haesu/8>1234</font> <lang:space.0> <red>1234"
+        setPlayerStateGUIJson(player)
+        set {_t} to {stateGUI::%uuid of player%}
+        updateBossBar(player, 6, {_t})
+
+        #send json component of {_json} to player
+        #send component {_msg} to player
+        #send action bar {_msg} to player
+        #send title {_msg} to player
+        #send subtitle {_msg} to player

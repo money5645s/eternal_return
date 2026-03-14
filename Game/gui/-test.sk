@@ -1,0 +1,147 @@
+# 보드 생성/업데이트 함수
+function board(player: player, lines: ints):
+    loop {_lines::*}:
+        if loop-value = 0:
+            set title of {_player}'s board to {sidebar::%uuid of {_player}%}
+            continue
+        else if loop-value = 1:
+            set {_content::*} to " "
+        if {_content::*} exists:
+            set line loop-value of {_player}'s board to {_content::*}
+            clear {_content::*}
+
+on join:
+    board(player, integers from 0 to 1)
+
+# 1초마다 모든 플레이어의 사이드바를 갱신
+every 1 tick:
+    loop all players:
+        setSidebar(loop-player)
+
+# 사이드바 구성 함수 (JSON 컴포넌트 조합)
+function setSidebar(pl: player):
+    set {_p} to uuid of {_pl}
+    set {_char} to {character::%{_p}%}
+    getPlayerSkillCoolDown({_p})
+    getPlayerState({_p})
+    
+    # 해당 캐릭터의 유니코드 가져오기 (비어있으면 공백 처리)
+    set {_icon} to {character::%{_char}%::unicord}
+    if {_icon} is not set:
+        set {_icon} to "?"
+
+    clear {_t::*}
+    add json component from "{text:""b"",font:""gui/character/bg""}" to {_t::*}
+    add translate component of "%space(0)%" to {_t::*}
+    add json component from "{text:""c"",font:""gui/character/bg""}" to {_t::*}
+    add translate component of "%space(4)%" to {_t::*}
+    add json component from "{text:""1"",font:""gui/character/skill/exp""}" to {_t::*}
+    add translate component of "%space(-12)%" to {_t::*}
+    add json component from "{text:""%{_icon}%"",font:""gui/character/skill/profile""}" to {_t::*}
+    add translate component of "%space(-56)%" to {_t::*}
+    add json component of "{text:""d"",font:""gui/character/bg""}" to {_t::*}
+    add translate component of "%space(-150)%" to {_t::*}
+    add json component of "{text:""a"",font:""gui/character/bg""}" to {_t::*}
+    add translate component of "%space(-42)%" to {_t::*}
+
+    add json component of "{text:""0"",font:""gui/character/skill/active_level""}" to {_t::*}
+    add translate component of "%space(1)%" to {_t::*}
+    add json component of "{text:""0"",font:""gui/character/skill/passive_level""}" to {_t::*}
+    add translate component of "%space(-40)%" to {_t::*}
+
+    # 액티브 스킬 이미지
+    add json component of "{text:""%{_icon}%"",font:""gui/character/skill/active""}" to {_t::*}
+    add translate component of "%space(-19)%" to {_t::*}
+    add json component of "{text:""1"",font:""gui/character/skill/active""}" to {_t::*}
+    add translate component of "%space(3)%" to {_t::*}
+    
+    # 패시브 스킬 이미지
+    add json component of "{text:""%{_icon}%"",font:""gui/character/skill/passive""}" to {_t::*}
+    add translate component of "%space(-17)%" to {_t::*}
+    add json component of "{text:""1"",font:""gui/character/skill/passive""}" to {_t::*}
+    add translate component of "%space(-39)%" to {_t::*}
+    
+    # 수치 데이터 표기
+    add json component of "{text:""0"",font:""gui/character/skill/skill_point""}" to {_t::*}
+    add translate component of "%space(5)%" to {_t::*}
+    add json component of "{text:""0"",font:""gui/character/skill/skill_point""}" to {_t::*}
+    add translate component of "%space(0)%" to {_t::*}
+    
+    if {active_cool::%{_p}%} > 10:
+        add pedzero({active_cool::%{_p}%},2," ","gui/character/skill/text/active_cool") to {_t::*}
+    else if {active_cool::%{_p}%} > 0:
+        add pedzero({active_cool::%{_p}%},2," ","gui/character/skill/text/active_cool2") to {_t::*}
+    else:
+        add pedzero({active_cool::%{_p}%},2," ","gui/character/skill/text/active_cool2") to {_t::*}
+
+
+    add json component of "{text:""%{passive_cool::%{_p}%}%"",font:""gui/character/skill/text/passive_cool""}" to {_t::*}
+    add json component of "{text:""700"",font:""gui/character/skill/text/credit""}" to {_t::*}
+    add json component of "{text:""20"",font:""gui/character/skill/text/level""}" to {_t::*}
+
+    add translate component of "%space(0)%" to {_t::*}
+    add json component of "{text:""8"",font:""gui/character/skill/text/atk""}" to {_t::*}
+    add translate component of "%space(-8)%" to {_t::*}
+    add json component of "{text:""200%%"",font:""gui/character/skill/text/atk_spd""}" to {_t::*}
+    add translate component of "%space(-15)%" to {_t::*}
+    add json component of "{text:""100%%"",font:""gui/character/skill/text/armor""}" to {_t::*}
+    add translate component of "%space(-14)%" to {_t::*}
+    add json component of "{text:""100%%"",font:""gui/character/skill/text/speed""}" to {_t::*}
+
+    add translate component of "%space(50)%" to {_t::*}
+
+    set {_t} to merge components {_t::*}
+    set {sidebar::%uuid of {_p}%} to {_t}
+    board({_p}, 0)
+
+
+
+
+
+
+function getPlayerSkillCoolDown(p: player):
+    set {_obj1} to objective with id "ACD"
+    set {_obj2} to objective with id "PCD"
+    
+    # 점수가 없으면 0으로 초기화 (이게 핵심입니다)
+    set {_s1} to score of {_p} for {_obj1}
+    set {_s2} to score of {_p} for {_obj2}
+    
+    if {_s1} is not set:
+        set {_s1} to 0
+    if {_s2} is not set:
+        set {_s2} to 0
+
+    set {active_cool::%uuid of {_p}%} to floor({_s1} / 10)
+    set {passive_cool::%uuid of {_p}%} to floor({_s2} / 10)
+
+
+function getArmorDiscountRate(p: player) :: int:
+    set {_a} to {_p}'s armor final attribute
+    set {_at} to {_p}'s armor toughness final attribute
+    set {_objective} to objective with id "resistance"
+    set {_level} to score of {_p} for {_objective}
+    set {_result} to min(20, max({_a}/5, {_a}-(20/(2+{_at}/4))))/25
+    set {_result} to ({_result}+((1-{_result})*{_level}*0.2))*100
+    return {_result}
+    
+function pedzero(num: number, length: number, zeroText: text, font: text) :: text component:
+    set {_zerotextDigit} to {_length} - digitLength({_num})
+    loop {_zerotextDigit} times:
+        add {_zeroText} to {_result::*}
+    add {_num} to {_result::*}
+    return json component of "{text:""%mergeText({_result::*})%"",font:""%{_font}%""}"
+
+function digitLength(num: number) :: number:
+    if {_num} <= 0:
+        return 1
+    return floor(log({_num}) / log(10)) + 1
+
+function mergeText(list: objects) :: string:
+    set {_result} to ""
+    loop {_list::*}:
+        set {_result} to "%{_result}%%loop-value%"
+    return {_result}
+
+
+

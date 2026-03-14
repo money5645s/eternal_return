@@ -1,0 +1,197 @@
+
+on swap hand items:
+    cancel event
+    open_custom_menu(player)
+on drop:
+    cancel event
+    
+function open_custom_menu(p: player):
+    getPlayerScoreState({_p})
+    set {_uuid} to uuid of {_p}
+    set {_char} to {player.character::%{_uuid}%}
+    set {_sp} to {skill_point::%{_uuid}%}
+    set {_gui} to chest inventory with 1 rows named "&0[ 메뉴 창 ]"
+
+    loop "active" and "passive":
+        set {_raw_type} to loop-value
+        set {_type} to "%{_raw_type}%_level"
+        
+        set {_obj} to objective with id {_type}
+        set {_lvl} to score of {_p} for {_obj}
+        
+        set {_name} to {character::%{_char}%::%{_raw_type}%_name}
+        set {_lore_raw} to {character::%{_char}%::%{_raw_type}%_lore}
+        set {_cool_raw} to {character::%{_char}%::%{_raw_type}%_cool} # 예: "10/8/6/4/2"
+        
+        set {_item} to compass named "&6%{_name}% (Lv.%{_lvl}%)"
+        
+        # 1. 일반 스킬 설명 로어 가공
+        set {_final_lore::*} to get_formatted_lore({_lore_raw}, {_lvl})
+        
+        # 2. 쿨타임 로어 가공 (한 칸 띄우고 "쿨타임(초): " 접두사 추가)
+        if {_cool_raw} is set:
+            add "" to {_final_lore::*} # 설명과 쿨타임 사이 빈 줄
+            # "쿨타임(초): 10/9/8..." 형태로 만들어 함수에 전달
+            set {_cool_str} to "쿨타임(초): %{_cool_raw}%"
+            set {_cool_formatted::*} to get_formatted_lore({_cool_str}, {_lvl})
+            
+            # 함수의 첫 번째 빈 줄("")을 제거하고 합치기
+            remove {_cool_formatted::1} from {_cool_formatted::*}
+            add {_cool_formatted::*} to {_final_lore::*}
+
+        # 3. 문구 결정 (만렙 우선 체크)
+        if {_lvl} >= 5:
+            set lore of {_item} to "&b[ 최대 레벨 달성 ]" and colored {_final_lore::*}
+        else if {_sp} > 0:
+            set lore of {_item} to "&e[ 클릭 시 레벨업 가능 ]" and colored {_final_lore::*}
+        else:
+            set lore of {_item} to colored {_final_lore::*}
+        
+        if {_raw_type} is "active":
+            set slot 3 of {_gui} to {_item}
+        else:
+            set slot 5 of {_gui} to {_item}
+
+    set slot 8 of {_gui} to barrier named "&c닫기"
+    open {_gui} to {_p}
+
+function get_formatted_lore(raw: text, lvl: number) :: texts:
+    delete {_final::*}
+    add "" to {_final::*} # 첫 줄 비우기
+    
+    set {_lines::*} to {_raw} split at " | "
+    
+    loop {_lines::*}:
+        set {_current_line} to loop-value
+        
+        if {_current_line} contains "/":
+            # 1. 레벨이 0보다 클 때만 강조
+            if {_lvl} > 0:
+                set {_parts::*} to {_current_line} split at "/"
+                set {_new_line} to ""
+                
+                loop size of {_parts::*} times:
+                    set {_idx} to loop-number
+                    set {_val} to {_parts::%{_idx}%}
+                    
+                    # --- 핵심 수정 부분: 첫 번째 조각 처리 ---
+                    if {_idx} is 1:
+                        # "방관 1"에서 마지막 띄어쓰기를 기준으로 텍스트와 숫자를 나눕니다.
+                        set {_sub_parts::*} to {_val} split at " "
+                        set {_last_idx} to size of {_sub_parts::*}
+                        set {_pure_num} to {_sub_parts::%{_last_idx}%} # 실제 숫자 (예: 1)
+                        
+                        # 숫자 앞의 텍스트들 다시 합치기 (예: "방관")
+                        set {_prefix} to ""
+                        loop ({_last_idx} - 1) times:
+                            set {_prefix} to "%{_prefix}%%{_sub_parts::%loop-number-2%}% "
+                        
+                        # 강조 여부 결정
+                        if {_idx} is {_lvl}:
+                            set {_val} to "%{_prefix}%&f%{_pure_num}%"
+                        else:
+                            set {_val} to "%{_prefix}%&7%{_pure_num}%"
+                    # --- 나머지 숫자들 처리 ---
+                    else:
+                        if {_idx} is {_lvl}:
+                            set {_val} to "&f%{_val}%"
+                        else:
+                            set {_val} to "&7%{_val}%"
+                    
+                    # 합치기
+                    if {_new_line} is "":
+                        set {_new_line} to {_val}
+                    else:
+                        set {_new_line} to "%{_new_line}%&8/%{_val}%"
+                
+                add colored "&7%{_new_line}%" to {_final::*}
+            
+            else:
+                # 레벨 0일 때 (전체 회색)
+                set {_temp} to {_current_line}
+                replace all "/" with "&8/&7" in {_temp}
+                add colored "&7%{_temp}%" to {_final::*}
+        
+        else:
+            add colored "&7%{_current_line}%" to {_final::*}
+            
+    return {_final::*}
+
+
+
+
+on inventory click:
+    if name of event-inventory is "§0[ 메뉴 창 ]":
+        cancel event
+        set {_uuid} to uuid of player
+        set {_char} to {player.character::%{_uuid}%}
+        set {_sp} to {skill_point::%{_uuid}%}
+        
+        set {_p_name} to {character::%{_char}%::passive_name}
+        set {_a_name} to {character::%{_char}%::active_name}
+        
+        set {_type} to ""
+        if name of event-item contains "%{_p_name}%":
+            set {_type} to "passive_level"
+        else if name of event-item contains "%{_a_name}%":
+            set {_type} to "active_level"
+        else if name of event-item is "&c닫기":
+            close player's inventory
+            stop
+
+        if {_type} is "active_level" or "passive_level":
+            set {_obj_%{_type}%} to objective with id "%{_type}%"
+            set {_Current_lvl} to score of player for {_obj_%{_type}%}
+
+            # 1. 이미 만렙이면 클릭 차단
+            if {_Current_lvl} >= 5:
+                send "&b&l[ ! ] &f이미 최대 레벨(5)에 도달한 스킬입니다." to player
+                play sound "ui.button.click" with volume 1 and pitch 1 to player
+                stop 
+
+            # 2. 스킬 포인트 체크 후 레벨업 실행
+            if {_sp} > 0:
+                remove 1 from {skill_point::%{_uuid}%}
+                set {_obj_sp} to objective with id "skill_point"
+                set score of player for {_obj_sp} to {skill_point::%{_uuid}%}
+                
+                set {_new_lvl} to {_Current_lvl} + 1
+                set score of player for {_obj_%{_type}%} to {_new_lvl}
+                
+                # 정보 추출
+                set {_raw_type} to {_type}
+                replace all "_level" with "" in {_raw_type}
+                
+                set {_raw_type} to {_type}
+                replace all "_level" with "" in {_raw_type}
+                set {_name_key} to {character::%{_char}%::%{_raw_type}%_name}
+                set {_lore_key} to {character::%{_char}%::%{_raw_type}%_lore}
+                set {_cool_key} to {character::%{_char}%::%{_raw_type}%_cool}
+                
+                # 아이템 생성 및 로어 구성
+                set {_item} to compass named "&6%{_name_key}% (Lv.%{_new_lvl}%)"
+                set {_final_lore::*} to get_formatted_lore({_lore_key}, {_new_lvl})
+                
+                # 쿨타임 추가 (요청하신 "쿨타임(초): " 형식 적용)
+                if {_cool_key} is set:
+                    add "" to {_final_lore::*}
+                    set {_cool_str} to "쿨타임(초): %{_cool_key}%"
+                    set {_cool_formatted::*} to get_formatted_lore({_cool_str}, {_new_lvl})
+                    remove {_cool_formatted::1} from {_cool_formatted::*}
+                    add {_cool_formatted::*} to {_final_lore::*}
+                
+                # 문구 결정 (우선순위: 만렙 > 포인트)
+                set {_new_sp} to {skill_point::%{_uuid}%}
+                if {_new_lvl} >= 5:
+                    set lore of {_item} to "&b[ 최대 레벨 달성 ]" and colored {_final_lore::*}
+                else if {_new_sp} > 0:
+                    set lore of {_item} to "&e[ 클릭 시 레벨업 가능 ]" and colored {_final_lore::*}
+                else:
+                    set lore of {_item} to colored {_final_lore::*}
+                
+                set slot index of event-slot of event-inventory to {_item}
+                
+                # UI 전체 동기화
+                open_custom_menu(player)
+                
+                play sound "entity.player.levelup" with volume 1 and pitch 1.2 to player

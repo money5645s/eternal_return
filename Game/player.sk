@@ -1,0 +1,96 @@
+
+
+
+# 첫 입장시
+on join:
+    if player has not played before:
+
+
+
+
+
+
+
+
+command /캐릭터선택 <text>:
+    trigger:
+        set {player.character::%uuid of player%} to arg-1
+        send "§a%arg-1%§f 캐릭터를 선택했습니다."
+        setPlayerStateGUIJson(player)
+        #set {_t} to {stateGUI::%uuid of player%}
+        #updateBossBar(player, 6, {_t})
+        # 선택 즉시 사이드바 갱신
+        #setSidebar(player)
+
+on tab complete of "/캐릭터선택":
+    set tab completions for position 1 to {characterlist::*}
+
+# attribute 가져오기
+function getPlayerState(p: player):
+    set {_atkdmg} to pedzero({_p}'s attack damage final attribute, 2, " ", "")
+    set {_atkspd} to pedzero({_p}'s attack speed final attribute * 25, 2, " ", "")
+    set {_armor} to pedzero(getArmorDiscountRate({_p}), 2, " ", "")
+    set {_movespd} to pedzero({_p}'s movement speed attribute * 1000, 2, " ", "")
+    getPlayerScoreState({_p})
+
+# 스코어보드 스탯 가져오기
+function getPlayerScoreState(p: player):
+    # 액티브 쿨타임
+    set {_ACD} to objective with id "ACD"
+    set {_active_cool} to score of {_p} for {_ACD}
+    if {_active_cool} is not set:
+        set {_active_cool} to 0
+    if {_passive_cool} is not set:
+        set {_passive_cool} to 0
+
+    set {active_cool::%uuid of {_p}%} to floor({_active_cool} / 10)
+
+    # 패시브 쿨타임
+    set {_PCD} to objective with id "PCD"
+    set {_passive_cool} to score of {_p} for {_PCD}
+    set {passive_cool::%uuid of {_p}%} to floor({_passive_cool} / 10)
+    # 크래딧
+    set {_credit} to objective with id "credit"
+    set {credit::%uuid of {_p}%} to score of {_p} for {_credit}
+    # 플레이어 레벨
+    set {_level} to objective with id "level"
+    set {level::%uuid of {_p}%} to score of {_p} for {_level}
+    # 플레이어 경험치
+    set {_exp} to objective with id "exp"
+    set {exp::%uuid of {_p}%} to score of {_p} for {_exp}
+    # 액티브 스킬 레벨
+    set {_active_level} to objective with id "active_level"
+    set {active_level::%uuid of {_p}%} to score of {_p} for {_active_level}
+    # 패시브 스킬 레벨
+    set {_passive_level} to objective with id "passive_level"
+    set {passive_level::%uuid of {_p}%} to score of {_p} for {_passive_level}
+    # 스킬 포인트
+    set {_skill_point} to objective with id "skill_point"
+    set {skill_point::%uuid of {_p}%} to score of {_p} for {_skill_point}
+    # 금지구역 남은 시간
+    set {_bantime} to objective with id "bantime"
+    set {bantime::%uuid of {_p}%} to score of {_p} for {_bantime}
+
+
+
+
+command /state <player>:
+    trigger:
+        if player is op:
+            getPlayerScoreState(player)
+            sendPlayerData(player)
+        else:
+            send "&c사용 불가능한 명령어" to player
+
+## 디버깅용 스텟 호출
+function sendPlayerData(p:player):
+    send "&a%name of {_p}%님의 정보:" to {_p}
+    send "현재 지역 : %convertZoneName({inRegion::%{_p}%})% | 금지구역 남은시간 : %{bantime::%uuid of {_p}%}%s" to {_p}
+    send "K : %{kills::%uuid of {_p}%}% | D : %{deaths::%uuid of {_p}%}%" to {_p}
+    send "캐릭터 : %{player.character::%uuid of {_p}%}%" to {_p}
+    send "소유 크래딧 : %{credit::%uuid of {_p}%}%" to {_p}
+    send "레벨 : %{level::%uuid of {_p}%}% | 경험치 : %{exp::%uuid of {_p}%}%" to {_p}
+    send "스킬 포인트 : %{skill_point::%uuid of {_p}%}%" to {_p}
+    send "A.L : %{active_level::%uuid of {_p}%}% | P.L : %{passive_level::%uuid of {_p}%}%" to {_p}
+    send "ACD: %{active_cool::%uuid of {_p}%}%s | PCD : %{passive_cool::%uuid of {_p}%}%s" to {_p}
+    

@@ -1,0 +1,4 @@
+on rightclick on interaction:
+    if event-entity has the scoreboard tag "meteorite":
+        if player don't have the scoreboard tag "click_meteorite":
+            add "click_meteorite" to the scoreboard tags of player

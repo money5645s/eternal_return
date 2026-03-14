@@ -1,0 +1,105 @@
+#import:
+#    io.papermc.paper.scoreboard.numbers.NumberFormat
+#    org.bukkit.Bukkit
+#    org.bukkit.scoreboard.Objective
+#    org.bukkit.scoreboard.Score
+#    org.bukkit.scoreboard.DisplaySlot
+#    org.bukkit.scoreboard.Criteria
+#
+#options:
+#    ID: sb
+#    # 사이드바 내부 이름 (변경 불필요)
+#    OBJ_NAME: "custom_sb"
+#
+## --- 데이터 저장 및 복구 ---
+#
+#on join:
+#    # 플레이어가 나갔다 들어왔을 때, 기존에 사이드바가 활성화 상태였다면 다시 그려줍니다.
+#    if {sb::%player's uuid%::active} is true:
+#        renderScoreboard(player)
+#
+## --- 핵심 함수 (Function) ---
+#
+#function renderScoreboard(p: player):
+#    set {_uuid} to uuid of {_p}
+#    
+#    # 1. 스코어보드 객체 준비
+#    set {_board} to {_p}.getScoreboard()
+#    if {_board} is Bukkit.getScoreboardManager().getMainScoreboard():
+#        set {_board} to Bukkit.getScoreboardManager().getNewScoreboard()
+#        {_p}.setScoreboard({_board})
+#    
+#    # 2. 기존 목적지 제거 후 새로 생성 (초기화)
+#    set {_obj} to {_board}.getObjective({@OBJ_NAME})
+#    if {_obj} is set:
+#        {_obj}.unregister()
+#    
+#    set {_obj} to {_board}.registerNewObjective({@OBJ_NAME}, Criteria.DUMMY, {sb::%{_uuid}%::title})
+#    {_obj}.setDisplaySlot(DisplaySlot.SIDEBAR)
+#    
+#    # 3. [핵심] 숫자 숨기기 설정 (Paper 1.20.3+)
+#    {_obj}.numberFormat(NumberFormat.blank())
+#    
+#    # 4. 라인 설정
+#    set {_index} to 1
+#    loop {sb::%{_uuid}%::lines::*}:
+#        # 스코어 값은 상관없으나(숫자가 안보이므로), 위에서부터 순서대로 나오게 처리
+#        set {_lineText} to loop-value
+#        set {_scoreValue} to (size of {sb::%{_uuid}%::lines::*} - {_index})
+#        {_obj}.getScore({_lineText}).setScore({_scoreValue})
+#        add 1 to {_index}
+#
+## --- 명령어 ---
+#
+## 1. 생성 / 초기화
+#command /create:
+#    trigger:
+#        set {_uuid} to uuid of player
+#        set {sb::%{_uuid}%::active} to true
+#        set {sb::%{_uuid}%::title} to " "
+#        delete {sb::%{_uuid}%::lines::*}
+#        set {sb::%{_uuid}%::lines::1} to " "
+#        renderScoreboard(player)
+#        send "§a사이드바가 생성되었습니다."
+#
+## 2. 내용 변경
+#command /changeline <integer> <text>:
+#    usage: /changeline <줄번호> <내용>
+#    trigger:
+#        set {_uuid} to uuid of player
+#        if {sb::%{_uuid}%::active} is not set:
+#            send "§c먼저 /create로 사이드바를 생성하세요."
+#            stop
+#            
+#        set {sb::%{_uuid}%::lines::%arg-1%} to arg-2
+#        renderScoreboard(player)
+#        send "§a%arg-1%번 줄의 내용이 변경되었습니다."
+#
+## 3. 다시 표시 (Show)
+#command /show:
+#    trigger:
+#        set {_uuid} to uuid of player
+#        set {sb::%{_uuid}%::active} to true
+#        renderScoreboard(player)
+#        send "§a사이드바를 다시 표시합니다."
+#
+## 4. 숨기기 (Hide - 데이터는 유지, 화면에서만 제거)
+#command /hide:
+#    trigger:
+#        set {_board} to player.getScoreboard()
+#        set {_obj} to {_board}.getObjective(DisplaySlot.SIDEBAR)
+#        if {_obj} is set:
+#            {_obj}.unregister()
+#        # active 상태는 유지 (재접속 시 다시 보임)
+#        send "§7사이드바를 숨겼습니다. /show로 다시 볼 수 있습니다."
+#
+## 5. 제거 (Remove - 데이터까지 완전 삭제)
+#command /remove:
+#    trigger:
+#        set {_uuid} to uuid of player
+#        delete {sb::%{_uuid}%::*}
+#        set {_board} to player.getScoreboard()
+#        set {_obj} to {_board}.getObjective(DisplaySlot.SIDEBAR)
+#        if {_obj} is set:
+#            {_obj}.unregister()
+#        send "§c사이드바 데이터가 완전히 제거되었습니다."

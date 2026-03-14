@@ -1,0 +1,4 @@
+on rightclick on interaction:
+    if event-entity has the scoreboard tag "cctv" and "on":
+        if player don't have the scoreboard tag "click_cctv":
+            add "click_cctv" to the scoreboard tags of player

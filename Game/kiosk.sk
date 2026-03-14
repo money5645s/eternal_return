@@ -1,0 +1,4 @@
+on rightclick on interaction:
+    if event-entity has the scoreboard tag "kiosk":
+        if event-entity has the scoreboard tag "on":
+            add "click_kiosk" to the scoreboard tags of player

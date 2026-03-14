@@ -1,0 +1,185 @@
+# --- 데이터 등록 부분 ---
+on load:
+    delete {Region::*}
+    delete {RegionCount::*}
+    # 골목길 (Alley)
+    addRegion("alley", -711, 104, 676, -55, -32, -60)
+    addRegion("alley", -766, 72, 616, 19, 28, -29)
+    # 양궁장 (Archery Range)
+    addRegion("archery_range", -649, 82, 668, 102, 23, 61)
+    addRegion("archery_range", -556, 82, 654, -57, 15, 13)
+    # 경찰서 (Police Station)
+    addRegion("police_station", -747, 72, 616, 42, 53, -90)
+    addRegion("police_station", -682, 82, 507, -50, 42, 21)
+    addRegion("police_station", -704, 82, 527, 3, 7, 10)
+    # 소방서 (Fire Station)
+    addRegion("fire_station", -705, 80, 537, 56, 30, 76)
+    addRegion("fire_station", -616, 80, 584, -66, 30, -71)
+    addRegion("fire_station", -701, 80, 537, 19, 16, -9)
+    addRegion("fire_station", -599, 80, 529, -17, 24, -16)
+    # 절 (Temple)
+    addRegion("temple", -747, 80, 587, -51, 31, -143)
+    addRegion("temple", -732, 80, 526, -16, 19, -88)
+    # 개울 (Stream)
+    addRegion("stream", -675, 70, 463, -14, 30, 20)
+    addRegion("stream", -688, 70, 433, 36, 30, 30)
+    addRegion("stream", -688, 70, 507, -16, 26, -74)
+    addRegion("stream", -704, 70, 424, -28, 32, 83)
+    # 연못 (Pond)
+    addRegion("pond", -688, 70, 489, 22, 30, 24)
+    addRegion("pond", -652, 70, 513, -13, 30, -49)
+    addRegion("pond", -652, 70, 430, 32, 30, 83)
+    # 병원 (Hospital)
+    addRegion("hospital", -624, 70, 430, -80, 30, -47)
+    # 묘지 (Cemetery)
+    addRegion("cemetery", -578, 70, 501, -4, 30, 3)
+    addRegion("cemetery", -569, 70, 501, 2, 30, 3)
+    addRegion("cemetery", -555, 70, 500, -55, 30, -69)
+    addRegion("cemetery", -624, 70, 383, 60, 30, 48)
+    # 성당 (Chapel)
+    addRegion("chapel", -506, 70, 480, -49, 30, -48)
+    addRegion("chapel", -564, 70, 383, 58, 30, 48)
+    # 공장 (Factory)
+    addRegion("factory", -640, 70, 383, 112, 30, -85)
+    # 항구 (Dock)
+    addRegion("dock", -407, 70, 383, -24, 30, 15)
+    addRegion("dock", -407, 70, 383, -99, 30, 12)
+    addRegion("dock", -528, 70, 346, 121, 30, 37)
+    # 창고 (Warehouse)
+    addRegion("warehouse", -407, 70, 398, -63, 30, 57)
+    addRegion("warehouse", -506, 70, 395, 75, 30, 47)
+    # 고급 주택가 (Uptown)
+    addRegion("uptown", -443, 70, 530, -42, 30, -4)
+    addRegion("uptown", -485, 70, 455, 113, 30, 73)
+    addRegion("uptown", -506, 70, 442, 42, 30, 38)
+    # 모래사장 (Beach)
+    addRegion("beach", -396, 70, 528, -46, 30, 1)
+    addRegion("beach", -460, 70, 611, -16, 30, 8)
+    addRegion("beach", -460, 70, 530, -25, 30, 54)
+    addRegion("beach", -460, 70, 530, 70, 30, 123)
+    # 숲 (Forest)
+    addRegion("forest", -549, 70, 510, -3, 30, 11)
+    addRegion("forest", -552, 70, 530, 3, 30, 11)
+    addRegion("forest", -548, 100, 584, -2, -30, -25)
+    addRegion("forest", -485, 70, 480, -63, 30, 104)
+    # 호텔 (Hotel)
+    addRegion("hotel", -476, 70, 691, 16, 30, -72)
+    addRegion("hotel", -476, 70, 691, -71, 30, -107)
+    # 학교 (School)
+    addRegion("school", -583, 70, 547, 5, 30, 3)
+    addRegion("school", -564, 70, 547, -5, 30, 3)
+    addRegion("school", -616, 70, 584, 66, 30, -33)
+    addRegion("school", -609, 82, 654, -40, 12, 13)
+    addRegion("school", -547, 82, 584, -102, 19, 70)
+    # 주유소 (Gas Station)
+    addRegion("gas_station", -711, 103, 707, -17, -21, -31)
+    addRegion("gas_station", -649, 82, 613, -62, 21, 94)
+    # 연구소 (Research Center)
+    addRegion("research_center", -595, 70, 529, -4, 30, -7)
+    addRegion("research_center", -570, 70, 547, -7, 30, 4)
+    addRegion("research_center", -552, 70, 522, 4, 30, 7)
+    addRegion("research_center", -577, 70, 504, 7, 30, -4)
+    addRegion("research_center", -558, 70, 501, 9, 30, 9)
+    addRegion("research_center", -598, 70, 510, 9, 30, -9)
+    addRegion("research_center", -598, 70, 541, 9, 30, 9)
+    addRegion("research_center", -558, 70, 550, 9, 30, -9)
+    addRegion("research_center", -595, 70, 504, 43, 30, 43)
+    # 브리핑 룸 (Briefing Room)
+    addRegion("briefing_room", -340, 60, 411, 92, 17, 74)
+    send "§a[Region] 모든 구역 데이터 로드 완료!" to console
+
+# --- 보조 함수: 데이터를 변수에 저장 ---
+function addRegion(name: string, x: number, y: number, z: number, dx: number, dy: number, dz: number):
+    # 새로운 인덱스 생성
+    add 1 to {RegionCount::%{_name}%}
+    set {_i} to {RegionCount::%{_name}%}-1
+    
+    # x,y,z 지점과 x+dx, y+dy, z+dz 지점 저장
+    set {Region::%{_name}%::%{_i}%::pos1} to location({_x}, {_y}, {_z}, world "overworld")
+    set {Region::%{_name}%::%{_i}%::pos2} to location(({_x} + {_dx}), ({_y} + {_dy}), ({_z} + {_dz}), world "overworld")
+
+# --- 핵심 함수: 현재 플레이어 위치의 구역 이름 반환 ---
+function getPlayerRegion(p: player):
+    set {_loc} to location of {_p}
+    set {_x} to x-coordinate of {_loc}
+    set {_z} to z-coordinate of {_loc}
+    
+    # 모든 구역 이름을 루프 (alley, school 등)
+    loop {RegionCount::*}:
+        set {_name} to loop-index
+        set {_i} to {RegionCount::%{_name}%}
+
+        # 각 구역 안에 설정된 모든 범위(point1, 2...)를 루프
+        loop {_i} times:
+            set {_pos1} to {Region::%{_name}%::%(loop-number)-1%::pos1}
+            set {_p1x} to x-coordinate of {_pos1}
+            set {_p1z} to z-coordinate of {_pos1}
+
+            set {_pos2} to {Region::%{_name}%::%(loop-number)-1%::pos2}
+            set {_p2x} to x-coordinate of {_pos2}
+            set {_p2z} to z-coordinate of {_pos2}
+
+            if {_x} is between {_p1x} and {_p2x}:
+                if {_z} is between {_p1z} and {_p2z}:
+                    set {inRegion::%{_p}%} to {_name}
+
+
+
+function isChangedPlayerRegion(p:player):
+    getPlayerRegion({_p})
+    set {_CurrentRegion} to {inRegion::%{_p}%}
+    set {_LastRegion} to {lastregion::%{_p}%}
+
+    if {_CurrentRegion} is not {_LastRegion}:
+        set {lastregion::%{_p}%} to {inRegion::%{_p}%}
+        #send action bar convertZoneName({inRegion::%{_p}%}) to {_p}
+
+function convertZoneName(name: string) :: string:
+    if {_name} is "alley":
+        return "골목길"
+    else if {_name} is "archery_range":
+        return "양궁장"
+    else if {_name} is "police_station":
+        return "경찰서"
+    else if {_name} is "fire_station":
+        return "소방서"
+    else if {_name} is "temple":
+        return "절"
+    else if {_name} is "stream":
+        return "개울"
+    else if {_name} is "pond":
+        return "연못"
+    else if {_name} is "hospital":
+        return "병원"
+    else if {_name} is "cemetery":
+        return "묘지"
+    else if {_name} is "chapel":
+        return "성당"
+    else if {_name} is "factory":
+        return "공장"
+    else if {_name} is "dock":
+        return "항구"
+    else if {_name} is "warehouse":
+        return "창고"
+    else if {_name} is "uptown":
+        return "고급 주택가"
+    else if {_name} is "beach":
+        return "모래사장"
+    else if {_name} is "forest":
+        return "숲"
+    else if {_name} is "hotel":
+        return "호텔"
+    else if {_name} is "school":
+        return "학교"
+    else if {_name} is "gas_station":
+        return "주유소"
+    else if {_name} is "research_center":
+        return "연구소"
+    else if {_name} is "briefing_room":
+        return "브리핑 룸"
+    
+    return "야생"
+
+every 0.5 seconds:
+    loop all players:
+        isChangedPlayerRegion(loop-player)

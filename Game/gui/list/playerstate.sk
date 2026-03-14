@@ -1,0 +1,114 @@
+on load:
+    clear {GUI::state1::*}
+    # 배경 및 고정 레이아웃 레이어
+    add json component from "{text:""b"",font:""gui/character/bg"",shadow_color:0}" to {GUI::state1::*}
+    add translate component of "%space(0)%" to {GUI::state1::*}
+    add json component from "{text:""c"",font:""gui/character/bg"",shadow_color:0}" to {GUI::state1::*}
+    add translate component of "%space(4)%" to {GUI::state1::*}
+
+
+
+
+
+
+
+
+
+
+
+
+function setPlayerStateGUIJson(pl: player):
+    set {_p} to uuid of {_pl}
+    set {_char} to {character::%{_p}%}
+    getPlayerSkillCoolDown({_p})
+    getPlayerState({_p})
+    
+    # 해당 캐릭터의 유니코드 가져오기 (비어있으면 공백 처리)
+    set {_icon} to {character::%{_char}%::unicord}
+    if {_icon} is not set:
+        set {_icon} to "?"
+
+    clear {_t::*}
+    add {GUI::state1::*} to {_t::*}
+    add json component from "{text:""1"",font:""gui/character/skill/exp"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-12)%" to {_t::*}
+    add json component from "{text:""%{_icon}%"",font:""gui/character/skill/profile"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-56)%" to {_t::*}
+    add json component of "{text:""d"",font:""gui/character/bg"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-150)%" to {_t::*}
+    add json component of "{text:""a"",font:""gui/character/bg"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-42)%" to {_t::*}    
+    add json component of "{text:""0"",font:""gui/character/skill/active_level"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(1)%" to {_t::*}
+    add json component of "{text:""0"",font:""gui/character/skill/passive_level"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-40)%" to {_t::*}    
+    ## 액티브 스킬 이미지
+    add json component of "{text:""%{_icon}%"",font:""gui/character/skill/active"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-19)%" to {_t::*}
+    add json component of "{text:""1"",font:""gui/character/skill/active"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(3)%" to {_t::*}
+
+    ## 패시브 스킬 이미지
+    add json component of "{text:""%{_icon}%"",font:""gui/character/skill/passive"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-17)%" to {_t::*}
+    add json component of "{text:""1"",font:""gui/character/skill/passive"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-39)%" to {_t::*}
+    #    
+    ## 수치 데이터 표기
+    add json component of "{text:""0"",font:""gui/character/skill/skill_point"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(5)%" to {_t::*}
+    add json component of "{text:""0"",font:""gui/character/skill/skill_point"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(0)%" to {_t::*}
+        
+    if {active_cool::%{_p}%} > 10:
+        add pedzero({active_cool::%{_p}%},2," ","gui/character/skill/text/active_cool") to {_t::*}
+    else if {active_cool::%{_p}%} > 0:
+        add pedzero({active_cool::%{_p}%},2," ","gui/character/skill/text/active_cool2") to {_t::*}
+    else:
+        add pedzero({active_cool::%{_p}%},2," ","gui/character/skill/text/active_cool2") to {_t::*} 
+    add json component of "{text:""%{passive_cool::%{_p}%}%"",font:""gui/character/skill/text/passive_cool"",shadow_color:0}" to {_t::*}
+    add json component of "{text:""700"",font:""gui/character/skill/text/credit"",shadow_color:0}" to {_t::*}
+    add json component of "{text:""20"",font:""gui/character/skill/text/level"",shadow_color:0}" to {_t::*}    
+    add translate component of "%space(0)%" to {_t::*}
+    add json component of "{text:""8"",font:""gui/character/skill/text/atk"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-8)%" to {_t::*}
+    add json component of "{text:""200%%"",font:""gui/character/skill/text/atk_spd"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-15)%" to {_t::*}
+    add json component of "{text:""100%%"",font:""gui/character/skill/text/armor"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-14)%" to {_t::*}
+    add json component of "{text:""100%%"",font:""gui/character/skill/text/speed"",shadow_color:0}" to {_t::*} 
+    add translate component of "%space(100)%" to {_t::*} 
+    set {_t} to serialized json string of merge components {_t::*}
+    set {stateGUI::%{_p}%} to {_t}
+
+
+
+function getArmorDiscountRate(p: player) :: number:
+    set {_a} to {_p}'s armor final attribute
+    set {_at} to {_p}'s armor toughness final attribute
+    set {_objective} to objective with id "resistance"
+    set {_level} to score of {_p} for {_objective}
+    set {_result} to min(20, max({_a}/5, {_a}-(20/(2+{_at}/4))))/25
+    set {_result} to ({_result}+((1-{_result})*{_level}*0.2))*100
+    return {_result}
+    
+function pedzero(num: number, length: number, zeroText: text, font: text) :: text component:
+    set {_zerotextDigit} to {_length} - digitLength({_num})
+    loop {_zerotextDigit} times:
+        add {_zeroText} to {_result::*}
+    add {_num} to {_result::*}
+    return json component of "{text:""%mergeText({_result::*})%"",font:""%{_font}%""}"
+
+function digitLength(num: number) :: number:
+    if {_num} <= 0:
+        return 1
+    return floor(log({_num}) / log(10)) + 1
+
+function mergeText(list: objects) :: string:
+    set {_result} to ""
+    loop {_list::*}:
+        set {_result} to "%{_result}%%loop-value%"
+    return {_result}
+
+
+

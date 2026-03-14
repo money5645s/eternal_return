@@ -1,0 +1,65 @@
+on script load:
+    delete {need_exp::*}
+    set {need_exp::1} to 500
+    set {need_exp::2} to 1000
+    set {need_exp::3} to 1600
+    set {need_exp::4} to 2200
+    set {need_exp::5} to 2800
+    set {need_exp::6} to 3500
+    set {need_exp::7} to 4200
+    set {need_exp::8} to 5000
+    set {need_exp::9} to 6000
+
+
+function level_up(p: player):
+    # 1. 스코어보드 객체 정의
+    set {_obj_lvl} to objective with id "level"
+    set {_obj_exp} to objective with id "exp"
+    set {_obj_sp} to objective with id "skill_point"
+    
+    # 2. 현재 값 가져오기
+    set {_current_lvl} to score of {_p} for {_obj_lvl}
+    set {_current_exp} to score of {_p} for {_obj_exp}
+    # 3. 레벨업 조건 체크 (경험치가 충분한 동안 반복)
+    # if 대신 while을 쓰면 한 번에 여러 레벨을 올릴 수 있습니다.
+    while {_current_exp} >= {need_exp::%{_current_lvl}%}:
+        
+        # 실제 스코어보드 데이터 수정
+        remove {need_exp::%{_current_lvl}%} from score of {_p} for {_obj_exp}
+        add 1 to score of {_p} for {_obj_lvl}
+        add 1 to score of {_p} for {_obj_sp}
+        
+        # 안내 메시지
+        send "§a레벨업! 현재 레벨: %{_current_lvl} + 1%§f" to {_p}
+        play sound "minecraft:er.player.level_up" to {_p}
+        # 다음 반복을 위해 변수 업데이트
+        add 1 to {_current_lvl}
+        set {_current_exp} to score of {_p} for {_obj_exp}
+        
+        # 무한 루프 방지 (필요 경험치 데이터가 없을 경우 대비)
+        if {need_exp::%{_current_lvl}%} is not set:
+            stop loop
+
+
+every 1 tick:
+    loop all players:
+        set {_p} to loop-player
+        set {_uuid} to uuid of {_p}
+        
+        # 스코어보드 객체 및 점수 가져오기
+        set {_exp} to objective with id "exp"
+        set {_current_exp} to score of {_p} for {_exp}
+
+        if {_current_exp} is set:
+            
+            if {last_exp::%{_uuid}%} is not set:
+                set {last_exp::%{_uuid}%} to 0
+
+            if {_current_exp} is not {last_exp::%{_uuid}%}:
+                send "%{_p}%의 경험치 변동 감지! (%{last_exp::%{_uuid}%}% -> %{_current_exp}%)" to {_p}
+                level_up(loop-player)
+                set {last_exp::%{_uuid}%} to {_current_exp}
+
+
+#set {_objective} to "test"
+ #       set score of player for {_objective} to 10

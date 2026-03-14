@@ -1,0 +1,60 @@
+
+on load:
+    set {server.starttime} to now
+
+on chat:
+    cancel event
+    
+    set {_diff} to difference between now and {server.starttime}
+    set {_sec} to floor({_diff} / 1 second)
+    set {_min} to floor({_sec} / 60)
+    set {_s} to mod({_sec},60)
+    
+    if {_s} < 10:
+        set {_s} to "0%{_s}%"
+    if {_min} < 10:
+        set {_min} to "0%{_min}%"
+    
+    send "베타테스트 기간 동안 채팅기능을 지원하지 않습니다" to player
+    #broadcast "&x&3&f&c&9&c&7[%{_min}%:%{_s}%] [%player%] &7: %message%"
+
+on join:
+    set join message to ""
+
+on quit:
+    set quit message to ""
+
+
+## 플레이어 K/D
+options:
+    kd-prefix-color: &7
+    kd-bracket-color: &8
+    kd-number-color: &e
+
+function updateKD(p: player):
+    
+    if {kills::%uuid of {_p}%} is not set:
+        set {kills::%uuid of {_p}%} to 0
+        if {deaths::%uuid of {_p}%} is not set:
+            set {deaths::%uuid of {_p}%} to 0
+            
+    set {_k} to {kills::%uuid of {_p}%}
+    set {_d} to {deaths::%uuid of {_p}%}
+    set tab list name of {_p} to "&f[&e%{_k}%&f/&c%{_d}%&f] &f%name of {_p}% "
+
+on join:
+    wait 1 tick
+    updateKD(player)
+
+
+
+
+
+on death of player:
+    add 1 to {deaths::%uuid of victim%}
+    
+    if attacker is a player:
+        add 1 to {kills::%uuid of attacker%}
+        updateKD(attacker)
+
+    updateKD(victim)

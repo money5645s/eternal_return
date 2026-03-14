@@ -1,0 +1,24 @@
+## 로비 문양
+on load:
+    add json component from "{text:""2"",font:""gui/bossbar/lobby/bg"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-1)%" to {_t::*}
+    add json component from "{text:""0"",font:""gui/bossbar/lobby/bg"",shadow_color:0}" to {_t::*}
+
+    add translate component of "%space(10)%" to {_t::*}
+    add json component from "{text:""■"",font:""gui/bossbar/lobby/text"",color:""#00c9ff""}" to {_t::*}
+
+    add translate component of "%space(20)%" to {_t::*}
+    add json component from "{text:""로   비"",font:""gui/bossbar/lobby/text"",color:""#00c9ff""}" to {_t::*}
+    add translate component of "%space(20)%" to {_t::*}
+
+    add json component from "{text:""■"",font:""gui/bossbar/lobby/text"",color:""#00c9ff""}" to {_t::*}
+    add translate component of "%space(10)%" to {_t::*}
+
+    add json component from "{text:""1"",font:""gui/bossbar/lobby/bg"",shadow_color:0}" to {_t::*}
+    add translate component of "%space(-1)%" to {_t::*}
+    add json component from "{text:""3"",font:""gui/bossbar/lobby/bg"",shadow_color:0}" to {_t::*}
+
+    add translate component of "%space(63)%" to {_t::*}
+
+    set {_t} to merge components {_t::*}
+    set {bossbar.list::lobby} to {_t}

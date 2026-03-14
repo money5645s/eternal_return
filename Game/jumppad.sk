@@ -1,0 +1,23 @@
+# function setParabolicMotion(플레이어, 목표X, 목표Y, 목표Z, 도달시간)
+function setParabolicMotion(p: player, tx: number, ty: number, tz: number, t: number):
+    # 1. 현재 좌표 가져오기
+    set {_x1} to x-coord of {_p}
+    set {_y1} to y-coord of {_p}
+    set {_z1} to z-coord of {_p}
+    
+    # 2. 거리 차이(Delta) 계산
+    set {_dx} to {_tx} - {_x1}
+    set {_dy} to {_ty} - {_y1}
+    set {_dz} to {_tz} - {_z1}
+    
+    # 3. 마크 물리 상수를 이용한 모션값 계산
+    # 중력 가속도 g = 0.08
+    set {_g} to 0.08
+    
+    set {_vx} to {_dx} / {_t}
+    set {_vz} to {_dz} / {_t}
+    # y축 공식: (dy + 0.5 * g * t^2) / t
+    set {_vy} to ({_dy} + (0.5 * {_g} * ({_t} * {_t}))) / {_t}
+    
+    # 4. 플레이어에게 실제 벡터(Motion) 적용
+    set velocity of {_p} to vector({_vx}, {_vy}, {_vz})

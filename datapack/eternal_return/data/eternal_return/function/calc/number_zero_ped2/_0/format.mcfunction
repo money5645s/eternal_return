@@ -1,2 +1,0 @@
-$execute if score #pedzero TEMP matches 0..9 run data modify storage temp pedzero.result set value " $(input)"
-$execute if score #pedzero TEMP matches 10..99 run data modify storage temp pedzero.result set value "$(input)"
