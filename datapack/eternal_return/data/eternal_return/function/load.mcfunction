@@ -19,9 +19,11 @@ forceload add -243 485 -243 479
     # 맵 기본 설정
         function eternal_return:map/init
     # 게임 시간 초기화
-        function eternal_return:game/game_timer_reset
+    
+## 청크 로딩
+    function eternal_return:forceload
 
-## 게임 룰
+
 
 
 ## 팀 추가
@@ -39,12 +41,8 @@ forceload add -243 485 -243 479
         scoreboard objectives add Page.loading dummy
         scoreboard objectives add Page.loading.tick dummy
         scoreboard objectives add Page.tick dummy
+        scoreboard objectives add Page.slot dummy
         scoreboard objectives add Page.sec dummy
-    # 스크롤
-        scoreboard objectives add old.scroll.num dummy
-        scoreboard objectives add now.scroll.num dummy
-    # 나갈 때
-        scoreboard objectives add quit minecraft.custom:minecraft.leave_game
 
     ## 플레이어
         # hp, k/d
@@ -54,23 +52,24 @@ forceload add -243 485 -243 479
         scoreboard objectives add death deathCount
         # 레벨, 스킬포인트
         scoreboard objectives add level dummy
+        scoreboard objectives add exp dummy
         scoreboard objectives add skill_point dummy
-        scoreboard objectives add skill_exp dummy
-        scoreboard objectives add skill_exp_image dummy
         # 스킬 쿨타임 이미지
             # 패시브
                 scoreboard objectives add active_level dummy
-                scoreboard objectives add active_cool dummy
-                scoreboard objectives add active_tick dummy
+                scoreboard objectives add ACD dummy
             # 액티브
                 scoreboard objectives add passive_level dummy
-                scoreboard objectives add passive_cool dummy
-                scoreboard objectives add passive_tick dummy
+                scoreboard objectives add PCD dummy
+    # CCTV 활성화 시간
+        scoreboard objectives add cctv_tick dummy
     # 크레딧
         scoreboard objectives add credit dummy
     # 캐릭터
         scoreboard objectives add character dummy
 
+    # 포션 레벨
+        scoreboard objectives add resistance dummy
 
     # 센터 스코어
         scoreboard objectives add centerbar.tick dummy
@@ -81,12 +80,23 @@ forceload add -243 485 -243 479
     # 임시변수/넘버링변수
         scoreboard objectives add TEMP dummy
         scoreboard objectives add NUM dummy
+    # 오브젝트 쿨타임
+        scoreboard objectives add ct1 dummy
+        scoreboard objectives add ct2 dummy
     # 상수
         scoreboard objectives add CONST dummy
         # 상수 리스트
+            scoreboard players set #0 CONST 0
             scoreboard players set #1 CONST 1
             scoreboard players set #2 CONST 2
             scoreboard players set #3 CONST 3
+            scoreboard players set #4 CONST 4
+            scoreboard players set #5 CONST 5
+            scoreboard players set #6 CONST 6
+            scoreboard players set #7 CONST 7
+            scoreboard players set #8 CONST 8
+            scoreboard players set #9 CONST 9
+            scoreboard players set #10 CONST 10
             scoreboard players set #20 CONST 20
             scoreboard players set #60 CONST 60
             scoreboard players set #100 CONST 100
@@ -99,12 +109,11 @@ forceload add -243 485 -243 479
     # 금지구역 남은 시간
         scoreboard objectives add bantime dummy
     
-    # 쿨타임
-        scoreboard objectives add ct1 dummy
-        scoreboard objectives add ct2 dummy
     ## 선택지 트리거 명령어
         scoreboard objectives add select trigger
-
+    ## 튜토리얼
+        scoreboard objectives add tutorial dummy
+        scoreboard objectives add tutorial.tick dummy
     # 야생동물 관련 스코어보드 생성
         scoreboard objectives add ER.sys dummy
         scoreboard objectives add ER.health dummy

@@ -1,8 +1,16 @@
 ## 캐릭터 선택 완료
+    # 다이얼로그 화면 끄기
+        dialog clear @s
+    # 버튼소리
+        playsound minecraft:er.gamestart_button_click ui @s ~ ~ ~ 5 1
     # 사이드바 팀 명명
         function eternal_return:gui/sidebar/new with storage pdb:main args
     # 배경 제거
         clear @s
+    # 대기실로 이동
+        tp @s -277 63 448 90 0
+    # 게임모드 변경
+        gamemode adventure @s
     # 타이틀 시간 변경
         title @s times 0 20 10
         # 검은화면 표기

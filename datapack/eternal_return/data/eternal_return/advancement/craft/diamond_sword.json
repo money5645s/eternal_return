@@ -1,0 +1,13 @@
+{
+  "criteria": {
+    "has_crafted": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "eternal_return:weapon/tree_of_life_sword"
+      }
+    }
+  },
+  "rewards": {
+    "function": "eternal_return:craft/sword"
+  }
+}

@@ -1,50 +1,11 @@
 ##> 함수 반복문
 
-
-##캐릭터
-#function eternal_return:sys/character/character
-#function eternal_return:sys/character/happychaos/main
-#function eternal_return:sys/character/jackie/main
-#function eternal_return:sys/character/nicky/main
-#function eternal_return:sys/character/luke/main
-#function eternal_return:sys/character/mai/main
-#function eternal_return:sys/character/shou/main
-#function eternal_return:sys/character/charlotte/main
-#function eternal_return:sys/character/aya/main
-#function eternal_return:sys/character/yohan/main
-#function eternal_return:sys/character/heart/main
-#function eternal_return:sys/character/yuki/main
-#function eternal_return:sys/character/hyunwoo/main
-#function eternal_return:sys/character/daniel/main
-#function eternal_return:sys/character/laura/main
-#function eternal_return:sys/character/lenox/main
-#function eternal_return:sys/character/vianca/main
-#function eternal_return:sys/character/sissela/main
-#function eternal_return:sys/character/silvia/main
-#function eternal_return:sys/character/isol/main
-#function eternal_return:sys/character/arda/main
-#function eternal_return:sys/character/katja/main
-#function eternal_return:sys/character/estell/main
-#function eternal_return:sys/character/echion/main
-#function eternal_return:sys/character/elena/main
-#function eternal_return:sys/character/camilo/main
-#function eternal_return:sys/character/lidailin/main
-#function eternal_return:sys/character/magnus/main
-#function eternal_return:sys/character/adriana/main
-#
-#function eternal_return:sys/rest/main
-#function eternal_return:sys/player/rightclick/carrot_rightclick
-#function eternal_return:sys/player/rightclick/food_rightclick_cool
-#function eternal_return:sys/player/damagegive
-#function eternal_return:sys/player/damagetaken
-#function eternal_return:sys/player/shift
-
-
 ## 인게임
 function eternal_return:game/tick
 
 
-
+## 오브젝트
+    function eternal_return:object/tick
 ## 플레이어
     # 플레이어 설정
 
@@ -53,14 +14,26 @@ function eternal_return:game/tick
         #execute as @a if data entity @s {HurtTime:6s} run function eternal_return:test
     # GUI
         # 로딩바
-        #execute as @a if entity @s[tag=player] run function eternal_return:gui/loading/tick
-        # 커스텀 스크린
-        #execute as @a if entity @s[tag=player] run function eternal_return:gui/camera_overlay/tick
+        execute as @a if entity @s[tag=player] run function eternal_return:gui/loading/tick
         # 커스텀 스크린
         #execute as @a if entity @s[tag=player] run function eternal_return:gui/screen/tick
     
     # 맵 창 / 키오스크 / 부활 선택창
     #function eternal_return:object/tick
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 캐릭터
     #execute as @a if entity @s[tag=player] run function eternal_return:character/tick
@@ -75,7 +48,7 @@ function eternal_return:game/tick
 # 키오스크
 #function eternal_return:sys/kiosk/main
 # 점프패드
-#function eternal_return:sys/jumppad/main
+#
 # 하이퍼 루프
 #execute \
 as @a[tag=player] \

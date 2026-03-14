@@ -11,9 +11,6 @@ function pdb:get_me
     # 지역 선택
 
 # 퀵액션 46~53
-    # 스킬 화면 버튼
-    execute if score @s select matches 50 run function eternal_return:gui/dialog/temp_skill_data
-    execute if score @s select matches 50 run function eternal_return:gui/dialog/skill with storage temp skill
     
     # 스킬 레벨업
         # 액티브 스킬 레벨업 버튼
@@ -21,8 +18,6 @@ function pdb:get_me
         # 패시브 스킬 레벨업 버튼
         execute if score @s select matches 52 run function eternal_return:gui/dialog/skill_levelup/passive
     # 원격 드론 버튼
-    execute if score @s select matches 53 run dialog show ymy3314 minecraft:quick_actions
     execute if score @s select matches 50..53 run scoreboard players set @s select -1
-
     # 메모리 제거
     data remove storage temp skill

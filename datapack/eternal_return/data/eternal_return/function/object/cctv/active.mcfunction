@@ -11,11 +11,12 @@
     # 활성화 되어있지 않았을 때 
         execute unless entity @e[type=text_display,tag=cool,tag=white,distance=..5] positioned ~ ~4 ~ run function eternal_return:object/cctv/cooltime/summon {sec:90,tag:"white",size:1}
         # 쿨타임 설정
-        scoreboard players set @n[type=text_display,tag=cool,tag=white,limit=1] ct2 90
+        scoreboard players set @n[type=text_display,tag=cool,tag=white,limit=1] ct2 6
 
 # 태그
-    # CCTV
-        tag @s add active_cctv
-        tag @s add cooltime
     # 플레이어 로딩 후 태그 제거
-        tag @a[tag=done_loading,distance=..3] remove done_loading
+        scoreboard players set @a[tag=activing,distance=..2.5] cctv_tick 120
+        tag @a[tag=activing,distance=..2.5] remove done.loading
+        tag @a[tag=activing,distance=..2.5] remove activing
+    # CCTV
+        tag @s add cooltime

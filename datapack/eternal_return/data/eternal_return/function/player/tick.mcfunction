@@ -12,18 +12,13 @@
 # 캐릭터 선택
     execute if entity @s[tag=selection_character] run function eternal_return:player/select_character/tick
 # 플레이어 스탯
-    execute at @s if entity @s[tag=player] run function eternal_return:player/stats/tick
-    execute if entity @s[tag=player] run function eternal_return:gui/sidebar/tick
     execute if score @s[tag=player] select matches 1..99 run function eternal_return:gui/dialog/tick
-# 플레이어 테스트 서버
-
-# 플레이어 재접속 시
-    #execute if entity @s[tag=player] run function eternal_return:gui/bossbar/leave_game
-
-# 플레이어 고정
-    #execute at @s if entity @s[tag=player] run function eternal_return:player/freeze_player
-
-
+# 플레이어 
+    execute if entity @s run function eternal_return:player/kill_mob
+# 레벨 경험치
+    execute if entity @s run function eternal_return:player/level
+    execute if entity @s[tag=player] run function eternal_return:craft/tick
+    
 
 # 부시
     #execute if entity @s[tag=player] at @s run function eternal_return:player/bush/tick

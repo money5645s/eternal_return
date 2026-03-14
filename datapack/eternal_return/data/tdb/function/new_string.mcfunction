@@ -1,2 +1,0 @@
-$execute if data storage tdb:main strings[{name:"$(name)"}] run return run tellraw @s {text:"이미 존재하는 문자열입니다.",color:"red"}
-$execute unless data storage tdb:main strings[{name:"$(name)"}] run data modify storage tdb:main strings append value {name:"$(name)",value:[]}

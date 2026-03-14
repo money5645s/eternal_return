@@ -6,27 +6,19 @@
         # 데이터 받아오기
             # 캐릭터 선택창 데이터
                 data modify storage pdb:main in.character_text_array set from storage config character_array
-            # 팀 부여
-                scoreboard players remove #team_count NUM 1
-                data modify storage pdb:main in.team set from storage game team_color[0]
-                data remove storage game team_color[0]
-
         # 추가내용 저장
         function pdb:save_me
-
+    
+    # 능력치 조정
+        attribute @s minecraft:waypoint_receive_range base set 0
+        attribute @s fall_damage_multiplier base set 0
+    # 게임모드
+        gamemode spectator @s
     # 태그 부여
         tag @s add selection_character
         tag @s add player
-
-    # 태그 삭제
-#        tag @s remove on_camera_overlay
-#        tag @s remove waiting
-#        tag @s remove in_game
-#        function eternal_return:character/remove_tag with storage pdb:main in.character
-#
-#    # 사이드바 제거
-#        function eternal_return:gui/sidebar/remove with storage pdb:main args
-
+    # 타이틀 시간설정
+        title @s times 0 3s 10t
     # 스코어보드 설정
         # 캐릭터 선택창 초기화
             scoreboard players set @s Page.tick 600
@@ -36,23 +28,16 @@
             scoreboard players set @s credit 0
         # 스킬
             # 스킬 레벨
-                scoreboard players set @s level 10
+                scoreboard players set @s level 0
                 scoreboard players set @s skill_point 0
-                scoreboard players set @s skill_exp 0
-                scoreboard players set @s skill_exp_image 5
+                scoreboard players set @s exp 0
             # 패시브
                 scoreboard players set @s active_level 0
-                scoreboard players set @s active_cool 0
+                scoreboard players set @s ACD 0
             # 액티브
                 scoreboard players set @s passive_level 0
-                scoreboard players set @s passive_cool 0
-        # kill
-            scoreboard players set @s kill 0
-        # death
-            scoreboard players set @s death 0
-
-
-    # 보스바 생성 및 표기
-        function eternal_return:gui/bossbar/new with storage pdb:main args
-        function eternal_return:gui/bossbar/show with storage pdb:main args
-
+                scoreboard players set @s PCD 0
+        # 금구 남은시간
+            scoreboard players set @s bantime 15
+        # CCTV 시간
+            scoreboard players set @s cctv_tick 0

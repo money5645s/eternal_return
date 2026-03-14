@@ -1,4 +1,5 @@
 ## 키오스크 설치 8개
+    kill @e[tag=kiosk]
     # 창고
         execute positioned -425 82 427 run function eternal_return:object/kiosk/summon {rotation:-90}
     # 성당

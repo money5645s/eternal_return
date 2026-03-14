@@ -17,48 +17,61 @@
         scoreboard players remove #charater.count-4 NUM 4
 #######################################################################################
 
-## 캐릭터 선택 배열
+## 캐릭터 선택 배열 (정식출시 버전)
+#    data modify storage config character_array set value [\
+#        {"text":"0","font":"gui/character/selection/random","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 100"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/adriana","shadow_color":[0,0,0,0], "click_event":{"action":"run_command","command":"/trigger select set 101"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/alex","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 102"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/arda","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 103"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/bernice","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 104"}},{"translate":"space.5","font":"minecraft:default"},\
+#        "\n\n\n\n\n\n\n",\
+#        {"text":"0","font":"gui/character/selection/bianca","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 105"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/celine","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 106"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/chloe","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 107"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/daniel","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 108"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/elena","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 109"}},{"translate":"space.5","font":"minecraft:default"},\
+#        "\n\n\n\n\n\n\n",\
+#        {"text":"0","font":"gui/character/selection/estelle","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 110"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/hart","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 111"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/hyunwoo","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 112"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/isol","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 113"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/jackie","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 114"}},{"translate":"space.5","font":"minecraft:default"},\
+#        "\n\n\n\n\n\n\n",\
+#        {"text":"0","font":"gui/character/selection/jenny","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 115"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/katja","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 116"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/leni","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 117"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/lenox","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 118"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/leon","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 119"}},{"translate":"space.5","font":"minecraft:default"},\
+#        "\n\n\n\n\n\n\n",\
+#        {"text":"0","font":"gui/character/selection/luke","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 120"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/lyanh","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 121"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/magnus","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 122"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/markus","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 123"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/nadine","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 124"}},{"translate":"space.5","font":"minecraft:default"},\
+#        "\n\n\n\n\n\n\n",\
+#        {"text":"0","font":"gui/character/selection/nathapon","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 125"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/piolo","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 126"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/shou","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 127"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/silvia","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 128"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/sissela","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 129"}},{"translate":"space.5","font":"minecraft:default"},\
+#        "\n\n\n\n\n\n\n",\
+#        {"text":"0","font":"gui/character/selection/vanya","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 130"}},{"translate":"space.5","font":"minecraft:default"},\
+#        {"text":"0","font":"gui/character/selection/yuki","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 131"}},{"translate":"space.140","font":"minecraft:default"},\
+#        "\n\n\n\n\n\n\n"\
+#    ]
+## 캐릭터 선택 배열 (베타 버전)
     data modify storage config character_array set value [\
         {"text":"0","font":"gui/character/selection/random","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 100"}},{"translate":"space.5","font":"minecraft:default"},\
         {"text":"0","font":"gui/character/selection/adriana","shadow_color":[0,0,0,0], "click_event":{"action":"run_command","command":"/trigger select set 101"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/alex","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 102"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/arda","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 103"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/bernice","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 104"}},{"translate":"space.5","font":"minecraft:default"},\
-        "\n\n\n\n\n\n\n",\
-        {"text":"0","font":"gui/character/selection/bianca","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 105"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/celine","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 106"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/chloe","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 107"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/daniel","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 108"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/elena","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 109"}},{"translate":"space.5","font":"minecraft:default"},\
-        "\n\n\n\n\n\n\n",\
-        {"text":"0","font":"gui/character/selection/estelle","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 110"}},{"translate":"space.5","font":"minecraft:default"},\
         {"text":"0","font":"gui/character/selection/hart","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 111"}},{"translate":"space.5","font":"minecraft:default"},\
         {"text":"0","font":"gui/character/selection/hyunwoo","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 112"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/isol","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 113"}},{"translate":"space.5","font":"minecraft:default"},\
         {"text":"0","font":"gui/character/selection/jackie","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 114"}},{"translate":"space.5","font":"minecraft:default"},\
         "\n\n\n\n\n\n\n",\
-        {"text":"0","font":"gui/character/selection/jenny","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 115"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/katja","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 116"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/leni","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 117"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/lenox","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 118"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/leon","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 119"}},{"translate":"space.5","font":"minecraft:default"},\
-        "\n\n\n\n\n\n\n",\
-        {"text":"0","font":"gui/character/selection/luke","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 120"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/lyanh","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 121"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/magnus","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 122"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/markus","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 123"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/nadine","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 124"}},{"translate":"space.5","font":"minecraft:default"},\
-        "\n\n\n\n\n\n\n",\
-        {"text":"0","font":"gui/character/selection/nathapon","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 125"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/piolo","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 126"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/shou","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 127"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/silvia","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 128"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/sissela","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 129"}},{"translate":"space.5","font":"minecraft:default"},\
-        "\n\n\n\n\n\n\n",\
-        {"text":"0","font":"gui/character/selection/vanya","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 130"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"text":"0","font":"gui/character/selection/yuki","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 131"}},{"translate":"space.140","font":"minecraft:default"},\
-        "\n\n\n\n\n\n\n"\
-    ]
+        {"text":"0","font":"gui/character/selection/yuki","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 131"}},{"translate":"space.5","font":"minecraft:default"},\
+        {"text":"0","font":"gui/character/selection/fiora","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 132"}},{"translate":"space.5","font":"minecraft:default"},\
+        {"text":"0","font":"gui/character/selection/jan","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 133"}},{"translate":"space.5","font":"minecraft:default"},\
+        {"translate":"space.92","font":"minecraft:default"},\
+        "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"]
 
 
 ## 캐릭터 리스트
@@ -155,7 +168,13 @@
             pname:"몽환 나비",plore1:"삼지창 투척 이후 바냐의 손에 다시 돌아오면 일정시간 유지되는 4만큼의 보호막을 제공받습니다.",plore2:"보호막 지속시간 : 6초(고정)",plore3:"타 보호막 효과와 중첩시에 더 높은 효과가 유지된다.",plore4:"",pcool:"30/27/24/21/15",plevel:0},\
         {no:31,name:"yuki",\
             aname:"화무십일홍(花無十日紅)",alore1:"유키가 검에 손을 가져가서 순식간에 공간을 베어 버립니다.",alore2:"피격당한 적에게 피해줌과 동시에 표시를 남기며 1초간 이동속도를 30% 느려지게 한 뒤",alore3:"유키가 검을 검집에 집어 넣는 순간 표식이 터지며 대상에게 방어력을 관통하는 피해를 입힙니다.",alore4:"1차 피해량 : 4/5/6/7/8 , 2차 방관피해량 : 6/7/8/9/10",acool:"60/55/50/45/40",alevel:0,\
-            pname:"완벽한 옷매무새",plore1:"유키가 최대체력의 80%이상 체력을 보유시에 근접무기의 데미지가 추가됩니다.",plore2:"추가되는 데미지 : 1/2/3/4/5",plore3:"",plore4:"",pcool:"없음",plevel:0}]
+            pname:"완벽한 옷매무새",plore1:"유키가 최대체력의 80%이상 체력을 보유시에 근접무기의 데미지가 추가됩니다.",plore2:"추가되는 데미지 : 1/2/3/4/5",plore3:"",plore4:"",pcool:"없음",plevel:0},\
+        {no:32,name:"fiora",\
+            aname:"",alore1:"",alore2:"",alore3:"",alore4:"",acool:"없음",alevel:0,\
+            pname:"",plore1:"",plore2:"",plore3:"",plore4:"",pcool:"없음",plevel:0},\
+        {no:33,name:"jan",\
+            aname:"",alore1:"",alore2:"",alore3:"",alore4:"",acool:"없음",alevel:0,\
+            pname:"",plore1:"",plore2:"",plore3:"",plore4:"",pcool:"없음",plevel:0}]
 
 
 

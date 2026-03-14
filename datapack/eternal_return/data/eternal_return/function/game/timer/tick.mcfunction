@@ -1,4 +1,4 @@
-title @a actionbar "debg"
+
 scoreboard players remove #game_tick time 1
 execute if score #game_tick time matches ..0 run scoreboard players remove #game_sec time 1
 execute if score #game_tick time matches ..0 run scoreboard players set #game_tick time 20

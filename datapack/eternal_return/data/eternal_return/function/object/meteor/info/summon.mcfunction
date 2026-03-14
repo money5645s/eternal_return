@@ -4,5 +4,5 @@
 
 
 ## 소환진 소환
-    summon item_display ~ ~ ~ {CustomNameVisible:0b,item_display:"head",Tags:["meteor_info"],item:{id:"minecraft:creeper_banner_pattern",count:1,components:{"minecraft:custom_model_data":{floats:[1],strings:["meteor_info"]}}}}
-    summon item_display ~ ~ ~ {CustomNameVisible:0b,item_display:"head",Tags:["meteor_info","meteor_info_in"],item:{id:"minecraft:creeper_banner_pattern",count:1,components:{"minecraft:custom_model_data":{floats:[1],strings:["meteor_info_in"]}}}}
+    summon item_display ~ ~ ~ {CustomNameVisible:0b,item_display:"head",Tags:["meteor_info","out"],item:{id:"minecraft:creeper_banner_pattern",count:1,components:{"minecraft:custom_model_data":{floats:[1],strings:["meteor_info"]}}}}
+    summon item_display ~ ~ ~ {CustomNameVisible:0b,item_display:"head",Tags:["meteor_info","in"],item:{id:"minecraft:creeper_banner_pattern",count:1,components:{"minecraft:custom_model_data":{floats:[1],strings:["meteor_info_in"]}}}}
