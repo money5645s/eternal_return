@@ -33,10 +33,6 @@ forceload add -243 485 -243 479
 
 
 ## 스코어 보드 추가
-    # 로딩바
-        scoreboard objectives add ptemp dummy
-        scoreboard objectives add loading.tick dummy
-        scoreboard objectives add loading.pixel dummy
     # 스크린
         scoreboard objectives add Page.loading dummy
         scoreboard objectives add Page.loading.tick dummy
@@ -108,7 +104,8 @@ forceload add -243 485 -243 479
 
     # 금지구역 남은 시간
         scoreboard objectives add bantime dummy
-    
+    ## 스크립트 정보교환
+        scoreboard objectives add skript dummy
     ## 선택지 트리거 명령어
         scoreboard objectives add select trigger
     ## 튜토리얼

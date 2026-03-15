@@ -12,14 +12,7 @@ function eternal_return:game/tick
     execute as @a run function eternal_return:player/tick
         # [debug] 플레이어가 맞은 경우 
         #execute as @a if data entity @s {HurtTime:6s} run function eternal_return:test
-    # GUI
-        # 로딩바
-        execute as @a if entity @s[tag=player] run function eternal_return:gui/loading/tick
-        # 커스텀 스크린
-        #execute as @a if entity @s[tag=player] run function eternal_return:gui/screen/tick
-    
-    # 맵 창 / 키오스크 / 부활 선택창
-    #function eternal_return:object/tick
+
 
 
 

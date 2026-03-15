@@ -31,5 +31,8 @@
         execute as @e[type=marker,tag=meteor,tag=selected,tag=!impacted] at @s run function eternal_return:object/meteor/tick
         execute as @e[type=item_display,tag=meteor_info] at @s run function eternal_return:object/meteor/info/rotate
         execute as @a[tag=player] at @s run function eternal_return:object/meteor/player
+    # 생명의 나무
+        function eternal_return:object/tree_of_life/tick
+        #execute as @a[tag=player] at @s run function eternal_return:object/meteor/player
     # 상자
         function eternal_return:object/box/tick

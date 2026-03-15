@@ -10,6 +10,7 @@
         function pdb:save_me
     
     # 능력치 조정
+        attribute @s minecraft:waypoint_transmit_range base set 40
         attribute @s minecraft:waypoint_receive_range base set 0
         attribute @s fall_damage_multiplier base set 0
     # 게임모드

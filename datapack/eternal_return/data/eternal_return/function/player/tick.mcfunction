@@ -16,7 +16,6 @@
 # 플레이어 
     execute if entity @s run function eternal_return:player/kill_mob
 # 레벨 경험치
-    execute if entity @s run function eternal_return:player/level
     execute if entity @s[tag=player] run function eternal_return:craft/tick
     
 
