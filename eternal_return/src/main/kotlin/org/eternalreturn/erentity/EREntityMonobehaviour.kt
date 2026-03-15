@@ -23,6 +23,6 @@ abstract class EREntityMonobehaviour<T : EREntityEvent>() : Monobehaviour<T>() {
         return System.currentTimeMillis() - startTimeMillis < durationTicks * 50
     }
 
-    val eREngine: EREngine
+    val erEngine: EREngine
         get() = this.dpEngine as EREngine
 }

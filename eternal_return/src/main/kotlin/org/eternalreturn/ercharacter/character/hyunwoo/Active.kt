@@ -11,10 +11,13 @@ import org.eternalreturn.erentity.events.EREntityStunEvent
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.geometry.Vector3
+import kotlin.properties.Delegates
+
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
-    var direction: Vector? = null
-    var hitEntities: HashMap<EREntity, Int?>? = null
+    var direction: Vector by Delegates.notNull();
+    var hitEntities: HashMap<EREntity, Int> = HashMap<EREntity, Int>()
     private var isWallSlam = false
     private var isOnGround = false
     private var tick = 0
@@ -31,24 +34,24 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             return
         }
 
-        if (!player.isOnGround() || player.getLocation().add(0.0, -0.5, 0.0).getBlock().getType().isAir()) {
+        if (player.location.add(0.0, -0.5, 0.0).block.type.isAir()) {
             player.sendMessage("§c[현우] §f지상에서만 사용할 수 있습니다.")
-            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f)
+            player.playSound(player.location, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
             isOnGround = true
             return
         }
 
-        this.hitEntities = HashMap<EREntity, Int?>()
-        // 시선과 무관하게 수평 방향 벡터로 고정 (y=0)
-        this.direction = player.getLocation().getDirection().setY(0).normalize().multiply(1)
+        this.direction = hyunwoo.location.direction;
+        this.direction.y = 0.0;
+
         this.isWallSlam = false
         tick = 0
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         val engine = dpEngine as EREngine
-        val hyunwoo = actor as Character_Hyunwoo
-        val cd = hyunwoo.cooldown
+        val attacker = actor as Character_Hyunwoo
+        val cd = attacker.cooldown
 
         if (isOnGround) {
             stopMonobehav()
@@ -66,43 +69,36 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
             player.sendMessage("§c[디버깅] §f${tick}")
 
-            // 1. 돌진 물리 적용
-            val curVelocity = player.getVelocity()
-            direction!!.setY(curVelocity.getY())
-            player.setVelocity(direction!!)
+            val velocity = attacker.getDirection()
+            velocity.y(0.0)
+            attacker.setVelocity(velocity);
 
             // 2. 주변 적 감지
-            for (entity in player.getNearbyEntities(0.8, 0.8, 0.8)) {
-                if (entity is LivingEntity && entity != player) {
-
-                    val targetER = engine.getEREntity(entity)
-
-                    if (targetER != null) {
-                        hitEntities!!.putIfAbsent(targetER, 0)
-                    }
+            for (victim in erEngine.entityList) {
+                if(victim === attacker) continue;
+                val p = attacker.getPosition();
+                val t = victim.getPosition();
+                if(magnitudeSqr(p - t) <= 3.0 * 3.0) {
+                    hitEntities[victim] = 0;
                 }
             }
 
-            val attacker = actor as Character_Hyunwoo
-
-            for (victim in hitEntities!!.keys) {
-                val bukkitVictim = victim.entity as LivingEntity
-                if (hitEntities!!.get(victim) == 0) {
-                    hitEntities!!.put(victim, 1)
-                    victim.damage(2.0, attacker)
+            for (victim in hitEntities.keys) {
+                if (hitEntities[victim] == 0) {
+                    hitEntities[victim] = 1;
+                    victim.damage(2.0, attacker);
                 }
-                // 3. 적을 플레이어 속도에 맞춰 밀어냄
-                bukkitVictim.setVelocity(direction!!.clone().multiply(1.2))
+                victim.setVelocity(velocity * 1.2);
             }
 
             // 4. 레이캐스팅 벽꿍 판정
-            val startRay = player.getLocation().add(0.0, 0.8, 0.0)
-            val rayDir = direction!!.clone().normalize()
+            val startRay = player.location.add(0.0, 0.8, 0.0)
+            val rayDir = direction.clone().normalize()
 
             // 1.2칸 앞의 블록 탐색 (거리가 너무 짧으면 인식이 안 됨)
-            val result = player.getWorld().rayTraceBlocks(startRay, rayDir, 1.2)
+            val result = player.world.rayTraceBlocks(startRay, rayDir, 1.2)
 
-            if (result != null && result.getHitBlock() != null) {
+            if (result != null && result.hitBlock != null) {
                 isWallSlam = true
                 handleWallSlamSuccess(attacker)
             }
@@ -111,21 +107,20 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         if (tick > 6){
             player.sendMessage("§c[디버깅] §f돌진 종료")
             // 쿨타임 등록
-            hyunwoo.cooldown.set("Active", hyunwoo.ActiveCooldownSeconds)
+            attacker.cooldown.set("Active", attacker.ActiveCooldownSeconds)
             stopMonobehav()
         }
 
         if (isWallSlam){
             player.sendMessage("§c[디버깅] §f돌진 종료")
             // 쿨타임 등록
-            hyunwoo.cooldown.set("Active", hyunwoo.ActiveCooldownSeconds)
+            attacker.cooldown.set("Active", attacker.ActiveCooldownSeconds)
             stopMonobehav()
         }
     }
 
     private fun handleWallSlamSuccess(player: ERPlayer) {
-        for (victim in hitEntities!!.keys) {
-            val bukkitVictim = victim.entity as? LivingEntity ?: continue
+        for (victim in hitEntities.keys) {
 
             // 벽꿍 추가 피해 (10.0)
             victim.damage(10.0, player)

@@ -1,6 +1,8 @@
 package org.eternalreturn.erentity
 
 import org.bukkit.Location
+import org.bukkit.attribute.Attributable
+import org.bukkit.attribute.Attribute
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.util.Vector
@@ -10,18 +12,13 @@ import org.eternalreturn.ercharacter.character.hart.Passive_Timer
 import org.eternalreturn.ercharacter.character.isaac.PassiveCount
 import org.eternalreturn.ercharacter.character.lidailin.LiDailinPassiveTimer
 import org.eternalreturn.erentity.events.EREntityAttackEvent
+import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.erentity.globalmonobehav.Stun
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
-import org.eternalreturn.util.dpengine.command.AddSpigotEntityPosition
-import org.eternalreturn.util.dpengine.command.AddSpigotEntityVelocity
-import org.eternalreturn.util.dpengine.command.SetSpigotEntityPosition
-import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
+import org.eternalreturn.util.dpengine.command.*
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import org.eternalreturn.util.dpengine.physics.Handle
-import org.jetbrains.annotations.NotNull
-import org.jetbrains.annotations.NotNullByDefault
-import javax.annotation.CheckForNull
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.properties.Delegates
@@ -73,6 +70,7 @@ abstract class EREntity(
         shootRay = false;
         return ret;
     }
+
     open fun shootRay(){
         shootRay = true;
     }
@@ -88,6 +86,16 @@ abstract class EREntity(
         return this.geometryModule.vec3(-xz * sin(radX), -sin(radY), xz * cos(radX));
     }
 
+    open var movementSpeed : Double
+        get(){
+            require(entity is Attributable)
+            return entity.getAttribute(Attribute.MOVEMENT_SPEED)!!.baseValue
+        }
+        set(value) {
+            require(entity is Attributable)
+            val attrInst = entity.getAttribute(Attribute.MOVEMENT_SPEED)!!;
+            dpEngine.appendCommand(SetBukkitAttributeBaseValue(attrInst, value))
+        }
 
     /**
      * 위치벡터를 얻어온다.
@@ -101,21 +109,21 @@ abstract class EREntity(
         val x = geometryModule.x(pos);
         val y = geometryModule.y(pos);
         val z = geometryModule.z(pos);
-        this.dpEngine.appendCommand(SetSpigotEntityPosition(entity, x, y, z))
+        setPosition(x, y, z);
     }
 
     open fun setVelocity(vec : Vector3){
         val x = geometryModule.x(vec);
         val y = geometryModule.y(vec);
         val z = geometryModule.z(vec);
-        this.dpEngine.appendCommand(SetSpigotEntityVelocity(entity, x, y, z))
+        setVelocity(x, y, z);
     }
 
     open fun addVelocity(vec : Vector3){
         val x = geometryModule.x(vec);
         val y = geometryModule.y(vec);
         val z = geometryModule.z(vec);
-        this.dpEngine.appendCommand(AddSpigotEntityVelocity(entity, x, y, z))
+        addVelocity(x, y, z);
     }
 
     open fun setVelocity(x : Double, y : Double, z : Double){
@@ -143,11 +151,40 @@ abstract class EREntity(
         return erEngine.transformSoA.isNotTranslating(transformHandle);
     }
 
+
+    /**
+     * 피해를 주는 메소드, 무적시간에 영향 받음.
+     * */
     open fun damage(amount : Double, attacker : EREntity){
         if(entity is LivingEntity){
+            this.submitEvent(EREntityDamagedEvent(attacker))
             attacker.submitEvent(EREntityAttackEvent(attacker, this))
             entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
         }
     }
+
+    /**
+     * 무적시간에 관계 없이 강제적으로 피해를 주는 메소드
+     * */
+    open fun damageForce(amount : Double, attacker : EREntity){
+        if(entity is LivingEntity){
+            entity.noDamageTicks = 0;
+            this.submitEvent(EREntityDamagedEvent(attacker))
+            attacker.submitEvent(EREntityAttackEvent(attacker, this))
+            entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
+        }
+    }
+
+
+    /**
+     * 피해를 주는 메소드, 무적시간에 영향 받음, MonobehaviourEvent를 전달하지 않음.
+     * */
+    open fun damageNotSendEvent(amount : Double, attacker : EREntity){
+        if(entity is LivingEntity){
+            entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
+        }
+    }
+
+
 }
 

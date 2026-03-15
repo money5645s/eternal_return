@@ -2,8 +2,10 @@ package org.eternalreturn.system;
 
 import com.destroystokyo.paper.event.player.PlayerAttackEntityCooldownResetEvent;
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.eternalreturn.ercharacter.event.*;
 import org.eternalreturn.erentity.EREntity;
 import org.eternalreturn.erplayer.ERPlayer;
@@ -62,6 +64,16 @@ public class ERListener implements Listener {
 //        }
 //        e.setCancelled(true);
 //    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent e){
+        var player = e.getPlayer();
+        if(!player.getScoreboardTags().contains("resurrectable")){
+            return;
+        }
+        e.getPlayer().setGameMode(GameMode.SPECTATOR);
+        e.setCancelled(true);
+    }
 
     @EventHandler
     public void onPlayerSwap(PlayerDropItemEvent e){

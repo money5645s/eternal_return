@@ -3,5 +3,6 @@ package org.eternalreturn.ercharacter.character.hart.event
 import org.eternalreturn.erentity.events.EREntityEvent
 import org.bukkit.Location
 import org.bukkit.entity.Player
+import org.eternalreturn.erplayer.ERPlayer
 
-class PassiveTimerEvent(var player: Player) : EREntityEvent
+class PassiveTimerEvent(var player: ERPlayer) : EREntityEvent

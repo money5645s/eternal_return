@@ -31,7 +31,7 @@ class PassiveCount : EREntityMonobehaviour<PassiveCountEvent>() {
             victim.noDamageTicks = 0
             victim.damage(5.0, event.player);
             val healAmount = 3.0
-            val maxHealth = event.player.getAttribute(Attribute.MAX_HEALTH)?.value ?: 20.0
+            val maxHealth = event.player.getAttribute(Attribute.MAX_HEALTH)!!.value
             val finalHealth = Math.min(event.player.health + healAmount, maxHealth)
             event.player.health = finalHealth
             event.player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 20, 0, false, false))

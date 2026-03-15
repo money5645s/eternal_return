@@ -28,7 +28,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         var dir = adriana.getDirection();
         var world = adriana.player.world;
 
-        dir = vec3(x(dir), 0.0, z(dir));
+        dir = vec3(dir.x(), 0.0, dir.z());
         dir = dir * (1/magnitude(dir))
 
         // 4. 속도 곱하기 (1.5 정도가 약 5칸 돌진에 적당함)
@@ -55,7 +55,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         val burningGroundEntity = BurningGroundVirtualEntity(
             dpEngine,
             adriana.player,
-            Location(adriana.player.world, x(pos), y(pos), z(pos)),
+            Location(adriana.player.world, pos.x(), pos.y(), pos.z()),
             System.currentTimeMillis())
 
         dpEngine.monobehaviourModule.register(burningGroundEntity);

@@ -64,6 +64,10 @@ public class ERAJEntity extends AJEntity {
         this.hpbar.text(Component.text(str));
     }
 
+    public void setDebugDisplay(Component cmp) {
+        this.hpbar.text(cmp);
+    }
+
 
     public enum AnimalState{
         READY,

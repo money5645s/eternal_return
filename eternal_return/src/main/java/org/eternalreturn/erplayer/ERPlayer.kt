@@ -23,6 +23,8 @@ open class ERPlayer(p: Entity, engine: EREngine) : ERCharacter(p, engine) {
         attackCooldown = player.attackCooldown;
     }
 
+    //fun playSound()
+
     override val name: String
         get() = "NullPlayer"
 }

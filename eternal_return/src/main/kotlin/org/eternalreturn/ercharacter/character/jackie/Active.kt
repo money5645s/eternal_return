@@ -39,16 +39,16 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             return
         }
 
-            val currentTime = System.currentTimeMillis()
+        val currentTime = System.currentTimeMillis()
 
-            // 시작한 시간으로부터 5초가 지났는지 확인
-            if (currentTime - skillActiveTick > durationMillis) {
-                isActive = false // 상태 종료
-                // 쿨타임 등록
-                jackie.cooldown.set("Active", jackie.ActiveCooldownSeconds)
-                (actor as Character_Jackie).isBloodSweep = false
-                player.sendMessage("§7[재키] 스킬 상태가 종료되었습니다.")
-                stopMonobehav()
-            }
+        // 시작한 시간으로부터 5초가 지났는지 확인
+        if (currentTime - skillActiveTick > durationMillis) {
+            isActive = false // 상태 종료
+            // 쿨타임 등록
+            jackie.cooldown.set("Active", jackie.ActiveCooldownSeconds)
+            (actor as Character_Jackie).isBloodSweep = false
+            player.sendMessage("§7[재키] 스킬 상태가 종료되었습니다.")
+            stopMonobehav()
+        }
     }
 }

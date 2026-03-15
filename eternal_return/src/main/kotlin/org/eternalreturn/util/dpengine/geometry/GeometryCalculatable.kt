@@ -9,7 +9,7 @@ open class GeometryCalculatable{
 
     public lateinit var geometryModule : GeometryModule;
 
-    fun geometryCalculatableInit(geometryModule : GeometryModule){
+        fun geometryCalculatableInit(geometryModule : GeometryModule){
         this.geometryModule = geometryModule
     }
 
@@ -77,16 +77,29 @@ open class GeometryCalculatable{
         return out
     }
 
-    fun x(vec: Vector3): Double{
-        return geometryModule.x(vec)
+    fun Vector3.x(value : Double){
+        geometryModule.setX(this, value);
     }
 
-    fun y(vec: Vector3): Double{
-        return geometryModule.y(vec)
+    fun Vector3.y(value : Double){
+        geometryModule.setY(this, value);
     }
 
-    fun z(vec: Vector3): Double{
-        return geometryModule.z(vec)
+    fun Vector3.z(value : Double){
+        geometryModule.setZ(this, value);
+    }
+
+
+    fun Vector3.x(): Double{
+        return geometryModule.x(this)
+    }
+
+    fun Vector3.y(): Double{
+        return geometryModule.y(this)
+    }
+
+    fun Vector3.z(): Double{
+        return geometryModule.z(this)
     }
 
 

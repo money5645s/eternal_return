@@ -1,15 +1,13 @@
 package org.eternalreturn.ercharacter.character.yuki
 
-import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.erentity.events.EREntityStunEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
-import org.bukkit.Location
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
-import org.eternalreturn.ercharacter.character.yuki.Character_Yuki
+import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.erentity.events.EREntityAttackEvent
+import org.eternalreturn.erentity.events.EREntityStunEvent
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
 class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
     private var reloadStartTime: Long = 0
@@ -19,12 +17,7 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
     override fun start(event: EREntityAttackEvent) {
         // 자바 클래스인 Character_Yuki로 형변환
         val yuki = actor as Character_Yuki
-
-        val victimEntity = event.victim.entity
-
-        if (victimEntity !is LivingEntity) {
-            return
-        }
+        val victim = event.victim
 
         if (System.currentTimeMillis() < punchTimeMillis) {
             return
@@ -44,8 +37,7 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
             yuki.buttonCount--
 
             punchTimeMillis = System.currentTimeMillis() + 500
-            victimEntity.noDamageTicks = 0
-            victimEntity.damage(2.0, player)
+            victim.damageForce(2.0, yuki)
 
             player.sendMessage("§f[유키] §b완벽한 옷매무새: §f남은 단추 (${yuki.buttonCount}/4)")
             player.playSound(player.location, Sound.ENTITY_ITEM_BREAK, 1f, 1.8f)
@@ -53,8 +45,10 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
             if (yuki.isActiveSkill) {
                 player.sendMessage("§f[유키] 머리!")
                 event.victim.submitEvent(EREntityStunEvent(1 * 20)) //2초
+
                 // 쿨타임 등록
                 yuki.cooldown.set("Active", yuki.ActiveCooldownSeconds)
+
                 yuki.isActiveSkill = false
             }
 

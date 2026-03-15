@@ -63,8 +63,6 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
 
             java.util.Arrays.fill(animalIsSummoned,false);
             java.util.Arrays.fill(animalSummoningTicks,-1);
-
-            //println("eventMap[RemoveAllERAnimals::class.java] != null : removed all")
             stopMonobehav();
             return;
         }

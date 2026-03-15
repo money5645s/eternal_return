@@ -53,7 +53,7 @@ class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>(
         val strength: Float = (shooter as ERPlayer).attackCooldown
         //println("strength : $strength")
 
-        closestTarget.damage(attackDamage * strength, event.shooter);
+        closestTarget.damage(kotlin.math.max(attackDamage * strength * strength, 1.0), event.shooter);
     }
 
 

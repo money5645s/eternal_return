@@ -45,6 +45,10 @@ public open class MatVecCalculator {
         this.__MATBUFFSIZE = 512
     }
 
+    fun setX(vec : Vector3, value : Double) { vecs[vec.__id + 0] = value; }
+    fun setY(vec : Vector3, value : Double) { vecs[vec.__id + 1] = value; }
+    fun setZ(vec : Vector3, value : Double) { vecs[vec.__id + 2] = value; }
+
     /**
      * 내적 연산
      */

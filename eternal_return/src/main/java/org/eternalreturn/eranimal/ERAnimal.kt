@@ -1,16 +1,23 @@
 package org.eternalreturn.eranimal
 
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.sound.Sound
+import net.kyori.adventure.text.Component
 import org.bukkit.Location
+import org.bukkit.attribute.Attributable
+import org.bukkit.attribute.Attribute
+import org.bukkit.entity.LivingEntity
 import org.bukkit.util.Vector
 import org.eternalreturn.eranimal.animals.behavs.Battle
 import org.eternalreturn.eranimal.animals.behavs.EnhanceStatByDay
 import org.eternalreturn.eranimal.animals.behavs.Idle
 import org.eternalreturn.eranimal.animals.events.IdleEvent
 import org.eternalreturn.eranimal.animals.events.StatEnhanceEvent
+import org.eternalreturn.ercharacter.event.CharacterKillEvent
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.erentity.events.EREntityAttackEvent
+import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.command.*
@@ -66,12 +73,29 @@ abstract class ERAnimal(
     }
 
     fun updateHPBar(){
-        this.aJEntity.setDebugDisplay("LV : ${this.level} | HP : ${this.hp}\n\n\n\n")
+        val str = Component.text(String.format("LV : %d | HP : %d\n\n\n\n", this.level, kotlin.math.max(1, this.hp.toInt())))
+        str.font(Key.key("haesu/8"));
+        this.aJEntity.setDebugDisplay(str);
     }
 
     private fun isActorNotValid() : Boolean{
         return (aJEntity.actor == null) || !aJEntity.actor.isValid
     }
+
+    override var movementSpeed : Double
+        get(){
+            if(isActorNotValid()) return 0.0;
+            val actor = aJEntity.actor;
+            require(actor is Attributable)
+            return actor.getAttribute(Attribute.MOVEMENT_SPEED)!!.baseValue
+        }
+        set(value) {
+            if(isActorNotValid()) return;
+            val actor = aJEntity.actor;
+            require(actor is Attributable)
+            val attrInst = actor.getAttribute(Attribute.MOVEMENT_SPEED)!!;
+            dpEngine.appendCommand(SetBukkitAttributeBaseValue(attrInst, value))
+        }
 
     /**
      * ERAJEntity의 속도를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
@@ -114,19 +138,42 @@ abstract class ERAnimal(
         aJEntity.remove();
     }
 
-    override fun damage(amount: Double, attacker: EREntity) {
-
-        var damage = amount;
-
+    private fun __damage(amount: Double, attacker: EREntity){
         this.hp -= amount;
-        attacker.submitEvent(EREntityAttackEvent(attacker, this))
         if(this.hp <= 0){
+            if(attacker is ERPlayer){
+                attacker.submitEvent(CharacterKillEvent(this))
+            }
             dpEngine.appendCommand(AddTagToSpigotEntity(attacker.entity, "kill_" + this.aJEntity.name))
         }
 
         val sound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT).build()
-        aJEntity.setDebugDisplay("LV : ${this.level} | HP : ${this.hp}\n\n\n\n")
+        updateHPBar()
         attacker.entity.playSound(sound);
+    }
+
+    var invulnerableTime : Long = 0
+    override fun damage(amount: Double, attacker: EREntity) {
+        val currentTime = System.currentTimeMillis();
+        if(invulnerableTime < currentTime){
+            invulnerableTime = currentTime + (1000 shr 2);
+            this.submitEvent(EREntityDamagedEvent(attacker))
+            attacker.submitEvent(EREntityAttackEvent(attacker, this))
+            __damage(amount, attacker);
+        }
+    }
+
+    override fun damageForce(amount : Double, attacker : EREntity){
+        invulnerableTime = 0;
+        damage(amount, attacker);
+    }
+
+    override fun damageNotSendEvent(amount : Double, attacker : EREntity){
+        val currentTime = System.currentTimeMillis();
+        if(invulnerableTime < currentTime){
+            invulnerableTime = currentTime  + (1000 shr 2);
+            __damage(amount, attacker);
+        }
     }
 
     private var isDead = false;

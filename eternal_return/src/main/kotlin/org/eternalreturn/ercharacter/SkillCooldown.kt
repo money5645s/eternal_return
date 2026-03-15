@@ -1,10 +1,10 @@
 package org.eternalreturn.ercharacter
 
 class SkillCooldown {
-    private val cooldowns: MutableMap<String?, Long?> = HashMap<String?, Long?>()
+    private val cooldowns = HashMap<String, Long>()
 
     // 쿨타임 설정
-    fun set(skillName: String?, seconds: Long) {
+    fun set(skillName: String, seconds: Long) {
         cooldowns.put(skillName, System.currentTimeMillis() + (seconds * 1000))
     }
 
@@ -15,13 +15,13 @@ class SkillCooldown {
     }
 
     // 남은 시간 반환
-    fun getLeft(skillName: String?): Double {
+    fun getLeft(skillName: String): Double {
         if (!isWaiting(skillName)) return 0.0
-        return (cooldowns.get(skillName)!! - System.currentTimeMillis()) / 1000.0
+        return (cooldowns[skillName]!! - System.currentTimeMillis()) / 1000.0
     }
 
     // SkillCooldown.kt 내부에 추가
-    fun getLeftInt(skillName: String?): Int {
+    fun getLeftInt(skillName: String): Int {
         val left = getLeft(skillName) // 원래 실수 값 (예: 1.54)
         if (left <= 0) return 0
 

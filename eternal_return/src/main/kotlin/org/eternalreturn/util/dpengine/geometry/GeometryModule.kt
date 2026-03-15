@@ -648,6 +648,7 @@ public open class GeometryModule(val dpEngine : DPEngine, buffSize : Int = 512) 
 
 
 
+
     companion object {
         const val EPS_DIST: Double = 1e-9 // 거리
         const val EPS_DOT: Double = 1e-12 // dot

@@ -1,5 +1,7 @@
 package org.eternalreturn.eranimal.animals.behavs
 
+import org.bukkit.attribute.Attribute
+import org.bukkit.attribute.AttributeInstance
 import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Husk
@@ -11,6 +13,7 @@ import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import java.util.*
 
 class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
 
@@ -26,11 +29,17 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
     var ySpawn : Double = 0.0;
     var zSpawn : Double = 0.0;
 
-    override fun start(event: EREntityDamagedEvent) {
+    var speed : Double = 0.0;
 
+    override fun start(event: EREntityDamagedEvent) {
         val erAnimal = actor as ERAnimal;
         val ajEntity = erAnimal.aJEntity;
         if (!ajEntity.isShown()) return
+
+        if(erAnimal.hp <= 0.0){
+            stopMonobehav();
+            return;
+        }
 
         val world = PluginInstance.getServerInstance().server.worlds.first();
         ajEntity.setActor(world.spawnEntity(ajEntity.location, EntityType.HUSK) as Husk);
@@ -40,19 +49,22 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
         xSpawn = ajEntity.location.x;
         ySpawn = ajEntity.location.y;
         zSpawn = ajEntity.location.z;
+        speed = (ajEntity.actor as Husk).getAttribute(Attribute.MOVEMENT_SPEED)!!.baseValue;
 
     }
 
     var deathTick = 0;
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
 
+        val engine = dpEngine as EREngine;
+        val erAnimal = this.actor as ERAnimal;
+        val ajEntity = (this.actor as ERAnimal).aJEntity;
+
         if(eventMap[GetBackEvent::class.java] != null){
             stopMonobehav();
             return;
         }
-        val engine = dpEngine as EREngine;
-        val erAnimal = this.actor as ERAnimal;
-        val ajEntity = (this.actor as ERAnimal).aJEntity;
+
 
         val distFromSpawn = erAnimal.getPosition() - vec3(xSpawn, ySpawn, zSpawn);
         val distSqr = magnitudeSqr(distFromSpawn);
@@ -76,8 +88,6 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
                 return;
             }
 
-            (ajEntity.actor as Husk).setAI(false);
-
             erAnimal.setDead(true);
             ajEntity.stopAnim();
             stopMonobehav();
@@ -100,9 +110,15 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
         //범위 내에 있는가?
 
         //상태 결정
+        val currentBaseSpeed =  erAnimal.movementSpeed
         if (!ajEntity.isPlaying("move") && isInDistance(5.0, actor, target)) {//범위 내에 있으면 계속 공격 해야 함.
+            erAnimal.movementSpeed = 0.0;
+            (ajEntity.actor as Husk).getAttribute(Attribute.MOVEMENT_SPEED)!!.baseValue = 0.0
             attack(targetEREntity)
         } else {
+            if(-1E-7 < currentBaseSpeed && currentBaseSpeed < 1E-7){
+                erAnimal.movementSpeed = speed;
+            }
             move();
         }
 
@@ -112,14 +128,6 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
     fun move(){
         val erEntity = (this.actor as ERAnimal);
         val ajEntity = erEntity.aJEntity
-        val velocity = erEntity.getDirection();
-
-        (ajEntity.actor as Husk).setAI(true);
-
-        if(erEntity.isNotTranslating()){
-            val sideStep = vec3(-z(velocity), 0.0, x(velocity));
-            (this.actor as EREntity).addVelocity(3.0 * sideStep)
-        }
         ajEntity.playAnimForce("move")
     }
 
@@ -128,8 +136,6 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
 
         val erEntity = (this.actor as ERAnimal);
         val ajEntity = erEntity.aJEntity
-
-        (ajEntity.actor as Husk).setAI(false);
         //println("$animTick ticks, !ajEntity.isPlaying(\"attack\") == ${!ajEntity.isPlaying("attack")}");
 
         if(!ajEntity.isPlaying("attack")){

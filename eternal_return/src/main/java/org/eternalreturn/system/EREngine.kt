@@ -33,6 +33,7 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
     init{
         val scheduler = Bukkit.getScheduler();
         scheduler.runTaskTimer(plugin, Runnable{this.update()}, 0, 1);
+
     }
 
     val areaSystem: ERAreaSystem = ERAreaSystem()
@@ -47,8 +48,13 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
      * 뷰로써 동작한다.
      */
     val players = UpdateView<ERPlayer>();
+    val playerList : List<ERPlayer> get() = players.curQueue;
+
     val entities = UpdateView<EREntity>();
+    val entityList : List<EREntity> get() = entities.curQueue;
+
     val projectile = UpdateView<ERProjectile>();
+    val projectileList : List<ERProjectile> get() = projectile.curQueue;
 
     init {
         this.monobehaviourModule.registerUpdateView(players);

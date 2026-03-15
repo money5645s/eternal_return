@@ -7,38 +7,44 @@ import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.eternalreturn.erplayer.ERPlayer
+import kotlin.properties.Delegates
 
+/**
+ * 해당 Behaviour는 EREntity에 register됨.
+ * */
 class Passive_Timer : EREntityMonobehaviour<PassiveTimerEvent>(){
 
     var tick = 0;
-    var attacker: Player? = null
+    var attacker: ERPlayer by Delegates.notNull()
+    var attackerBukkit : Player by Delegates.notNull()
 
     override fun start(event: PassiveTimerEvent) {
         tick = 0
-        this.attacker = event.player
-        event.player.playSound(event.player.location, Sound.BLOCK_NOTE_BLOCK_GUITAR, 1f, 1.34f)
+        attacker = event.player
+        attackerBukkit = attacker.player
+        val loc = attackerBukkit.location
+        attackerBukkit.playSound(loc, Sound.BLOCK_NOTE_BLOCK_GUITAR, 1f, 1.34f)
     }
 
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
-        val victim : LivingEntity =  this.getEREntity().entity as LivingEntity;
-        val player = attacker ?: return
-        val loc = victim.location
+        val victimEREntity = this.erEntity;
+        val victimBukkit = victimEREntity.entity
+        val player = attacker
+        val loc = victimBukkit.location
 
         tick++
         if(tick == 10){
-
-            victim.noDamageTicks = 0
-            victim.damage(5.0)
-            victim.world.spawnParticle(Particle.NOTE, loc.clone().add(0.0, 1.0, 0.0), 1, 0.5, 0.5, 0.5, 1.0)
-            player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_GUITAR, 1f, 1.68f)
+            victimEREntity.damageNotSendEvent(5.0, attacker)
+            victimBukkit.world.spawnParticle(Particle.NOTE, loc.clone().add(0.0, 1.0, 0.0), 1, 0.5, 0.5, 0.5, 1.0)
+            attackerBukkit.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_GUITAR, 1f, 1.68f)
 
         }
         if(tick == 20){
-            victim.noDamageTicks = 0
-            victim.damage(5.0)
-            victim.world.spawnParticle(Particle.NOTE, loc.clone().add(0.0, 1.0, 0.0), 1, 0.5, 0.5, 0.5, 1.0)
-            player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_GUITAR, 1f, 2f)
+            victimEREntity.damageNotSendEvent(5.0, attacker)
+            victimBukkit.world.spawnParticle(Particle.NOTE, loc.clone().add(0.0, 1.0, 0.0), 1, 0.5, 0.5, 0.5, 1.0)
+            attackerBukkit.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_GUITAR, 1f, 2f)
             stopMonobehav()
         }
     }

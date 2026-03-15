@@ -39,6 +39,20 @@ abstract class DPEngine(bufferSize: Int = 512) {
      * */
     public val commandQueue = ArrayBlockingQueue<Command>(512);
 
+    init{
+        println("     _ ____\n" +
+                "  __| |  _ \\\n" +
+                " / _` | |_) |\n" +
+                "| (_| |  __/\n" +
+                " \\__,_|_|ENGINE\n" +
+                "\n" +
+                "The high-performance plugin engine with multi-threading\n" +
+                "Fast, modular, and built for experienced developers\n" +
+                "Powering the next generation of plugins\n" +
+                "\n" +
+                "MADE BY Danpung (TDanfung)")
+    }
+
 
 
     /**
