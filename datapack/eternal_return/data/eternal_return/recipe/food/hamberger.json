@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     [
-      "minecraft:baked_potato"
+      "minecraft:bread"
     ],
     [
       "minecraft:beef"
@@ -19,7 +19,7 @@
               {
                 "id": "minecraft:regeneration",
                 "amplifier": 1,
-                "duration": 100,
+                "duration": 200,
                 "show_icon": true,
                 "show_particles": false
               }
