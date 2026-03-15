@@ -1,0 +1,19 @@
+{
+	"providers": [
+		{"type": "bitmap","file": "minecraft:item/sidebar/alpha.png","ascent": 0, "height": 140,"chars": ["a"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/alpha_30.png","ascent": 0, "height": 140,"chars": ["b"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/alpha_death.png","ascent": 0, "height": 140,"chars": ["c"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/battle_zone.png","ascent": 0, "height": 140,"chars": ["1"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/battle_zone_30.png","ascent": 0, "height": 140,"chars": ["2"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/meteor.png","ascent": 0, "height": 140,"chars": ["3"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/meteor_30.png","ascent": 0, "height": 140,"chars": ["4"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/omega.png","ascent": 0, "height": 140,"chars": ["o"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/omega_death.png","ascent": 0, "height": 140,"chars": ["p"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/omega_30.png","ascent": 0, "height": 140,"chars": ["q"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/tree_of_life.png","ascent": 0, "height": 140,"chars": ["5"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/tree_of_life_30.png","ascent": 0, "height": 140,"chars": ["6"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/wickeline.png","ascent": 0, "height": 140,"chars": ["w"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/wickeline_30.png","ascent": 0, "height": 140,"chars": ["x"]},
+		{"type": "bitmap","file": "minecraft:item/sidebar/wickeline_death.png","ascent": 0, "height": 140,"chars": ["z"]}
+	]
+}

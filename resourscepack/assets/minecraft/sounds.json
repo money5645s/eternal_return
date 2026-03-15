@@ -44,11 +44,21 @@
   "er.item.fishing": { "sounds": ["er/item/fishing"] },
   "er.jumppad.ready": { "sounds": ["er/jumppad/ready"] },
   "er.jumppad.jump": { "sounds": ["er/jumppad/jump"] },
+  "er.hyper_loop.acitving": { "sounds": ["er/hyper_loop/acitving"] },
+  "er.hyper_loop.warp": { "sounds": ["er/hyper_loop/warp"] },
+  "er.player.line_boost": { "sounds": ["er/player/line_boost"] },
   "er.player.eat_food": { "sounds": ["er/player/eat_food"] },
   "er.player.full_inventroy": { "sounds": ["er/player/full_inventroy"] },
+  "er.player.give_exp": { "sounds": ["er/player/give_exp"] },
+  "er.player.skill_level_up": { "sounds": ["er/player/skill_level_up"] },
   "er.player.level_up": { "sounds": ["er/player/level_up"] },
   "er.player.max_credit": { "sounds": ["er/player/max_credit"] },
   "er.restricted_area.alarm_tick": { "sounds": ["er/restricted_area/alarm_tick"] },
   "er.restricted_area.dead": { "sounds": ["er/restricted_area/dead"] },
-  "er.restricted_area.left_few_sec_close": { "sounds": ["er/restricted_area/left_few_sec_close"] }
+  "er.restricted_area.left_few_sec_close": { "sounds": ["er/restricted_area/left_few_sec_close"] },
+  "er.ui.toast_in": { "sounds": ["er/ui/toast_in"] },
+  "er.ui.error_sound1": { "sounds": ["er/ui/error_sound1"] },
+  "er.game.lose": { "sounds": ["er/game/lose"] },
+  "er.game.start": { "sounds": ["er/game/start"] },
+  "er.game.join_and_show_weather": { "sounds": ["er/game/join_and_show_weather"] }
 }
