@@ -44,6 +44,7 @@
   "er.item.fishing": { "sounds": ["er/item/fishing"] },
   "er.jumppad.ready": { "sounds": ["er/jumppad/ready"] },
   "er.jumppad.jump": { "sounds": ["er/jumppad/jump"] },
+  "er.meteorite.impact": { "sounds": ["er/meteorite/impact"] },
   "er.hyper_loop.acitving": { "sounds": ["er/hyper_loop/acitving"] },
   "er.hyper_loop.warp": { "sounds": ["er/hyper_loop/warp"] },
   "er.player.line_boost": { "sounds": ["er/player/line_boost"] },
