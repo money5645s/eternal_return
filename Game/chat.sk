@@ -2,6 +2,19 @@
 on load:
     set {server.starttime} to now
 
+function broadcastChat(msg: text):
+    set {_diff} to difference between now and {server.starttime}
+    set {_sec} to floor({_diff} / 1 second)
+    set {_min} to floor({_sec} / 60)
+    set {_s} to mod({_sec}, 60)
+
+    if {_s} < 10:
+        set {_s} to "0%{_s}%"
+    if {_min} < 10:
+        set {_min} to "0%{_min}%"
+
+    broadcast "&6[%{_min}%:%{_s}%] %{_msg}%"
+
 on chat:
     cancel event
     

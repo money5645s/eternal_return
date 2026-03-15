@@ -1,4 +1,16 @@
 every 1 ticks:
+    set {_skript} to objective with id "skript"
+    set {_score} to score of "msg" for {_skript}
+    if {_score} is set:
+        if {_score} is 1:
+            broadcastChat("호텔, 묘지, 절에서 생명의 나무가 나타났습니다.")
+        else if {_score} is 2:
+            broadcastChat("숲, 개울에서 생명의 나무가 나타났습니다.")
+        else if {_score} is 3:
+            sandimpactMassage()
+        set score of "msg" for {_skript} to 0
+
+every 1 ticks:
     loop all players:
         # 보스바 변경
         if loop-player has the scoreboard tag "bos.blackout":
@@ -49,3 +61,8 @@ every 1 ticks:
             add "colleting_meteorite" to scoreboard tags of loop-player
             remove "show_meteorite_loading" from scoreboard tags of loop-player
             remove "click_meteorite" from scoreboard tags of loop-player
+
+
+
+
+

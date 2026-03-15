@@ -2,3 +2,32 @@ on rightclick on interaction:
     if event-entity has the scoreboard tag "meteorite":
         if player don't have the scoreboard tag "click_meteorite":
             add "click_meteorite" to the scoreboard tags of player
+
+
+on load:
+    set {meteoritePoint::1} to "골목길"
+    set {meteoritePoint::2} to "양궁장"
+    set {meteoritePoint::3} to "모래사장"
+    set {meteoritePoint::4} to "성당"
+    set {meteoritePoint::5} to "항구"
+    set {meteoritePoint::6} to "공장"
+    set {meteoritePoint::7} to "소방서"
+    set {meteoritePoint::8} to "주유소"
+    set {meteoritePoint::9} to "병원"
+    set {meteoritePoint::10} to "경찰서"
+    set {meteoritePoint::11} to "연못"
+    set {meteoritePoint::12} to "학교"
+    set {meteoritePoint::13} to "고급주택가"
+    set {meteoritePoint::14} to "창고"
+    
+function sandimpactMassage():
+    set {_skript} to objective with id "skript"
+    set {_point1} to score of "impact1" for {_skript}
+    set {_point2} to score of "impact2" for {_skript}
+
+    broadcastChat("30초 후 %getPointName({_point1})%, %getPointName({_point2})%에 운석이 떨어집니다.")
+    set score of "impact1" for {_skript} to 0
+    set score of "impact2" for {_skript} to 0
+
+function getPointName(point:int) :: text:
+    return {meteoritePoint::%{_point}%}

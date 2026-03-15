@@ -146,7 +146,7 @@ on inventory click:
             # 1. 이미 만렙이면 클릭 차단
             if {_Current_lvl} >= 5:
                 send "&b&l[ ! ] &f이미 최대 레벨(5)에 도달한 스킬입니다." to player
-                play sound "ui.button.click" with volume 1 and pitch 1 to player
+                play sound "minecraft:er.ui.error_sound1" with volume 1 and pitch 1 to player
                 stop 
 
             # 2. 스킬 포인트 체크 후 레벨업 실행
@@ -194,4 +194,4 @@ on inventory click:
                 # UI 전체 동기화
                 open_custom_menu(player)
                 
-                play sound "entity.player.levelup" with volume 1 and pitch 1.2 to player
+                play sound "minecraft:er.player.skill_level_up" with volume 1 and pitch 1 to player
