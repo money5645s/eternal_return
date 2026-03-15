@@ -1,0 +1,86 @@
+{
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:copper_helmet"
+    ],
+    [
+      "minecraft:clay_ball"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:diamond_helmet",
+    "components": {
+      "minecraft:lore": [
+        {
+          "color": "#DAA82B",
+          "italic": false,
+          "text": "전설"
+        },
+        {
+          "color": "gray",
+          "italic": false,
+          "text": "머리"
+        }
+      ],
+      "minecraft:tooltip_style": "mithril",
+      "minecraft:custom_model_data": {
+        "floats": [
+          3
+        ],
+        "strings": [
+          "helmet"
+        ]
+      },
+      "minecraft:attribute_modifiers": [
+        {
+          "id": "0c730163-37b2-4b4d-97d4-75257ecc7e5a",
+          "type": "minecraft:armor",
+          "amount": 2,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "3fdec8d8-344f-42a5-85ca-93d290fed215",
+          "type": "minecraft:attack_damage",
+          "amount": 2,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "b7a00e54-11da-4986-be53-11e4ab24ed24",
+          "type": "minecraft:attack_speed",
+          "amount": 0.3,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "c70fa6cb-6be2-4376-a8c5-b47f86e463ab",
+          "type": "minecraft:entity_interaction_range",
+          "amount": 0.15,
+          "operation": "add_value",
+          "slot": "armor",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "text": "+0.15 기본 공격 사거리"
+            }
+          }
+        }
+      ],
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "쿼드 아이"
+      },
+      "minecraft:unbreakable": {},
+      "minecraft:equippable": {
+        "slot": "head",
+        "asset_id": "mithril"
+      }
+    },
+    "count": 1
+  },
+  "type": "minecraft:crafting_shapeless"
+}

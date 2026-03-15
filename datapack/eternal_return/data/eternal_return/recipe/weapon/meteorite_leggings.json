@@ -1,0 +1,80 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:copper_leggings"
+    ],
+    [
+      "minecraft:slime_ball"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:diamond_leggings",
+    "components": {
+      "minecraft:lore": [
+        {
+          "color": "#DAA82B",
+          "italic": false,
+          "text": "전설"
+        },
+        {
+          "color": "gray",
+          "italic": false,
+          "text": "다리"
+        }
+      ],
+      "minecraft:tooltip_style": "meteorite",
+      "minecraft:attribute_modifiers": [
+        {
+          "id": "2f9d4933-7d2d-4281-bc4d-67be61ed3595",
+          "type": "minecraft:armor",
+          "amount": 5,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "d228bac0-f639-4191-b2ff-f8da4a35bdbe",
+          "type": "minecraft:attack_damage",
+          "amount": 4,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "40631988-9a01-43b4-975c-c80559e49d6b",
+          "type": "minecraft:max_health",
+          "amount": -6,
+          "operation": "add_value",
+          "slot": "armor",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "red",
+              "italic": false,
+              "text": "-6 최대 생명력"
+            }
+          }
+        }
+      ],
+      "minecraft:unbreakable": {},
+      "minecraft:equippable": {
+        "slot": "legs",
+        "asset_id": "meteorite"
+      },
+      "minecraft:custom_model_data": {
+        "floats": [
+          2
+        ],
+        "strings": [
+          "leggings"
+        ]
+      },
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "가시지네 레깅스"
+      }
+    },
+    "count": 1
+  }
+}

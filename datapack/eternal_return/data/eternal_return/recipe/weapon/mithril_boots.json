@@ -1,0 +1,72 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:copper_boots"
+    ],
+    [
+      "minecraft:clay_ball"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:diamond_boots",
+    "components": {
+      "minecraft:lore": [
+        {
+          "color": "#daa82b",
+          "italic": false,
+          "text": "전설"
+        },
+        {
+          "color": "gray",
+          "italic": false,
+          "text": "발"
+        }
+      ],
+      "minecraft:tooltip_style": "mithril",
+      "minecraft:attribute_modifiers": [
+        {
+          "id": "4933bc17-a853-4133-a371-21e1caf3b0f0",
+          "type": "minecraft:armor",
+          "amount": 2,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "3a3b38de-646c-458e-9571-5abeccf1a748",
+          "type": "minecraft:armor_toughness",
+          "amount": 2,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "4396c9c2-2405-4a69-940b-3e1c72dc9189",
+          "type": "minecraft:movement_speed",
+          "amount": 0.01,
+          "operation": "add_value",
+          "slot": "armor"
+        }
+      ],
+      "minecraft:unbreakable": {},
+      "minecraft:equippable": {
+        "slot": "feet",
+        "asset_id": "mithril"
+      },
+      "minecraft:custom_model_data": {
+        "floats": [
+          3
+        ],
+        "strings": [
+          "boots"
+        ]
+      },
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "미스릴 부츠"
+      }
+    },
+    "count": 1
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:copper_boots"
+    ],
+    [
+      "minecraft:turtle_scute"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:diamond_boots",
+    "components": {
+      "minecraft:lore": [
+        {
+          "color": "#C21F21",
+          "italic": false,
+          "text": "초월"
+        },
+        {
+          "color": "gray",
+          "italic": false,
+          "text": "발"
+        }
+      ],
+      "minecraft:tooltip_style": "vf_blood_sample",
+      "minecraft:attribute_modifiers": [
+        {
+          "id": "c3ef5733-44ff-44a8-aa55-4d2ff36992a6",
+          "type": "minecraft:armor",
+          "amount": 3,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "bbe51b05-03d5-4cd2-a863-34061344af11",
+          "type": "minecraft:attack_damage",
+          "amount": 3,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "ba931390-9deb-4edd-a40d-4ca6f3afb305",
+          "type": "minecraft:attack_speed",
+          "amount": 0.3,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "893d3b43-a06e-4664-ad24-4d57c7850b46",
+          "type": "minecraft:movement_speed",
+          "amount": 0.015,
+          "operation": "add_value",
+          "slot": "armor"
+        }
+      ],
+      "minecraft:unbreakable": {},
+      "minecraft:equippable": {
+        "slot": "feet",
+        "asset_id": "blood_sample"
+        
+      },
+      "minecraft:custom_model_data": {
+        "floats": [
+          1
+        ],
+        "strings": [
+          "boots"
+        ]
+      },
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "분홍신"
+      }
+    },
+    "count": 1
+  }
+}

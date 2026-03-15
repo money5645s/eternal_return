@@ -3,33 +3,33 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:bow"
     ],
     [
-      "minecraft:prismarine_shard"
+      "minecraft:turtle_scute"
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_sword",
+    "id": "minecraft:bow",
     "components": {
       "minecraft:lore": [
         {
-          "color": "#DAA82B",
+          "color": "#c21f21",
           "italic": false,
-          "text": "전설"
+          "text": "초월"
         },
         {
           "color": "gray",
           "italic": false,
-          "text": "검"
+          "text": "활"
         }
       ],
-      "minecraft:tooltip_style": "tree_of_life",
+      "minecraft:tooltip_style": "vf_blood_sample",
       "minecraft:attribute_modifiers": [
         {
-          "id": "49f6c4ff-603f-4a08-9299-bbdba8c53f2a",
+          "id": "e480bf59-964e-4c01-8537-7063c036d0fc",
           "type": "minecraft:attack_damage",
-          "amount": 5,
+          "amount": 3,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -37,14 +37,14 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+6 공격 피해"
+              "text": "+4 공격 피해"
             }
           }
         },
         {
-          "id": "f2548881-f454-4cef-b515-e48ebffb0294",
+          "id": "38c1a7ac-a2ee-4cbf-abbb-54b43ff9243e",
           "type": "minecraft:attack_speed",
-          "amount": -2.4,
+          "amount": -3.0,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -52,29 +52,30 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+1.6 공격 속도"
+              "text": "+1.0 공격 속도"
             }
           }
+        },
+        {
+          "id": "1454681a-4109-4796-a641-f2119117d8f7",
+          "type": "minecraft:movement_speed",
+          "amount": 0.01,
+          "operation": "add_value",
+          "slot": "mainhand"
         }
       ],
-      "minecraft:enchantments": {
-        "minecraft:fire_aspect": 1
-      },
-      "minecraft:custom_model_data": {
-        "floats": [
-          1
-        ],
-        "strings": [
-          "sword"
-        ]
-      },
       "minecraft:custom_name": {
         "color": "white",
         "italic": false,
-        "text": "레바테인"
+        "text": "페일노트"
       },
       "minecraft:unbreakable": {},
-      "minecraft:damage_type": "player_attack"
+      "minecraft:damage_type": "player_attack",
+      "minecraft:enchantments": {
+        "minecraft:flame": 1,
+        "minecraft:power": 3
+      },
+      "minecraft:item_model": "custom_weapon/blood_sample_bow"
     },
     "count": 1
   }

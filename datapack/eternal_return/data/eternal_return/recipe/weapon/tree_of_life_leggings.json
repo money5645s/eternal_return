@@ -3,14 +3,14 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:copper_leggings"
     ],
     [
       "minecraft:prismarine_shard"
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_sword",
+    "id": "minecraft:diamond_leggings",
     "components": {
       "minecraft:lore": [
         {
@@ -21,60 +21,59 @@
         {
           "color": "gray",
           "italic": false,
-          "text": "검"
+          "text": "다리"
         }
       ],
       "minecraft:tooltip_style": "tree_of_life",
       "minecraft:attribute_modifiers": [
         {
-          "id": "49f6c4ff-603f-4a08-9299-bbdba8c53f2a",
-          "type": "minecraft:attack_damage",
+          "id": "3d325c7e-90fd-499a-8344-8b46c2f5a237",
+          "type": "minecraft:armor",
           "amount": 5,
           "operation": "add_value",
-          "slot": "mainhand",
+          "slot": "armor"
+        },
+        {
+          "id": "2548b68a-8fbb-4bba-8cd3-53ffa2d47d35",
+          "type": "minecraft:burning_time",
+          "amount": -0.2,
+          "operation": "add_multiplied_base",
+          "slot": "armor",
           "display": {
             "type": "override",
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+6 공격 피해"
+              "text": "-20% 연소시간"
             }
           }
         },
         {
-          "id": "f2548881-f454-4cef-b515-e48ebffb0294",
-          "type": "minecraft:attack_speed",
-          "amount": -2.4,
+          "id": "0d7ca375-6021-47a4-9f4c-4a5b41c07f06",
+          "type": "minecraft:max_health",
+          "amount": 4,
           "operation": "add_value",
-          "slot": "mainhand",
-          "display": {
-            "type": "override",
-            "value": {
-              "color": "blue",
-              "italic": false,
-              "text": "+1.6 공격 속도"
-            }
-          }
+          "slot": "armor"
         }
       ],
-      "minecraft:enchantments": {
-        "minecraft:fire_aspect": 1
+      "minecraft:unbreakable": {},
+      "minecraft:equippable": {
+        "slot": "legs",
+        "asset_id": "tree_of_life"
       },
       "minecraft:custom_model_data": {
         "floats": [
-          1
+          4
         ],
         "strings": [
-          "sword"
+          "leggings"
         ]
       },
       "minecraft:custom_name": {
         "color": "white",
         "italic": false,
-        "text": "레바테인"
-      },
-      "minecraft:unbreakable": {},
-      "minecraft:damage_type": "player_attack"
+        "text": "하의 온 파이어"
+      }
     },
     "count": 1
   }

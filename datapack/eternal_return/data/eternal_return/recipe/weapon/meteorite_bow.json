@@ -3,14 +3,14 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:bow"
     ],
     [
-      "minecraft:prismarine_shard"
+      "minecraft:slime_ball"
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_sword",
+    "id": "minecraft:bow",
     "components": {
       "minecraft:lore": [
         {
@@ -21,15 +21,15 @@
         {
           "color": "gray",
           "italic": false,
-          "text": "검"
+          "text": "활"
         }
       ],
-      "minecraft:tooltip_style": "tree_of_life",
+      "minecraft:tooltip_style": "meteorite",
       "minecraft:attribute_modifiers": [
         {
-          "id": "49f6c4ff-603f-4a08-9299-bbdba8c53f2a",
+          "id": "1178dd72-72e2-467c-9768-ee62a69152b0",
           "type": "minecraft:attack_damage",
-          "amount": 5,
+          "amount": 3,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -37,14 +37,14 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+6 공격 피해"
+              "text": "+4 공격 피해"
             }
           }
         },
         {
-          "id": "f2548881-f454-4cef-b515-e48ebffb0294",
+          "id": "f7464c27-482f-45bd-a043-93dc502cfe2e",
           "type": "minecraft:attack_speed",
-          "amount": -2.4,
+          "amount": -3.0,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -52,29 +52,37 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+1.6 공격 속도"
+              "text": "+1.0 공격 속도"
+            }
+          }
+        },
+        {
+          "id": "d9ab60dc-fe90-4640-bbc8-a753d056a31e",
+          "type": "minecraft:movement_speed",
+          "amount": -0.005,
+          "operation": "add_value",
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "red",
+              "italic": false,
+              "text": "-0.005 속도"
             }
           }
         }
       ],
-      "minecraft:enchantments": {
-        "minecraft:fire_aspect": 1
-      },
-      "minecraft:custom_model_data": {
-        "floats": [
-          1
-        ],
-        "strings": [
-          "sword"
-        ]
-      },
       "minecraft:custom_name": {
         "color": "white",
         "italic": false,
-        "text": "레바테인"
+        "text": "아르테미스"
       },
       "minecraft:unbreakable": {},
-      "minecraft:damage_type": "player_attack"
+      "minecraft:damage_type": "player_attack",
+      "minecraft:enchantments": {
+        "minecraft:power": 2
+      },
+      "minecraft:item_model": "custom_weapon/meteorite_bow"
     },
     "count": 1
   }

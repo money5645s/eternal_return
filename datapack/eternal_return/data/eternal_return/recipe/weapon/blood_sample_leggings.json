@@ -1,0 +1,72 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:copper_leggings"
+    ],
+    [
+      "minecraft:turtle_scute"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:diamond_leggings",
+    "components": {
+      "minecraft:lore": [
+        {
+          "color": "#C21F21",
+          "italic": false,
+          "text": "초월"
+        },
+        {
+          "color": "gray",
+          "italic": false,
+          "text": "다리"
+        }
+      ],
+      "minecraft:tooltip_style": "vf_blood_sample",
+      "minecraft:attribute_modifiers": [
+        {
+          "id": "5ba3f84b-be93-4ba5-9b11-133420d1c4ac",
+          "type": "minecraft:armor",
+          "amount": 6,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "9c7032ae-47d7-457b-9b5b-900302cf322c",
+          "type": "minecraft:attack_damage",
+          "amount": 4,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "a39d96a7-bb6f-413c-8552-9a38188a695a",
+          "type": "minecraft:attack_speed",
+          "amount": 0.3,
+          "operation": "add_value",
+          "slot": "armor"
+        }
+      ],
+      "minecraft:unbreakable": {},
+      "minecraft:equippable": {
+        "slot": "legs",
+        "asset_id": "blood_sample"
+      },
+      "minecraft:custom_model_data": {
+        "floats": [
+          1
+        ],
+        "strings": [
+          "leggings"
+        ]
+      },
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "혈사와스"
+      }
+    },
+    "count": 1
+  }
+}
