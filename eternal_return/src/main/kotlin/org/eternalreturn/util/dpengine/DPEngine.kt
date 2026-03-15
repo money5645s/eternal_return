@@ -37,17 +37,28 @@ abstract class DPEngine(bufferSize: Int = 512) {
     /**
      * 커맨드 큐
      * */
-    public val commandQueue = Vector<Command>();
+    public val commandQueue = ArrayBlockingQueue<Command>(512);
 
-    public fun appendCommandQueue(cmd : Command){
+
+
+    /**
+     * 커맨드 큐에 커맨드를 제출한다.
+     * Thread-safe 하다.
+     * */
+    public fun appendCommand(cmd : Command){
+        //println("appendCommand : ${cmd.javaClass.simpleName}")
         commandQueue.add(cmd);
     }
 
+    /**
+     * 큐에 쌓인 모든 커맨드를 실행 후 비운다
+     * */
     public open fun flushCommandQueue(){
-        for(cmd in commandQueue){
+        while(commandQueue.isNotEmpty()){
+            val cmd = commandQueue.remove();
+            //println("${cmd.javaClass.simpleName} is running")
             cmd.run();
         }
-        commandQueue.clear();
     }
 
     fun free(){
@@ -57,7 +68,7 @@ abstract class DPEngine(bufferSize: Int = 512) {
     /**
      * In main thread
      * */
-    open fun updateMonobehaviourModule() {
+    open fun update() {
         monobehaviourModule.consumeEvents();
         monobehaviourModule.updateMonobehaviours();
         monobehaviourModule.monobehaviourActorList.update();

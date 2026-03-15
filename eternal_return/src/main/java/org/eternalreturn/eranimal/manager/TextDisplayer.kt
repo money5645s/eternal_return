@@ -14,6 +14,9 @@ class TextDisplayer(
         textDisplay.remove();
     }
 
+    override fun lateinit() {
+    }
+
     init{
         dpEngine.monobehaviourModule.register(this);
     }

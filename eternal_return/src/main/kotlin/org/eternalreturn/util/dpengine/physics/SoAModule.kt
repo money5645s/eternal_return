@@ -38,8 +38,10 @@ open class SoAModule(size : Int) {
     /**
      * dense아이디들에 대한 인덱스
      * */
-    var lastDenseIdx = 0;
+    @Volatile var lastDenseIdx = 0;
+
     fun getNumOfEntities() : Int{return lastDenseIdx}
+
     internal fun createHandle() : Triple<Int, Int, Int>{
         //핵심 사실 : 상호 쿼리가 가능해야 함
         //sparse[dense[i]] == i

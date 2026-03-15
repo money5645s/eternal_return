@@ -11,6 +11,11 @@ abstract class EREntityMonobehaviour<T : EREntityEvent>() : Monobehaviour<T>() {
         return actor as EREntity
     }
 
+    val erEntity : EREntity
+        get() {
+            return actor as EREntity;
+        }
+
     val entity: Entity
         get() = (super.actor as EREntity).entity
 

@@ -1,18 +1,14 @@
 package org.eternalreturn.ercharacter.character.jackie
 
-import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Sound
-import org.bukkit.entity.Entity
-import org.eternalreturn.ercharacter.character.jackie.Character_Jackie
-import javax.management.Attribute
+import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
+import org.eternalreturn.erentity.events.EREntityAttackEvent
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
-class Attack : ERCharacterMonobehaviour<CharacterAttackEvent>() {
+class Attack : ERCharacterMonobehaviour<EREntityAttackEvent>() {
 
-    public override fun start(event: CharacterAttackEvent) {
-        val dir = this.getERCharacter().getDirection();
-        val player = getPlayer()
+    public override fun start(event: EREntityAttackEvent) {
+        val dir = this.erCharacter.getDirection();
 
         if((actor as Character_Jackie).isBloodSweep){
             val maxHealth = player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH)?.value ?: 20.0

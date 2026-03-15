@@ -2,20 +2,15 @@ package org.eternalreturn.ercharacter.character.fiora
 
 import org.eternalreturn.ercharacter.character.fiora.event.ERToucheCountEvent
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.eternalreturn.erentity.events.EREntityAttackEvent
 
-class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
+class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
     private var punchTimeMillis: Long = 0
 
-    override fun start(event: CharacterAttackEvent) {
-        val victimEntity = event.victim.entity
-
-        if (victimEntity !is LivingEntity) {
-            return
-        }
+    override fun start(event: EREntityAttackEvent) {
 
         if (System.currentTimeMillis() < punchTimeMillis) {
             return
@@ -23,9 +18,9 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
 
         punchTimeMillis = System.currentTimeMillis() + 10 * 50
 
-        //println("CharacterAttackEvent가 성공적으로 fiora에게 제출되어 페치되었습니다.")
+        println("CharacterAttackEvent가 성공적으로 fiora에게 제출되어 페치되었습니다.")
 
-        event.victim.submitEvent(ERToucheCountEvent(this.getEREntity().entity as Player))
+        event.victim.submitEvent(ERToucheCountEvent(erPlayer))
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {

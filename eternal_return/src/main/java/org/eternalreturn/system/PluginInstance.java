@@ -3,10 +3,7 @@ package org.eternalreturn.system;
 
 import java.io.UnsupportedEncodingException;
 
-import org.eternalreturn.area.ERAreaSystem;
 import org.eternalreturn.eranimal.manager.ERAnimalManager;
-import org.eternalreturn.erplayer.ERPlayerDebugCommand;
-import org.eternalreturn.erplayer.ERPlayerListener;
 import org.eternalreturn.util.AJEntity.AJEntityListener;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
 import org.bukkit.Bukkit;
@@ -53,7 +50,7 @@ public final class PluginInstance extends JavaPlugin{
 
         //GuiOpen 리스너 등록. 이런 식으로 해야 함...
         PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(new ERPlayerListener(), this);
+        pm.registerEvents(new ERListener(), this);
         //pm.registerEvents(new BSwingListener(), this);
         pm.registerEvents(new AJEntityListener(), this);
         loadCommands();
@@ -67,7 +64,7 @@ public final class PluginInstance extends JavaPlugin{
 
     //커맨드 로드용. 너무 길어질 것 같아서 미리 뺐음
     private void loadCommands() {
-        getCommand("er").setExecutor(new ERPlayerDebugCommand());
+        getCommand("er").setExecutor(new ERDebugCommand());
     }
 
     @Override

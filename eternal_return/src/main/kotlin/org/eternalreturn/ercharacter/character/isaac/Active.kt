@@ -16,7 +16,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
         if (cd.isWaiting("Active")) {
             val remain = String.format("%.1f", cd.getLeft("Active"))
-            getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
+            player.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
             return
         }
 
@@ -25,8 +25,8 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         this.skillActiveTick = System.currentTimeMillis()
         isaac.isActiveSkill = true;
 
-        getPlayer().sendMessage("§f[아이작] §b경화: §f다음 공격에 추가 데미지를 부여합니다!")
-        getPlayer().playSound(getPlayer().location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
+        player.sendMessage("§f[아이작] §b경화: §f다음 공격에 추가 데미지를 부여합니다!")
+        player.playSound(player.location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
@@ -46,7 +46,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             // 쿨타임 등록
             isaac.cooldown.set("Active", isaac.ActiveCooldownSeconds)
 
-            getPlayer().sendMessage("§7[아이작] 스킬 상태가 종료되었습니다.")
+            player.sendMessage("§7[아이작] 스킬 상태가 종료되었습니다.")
             stopMonobehav()
         }
     }

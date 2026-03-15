@@ -31,6 +31,8 @@ class BurningGroundMonobehav : Monobehaviour<LetsBurn>() {
             return
         }
 
+        //dpEngine.appendCommand()
+
         loc.getWorld()!!.spawnParticle(Particle.FLAME, loc, 3, 0.2, 0.1, 0.2, 0.02)
         if (lifeTime % 5 == 0L) {
             loc.getWorld()!!.spawnParticle(Particle.SMOKE, loc, 1, 0.1, 0.1, 0.1, 0.02)
@@ -39,7 +41,7 @@ class BurningGroundMonobehav : Monobehaviour<LetsBurn>() {
         // 데미지 판정: 주변 1.2칸 내의 적에게 화상
         for (entity in loc.getWorld()!!.getNearbyEntities(loc, 1.2, 1.2, 1.2)) {
             if (entity is LivingEntity && entity != caster) {
-                entity.setFireTicks(100) // 2초간 불타게 함
+                entity.fireTicks = 100 // 2초간 불타게 함
             }
         }
     }

@@ -1,13 +1,13 @@
 package org.eternalreturn.ercharacter.character.adriana.monobehavs
 
-import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.entity.Entity
+import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
+import org.eternalreturn.erentity.events.EREntityAttackEvent
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import java.util.*
 
-class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
-    public override fun start(event: CharacterAttackEvent) {
+class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
+    public override fun start(event: EREntityAttackEvent) {
         Objects.requireNonNull<Entity?>(event.victim.entity).setFireTicks(100)
     }
 

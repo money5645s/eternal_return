@@ -1,31 +1,25 @@
 package org.eternalreturn.util.dpengine.physics
 
+import RayHitInfo
+import it.unimi.dsi.fastutil.doubles.DoubleArrayList
 import it.unimi.dsi.fastutil.ints.IntArrayList
 import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Particle
-import org.bukkit.command.defaults.BukkitCommand
-import org.bukkit.scheduler.BukkitScheduler
-import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.erentity.events.EREntityRayCastEvent
-import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
-import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.projectile.ERProjectile
 import org.eternalreturn.projectile.events.ProjectileRayCastEvent
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
-import org.eternalreturn.util.dpengine.geometry.OBB
-import org.eternalreturn.util.dpengine.geometry.Vector3
-import java.lang.Math.fma
 import kotlin.math.abs
 import kotlin.math.cos
-import kotlin.math.floor
-import kotlin.math.sign
 import kotlin.math.sin
 import kotlin.math.sqrt
+
+
 
 class OrientedBoxSoA(
     size : Int,
@@ -187,22 +181,9 @@ class OrientedBoxSoA(
      * 플레이어 객체 하나에 대해 rayCast 진행
      * */
     val rayGeneration = IntArray(size) { -1 };
-    fun rayCast(generation : Int, rayID : Int, hitList : IntArrayList,
-                px : Double, py : Double, pz : Double,
-                dirX : Double, dirY : Double, dirZ: Double){
-        hitList.clear();
-        val entityNum = getNumOfEntities();
-        for(id in 0 until entityNum){
-            if(grid.alreadyChecked[id] != rayID || rayGeneration[id] != generation){
-                grid.alreadyChecked[id] = rayID;
-                rayGeneration[id] = generation;
-                if (rayTestOne(id, px, py, pz, dirX, dirY, dirZ)) {
-                    hitList.add(dense[id]); //entityID 반환
-                }
-            }
-        }
-    }
 
+    var hitTmin : Double = Double.POSITIVE_INFINITY;
+    var hitTmax : Double = Double.POSITIVE_INFINITY;
     private fun rayTestOne(
         id: Int,
         px: Double, py: Double, pz: Double,
@@ -256,12 +237,20 @@ class OrientedBoxSoA(
         slab(locPz, locDz, size.z[id])
         if (tmin > tmax) return false
 
-        return tmax >= kotlin.math.max(tmin, 0.0)
+        if(tmax >= kotlin.math.max(tmin, 0.0)){
+            hitTmin = tmin;
+            hitTmax = tmax;
+            return true;
+        }
+
+        hitTmin = Double.POSITIVE_INFINITY;
+        hitTmax = Double.POSITIVE_INFINITY;
+
+        return false;
     }
 
 
     fun rebuildGrid() {
-        // posCache는 Vec3SoA니까 내부 DoubleArray를 넘긴다고 가정
         val m = rotMatCache;
         grid.updateGrid(
             posCache.x, posCache.y, posCache.z,
@@ -307,6 +296,8 @@ class OrientedBoxSoA(
         generation: Int,
         rayID : Int,
         hitList: IntArrayList,
+        hitTminList : DoubleArrayList,
+        hitTmaxList : DoubleArrayList,
         px: Double, py: Double, pz: Double,
         dirX: Double, dirY: Double, dirZ: Double,
         maxDist: Double = 1000.0){
@@ -325,6 +316,8 @@ class OrientedBoxSoA(
                     rayGeneration[id] = generation;
                     if (rayTestOne(id, px, py, pz, dirX, dirY, dirZ)) {
                         hitList.add(dense[id]) // sparseID나 entityID로 바꾸고 싶으면 여기서
+                        hitTminList.add(hitTmin);
+                        hitTmaxList.add(hitTmax);
                     }
                 }
             }
@@ -337,7 +330,6 @@ class OrientedBoxSoA(
         val tHandle = transformHandleList[denseID];
         return tHandle.actor!!
     }
-
 
 
     fun rayCastSoA(eventCommandQueue : ArrayDeque<EREngine.EventCmd>, raySoA : RaySoA){
@@ -357,16 +349,31 @@ class OrientedBoxSoA(
             for(i in 0 until lastRay){
                 //println("rayCasting... : [${posX[i]}, ${posY[i]}, ${posZ[i]}] + t * [${dirX[i]}, ${dirY[i]}, ${dirZ[i]}]")
                 val hitList = IntArrayList(8); //배열을 만들어 반환 -> 나중에 고쳐야 할 수도
-                rayCastGridOptim(rayGeneration, i, hitList,posX[i], posY[i], posZ[i], dirX[i], dirY[i], dirZ[i]);
+                val hitTminList = DoubleArrayList(8);
+                val hitTmaxList = DoubleArrayList(8);
+                val px = posX[i]; val py = posY[i]; val pz = posZ[i];
+                val dx = dirX[i]; val dy = dirY[i]; val dz = dirZ[i];
+                rayCastGridOptim(rayGeneration, i, hitList, hitTminList, hitTmaxList, posX[i], posY[i], posZ[i], dirX[i], dirY[i], dirZ[i]);
 
                 val shooter = raySoA.actors[i];
-                val hitActorList = ArrayList<EREntity>();
+                val hitActorList = ArrayList<RayHitInfo>();
 
                 if(hitList.isNotEmpty()){
                     for(j in 0 until hitList.size){
                         val entityID = hitList.getInt(j);
                         val hitActor = getConnectedActor(entityID) as ERHitboxEntity;
-                        hitActorList.add(hitActor)
+
+                        val tMax = hitTminList.getDouble(j);
+                        val tMin = hitTmaxList.getDouble(j);
+
+                        val minX = dx * tMin + px; val minY = dy * tMin + py; val minZ = dz * tMin + pz;
+                        val maxX = dx * tMax + px; val maxY = dy * tMax + py; val maxZ = dz * tMax + pz;
+
+
+                        hitActorList.add(RayHitInfo(hitActor,
+                            minX, minY, minZ,
+                            maxX, maxY, maxZ));
+                        //println("[$maxX, $maxY, $maxZ] | [$minX, $minY, $minZ]")
                         //println("HITLIST -> [$j] : ${hitActor.javaClass.simpleName} ${hitActor.transformHandle.entityID} ${hitActor.obbHandle.entityID} isValid : ${isValid(hitActor.obbHandle)}"); // 디버깅용
                     }
 

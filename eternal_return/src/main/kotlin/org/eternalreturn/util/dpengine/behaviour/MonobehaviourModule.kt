@@ -37,11 +37,13 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
 
         while (triggeredActorQueue.isNotEmpty()) {
             val actor = triggeredActorQueue.removeFirst();
-            //update() 하는 Monobehaviour이 있는가?
-            if (actor.thereAreNoRunningMonobehaviours) {
-                updatingActors[curIdx].addLast(actor);
+            if(actor.isAlive()){
+                //update() 하는 Monobehaviour이 있는가?
+                if (actor.thereAreNoRunningMonobehaviours) {
+                    updatingActors[curIdx].addLast(actor);
+                }
+                actor.dispatchEvents();
             }
-            actor.dispatchEvents();
         }
         
         //다음 큐로 이동

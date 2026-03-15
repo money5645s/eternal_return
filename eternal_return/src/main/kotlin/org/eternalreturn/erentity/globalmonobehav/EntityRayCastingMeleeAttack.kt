@@ -1,14 +1,15 @@
 package org.eternalreturn.erentity.globalmonobehav
 
 import org.bukkit.entity.Player
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.EREntityMonobehaviour
-import org.eternalreturn.erentity.events.EREntityAttackedEvent
+import org.eternalreturn.erentity.events.EREntityAttackEvent
+import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.erentity.events.EREntityRayCastEvent
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.eternalreturn.util.dpengine.geometry.Vector3
+import kotlin.math.min
 
 class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>() {
 
@@ -21,19 +22,20 @@ class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>(
 
         //(getEREntity() as ConsoleCommandSender).sendMessage(this.javaClass.toString() + " is dispatched, list length is " + event.hitEntities.size)
 
-        for(e in event.hitList){
-            if(event.shooter === e){
+        for(hit in event.hitList){
+
+            if(event.shooter === hit.erEntity){
                 continue;
             }
 
-            val ePos : Vector3 = e.getPosition();
+            val ePosMin : Vector3 = vec3(hit.xMin, hit.yMin, hit.zMin)
+            val ePosMax : Vector3 = vec3(hit.xMax, hit.yMax, hit.zMax)
             val pPos : Vector3 = erEntity.getPosition();
-            val distVec = ePos - pPos;
-            val distanceSqr = magnitudeSqr(distVec);
+            val distanceSqr = min(magnitudeSqr(pPos - ePosMin), magnitudeSqr(pPos - ePosMax));
 
             if(distanceSqr < minDist){
                 minDist = distanceSqr;
-                closestTarget = e;
+                closestTarget = hit.erEntity;
                 //println("Melee-attacked to -> " + e.javaClass)
             }
         }
@@ -41,10 +43,17 @@ class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>(
         if(closestTarget == null){
             return;
         }
+        val shooter = event.shooter
+        val shootPlayer = shooter.entity as Player;
 
-        closestTarget.submitEvent(EREntityAttackedEvent(actor as EREntity))
-        val shootPlayer = event.shooter.entity as Player;
-        closestTarget.damage(shootPlayer.getAttribute(org.bukkit.attribute.Attribute.ATTACK_DAMAGE)!!.value, event.shooter as ERPlayer);
+        shooter.submitEvent(EREntityAttackEvent(shooter, closestTarget))
+        closestTarget.submitEvent(EREntityDamagedEvent(actor as EREntity))
+
+        val attackDamage = shootPlayer.getAttribute(org.bukkit.attribute.Attribute.ATTACK_DAMAGE)!!.value;
+        val strength: Float = (shooter as ERPlayer).attackCooldown
+        //println("strength : $strength")
+
+        closestTarget.damage(attackDamage * strength, event.shooter);
     }
 
 

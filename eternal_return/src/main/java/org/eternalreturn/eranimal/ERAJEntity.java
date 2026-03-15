@@ -139,6 +139,7 @@ public class ERAJEntity extends AJEntity {
         this.actor.setAdult();
         this.actor.setSilent(true);
         this.actor.setInvisible(true);
+        this.actor.setInvulnerable(true);
         this.actor.addPassenger(this.rootEntity);
         try{
             Objects.requireNonNull(actor.getAttribute(Attribute.ATTACK_DAMAGE)).setBaseValue(0.0);

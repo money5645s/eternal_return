@@ -1,19 +1,19 @@
 package org.eternalreturn.ercharacter.character.hyunwoo
 
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.LivingEntity
+import org.eternalreturn.erentity.events.EREntityAttackEvent
 import java.util.*
 import kotlin.math.min
 
-class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
+class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
     private val hitCountMap: MutableMap<UUID?, Int?> = HashMap<UUID?, Int?>()
     private var punchTimeMillis: Long = 0
 
-    override fun start(event: CharacterAttackEvent) {
+    override fun start(event: EREntityAttackEvent) {
         val victimEntity = event.victim.entity
 
         if (victimEntity !is LivingEntity) {
@@ -25,7 +25,7 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
         }
         punchTimeMillis = System.currentTimeMillis() + 10 * 50
 
-        val attacker = getPlayer()
+        val attacker = player
 
         val uuid = attacker.getUniqueId()
         // 현재 공격 횟수를 가져오고 1을 더함

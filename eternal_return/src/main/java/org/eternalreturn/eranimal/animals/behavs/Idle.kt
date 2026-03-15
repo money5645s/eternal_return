@@ -3,7 +3,7 @@ package org.eternalreturn.eranimal.animals.behavs
 import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.eranimal.ERAnimalMonobehaviour
 import org.eternalreturn.eranimal.animals.events.IdleEvent
-import org.eternalreturn.erentity.events.EREntityAttackedEvent
+import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
@@ -17,7 +17,7 @@ class Idle : ERAnimalMonobehaviour<IdleEvent>() {
         val animal = actor as ERAnimal;
         val ajEntity = animal.aJEntity;
         //플레이어에게 공격받았을 경우
-        if(eventMap[EREntityAttackedEvent::class.java] != null){
+        if(eventMap[EREntityDamagedEvent::class.java] != null){
             ajEntity.stopAnim();
             stopMonobehav();
             return;

@@ -13,6 +13,9 @@ class BurningGroundVirtualEntity(
     val startTime: Long
 ) : MonobehaviourActor(dpEngine) {
 
+    override fun lateinit() {
+    }
+
     init {
         registerMonobehaviour(BurningGroundMonobehav());
     }

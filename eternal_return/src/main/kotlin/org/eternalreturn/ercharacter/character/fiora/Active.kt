@@ -26,14 +26,14 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
         if (cd.isWaiting("Active")) {
             val remain = String.format("%.1f", cd.getLeft("Active"))
-            getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
+            player.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
             return
         }
 
         CooldownCheck = true
 
-        getPlayer().sendMessage("§f[피오라] §b아따끄 꽁뽀제!")
-        getPlayer().addPotionEffect(PotionEffect(PotionEffectType.RESISTANCE, 14, 2, false, false))
+        player.sendMessage("§f[피오라] §b아따끄 꽁뽀제!")
+        player.addPotionEffect(PotionEffect(PotionEffectType.RESISTANCE, 14, 2, false, false))
         // 쿨타임 등록
         fiora.cooldown.set("Active", fiora.ActiveCooldownSeconds)
     }
@@ -47,7 +47,6 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         }
 
         skillTimer++
-        val player = getPlayer()
 
         // 디버깅 용도
 //        player.sendMessage("${skillTimer}")
@@ -86,7 +85,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
                     val victim = PluginInstance.getEREngine().getEREntity(entity);
                     if(victim == null)return;
-                    victim.submitEvent(ERToucheCountEvent(player));
+                    victim.submitEvent(ERToucheCountEvent(erPlayer));
                 }
             }
         }

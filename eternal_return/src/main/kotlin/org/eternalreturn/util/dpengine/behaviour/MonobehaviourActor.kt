@@ -59,6 +59,8 @@ abstract class MonobehaviourActor(
         this.referenceCount++;
     }
 
+    var lateinitIsDone = false;
+    abstract fun lateinit();
 
     /**
      * (MonobehaviourEvent, Monobehaviour)의 키 쌍
@@ -82,9 +84,11 @@ abstract class MonobehaviourActor(
      * 외부에서 해당 객체에게 이벤트를 제출하기 위한 창구
      */
     fun submitEvent(event: MonobehaviourEvent) {
-        //println("Event 제출됨 : ${event.javaClass.simpleName} \t-> ${this.javaClass.simpleName}");
-        submittedEvent[curEventIdx xor 1].addLast(event)
-        monobehaviourModule.submitActorWhoTriggeredEvent(this)
+        if(isAlive()){
+            //println("Event 제출됨 : ${event.javaClass.simpleName} \t-> ${this.javaClass.simpleName}");
+            submittedEvent[curEventIdx xor 1].addLast(event)
+            monobehaviourModule.submitActorWhoTriggeredEvent(this)
+        }
     }
 
     /**
@@ -121,6 +125,11 @@ abstract class MonobehaviourActor(
      * 그 외에는 true를 반환
      */
     fun updateMonobehaviour(): Boolean {
+
+        if(!isAlive()){
+            return false;
+        }
+
         if (runningBehaviours.isEmpty()) {
             return false
         }

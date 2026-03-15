@@ -1,12 +1,11 @@
 package org.eternalreturn.ercharacter.character.jan
 
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
+import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
-class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
-    override fun start(event: CharacterAttackEvent) {
-        val player = getPlayer()
+class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
+    override fun start(event: EREntityAttackEvent) {
         val jan = actor as Character_Jan
 
         jan.sendMessage("평타 감지")

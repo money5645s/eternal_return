@@ -13,14 +13,13 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var tick = 0
 
     override fun start(event: CharacterSwapHandEvent) {
-        val player = getPlayer()
 
         val hart = actor as Character_Hart
         val cd = hart.cooldown
 
         if (cd.isWaiting("Active")) {
             val remain = String.format("%.1f", cd.getLeft("Active"))
-            getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
+            player.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
             return
         }
         player.sendMessage("F 디버깅")
@@ -42,7 +41,6 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         val hart = actor as Character_Hart
         val cd = hart.cooldown
-        val player = getPlayer()
 
         if (cd.isWaiting("Active")) {
             stopMonobehav()

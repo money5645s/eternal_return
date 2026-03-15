@@ -1,4 +1,4 @@
-package org.eternalreturn.erplayer;
+package org.eternalreturn.system;
 
 import org.eternalreturn.ercharacter.character.adriana.Character_Adriana;
 import org.eternalreturn.ercharacter.character.fiora.Character_Fiora;
@@ -13,8 +13,7 @@ import org.eternalreturn.ercharacter.character.yuki.Character_Yuki;
 import org.eternalreturn.ercharacter.ERCharacter;
 import org.eternalreturn.ercharacter.event.CharacterParabolicFlyEvent;
 import org.eternalreturn.erentity.ERDummy;
-import org.eternalreturn.system.EREngine;
-import org.eternalreturn.system.PluginInstance;
+import org.eternalreturn.erplayer.ERPlayer;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -34,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-public class ERPlayerDebugCommand implements CommandExecutor {
+public class ERDebugCommand implements CommandExecutor {
     private org.eternalreturn.eranimal.ERAJEntity testAnimal;
 
     @Override

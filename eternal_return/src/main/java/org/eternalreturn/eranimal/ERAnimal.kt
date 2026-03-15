@@ -1,31 +1,26 @@
 package org.eternalreturn.eranimal
 
 import net.kyori.adventure.sound.Sound
-import org.bukkit.entity.Player
+import org.bukkit.Location
 import org.bukkit.util.Vector
 import org.eternalreturn.eranimal.animals.behavs.Battle
 import org.eternalreturn.eranimal.animals.behavs.EnhanceStatByDay
 import org.eternalreturn.eranimal.animals.behavs.Idle
 import org.eternalreturn.eranimal.animals.events.IdleEvent
 import org.eternalreturn.eranimal.animals.events.StatEnhanceEvent
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
-import org.eternalreturn.ercharacter.event.CharacterKillAnimalEvent
-import org.eternalreturn.ercharacter.event.CharacterKillEvent
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.ERHitboxEntity
+import org.eternalreturn.erentity.events.EREntityAttackEvent
+import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.command.AddSpigotEntityPosition
-import org.eternalreturn.util.dpengine.command.AddSpigotEntityVelocity
-import org.eternalreturn.util.dpengine.command.AddTagToSpigotEntity
-import org.eternalreturn.util.dpengine.command.SetSpigotEntityPosition
-import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
+import org.eternalreturn.util.dpengine.command.*
 
 /**
  * MonobehaviourActor역할을 하는 야생동물 클래스.
  */
 abstract class ERAnimal(
     engine: EREngine,
-    var aJEntity: ERAJEntity,
+    val aJEntity: ERAJEntity,
     obbHalfX: Double, obbHalfY: Double,
     obbHalfZ: Double, obbLocX: Double, obbLocY: Double, obbLocZ: Double
 ) : ERHitboxEntity(
@@ -34,6 +29,15 @@ abstract class ERAnimal(
     obbHalfX, obbHalfY, obbHalfZ,
     obbLocX, obbLocY, obbLocZ
 ) {
+
+    override val location : Location
+        get(){
+            return if(aJEntity.actor == null){
+                aJEntity.rootEntity.location
+            }else{
+                aJEntity.actor!!.location;
+            }
+        }
 
     /**
      * 야생동물 스킬 쿨다운
@@ -74,7 +78,7 @@ abstract class ERAnimal(
      * */
     override fun setVelocity(x : Double, y : Double, z : Double){
         if(isActorNotValid()) return;
-        this.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(aJEntity.actor, x, y, z))
+        this.dpEngine.appendCommand(SetSpigotEntityVelocity(aJEntity.actor, x, y, z))
     }
 
     /**
@@ -82,7 +86,7 @@ abstract class ERAnimal(
      * */
     override fun addVelocity(x : Double, y : Double, z : Double){
         if(isActorNotValid()) return;
-        this.dpEngine.appendCommandQueue(AddSpigotEntityVelocity(aJEntity.actor, x, y, z))
+        this.dpEngine.appendCommand(AddSpigotEntityVelocity(aJEntity.actor, x, y, z))
     }
 
     /**
@@ -90,7 +94,7 @@ abstract class ERAnimal(
      * */
     override fun setPosition(x : Double, y : Double, z : Double){
         if(isActorNotValid()) return;
-        this.dpEngine.appendCommandQueue(SetSpigotEntityPosition(aJEntity.actor, x, y, z))
+        this.dpEngine.appendCommand(SetSpigotEntityPosition(aJEntity.actor, x, y, z))
     }
 
     /**
@@ -98,7 +102,7 @@ abstract class ERAnimal(
      * */
     override fun addPosition(x : Double, y : Double, z : Double){
         if(isActorNotValid()) return;
-        this.dpEngine.appendCommandQueue(AddSpigotEntityPosition(aJEntity.actor, x, y, z))
+        this.dpEngine.appendCommand(AddSpigotEntityPosition(aJEntity.actor, x, y, z))
     }
 
     override fun applyBukkitVelocityOnMainThread(x: Double, y: Double, z: Double) {
@@ -110,24 +114,37 @@ abstract class ERAnimal(
         aJEntity.remove();
     }
 
-    var nextAvailableBeingDamaged : Long = 0
     override fun damage(amount: Double, attacker: EREntity) {
 
-        val currentTime = System.currentTimeMillis();
-        if(currentTime > nextAvailableBeingDamaged){
+        var damage = amount;
 
-            nextAvailableBeingDamaged = currentTime + 500; //1tick == 50ms
-
-            this.hp -= amount;
-            attacker.submitEvent(CharacterAttackEvent(attacker, this))
-            if(this.hp <= 0){
-                dpEngine.appendCommandQueue(AddTagToSpigotEntity(attacker.entity, "kill_" + this.aJEntity.name))
-            }
-            val sound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT).build()
-            aJEntity.setDebugDisplay("LV : ${this.level} | HP : ${this.hp}\n\n\n\n")
-            attacker.entity.playSound(sound);
+        this.hp -= amount;
+        attacker.submitEvent(EREntityAttackEvent(attacker, this))
+        if(this.hp <= 0){
+            dpEngine.appendCommand(AddTagToSpigotEntity(attacker.entity, "kill_" + this.aJEntity.name))
         }
+
+        val sound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT).build()
+        aJEntity.setDebugDisplay("LV : ${this.level} | HP : ${this.hp}\n\n\n\n")
+        attacker.entity.playSound(sound);
     }
+
+    private var isDead = false;
+    fun isDead() : Boolean{
+        return isDead;
+    }
+    fun setDead(b : Boolean){
+        isDead = b;
+    }
+
+    private var returnToPoint = false;
+    fun setReturn(bool: Boolean) {
+        returnToPoint = true;
+    }
+    fun haveToReturnToPoint() : Boolean{
+        return returnToPoint;
+    }
+
 
     val isShown: Boolean
         get() = this.aJEntity.isShown

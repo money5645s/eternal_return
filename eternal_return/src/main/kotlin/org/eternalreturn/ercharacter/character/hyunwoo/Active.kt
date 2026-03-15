@@ -1,22 +1,16 @@
 package org.eternalreturn.ercharacter.character.hyunwoo
 
-import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
-import org.eternalreturn.ercharacter.event.CharacterStunEvent
-import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
-import org.eternalreturn.erentity.EREntity
-import org.eternalreturn.erentity.events.EREntityStunEvent
-import org.eternalreturn.system.EREngine
-import org.eternalreturn.system.SystemManager
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
-import org.bukkit.Location
-import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.util.Vector
-import org.eternalreturn.ercharacter.character.hyunwoo.Character_Hyunwoo
+import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
+import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
+import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.erentity.events.EREntityStunEvent
 import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.system.EREngine
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     var direction: Vector? = null
@@ -26,7 +20,6 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var tick = 0
 
     override fun start(event: CharacterSwapHandEvent) {
-        val player = getPlayer()
         val hyunwoo = actor as Character_Hyunwoo
         val cd = hyunwoo.cooldown
 
@@ -34,7 +27,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
         if (cd.isWaiting("Active")) {
             val remain = String.format("%.1f", cd.getLeft("Active"))
-            getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
+            player.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
             return
         }
 
@@ -53,7 +46,6 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
-        val player = getPlayer()
         val engine = dpEngine as EREngine
         val hyunwoo = actor as Character_Hyunwoo
         val cd = hyunwoo.cooldown
@@ -71,7 +63,6 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         tick ++
 
         if (!isWallSlam && tick < 7){
-            val player = getPlayer()
 
             player.sendMessage("§c[디버깅] §f${tick}")
 

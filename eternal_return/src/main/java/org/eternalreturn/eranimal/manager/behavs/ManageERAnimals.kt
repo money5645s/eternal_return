@@ -48,7 +48,6 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
             textDisplay.billboard = Display.Billboard.CENTER; //어느 방향에서 봐도 똑같이 보인다.
 
             val textDisplayEREntity = TextDisplayer(textDisplay, dpEngine as EREngine); //어차피 생성되면서 MonobehaviourModule내에 들어가게 됨.
-            dpEngine.monobehaviourModule.register(textDisplayEREntity);
             textDisplayList.add(textDisplayEREntity)
         }
     }
@@ -56,11 +55,19 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         //RemoveAllERAnimals 이벤트가 삽입된 경우, 바로 제거 절차 진입.
         if(eventMap[RemoveAllERAnimals::class.java] != null){
-            removeAll();
+            for(animal in erAnimalMap.values){
+                if(animal.isAlive()){
+                    animal.remove();
+                }
+            }
+
+            java.util.Arrays.fill(animalIsSummoned,false);
+            java.util.Arrays.fill(animalSummoningTicks,-1);
+
+            //println("eventMap[RemoveAllERAnimals::class.java] != null : removed all")
             stopMonobehav();
             return;
         }
-        //legacyCode();
 
         val manager = actor as ERAnimalManager;
         val animalList = manager.entities;
@@ -78,9 +85,9 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
 
                 if(ticksLeft == -1){
                     val testTicksForSummoning = when(animal.name){
-                        "animal_boar" -> 120;
-                        "animal_wolf" -> 140;
-                        "animal_bear" -> 160;
+                        "animal_boar" -> 5;
+                        "animal_wolf" -> 5;
+                        "animal_bear" -> 5;
                         else -> Integer.MAX_VALUE
                     }
 
@@ -114,21 +121,22 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
 
             val erAJAnimal = manager.entities[i];
             val erAnimal = erAnimalMap[erAJAnimal]!!;
-            if(!erAnimal.isAlive()){
-                if(erAnimal.hp <= 0){
-                    animalSummoningTicks[i] = -1;
-                }
 
+            if(erAnimal.isDead()){
+                animalSummoningTicks[i] = -1;
                 erAnimalMap.remove(erAJAnimal, erAnimal);
-                erAnimal.remove();
-                erAJAnimal.remove();
                 animalIsSummoned[i] = false;
+                erAnimal.remove();
+
+            } else if(erAnimal.haveToReturnToPoint()){
+                animalSummoningTicks[i] = 0;
+                erAnimalMap.remove(erAJAnimal, erAnimal);
+                animalIsSummoned[i] = false;
+                erAnimal.remove();
+
             }
 
-
         }
-
-
 
     }
 
@@ -151,12 +159,6 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
     }
 
 
-    fun removeAll(){
-        for(animal in erAnimalMap.values){
-            if(animal.isAlive()){
-                animal.remove(); //디스폰
-            }
-        }
-    }
+
 
 }

@@ -15,7 +15,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
         if (cd.isWaiting("Active")) {
             val remain = String.format("%.1f", cd.getLeft("Active"))
-            getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
+            player.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
             return
         }
 
@@ -24,8 +24,8 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         this.skillActiveTick = System.currentTimeMillis()
         yuki.isActiveSkill = true
 
-        getPlayer().sendMessage("§f[유키] §b머리치기 준비!")
-        getPlayer().playSound(getPlayer().location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
+        player.sendMessage("§f[유키] §b머리치기 준비!")
+        player.playSound(player.location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
@@ -44,7 +44,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             // 쿨타임 등록
             yuki.cooldown.set("Active", yuki.ActiveCooldownSeconds)
 
-            getPlayer().sendMessage("§7[유키] 스킬 상태가 종료되었습니다.")
+            player.sendMessage("§7[유키] 스킬 상태가 종료되었습니다.")
             stopMonobehav()
         }
     }

@@ -1,20 +1,17 @@
 package org.eternalreturn.ercharacter.character.isaac
 
-import org.eternalreturn.ercharacter.character.isaac.event.PassiveCountEvent
-import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
-import org.eternalreturn.erentity.events.EREntityStunEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
-import org.eternalreturn.ercharacter.character.isaac.Character_Isaac
+import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
+import org.eternalreturn.ercharacter.character.isaac.event.PassiveCountEvent
+import org.eternalreturn.erentity.events.EREntityAttackEvent
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
-class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
+class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
     private var punchTimeMillis: Long = 0
 
-    override fun start(event: CharacterAttackEvent) {
+    override fun start(event: EREntityAttackEvent) {
         val isaac = actor as Character_Isaac
-        val player = getPlayer()
 
         val victimEntity = event.victim.entity
 

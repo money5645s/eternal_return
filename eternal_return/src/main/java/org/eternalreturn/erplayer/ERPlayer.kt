@@ -8,6 +8,7 @@ import org.eternalreturn.util.Gui.InventoryGui.View.IController
 
 open class ERPlayer(p: Entity, engine: EREngine) : ERCharacter(p, engine) {
 
+    var attackCooldown : Float = 0.0F;
     val player : Player
         get() {
             return entity as Player
@@ -15,6 +16,11 @@ open class ERPlayer(p: Entity, engine: EREngine) : ERCharacter(p, engine) {
 
     fun sendMessage(str: String) {
         entity.sendMessage(str)
+    }
+
+    override fun shootRay(){
+        super.shootRay();
+        attackCooldown = player.attackCooldown;
     }
 
     override val name: String

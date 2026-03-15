@@ -87,4 +87,8 @@ public class ERAnimalManager extends MonobehaviourActor {
         return this.entities;
     }
 
+    @Override
+    public void lateinit() {
+
+    }
 }

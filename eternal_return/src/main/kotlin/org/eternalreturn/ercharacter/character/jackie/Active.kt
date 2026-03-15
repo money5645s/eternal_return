@@ -11,13 +11,12 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var isActive = false
 
     override fun start(event: CharacterSwapHandEvent) {
-        val player = getPlayer()
         val jackie = actor as Character_Jackie
         val cd = jackie.cooldown
 
         if (cd.isWaiting("Active")) {
             val remain = String.format("%.1f", cd.getLeft("Active"))
-            getPlayer().sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
+            player.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
             return
         }
 
@@ -48,7 +47,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                 // 쿨타임 등록
                 jackie.cooldown.set("Active", jackie.ActiveCooldownSeconds)
                 (actor as Character_Jackie).isBloodSweep = false
-                getPlayer().sendMessage("§7[재키] 스킬 상태가 종료되었습니다.")
+                player.sendMessage("§7[재키] 스킬 상태가 종료되었습니다.")
                 stopMonobehav()
             }
     }

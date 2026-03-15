@@ -1,7 +1,6 @@
 package org.eternalreturn.ercharacter.character.yuki
 
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.erentity.events.EREntityStunEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Location
@@ -10,16 +9,16 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.eternalreturn.ercharacter.character.yuki.Character_Yuki
+import org.eternalreturn.erentity.events.EREntityAttackEvent
 
-class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
+class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
     private var reloadStartTime: Long = 0
     private val reloadDuration: Long = 2000 // 2초
     private var punchTimeMillis: Long = 0
 
-    override fun start(event: CharacterAttackEvent) {
+    override fun start(event: EREntityAttackEvent) {
         // 자바 클래스인 Character_Yuki로 형변환
         val yuki = actor as Character_Yuki
-        val player = getPlayer()
 
         val victimEntity = event.victim.entity
 
@@ -77,8 +76,8 @@ class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
             if (System.currentTimeMillis() - reloadStartTime >= reloadDuration) {
                 yuki.isReloading = false
                 yuki.buttonCount = 4
-                getPlayer().sendMessage("§f[유키] §a재봉 완료! §f단추가 다시 채워졌습니다.")
-                getPlayer().playSound(getPlayer().location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1.5f)
+                player.sendMessage("§f[유키] §a재봉 완료! §f단추가 다시 채워졌습니다.")
+                player.playSound(player.location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1.5f)
             }
             return;
         }

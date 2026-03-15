@@ -1,15 +1,11 @@
 package org.eternalreturn.projectile.globalmonobehav
 
-import io.papermc.paper.math.Position
 import org.bukkit.Location
 import org.bukkit.World
-import org.bukkit.attribute.Attribute
-import org.bukkit.entity.Player
 import org.bukkit.util.RayTraceResult
 import org.bukkit.util.Vector
 import org.eternalreturn.erentity.EREntity
-import org.eternalreturn.erentity.events.EREntityAttackedEvent
-import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.projectile.ERProjectile
 import org.eternalreturn.projectile.events.ProjectileHitEvent
 import org.eternalreturn.projectile.events.ProjectileRayCastEvent
@@ -17,6 +13,7 @@ import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.eternalreturn.util.dpengine.geometry.Vector3
+import kotlin.math.min
 
 
 class ProjectileRayCastingAttack : Monobehaviour<ProjectileRayCastEvent>() {
@@ -36,17 +33,16 @@ class ProjectileRayCastingAttack : Monobehaviour<ProjectileRayCastEvent>() {
         //val result = getRayTraceResult(projectile);
         //result?.hitPosition
 
-        for(e in event.hitList){
-            if(e === projectile.owner)continue;
-            val ePos : Vector3 = e.getPosition();
-            val pPos : Vector3 = vec3(projectile.x, projectile.y, projectile.z);
-            val distVec = ePos - pPos;
-            val distanceSqr = magnitudeSqr(distVec);
+        for(hit in event.hitList){
+            if(hit.erEntity === projectile.owner)continue;
+            val ePosMin : Vector3 = vec3(hit.xMin, hit.yMin, hit.zMin)
+            val ePosMax : Vector3 = vec3(hit.xMax, hit.yMax, hit.zMax)
+            val pPos : Vector3 = vec3(projectile.x, projectile.y, projectile.z)
+            val distanceSqr = min(magnitudeSqr(pPos - ePosMin), magnitudeSqr(pPos - ePosMax));
 
             if(distanceSqr < minDist){
                 minDist = distanceSqr;
-                closestTarget = e;
-                //println("Projectile-attacked to -> " + e.javaClass)
+                closestTarget = hit.erEntity;
             }
         }
 
@@ -54,7 +50,7 @@ class ProjectileRayCastingAttack : Monobehaviour<ProjectileRayCastEvent>() {
             return;
         }
 
-        closestTarget.submitEvent(EREntityAttackedEvent(projectile.owner as EREntity))
+        closestTarget.submitEvent(EREntityDamagedEvent(projectile.owner as EREntity))
         projectile.submitEvent(ProjectileHitEvent(closestTarget))
         closestTarget.damage(projectile.damage , projectile.owner);
         projectile.remove();

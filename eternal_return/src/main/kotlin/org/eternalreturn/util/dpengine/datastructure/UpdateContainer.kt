@@ -8,6 +8,8 @@ import java.util.concurrent.CopyOnWriteArrayList
  * 엔진 객체들을 관리하기 위한 컨테이너.
  *
  * 레퍼런스 카운터가 0인 객체들을 제거하는 기능을 기본적으로 보유함.
+ *
+ * 또한 생성된 객체를 해당 컨테이너에 편입시키며, lateinit 하는 기능도 보유함.
  * */
 abstract class UpdateContainer<E : MonobehaviourActor>{
 
@@ -44,6 +46,10 @@ abstract class UpdateContainer<E : MonobehaviourActor>{
         }
 
         for(actor in waitListToInsert){
+            if(!actor.lateinitIsDone){
+                actor.lateinitIsDone = true;
+                actor.lateinit();
+            }
             nextQueue.add(actor);
         }
         waitListToInsert.clear();

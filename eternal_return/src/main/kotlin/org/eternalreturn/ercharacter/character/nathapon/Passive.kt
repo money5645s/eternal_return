@@ -1,17 +1,17 @@
 package org.eternalreturn.ercharacter.character.nathapon
 
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.entity.LivingEntity
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
+import org.eternalreturn.erentity.events.EREntityAttackEvent
 
-class Passive : ERCharacterMonobehaviour<CharacterAttackEvent>() {
+class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
 
     private var punchTimeMillis: Long = 0
 
-    override fun start(event: CharacterAttackEvent) {
+    override fun start(event: EREntityAttackEvent) {
 
         val victimEntity = event.victim.entity
 

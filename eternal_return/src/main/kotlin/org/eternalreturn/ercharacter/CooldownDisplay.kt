@@ -12,13 +12,12 @@ class CooldownDisplay : ERCharacterMonobehaviour<CooldownEvent>() {
     // 1. 등록되자마자 실행되도록 설정
     override fun start(event: CooldownEvent) {
         // 여기서 메시지가 안 뜨면 등록 자체가 안 된 것임
-        getPlayer().sendMessage("§e[디버깅] CooldownDisplay 활성화됨")
+        player.sendMessage("§e[디버깅] CooldownDisplay 활성화됨")
         runMonobehav()
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
-        val player = getPlayer()
-        val character = getERCharacter()
+        val character = erCharacter
 
         // 2. 외부에서 던진 CooldownEvent가 있다면 수신하여 데이터 갱신
         val event = eventMap[CooldownEvent::class.java] as CooldownEvent;

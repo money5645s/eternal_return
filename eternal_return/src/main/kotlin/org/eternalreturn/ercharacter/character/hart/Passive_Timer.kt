@@ -27,6 +27,7 @@ class Passive_Timer : EREntityMonobehaviour<PassiveTimerEvent>(){
 
         tick++
         if(tick == 10){
+
             victim.noDamageTicks = 0
             victim.damage(5.0)
             victim.world.spawnParticle(Particle.NOTE, loc.clone().add(0.0, 1.0, 0.0), 1, 0.5, 0.5, 0.5, 1.0)

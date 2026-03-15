@@ -152,7 +152,7 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
     /**
      * 일괄삭제 함수.
      * */
-    private fun deferDisabledEREntity() {
+    private fun removeAllDisabledEREntity() {
         for(erEntity in entities.curQueue){
             if(!(erEntity.entity.isValid)){
                 erEntity.remove();
@@ -183,7 +183,7 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
         }
 
     var dayScoreboard : Objective? = null;
-    fun update(){
+    override fun update(){
 
         val physicsFuture = CompletableFuture.runAsync { updatePhysicsModule(); }
         monobehaviourModule.consumeEvents();
@@ -199,9 +199,11 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
         }
 
 
+        //orientedBoxSoA.debugOrientedBox()
+
         applyVelocities();
         flushCommandQueue();
-        deferDisabledEREntity();
+        removeAllDisabledEREntity();
         monobehaviourModule.monobehaviourActorList.update();
 
     }
@@ -225,7 +227,6 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
             //println("Map disabled : {${entity.javaClass.simpleName}, ${oldEREntity.javaClass.simpleName}}")
         }
 
-        monobehaviourModule.register(actor);
         erEntityMap[entity] = actor;
         try {
             entities.add(actor);

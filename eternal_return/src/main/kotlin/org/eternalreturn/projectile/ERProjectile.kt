@@ -20,6 +20,9 @@ class ERProjectile(
 
     var damage : Double = 10.0;
 
+    override fun lateinit() {
+    }
+
     init{
         monobehaviourModule.register(this);
         erEngine.projectile.add(this);

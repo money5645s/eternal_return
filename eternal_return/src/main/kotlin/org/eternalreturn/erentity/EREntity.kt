@@ -1,5 +1,6 @@
 package org.eternalreturn.erentity
 
+import org.bukkit.Location
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.util.Vector
@@ -8,20 +9,22 @@ import org.eternalreturn.ercharacter.character.fiora.ToucheEffect
 import org.eternalreturn.ercharacter.character.hart.Passive_Timer
 import org.eternalreturn.ercharacter.character.isaac.PassiveCount
 import org.eternalreturn.ercharacter.character.lidailin.LiDailinPassiveTimer
-import org.eternalreturn.ercharacter.event.CharacterAttackEvent
-import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
+import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erentity.globalmonobehav.Stun
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourModule
 import org.eternalreturn.util.dpengine.command.AddSpigotEntityPosition
 import org.eternalreturn.util.dpengine.command.AddSpigotEntityVelocity
 import org.eternalreturn.util.dpengine.command.SetSpigotEntityPosition
 import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import org.eternalreturn.util.dpengine.physics.Handle
+import org.jetbrains.annotations.NotNull
+import org.jetbrains.annotations.NotNullByDefault
+import javax.annotation.CheckForNull
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.properties.Delegates
 
 /**
  * 모든 EREntity의 Subclass에게 동시에 통용되는 성질을 저장하는 곳.
@@ -34,18 +37,27 @@ abstract class EREntity(
 
     var maxRange : Double = 5.0;
 
-    val erEngine : EREngine
-        get(){
-            return dpEngine as EREngine;
-        }
+    open val location : Location
+        get() = entity.location;
 
-    val transformHandle : Handle = erEngine.transformSoA.create(
-        entity.location.x, entity.location.y,entity.location.z,
-        0.0, 0.0, 0.0 );
+    val erEngine : EREngine
+        get() = dpEngine as EREngine;
+
+
+    var transformHandle : Handle by Delegates.notNull()
+
+    /**
+     * Multi-thread 상에서 동작하는 객체를 생성하기 위한 함수.
+     * MonobehaviourModule의 갱신 단계에서 호출된다.
+     * */
+    override fun lateinit(){
+        transformHandle = erEngine.transformSoA.create(
+            entity.location.x, entity.location.y,entity.location.z,
+            0.0, 0.0, 0.0 );
+        transformHandle.actor = this;
+    }
 
     init {
-        transformHandle.actor = this;
-
         //Monobehaviour 등록
         this.registerMonobehaviour(Stun())
         this.registerMonobehaviour(ToucheCount())
@@ -61,13 +73,12 @@ abstract class EREntity(
         shootRay = false;
         return ret;
     }
-    fun shootRay(){
+    open fun shootRay(){
         shootRay = true;
     }
 
     /**
-     * 플레이어의 위치벡터 + 방향벡터를 얻어온다.
-     * No Scoping
+     * 방향벡터를 얻어온다.
      */
     fun getDirection(): Vector3 {
         val location = entity.location
@@ -77,6 +88,10 @@ abstract class EREntity(
         return this.geometryModule.vec3(-xz * sin(radX), -sin(radY), xz * cos(radX));
     }
 
+
+    /**
+     * 위치벡터를 얻어온다.
+     */
     open fun getPosition(): Vector3 {
         val location = entity.location
         return this.geometryModule.vec3(location.x, location.y, location.z)
@@ -86,37 +101,37 @@ abstract class EREntity(
         val x = geometryModule.x(pos);
         val y = geometryModule.y(pos);
         val z = geometryModule.z(pos);
-        this.dpEngine.appendCommandQueue(SetSpigotEntityPosition(entity, x, y, z))
+        this.dpEngine.appendCommand(SetSpigotEntityPosition(entity, x, y, z))
     }
 
     open fun setVelocity(vec : Vector3){
         val x = geometryModule.x(vec);
         val y = geometryModule.y(vec);
         val z = geometryModule.z(vec);
-        this.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity, x, y, z))
+        this.dpEngine.appendCommand(SetSpigotEntityVelocity(entity, x, y, z))
     }
 
     open fun addVelocity(vec : Vector3){
         val x = geometryModule.x(vec);
         val y = geometryModule.y(vec);
         val z = geometryModule.z(vec);
-        this.dpEngine.appendCommandQueue(AddSpigotEntityVelocity(entity, x, y, z))
+        this.dpEngine.appendCommand(AddSpigotEntityVelocity(entity, x, y, z))
     }
 
     open fun setVelocity(x : Double, y : Double, z : Double){
-        this.dpEngine.appendCommandQueue(SetSpigotEntityVelocity(entity, x, y, z))
+        this.dpEngine.appendCommand(SetSpigotEntityVelocity(entity, x, y, z))
     }
 
     open fun addVelocity(x : Double, y : Double, z : Double){
-        this.dpEngine.appendCommandQueue(AddSpigotEntityVelocity(entity, x, y, z))
+        this.dpEngine.appendCommand(AddSpigotEntityVelocity(entity, x, y, z))
     }
 
     open fun setPosition(x : Double, y : Double, z : Double){
-        this.dpEngine.appendCommandQueue(SetSpigotEntityPosition(entity, x, y, z))
+        this.dpEngine.appendCommand(SetSpigotEntityPosition(entity, x, y, z))
     }
 
     open fun addPosition(x : Double, y : Double, z : Double){
-        this.dpEngine.appendCommandQueue(AddSpigotEntityPosition(entity, x, y, z))
+        this.dpEngine.appendCommand(AddSpigotEntityPosition(entity, x, y, z))
     }
 
     open fun applyBukkitVelocityOnMainThread(x: Double, y: Double, z: Double) {
@@ -130,7 +145,7 @@ abstract class EREntity(
 
     open fun damage(amount : Double, attacker : EREntity){
         if(entity is LivingEntity){
-            attacker.submitEvent(CharacterAttackEvent(attacker, this))
+            attacker.submitEvent(EREntityAttackEvent(attacker, this))
             entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
         }
     }

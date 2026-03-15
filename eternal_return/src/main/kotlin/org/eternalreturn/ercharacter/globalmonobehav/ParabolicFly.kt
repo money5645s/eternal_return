@@ -43,7 +43,7 @@ class ParabolicFly : ERCharacterMonobehaviour<CharacterParabolicFlyEvent>() {
 
             val vy = v0y - g * t
 
-            dpEngine.appendCommandQueue(
+            dpEngine.appendCommand(
                 SetSpigotEntityVelocity(
                     this.entity,
                     vx / 20,

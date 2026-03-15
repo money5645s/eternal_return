@@ -1,33 +1,21 @@
-package org.eternalreturn.erplayer;
+package org.eternalreturn.system;
 
-import com.destroystokyo.paper.event.brigadier.AsyncPlayerSendCommandsEvent;
 import com.destroystokyo.paper.event.player.PlayerAttackEntityCooldownResetEvent;
-import com.destroystokyo.paper.event.player.PlayerReadyArrowEvent;
-import io.papermc.paper.event.entity.EntityMoveEvent;
-import io.papermc.paper.event.entity.EntityPushedByEntityAttackEvent;
+import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
 import org.bukkit.Material;
 import org.bukkit.event.entity.EntityShootBowEvent;
-import org.eternalreturn.ercharacter.ERCharacter;
 import org.eternalreturn.ercharacter.event.*;
 import org.eternalreturn.erentity.EREntity;
-import org.eternalreturn.erentity.events.EREntityDamagedEvent;
-import org.eternalreturn.system.EREngine;
-import org.eternalreturn.system.PluginInstance;
-import org.eternalreturn.system.SystemManager;
+import org.eternalreturn.erplayer.ERPlayer;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Husk;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.*;
-import org.eternalreturn.util.dpengine.DPEngine;
 
-import java.util.*;
-
-public class ERPlayerListener implements Listener {
+public class ERListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
@@ -45,6 +33,7 @@ public class ERPlayerListener implements Listener {
         ////p.sendMessage("플레이어가 게임을 떠났습니다.");
     }
 
+
     @EventHandler
     public void onPlayerInteraction(PlayerInteractEvent e){
         var engine = PluginInstance.getEREngine();
@@ -56,23 +45,32 @@ public class ERPlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerAttack(EntityDamageByEntityEvent e) {
-        if (!(e.getDamager() instanceof Player p)) return;
+    public void onPlayerAttack(PrePlayerAttackEntityEvent e) {
         var engine = PluginInstance.getEREngine();
-        ERPlayer erPlayer = (ERPlayer)engine.getEREntity(p);
+        ERPlayer erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
         if(erPlayer != null) {
             erPlayer.shootRay();
         }
     }
 
+//    @EventHandler
+//    public void onPlayerSwap(PlayerSwapHandItemsEvent e){
+//        var engine = PluginInstance.getEREngine();
+//        var erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
+//        if(erPlayer != null) {
+//            erPlayer.submitEvent(new CharacterSwapHandEvent(erPlayer));
+//        }
+//        e.setCancelled(true);
+//    }
+
     @EventHandler
-    public void onPlayerSwap(PlayerSwapHandItemsEvent e){
+    public void onPlayerSwap(PlayerDropItemEvent e){
+        e.setCancelled(true); //사실 어디 위치시켜도 상관 없음.
         var engine = PluginInstance.getEREngine();
         var erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
         if(erPlayer != null) {
             erPlayer.submitEvent(new CharacterSwapHandEvent(erPlayer));
         }
-        e.setCancelled(true);
     }
 
     @EventHandler
@@ -103,10 +101,6 @@ public class ERPlayerListener implements Listener {
         var player = (Player)e.getEntity();
         float force = e.getForce();
         player.sendMessage("Force : " + force);
-
-
-        var inv = (player).getInventory();
-        inv.remove(Material.ARROW);
 
         var engine = PluginInstance.getEREngine();
         var erPlayer = engine.getEREntity(player);
