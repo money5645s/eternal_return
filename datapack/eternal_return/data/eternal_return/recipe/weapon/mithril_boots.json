@@ -10,7 +10,7 @@
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_boots",
+    "id": "minecraft:golden_boots",
     "components": {
       "minecraft:lore": [
         {
@@ -49,10 +49,6 @@
         }
       ],
       "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "feet",
-        "asset_id": "mithril"
-      },
       "minecraft:custom_model_data": {
         "floats": [
           3

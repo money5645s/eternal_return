@@ -74,11 +74,7 @@
         "italic": false,
         "text": "바니햇"
       },
-      "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "head",
-        "asset_id": "force_core"
-      }
+      "minecraft:unbreakable": {}
     },
     "count": 1
   },

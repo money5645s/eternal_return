@@ -10,7 +10,7 @@
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_boots",
+    "id": "minecraft:chainmail_boots",
     "components": {
       "minecraft:lore": [
         {
@@ -63,10 +63,6 @@
         }
       ],
       "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "feet",
-        "asset_id": "tree_of_life"
-      },
       "minecraft:custom_model_data": {
         "floats": [
           4

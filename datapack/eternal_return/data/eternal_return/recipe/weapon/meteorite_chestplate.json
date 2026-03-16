@@ -10,7 +10,7 @@
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_chestplate",
+    "id": "minecraft:iron_chestplate",
     "components": {
       "minecraft:lore": [
         {
@@ -42,10 +42,6 @@
         }
       ],
       "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "chest",
-        "asset_id": "meteorite"
-      },
       "minecraft:custom_model_data": {
         "floats": [
           2

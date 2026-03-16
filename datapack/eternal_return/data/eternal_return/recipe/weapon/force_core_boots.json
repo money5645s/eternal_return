@@ -63,10 +63,6 @@
         }
       ],
       "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "feet",
-        "asset_id": "force_core"
-      },
       "minecraft:custom_model_data": {
         "floats": [
           5

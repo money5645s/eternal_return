@@ -10,7 +10,7 @@
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_leggings",
+    "id": "minecraft:chainmail_leggings",
     "components": {
       "minecraft:lore": [
         {
@@ -57,10 +57,6 @@
         }
       ],
       "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "legs",
-        "asset_id": "tree_of_life"
-      },
       "minecraft:custom_model_data": {
         "floats": [
           4

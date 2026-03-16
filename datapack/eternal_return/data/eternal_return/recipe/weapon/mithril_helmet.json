@@ -9,7 +9,7 @@
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_helmet",
+    "id": "minecraft:golden_helmet",
     "components": {
       "minecraft:lore": [
         {
@@ -74,11 +74,7 @@
         "italic": false,
         "text": "쿼드 아이"
       },
-      "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "head",
-        "asset_id": "mithril"
-      }
+      "minecraft:unbreakable": {}
     },
     "count": 1
   },

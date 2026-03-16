@@ -10,7 +10,7 @@
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_chestplate",
+    "id": "minecraft:netherite_chestplate",
     "components": {
       "minecraft:lore": [
         {
@@ -56,10 +56,6 @@
         }
       ],
       "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "chest",
-        "asset_id": "blood_sample"
-      },
       "minecraft:custom_model_data": {
         "floats": [
           1

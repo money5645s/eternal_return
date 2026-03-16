@@ -10,7 +10,7 @@
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_helmet",
+    "id": "minecraft:chainmail_helmet",
     "components": {
       "minecraft:lore": [
         {
@@ -77,11 +77,7 @@
       "minecraft:enchantments": {
         "minecraft:thorns": 2
       },
-      "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "head",
-        "asset_id": "tree_of_life"
-      }
+      "minecraft:unbreakable": {}
     },
     "count": 1
   }

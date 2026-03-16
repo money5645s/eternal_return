@@ -10,7 +10,7 @@
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_helmet",
+    "id": "minecraft:iron_helmet",
     "components": {
       "minecraft:lore": [
         {
@@ -76,11 +76,7 @@
         "color": "white",
         "italic": false
       },
-      "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "head",
-        "asset_id": "meteorite"
-      }
+      "minecraft:unbreakable": {}
     },
     "count": 1
   }

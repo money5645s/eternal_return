@@ -10,7 +10,7 @@
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_leggings",
+    "id": "minecraft:golden_leggings",
     "components": {
       "minecraft:lore": [
         {
@@ -49,10 +49,6 @@
         }
       ],
       "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "legs",
-        "asset_id": "mithril"
-      },
       "minecraft:custom_model_data": {
         "floats": [
           3

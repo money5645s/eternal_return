@@ -9,7 +9,7 @@
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_helmet",
+    "id": "minecraft:netherite_helmet",
     "components": {
       "minecraft:lore": [
         {
@@ -67,11 +67,7 @@
         "italic": false,
         "text": "변검"
       },
-      "minecraft:unbreakable": {},
-      "minecraft:equippable": {
-        "slot": "head",
-        "asset_id": "blood_sample"
-      }
+      "minecraft:unbreakable": {}
     },
     "count": 1
   },
