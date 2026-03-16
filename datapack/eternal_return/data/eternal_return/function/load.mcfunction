@@ -27,8 +27,11 @@ forceload add -243 485 -243 479
 
 
 ## 팀 추가
+    team add player
+    team modify player nametagVisibility never
+    team modify player seeFriendlyInvisibles true
     team add bush
-    team modify bush nametagVisibility always
+    team modify bush nametagVisibility never
     team modify bush seeFriendlyInvisibles true
 
 
@@ -44,6 +47,7 @@ forceload add -243 485 -243 479
         # hp, k/d
         scoreboard objectives add hp health {"text":"♥","color":"red"}
             scoreboard objectives setdisplay below_name hp
+        scoreboard objectives add kill_player playerKillCount
         scoreboard objectives add kill minecraft.killed:minecraft.player
         scoreboard objectives add death deathCount
         # 레벨, 스킬포인트
@@ -101,6 +105,9 @@ forceload add -243 485 -243 479
             scoreboard players set #600 CONST 600
             scoreboard players set #1000 CONST 1000
             scoreboard players set #100000 CONST 100000
+
+    # 금지구역 남은 시간
+        scoreboard objectives add warp_point dummy
 
     # 금지구역 남은 시간
         scoreboard objectives add bantime dummy

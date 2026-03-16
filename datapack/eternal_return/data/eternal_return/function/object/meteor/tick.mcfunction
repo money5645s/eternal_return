@@ -4,7 +4,3 @@ execute if score @s ct1 matches 499 run playsound minecraft:er.meteorite.impact 
 
 # 충돌 후
 execute if score @s ct1 matches 600 run function eternal_return:object/meteor/impact
-
-
-
-# 떨어진후 채팅창 출력 : <>,<>에,운석이 떨어졌습니다.

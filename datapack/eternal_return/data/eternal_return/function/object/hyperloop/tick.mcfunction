@@ -2,11 +2,15 @@
 # 상위 함수 :function eternal_return:object/tick
 # 입출력 없음
 
-## 플레이어 감지
-    # 플레이어가 우클릭 했을 때
-        execute if data entity @s[tag=!in_use] interaction on target run tag @s add use_hyperloop
-        execute if data entity @s[tag=!in_use] interaction run tag @s add in_use
+## 클릭감지
+execute if entity @e[type=interaction,tag=hyperloop,distance=..3,limit=1] run dialog show @s[tag=click_hyperloop] eternal_return:hyperloop
 
-    # 주위에 플레이어가 존재하지 않을 때
-        execute at @s unless entity @p[tag=use_hyperloop,distance=..2] run data remove entity @s interaction
-        execute unless data entity @s interaction run tag @s remove in_use
+
+execute at @s[tag=hyper_loop_activing] if entity @e[type=interaction,tag=hyperloop,distance=3..9] run function eternal_return:object/hyperloop/cancle_warp
+
+
+execute if score @s select matches 1..19 run tag @s add show_hyperloop_loading
+execute if score @s select matches 1..19 run scoreboard players operation @s warp_point = @s select
+execute if score @s select matches 1..19 run scoreboard players set @s select -1
+execute if entity @s[tag=done.loading,tag=hyper_loop_activing] run function eternal_return:object/hyperloop/warp
+tag @s remove click_hyperloop

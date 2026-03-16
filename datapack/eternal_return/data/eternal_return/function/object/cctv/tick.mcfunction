@@ -5,12 +5,12 @@
 # 세 칸내 플레이어가 우클릭 시
     # 일반 모드 / 활성화 된 상태인 경우
         
-        execute if entity @s[tag=!cooltime] if entity @a[tag=done.loading,distance=..2.5] run \
+        execute if entity @s[tag=!cooltime] if entity @a[tag=done.loading,distance=..1.8] run \
             function eternal_return:object/cctv/active
 
     # 6일차 낮 이후 인 경우
         #execute if score #timer.day NUM matches 6.. if data entity @s interaction at @s on target run \ 
-        #    title @s[distance=..2.5] actionbar [{"text": "최종 안전지대 페이즈 중에는 보안콘솔을 사용할 수 없습니다."}]
+        #    title @s[distance=..1.8] actionbar [{"text": "최종 안전지대 페이즈 중에는 보안콘솔을 사용할 수 없습니다."}]
         ## 쿨타임 진행 중 6일차가 되었을 때
         #    execute if score #timer.day NUM matches 6.. at @s run kill @e[type=text_display,tag=cool,distance=..5]
 

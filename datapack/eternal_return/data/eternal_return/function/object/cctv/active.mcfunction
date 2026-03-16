@@ -15,8 +15,8 @@
 
 # 태그
     # 플레이어 로딩 후 태그 제거
-        scoreboard players set @a[tag=activing,distance=..2.5] cctv_tick 120
-        tag @a[tag=activing,distance=..2.5] remove done.loading
-        tag @a[tag=activing,distance=..2.5] remove activing
+        scoreboard players set @a[tag=activing,distance=..1.8] cctv_tick 120
+        tag @a[tag=activing,distance=..1.8] remove done.loading
+        tag @a[tag=activing,distance=..1.8] remove activing
     # CCTV
         tag @s add cooltime

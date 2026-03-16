@@ -9,7 +9,7 @@ execute if score #tree_of_life.summon ct1 matches 1..599 run tellraw @s [{"text"
 ## 스코어 부여
 # 일차 별 텍스트 출력
 execute unless score #tree_of_life.summon ct1 matches 1..599 if score #input.life_of_tree.day NUM matches 2 run scoreboard players set msg skript 1
-execute unless score #tree_of_life.summon ct1 matches 1..599 if score #input.life_of_tree.day NUM matches 3 run scoreboard players set msg skript 1
+execute unless score #tree_of_life.summon ct1 matches 1..599 if score #input.life_of_tree.day NUM matches 3 run scoreboard players set msg skript 2
 # 도전과제 표시
 execute unless score #tree_of_life.summon ct1 matches 1..599 if score #input.life_of_tree.day NUM matches 2..3 run advancement revoke @a only eternal_return:tree_of_life_30
 execute unless score #tree_of_life.summon ct1 matches 1..599 if score #input.life_of_tree.day NUM matches 2..3 run advancement grant @a only eternal_return:tree_of_life_30

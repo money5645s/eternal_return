@@ -2,10 +2,7 @@
 # 상위 함수 없음 
 # 입출력 없음
 
-kill @e[tag=box_place]
-function eternal_return:object/box/food/remove
-function eternal_return:object/box/epic/remove
-function eternal_return:object/box/mythic/remove
+function eternal_return:object/box/remove
 
 
 

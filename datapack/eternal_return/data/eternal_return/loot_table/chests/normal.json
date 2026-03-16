@@ -1,50 +1,16 @@
 {
   "type": "chest",
   "pools": [
-        {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 9
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:arrow",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 5,
-              "conditions": []
-            }
-          ]
-      }]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 7
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:flow_banner_pattern",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_components",
-              "components": {
-                "minecraft:max_stack_size": 6,
-                "minecraft:food": {
-                  "nutrition": 0,
-                  "saturation": 0,
-                  "can_always_eat": true
-                },
-                "minecraft:consumable": {
-                  "animation": "eat",
-                  "on_consume_effects": [
+        {"rolls": 1,"entries": [
+        {"type": "empty","weight": 9},
+        {"type": "minecraft:item","name": "minecraft:arrow","weight": 1,
+          "functions": [{"function": "minecraft:set_count","count": 5,"conditions": []}]}]},
+    {"rolls": 1,"entries": [
+        {"type": "empty","weight": 7},
+        {"type": "minecraft:item","name": "minecraft:flow_banner_pattern","weight": 3,
+        "functions": [
+            {"function": "minecraft:set_components",
+              "components": {"minecraft:max_stack_size": 6,"minecraft:food": {"nutrition": 0,"saturation": 0,"can_always_eat": true},"minecraft:consumable": {"animation": "eat","on_consume_effects": [
                     {
                       "type": "minecraft:apply_effects",
                       "effects": [
@@ -221,47 +187,8 @@
           "type": "item",
           "weight": 15,
           "name": "minecraft:enchanted_book",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1
-            },
-            {
-              "function": "set_components",
-              "components": {
-                "minecraft:stored_enchantments": {
-                  "levels": {
-                    "minecraft:thorns": 1
-                  },
-                  "show_in_tooltip": true
-                }
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "weight": 10,
-          "name": "minecraft:enchanted_book",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1
-            },
-            {
-              "function": "set_components",
-              "components": {
-                "minecraft:stored_enchantments": {
-                  "levels": {
-                    "minecraft:protection": 1
-                  },
-                  "show_in_tooltip": true
-                }
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
+          "functions": [{"function": "set_count","count": 1},{"function": "set_components","components": {"minecraft:stored_enchantments": {"levels": {"minecraft:thorns": 1},"show_in_tooltip": true}}}]},
+        {"type": "item","weight": 10,"name": "minecraft:enchanted_book","functions": [
+            {"function": "set_count","count": 1},
+            {"function": "set_components","components": {"minecraft:stored_enchantments": {"levels": {"minecraft:protection": 1},"show_in_tooltip": true}}}]}]}]
 }

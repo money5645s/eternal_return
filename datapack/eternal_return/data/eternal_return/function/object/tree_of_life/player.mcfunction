@@ -1,19 +1,17 @@
-# 로딩바
-execute if entity @s[tag=get_tree,tag=!charge2,tag=!loading] run function eternal_return:sys/actionbar/loading/set {sec:70,text:'[{"translate":"space.-105"},{"font":"actionbar/up","text":"생명의 나무 채집 중","color":"white"},{"translate":"space.40"}]'}
-execute if entity @s[tag=get_tree,tag=charge2] run tag @s remove pause_loading
+# 생나 클릭
+execute if entity @s[tag=click_tree,tag=!colleting_tree] if entity @n[type=interaction,tag=tree,limit=1,distance=..3] run tag @s add show_tree_loading
+# 반 채굴 후 이탈
+execute if entity @n[tag=tree,type=interaction,distance=..3] run tag @s[tag=pauseload,tag=colleting_tree,tag=done.half.loading,tag=click_tree] remove pauseload 
+execute if entity @n[tag=tree,type=interaction,distance=3..11] run tag @s[tag=colleting_tree,tag=done.half.loading] add pauseload
+# 반 채굴 전 이탈
+execute if entity @n[tag=tree,type=interaction,distance=3..11] run tag @s[tag=colleting_tree,tag=!done.half.loading] add stopload
+execute if entity @n[tag=tree,type=interaction,distance=3..11] run playsound minecraft:er.ui.error_sound1 master @s[tag=colleting_tree,tag=!done.half.loading] ~ ~ ~ 1
+execute if entity @n[tag=tree,type=interaction,distance=3..11] run tag @s[tag=colleting_tree,tag=!done.half.loading] remove colleting_tree
+# 완전히 멀리 갔을때
+execute if entity @s[tag=colleting_tree,tag=done.half.loading] if entity @n[tag=tree,type=interaction,distance=11..15] run tag @s add stopload
+execute if entity @s[tag=colleting_tree,tag=done.half.loading] if entity @n[tag=tree,type=interaction,distance=11..15] run playsound minecraft:er.ui.error_sound1 master @s ~ ~ ~ 1
+execute if entity @s[tag=colleting_tree,tag=done.half.loading] if entity @n[tag=tree,type=interaction,distance=11..15] run tag @s remove colleting_tree
 
-# 채집 완료
-give @s[tag=get_tree,tag=charge2,tag=done_loading] oak_sapling[item_name='{"bold":true,"color":"green","text":"생명의 나무"}'] 1
-execute if entity @s[tag=charge2,tag=done_loading] as @e[tag=tree,distance=..2.5] at @s run setblock ~ ~ ~ air
-execute if entity @s[tag=charge2,tag=done_loading] as @e[tag=tree,distance=..2.5] run kill @s
-execute if entity @s[tag=charge2,tag=done_loading] run tag @s remove get_tree
+# 클릭 태그 제거
+tag @s remove click_tree
 
-
-
-# 범위 이탈 시 태그 제거
-execute if entity @e[tag=tree,distance=2.5..15] run tag @s[tag=get_tree] add cancel_loading
-execute if entity @e[tag=tree,distance=2.5..15] run tag @s[tag=get_tree] remove get_tree
-execute if entity @e[tag=tree,distance=15..18] run tag @s add clear_loading
-
-# 만약 주변에 먼저 채집 완료한 플레이어가 있는 경우
-execute if entity @e[tag=get_tree,tag=charge2,tag=done_loading,distance=..10] run tag @s add clear_loading

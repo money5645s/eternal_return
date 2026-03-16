@@ -17,7 +17,8 @@
     execute if entity @s run function eternal_return:player/kill_mob
 # 레벨 경험치
     execute if entity @s[tag=player] run function eternal_return:craft/tick
-    
+# 승전보
+    execute if entity @s[tag=player] run function eternal_return:player/kill_player
 
 # 부시
-    #execute if entity @s[tag=player] at @s run function eternal_return:player/bush/tick
+    execute if entity @s[tag=player] at @s run function eternal_return:player/bush/tick

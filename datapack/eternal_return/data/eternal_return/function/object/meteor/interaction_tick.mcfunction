@@ -6,4 +6,3 @@ give @a[distance=..11,tag=done.loading] slime_ball[lore=[{"color":"#993bda","ita
 tag @a[distance=..11,tag=done.loading] remove done.loading
 tag @a[distance=..11,tag=!done.loading,tag=colleting_meteorite] add stopload
 tag @a[distance=..11,tag=colleting_meteorite] remove colleting_meteorite
-

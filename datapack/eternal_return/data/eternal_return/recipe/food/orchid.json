@@ -18,8 +18,8 @@
             "effects": [
               {
                 "id": "minecraft:regeneration",
-                "amplifier": 0,
-                "duration": 300,
+                "amplifier": 1,
+                "duration": 60,
                 "show_icon": true,
                 "show_particles": false
               }
