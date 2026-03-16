@@ -1,18 +1,13 @@
 {
   "layers": {
-    "horse_body": [
-      {
-        "texture": "minecraft:iron"
-      }
-    ],
     "humanoid": [
       {
-        "texture": "minecraft:iron"
+        "texture": "minecraft:meteorite"
       }
     ],
     "humanoid_leggings": [
       {
-        "texture": "minecraft:iron"
+        "texture": "minecraft:meteorite"
       }
     ]
   }

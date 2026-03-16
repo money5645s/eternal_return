@@ -2,12 +2,12 @@
   "layers": {
     "humanoid": [
       {
-        "texture": "minecraft:meteorite"
+        "texture": "minecraft:blood_sample"
       }
     ],
     "humanoid_leggings": [
       {
-        "texture": "minecraft:meteorite"
+        "texture": "minecraft:blood_sample"
       }
     ]
   }
