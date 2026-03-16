@@ -1,0 +1,86 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:copper_boots"
+    ],
+    [
+      "minecraft:prismarine_shard"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:diamond_boots",
+    "components": {
+      "minecraft:lore": [
+        {
+          "color": "#daa82b",
+          "italic": false,
+          "text": "전설"
+        },
+        {
+          "color": "gray",
+          "italic": false,
+          "text": "발"
+        }
+      ],
+      "minecraft:tooltip_style": "tree_of_life",
+      "minecraft:attribute_modifiers": [
+        {
+          "id": "ae11b221-38c7-4a30-bd19-56b5cab93873",
+          "type": "minecraft:armor",
+          "amount": 2,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "d955bdc0-2a25-41e8-878f-27fb669b84dd",
+          "type": "minecraft:safe_fall_distance",
+          "amount": -1.24,
+          "operation": "add_value",
+          "slot": "armor",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "red",
+              "text": "-1.24 안전 낙하 높이"
+            }
+          }
+        },
+        {
+          "id": "44fc83a2-2013-413c-b2ef-dd62422b94fa",
+          "type": "minecraft:max_health",
+          "amount": 3,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "83835e60-90b3-44aa-a584-e8ad52f0946a",
+          "type": "minecraft:movement_speed",
+          "amount": 0.005,
+          "operation": "add_value",
+          "slot": "armor"
+        }
+      ],
+      "minecraft:unbreakable": {},
+      "minecraft:equippable": {
+        "slot": "feet",
+        "asset_id": "tree_of_life"
+      },
+      "minecraft:custom_model_data": {
+        "floats": [
+          4
+        ],
+        "strings": [
+          "boots"
+        ]
+      },
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "와일드 워커"
+      }
+    },
+    "count": 1
+  }
+}

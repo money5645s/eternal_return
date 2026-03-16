@@ -1,0 +1,88 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:copper_helmet"
+    ],
+    [
+      "minecraft:prismarine_shard"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:diamond_helmet",
+    "components": {
+      "minecraft:lore": [
+        {
+          "text": "전설",
+          "type": "text",
+          "extra": [
+            ""
+          ],
+          "color": "#DAA82B",
+          "italic": false
+        },
+        {
+          "text": "머리",
+          "type": "text",
+          "color": "gray",
+          "italic": false
+        }
+      ],
+      "minecraft:tooltip_style": "tree_of_life",
+      "minecraft:custom_model_data": {
+        "floats": [
+          4
+        ],
+        "strings": [
+          "helmet"
+        ]
+      },
+      "minecraft:attribute_modifiers": [
+        {
+          "type": "minecraft:armor",
+          "id": "ae6525b7-dac6-4f11-b04d-248b3212ba60",
+          "amount": 2,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "type": "minecraft:gravity",
+          "id": "820507a7-065a-43a4-ada6-f28d6751d7d6",
+          "amount": 0.0803,
+          "operation": "add_multiplied_base",
+          "slot": "armor",
+          "display": {
+            "type": "override",
+            "value": {
+              "text": "+8.03% 중력",
+              "color": "red",
+              "italic": false
+            }
+          }
+        },
+        {
+          "type": "minecraft:max_health",
+          "id": "89822df3-026b-42cc-9280-bd39b38e6398",
+          "amount": 4,
+          "operation": "add_value",
+          "slot": "armor"
+        }
+      ],
+      "minecraft:custom_name": {
+        "text": "드워프 투구",
+        "color": "white",
+        "italic": false
+      },
+      "minecraft:enchantments": {
+        "minecraft:thorns": 2
+      },
+      "minecraft:unbreakable": {},
+      "minecraft:equippable": {
+        "slot": "head",
+        "asset_id": "tree_of_life"
+      }
+    },
+    "count": 1
+  }
+}

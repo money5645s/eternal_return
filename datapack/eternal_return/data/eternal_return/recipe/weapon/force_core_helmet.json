@@ -1,0 +1,86 @@
+{
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:copper_helmet"
+    ],
+    [
+      "minecraft:armadillo_scute"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:diamond_helmet",
+    "components": {
+      "minecraft:lore": [
+        {
+          "color": "#DAA82B",
+          "italic": false,
+          "text": "전설"
+        },
+        {
+          "color": "gray",
+          "italic": false,
+          "text": "머리"
+        }
+      ],
+      "minecraft:tooltip_style": "force_core",
+      "minecraft:custom_model_data": {
+        "floats": [
+          5
+        ],
+        "strings": [
+          "helmet"
+        ]
+      },
+      "minecraft:attribute_modifiers": [
+        {
+          "id": "ae0abb21-4491-498b-827b-51ddfd40fb8d",
+          "type": "minecraft:armor",
+          "amount": 3,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "846e9f93-f3a7-4825-8daa-a0f13cab34b9",
+          "type": "minecraft:armor_toughness",
+          "amount": 2,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "36e2b6f5-537b-4dda-a876-06fa2b3c2d57",
+          "type": "minecraft:max_health",
+          "amount": 3,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "3feca7a9-9321-4873-ae9a-96788565d134",
+          "type": "minecraft:scale",
+          "amount": -0.15,
+          "operation": "add_value",
+          "slot": "armor",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "text": "-0.15 크기"
+            }
+          }
+        }
+      ],
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "바니햇"
+      },
+      "minecraft:unbreakable": {},
+      "minecraft:equippable": {
+        "slot": "head",
+        "asset_id": "force_core"
+      }
+    },
+    "count": 1
+  },
+  "type": "minecraft:crafting_shapeless"
+}

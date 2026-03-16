@@ -3,33 +3,33 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:wooden_spear"
     ],
     [
-      "minecraft:prismarine_shard"
+      "minecraft:turtle_scute"
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_sword",
+    "id": "minecraft:netherite_spear",
     "components": {
       "minecraft:lore": [
         {
-          "color": "#DAA82B",
+          "color": "#C21F21",
           "italic": false,
-          "text": "전설"
+          "text": "초월"
         },
         {
           "color": "gray",
           "italic": false,
-          "text": "검"
+          "text": "창"
         }
       ],
-      "minecraft:tooltip_style": "tree_of_life",
+      "minecraft:tooltip_style": "vf_blood_sample",
       "minecraft:attribute_modifiers": [
         {
-          "id": "49f6c4ff-603f-4a08-9299-bbdba8c53f2a",
+          "id": "1184dbcd-2e9b-447c-b15c-52f5eab4b400",
           "type": "minecraft:attack_damage",
-          "amount": 5,
+          "amount": 6,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -37,14 +37,14 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+6 공격 피해"
+              "text": "+7 공격 피해"
             }
           }
         },
         {
-          "id": "f2548881-f454-4cef-b515-e48ebffb0294",
+          "id": "60325065-ce6d-4637-ad9d-4981786f30a6",
           "type": "minecraft:attack_speed",
-          "amount": -2.4,
+          "amount": -2.46,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -52,29 +52,30 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+1.6 공격 속도"
+              "text": "+1.54 공격 속도"
             }
           }
+        },
+        {
+          "id": "af2af14b-69e7-46c1-9ee6-9dd02febd9f7",
+          "type": "minecraft:movement_speed",
+          "amount": 0.01,
+          "operation": "add_value",
+          "slot": "mainhand"
         }
       ],
-      "minecraft:enchantments": {
-        "minecraft:fire_aspect": 1
-      },
-      "minecraft:custom_model_data": {
-        "floats": [
-          1
-        ],
-        "strings": [
-          "sword"
-        ]
-      },
       "minecraft:custom_name": {
         "color": "white",
         "italic": false,
-        "text": "레바테인"
+        "text": "노스페라투"
       },
       "minecraft:unbreakable": {},
-      "minecraft:damage_type": "player_attack"
+      "minecraft:damage_type": "player_attack",
+      "minecraft:enchantments": {
+        "minecraft:breach": 1,
+        "minecraft:knockback": 1
+      },
+      "minecraft:item_model": "custom_weapon/blood_sample_spear"
     },
     "count": 1
   }

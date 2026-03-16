@@ -3,14 +3,14 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:mace"
     ],
     [
-      "minecraft:prismarine_shard"
+      "minecraft:clay_ball"
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_sword",
+    "id": "minecraft:mace",
     "components": {
       "minecraft:lore": [
         {
@@ -21,15 +21,15 @@
         {
           "color": "gray",
           "italic": false,
-          "text": "검"
+          "text": "철퇴"
         }
       ],
-      "minecraft:tooltip_style": "tree_of_life",
+      "minecraft:tooltip_style": "mithril",
       "minecraft:attribute_modifiers": [
         {
-          "id": "49f6c4ff-603f-4a08-9299-bbdba8c53f2a",
+          "id": "23c271f8-8f49-4734-84fa-5a7a504cbefb",
           "type": "minecraft:attack_damage",
-          "amount": 5,
+          "amount": 4,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -37,14 +37,14 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+6 공격 피해"
+              "text": "+5 공격 피해"
             }
           }
         },
         {
-          "id": "f2548881-f454-4cef-b515-e48ebffb0294",
+          "id": "52448ca7-29f0-44d9-8c15-7d6a8dde86f7",
           "type": "minecraft:attack_speed",
-          "amount": -2.4,
+          "amount": -2.8,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -52,29 +52,43 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+1.6 공격 속도"
+              "text": "+1.2 공격 속도"
             }
           }
+        },
+        {
+          "id": "cf96d7b8-95d3-4a6e-bfff-134d6afb0f8c",
+          "type": "minecraft:knockback_resistance",
+          "amount": 0.2,
+          "operation": "add_value",
+          "slot": "mainhand"
+        },
+        {
+          "id": "movement_speed",
+          "type": "minecraft:movement_speed",
+          "amount": 0.01,
+          "operation": "add_value",
+          "slot": "mainhand"
         }
       ],
-      "minecraft:enchantments": {
-        "minecraft:fire_aspect": 1
-      },
-      "minecraft:custom_model_data": {
-        "floats": [
-          1
-        ],
-        "strings": [
-          "sword"
-        ]
-      },
       "minecraft:custom_name": {
         "color": "white",
         "italic": false,
-        "text": "레바테인"
+        "text": "레비아탄"
       },
       "minecraft:unbreakable": {},
-      "minecraft:damage_type": "player_attack"
+      "minecraft:damage_type": "player_attack",
+      "minecraft:custom_model_data": {
+        "floats": [
+          3
+        ],
+        "strings": [
+          "mace"
+        ]
+      },
+      "minecraft:enchantments": {
+        "minecraft:breach": 2
+      }
     },
     "count": 1
   }

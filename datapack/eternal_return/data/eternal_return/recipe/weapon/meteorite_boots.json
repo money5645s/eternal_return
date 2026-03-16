@@ -1,0 +1,75 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:copper_boots"
+    ],
+    [
+      "minecraft:slime_ball"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:diamond_boots",
+    "components": {
+      "minecraft:lore": [
+        {
+          "color": "#DAA82B",
+          "italic": false,
+          "text": "전설"
+        },
+        {
+          "color": "gray",
+          "italic": false,
+          "text": "발"
+        }
+      ],
+      "minecraft:tooltip_style": "meteorite",
+      "minecraft:attribute_modifiers": [
+        {
+          "id": "e46a3c11-89d7-4c23-8fe1-0a9c4870ad74",
+          "type": "minecraft:armor",
+          "amount": 2,
+          "operation": "add_value",
+          "slot": "feet"
+        },
+        {
+          "id": "528f3cc7-0f2f-41d2-8d24-26a868440360",
+          "type": "minecraft:attack_damage",
+          "amount": 1,
+          "operation": "add_value",
+          "slot": "feet"
+        },
+        {
+          "id": "17af33f5-a95e-4d66-891d-4f8c84f8cab5",
+          "type": "minecraft:movement_speed",
+          "amount": 0.005,
+          "operation": "add_value",
+          "slot": "feet"
+        }
+      ],
+      "minecraft:unbreakable": {},
+      "minecraft:equippable": {
+        "slot": "feet",
+        "asset_id": "meteorite"
+      },
+      "minecraft:custom_model_data": {
+        "floats": [
+          2
+        ],
+        "strings": [
+          "boots"
+        ]
+      },
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "레이싱 부츠"
+      },
+      "minecraft:enchantments": {
+        "minecraft:depth_strider": 3
+      }
+    },
+    "count": 1
+  }
+}

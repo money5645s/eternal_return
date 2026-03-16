@@ -3,14 +3,14 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:bow"
     ],
     [
       "minecraft:prismarine_shard"
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_sword",
+    "id": "minecraft:bow",
     "components": {
       "minecraft:lore": [
         {
@@ -21,15 +21,15 @@
         {
           "color": "gray",
           "italic": false,
-          "text": "검"
+          "text": "활"
         }
       ],
       "minecraft:tooltip_style": "tree_of_life",
       "minecraft:attribute_modifiers": [
         {
-          "id": "49f6c4ff-603f-4a08-9299-bbdba8c53f2a",
+          "id": "92c68f9f-a6e7-4815-80ef-72f12ce875a4",
           "type": "minecraft:attack_damage",
-          "amount": 5,
+          "amount": 3,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -37,14 +37,14 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+6 공격 피해"
+              "text": "+4 공격 피해"
             }
           }
         },
         {
-          "id": "f2548881-f454-4cef-b515-e48ebffb0294",
+          "id": "35f3917e-4e72-4a25-a802-1f1fc7797a2d",
           "type": "minecraft:attack_speed",
-          "amount": -2.4,
+          "amount": -3.0,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -52,29 +52,29 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+1.6 공격 속도"
+              "text": "+1.0 공격 속도"
             }
           }
+        },
+        {
+          "id": "d41210a0-5252-40f8-a161-9d1e749bded2",
+          "type": "minecraft:max_health",
+          "amount": 3,
+          "operation": "add_value",
+          "slot": "mainhand"
         }
       ],
-      "minecraft:enchantments": {
-        "minecraft:fire_aspect": 1
-      },
-      "minecraft:custom_model_data": {
-        "floats": [
-          1
-        ],
-        "strings": [
-          "sword"
-        ]
-      },
       "minecraft:custom_name": {
         "color": "white",
         "italic": false,
-        "text": "레바테인"
+        "text": "적궁백시"
       },
       "minecraft:unbreakable": {},
-      "minecraft:damage_type": "player_attack"
+      "minecraft:damage_type": "player_attack",
+      "minecraft:enchantments": {
+        "minecraft:flame": 1
+      },
+      "minecraft:item_model": "custom_weapon/tree_of_life_bow"
     },
     "count": 1
   }

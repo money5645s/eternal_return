@@ -3,14 +3,14 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:charcoal"
     ],
     [
-      "minecraft:prismarine_shard"
+      "minecraft:slime_ball"
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_sword",
+    "id": "minecraft:charcoal",
     "components": {
       "minecraft:lore": [
         {
@@ -21,15 +21,15 @@
         {
           "color": "gray",
           "italic": false,
-          "text": "검"
+          "text": "글러브"
         }
       ],
-      "minecraft:tooltip_style": "tree_of_life",
+      "minecraft:tooltip_style": "meteorite",
       "minecraft:attribute_modifiers": [
         {
-          "id": "49f6c4ff-603f-4a08-9299-bbdba8c53f2a",
+          "id": "c694b335-4d93-44c3-b263-5757f08bbd41",
           "type": "minecraft:attack_damage",
-          "amount": 5,
+          "amount": 4,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -37,14 +37,14 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+6 공격 피해"
+              "text": "+5 공격 피해"
             }
           }
         },
         {
-          "id": "f2548881-f454-4cef-b515-e48ebffb0294",
+          "id": "e3d31ce9-9a70-443b-af9d-1d3ea2a2a5b2",
           "type": "minecraft:attack_speed",
-          "amount": -2.4,
+          "amount": 0.0,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -52,29 +52,36 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+1.6 공격 속도"
+              "text": "+4.0 공격 속도"
             }
           }
+        },
+        {
+          "id": "dc30d68a-1761-4d77-85a6-200c2e95764f",
+          "type": "minecraft:knockback_resistance",
+          "amount": 0.2,
+          "operation": "add_value",
+          "slot": "mainhand"
         }
       ],
-      "minecraft:enchantments": {
-        "minecraft:fire_aspect": 1
-      },
       "minecraft:custom_model_data": {
         "floats": [
-          1
+          3
         ],
         "strings": [
-          "sword"
+          "glove"
         ]
       },
       "minecraft:custom_name": {
         "color": "white",
         "italic": false,
-        "text": "레바테인"
+        "text": "프로스트팽"
       },
       "minecraft:unbreakable": {},
-      "minecraft:damage_type": "player_attack"
+      "minecraft:damage_type": "player_attack",
+      "minecraft:enchantments": {
+        "minecraft:breach": 1
+      }
     },
     "count": 1
   }

@@ -1,0 +1,79 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:copper_chestplate"
+    ],
+    [
+      "minecraft:turtle_scute"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:diamond_chestplate",
+    "components": {
+      "minecraft:lore": [
+        {
+          "color": "#C21F21",
+          "italic": false,
+          "text": "초월"
+        },
+        {
+          "color": "gray",
+          "italic": false,
+          "text": "옷"
+        }
+      ],
+      "minecraft:tooltip_style": "vf_blood_sample",
+      "minecraft:attribute_modifiers": [
+        {
+          "id": "0409aa2f-a0af-4253-8c37-accca03fd302",
+          "type": "minecraft:armor",
+          "amount": 8,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "a974b4aa-fffb-4ded-8851-bcf7c41cb633",
+          "type": "minecraft:armor_toughness",
+          "amount": 2,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "e4cf1f5b-e5c0-4ef5-80f4-53ac2b7d540c",
+          "type": "minecraft:attack_damage",
+          "amount": 4,
+          "operation": "add_value",
+          "slot": "armor"
+        },
+        {
+          "id": "f793832c-902d-4d1e-8e8b-a9cde58a5985",
+          "type": "minecraft:attack_speed",
+          "amount": 0.2,
+          "operation": "add_value",
+          "slot": "armor"
+        }
+      ],
+      "minecraft:unbreakable": {},
+      "minecraft:equippable": {
+        "slot": "chest",
+        "asset_id": "blood_sample"
+      },
+      "minecraft:custom_model_data": {
+        "floats": [
+          1
+        ],
+        "strings": [
+          "chestplate"
+        ]
+      },
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "버건디 47"
+      }
+    },
+    "count": 1
+  }
+}

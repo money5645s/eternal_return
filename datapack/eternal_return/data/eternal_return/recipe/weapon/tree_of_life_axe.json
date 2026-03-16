@@ -3,33 +3,33 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:wooden_axe"
     ],
     [
       "minecraft:prismarine_shard"
     ]
   ],
   "result": {
-    "id": "minecraft:diamond_sword",
+    "id": "minecraft:diamond_axe",
     "components": {
       "minecraft:lore": [
         {
-          "color": "#DAA82B",
+          "color": "#daa82b",
           "italic": false,
           "text": "전설"
         },
         {
           "color": "gray",
           "italic": false,
-          "text": "검"
+          "text": "도끼"
         }
       ],
       "minecraft:tooltip_style": "tree_of_life",
       "minecraft:attribute_modifiers": [
         {
-          "id": "49f6c4ff-603f-4a08-9299-bbdba8c53f2a",
+          "id": "97ebe8b2-c2ce-4ad9-80ac-1aec106bea8d",
           "type": "minecraft:attack_damage",
-          "amount": 5,
+          "amount": 7,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -37,14 +37,14 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+6 공격 피해"
+              "text": "+8 공격 피해"
             }
           }
         },
         {
-          "id": "f2548881-f454-4cef-b515-e48ebffb0294",
+          "id": "addd00a9-d696-4b07-aaf2-a76b2795b0da",
           "type": "minecraft:attack_speed",
-          "amount": -2.4,
+          "amount": -3.2,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -52,26 +52,37 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+1.6 공격 속도"
+              "text": "+0.8 공격 속도"
             }
           }
+        },
+        {
+          "id": "295bd6af-8bb0-406d-836f-b3a14ecc1ebe",
+          "type": "minecraft:knockback_resistance",
+          "amount": 0.1,
+          "operation": "add_value",
+          "slot": "mainhand"
+        },
+        {
+          "id": "71487e75-e511-4442-9e12-d456a562fc56",
+          "type": "minecraft:max_health",
+          "amount": 4,
+          "operation": "add_value",
+          "slot": "mainhand"
         }
       ],
-      "minecraft:enchantments": {
-        "minecraft:fire_aspect": 1
-      },
       "minecraft:custom_model_data": {
         "floats": [
           1
         ],
         "strings": [
-          "sword"
+          "axe"
         ]
       },
       "minecraft:custom_name": {
         "color": "white",
         "italic": false,
-        "text": "레바테인"
+        "text": "낙원의 낫"
       },
       "minecraft:unbreakable": {},
       "minecraft:damage_type": "player_attack"
