@@ -12,21 +12,15 @@
     "id": "minecraft:tropical_fish",
     "components": {
       "minecraft:consumable": {
+        "consume_seconds": 0,
         "on_consume_effects": [
           {
             "type": "minecraft:apply_effects",
             "effects": [
               {
                 "id": "minecraft:regeneration",
-                "amplifier": 1,
-                "duration": 100,
-                "show_icon": true,
-                "show_particles": false
-              },
-              {
-                "id": "minecraft:instant_health",
-                "amplifier": 0,
-                "duration": 1,
+                "amplifier": 2,
+                "duration": 200,
                 "show_icon": true,
                 "show_particles": false
               }
@@ -34,12 +28,48 @@
           }
         ]
       },
-      "minecraft:max_stack_size": 3,
+      "minecraft:max_stack_size": 6,
       "minecraft:food": {
         "nutrition": 0,
         "saturation": 0,
         "can_always_eat": true
-      }
+      },
+      "minecraft:lore": [
+        {
+          "text": "전설",
+          "type": "text",
+          "extra": [
+            {
+              "text": "(영웅말고 영국)",
+              "type": "text",
+              "color": "dark_gray"
+            }
+          ],
+          "color": "#daa82b",
+          "italic": false
+        },
+        {
+          "text": "음식",
+          "type": "text",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": ""
+        },
+        {
+          "text": "소비 효과 :",
+          "type": "text",
+          "color": "white",
+          "italic": false
+        },
+        {
+          "text": "+16 체력 재생",
+          "type": "text",
+          "color": "blue",
+          "italic": false
+        }
+      ]
     }
   }
 }

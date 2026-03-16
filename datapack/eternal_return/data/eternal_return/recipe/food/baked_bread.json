@@ -7,14 +7,15 @@
     "id": "minecraft:chicken",
     "components": {
       "minecraft:consumable": {
+        "consume_seconds": 0,
         "on_consume_effects": [
           {
             "type": "minecraft:apply_effects",
             "effects": [
               {
                 "id": "minecraft:regeneration",
-                "amplifier": 1,
-                "duration": 80,
+                "amplifier": 0,
+                "duration": 300,
                 "show_icon": true,
                 "show_particles": false
               }
@@ -22,12 +23,41 @@
           }
         ]
       },
-      "minecraft:max_stack_size": 3,
+      "minecraft:max_stack_size": 6,
       "minecraft:food": {
         "nutrition": 0,
         "saturation": 0,
         "can_always_eat": true
-      }
+      },
+      "minecraft:lore": [
+        {
+          "text": "고급",
+          "type": "text",
+          "color": "#2eae32",
+          "italic": false
+        },
+        {
+          "text": "음식",
+          "type": "text",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": ""
+        },
+        {
+          "text": "소비 효과 :",
+          "type": "text",
+          "color": "white",
+          "italic": false
+        },
+        {
+          "text": "+6 체력 재생",
+          "type": "text",
+          "color": "blue",
+          "italic": false
+        }
+      ]
     }
   }
 }

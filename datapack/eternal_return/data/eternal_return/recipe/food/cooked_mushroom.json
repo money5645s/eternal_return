@@ -7,6 +7,7 @@
     "id": "minecraft:poisonous_potato",
     "components": {
       "minecraft:consumable": {
+        "consume_seconds": 0,
         "on_consume_effects": [
           {
             "type": "minecraft:apply_effects",
@@ -14,7 +15,7 @@
               {
                 "id": "minecraft:regeneration",
                 "amplifier": 1,
-                "duration": 100,
+                "duration": 200,
                 "show_icon": true,
                 "show_particles": false
               }
@@ -22,12 +23,41 @@
           }
         ]
       },
-      "minecraft:max_stack_size": 3,
+      "minecraft:max_stack_size": 6,
       "minecraft:food": {
         "nutrition": 0,
         "saturation": 0,
         "can_always_eat": true
-      }
+      },
+      "minecraft:lore": [
+        {
+          "text": "희귀",
+          "type": "text",
+          "color": "#1294da",
+          "italic": false
+        },
+        {
+          "text": "음식",
+          "type": "text",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": ""
+        },
+        {
+          "text": "소비 효과 :",
+          "type": "text",
+          "color": "white",
+          "italic": false
+        },
+        {
+          "text": "+8 체력 재생",
+          "type": "text",
+          "color": "blue",
+          "italic": false
+        }
+      ]
     }
   }
 }

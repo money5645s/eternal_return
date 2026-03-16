@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     [
-      "slime_ball"
+      "minecraft:slime_ball"
     ],
     [
       "apple"
@@ -13,15 +13,62 @@
     "components": {
       "minecraft:consumable": {
         "consume_seconds": 0,
-        "sound": "block.chest.open",
-        "on_consume_effects": []
+        "animation": "none",
+        "sound": {
+          "sound_id": "er.player.eat_food",
+          "range": 3
+        },
+        "has_consume_particles": true,
+        "on_consume_effects": [
+          {
+            "type": "minecraft:apply_effects",
+            "effects": [
+              {
+                "id": "minecraft:strength",
+                "amplifier": 0,
+                "duration": -1,
+                "ambient": true,
+                "show_particles": false
+              }
+            ]
+          }
+        ]
       },
       "minecraft:max_stack_size": 1,
       "minecraft:food": {
         "nutrition": 0,
         "saturation": 0,
         "can_always_eat": true
-      }
+      },
+      "minecraft:lore": [
+        {
+          "text": "전설",
+          "type": "text",
+          "color": "#daa82b",
+          "italic": false
+        },
+        {
+          "text": "강화",
+          "type": "text",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": ""
+        },
+        {
+          "text": "소비 효과 :",
+          "type": "text",
+          "color": "white",
+          "italic": false
+        },
+        {
+          "text": "+3 공격 피해 (중첩 불가)",
+          "type": "text",
+          "color": "blue",
+          "italic": false
+        }
+      ]
     }
   }
 }
