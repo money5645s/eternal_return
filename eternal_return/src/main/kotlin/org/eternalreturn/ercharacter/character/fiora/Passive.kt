@@ -18,8 +18,6 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
 
         punchTimeMillis = System.currentTimeMillis() + 10 * 50
 
-        println("CharacterAttackEvent가 성공적으로 fiora에게 제출되어 페치되었습니다.")
-
         event.victim.submitEvent(ERToucheCountEvent(erPlayer))
     }
 

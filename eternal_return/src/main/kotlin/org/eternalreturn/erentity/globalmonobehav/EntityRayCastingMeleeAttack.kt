@@ -51,7 +51,10 @@ class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>(
 
         val attackDamage = shootPlayer.getAttribute(org.bukkit.attribute.Attribute.ATTACK_DAMAGE)!!.value;
         val strength: Float = (shooter as ERPlayer).attackCooldown
-        //println("strength : $strength")
+
+
+        //println("damage : ${attackDamage * strength * strength} with strength : $strength")
+
 
         closestTarget.damage(kotlin.math.max(attackDamage * strength * strength, 1.0), event.shooter);
     }

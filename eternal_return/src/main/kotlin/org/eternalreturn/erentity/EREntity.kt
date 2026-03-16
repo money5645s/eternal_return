@@ -13,6 +13,7 @@ import org.eternalreturn.ercharacter.character.isaac.PassiveCount
 import org.eternalreturn.ercharacter.character.lidailin.LiDailinPassiveTimer
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erentity.events.EREntityDamagedEvent
+import org.eternalreturn.erentity.globalmonobehav.Burn
 import org.eternalreturn.erentity.globalmonobehav.Stun
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
@@ -57,6 +58,7 @@ abstract class EREntity(
     init {
         //Monobehaviour 등록
         this.registerMonobehaviour(Stun())
+        this.registerMonobehaviour(Burn())
         this.registerMonobehaviour(ToucheCount())
         this.registerMonobehaviour(ToucheEffect())
         this.registerMonobehaviour(Passive_Timer())
@@ -98,7 +100,7 @@ abstract class EREntity(
         }
 
     /**
-     * 위치벡터를 얻어온다.
+     * 위치벡터
      */
     open fun getPosition(): Vector3 {
         val location = entity.location
@@ -110,6 +112,14 @@ abstract class EREntity(
         val y = geometryModule.y(pos);
         val z = geometryModule.z(pos);
         setPosition(x, y, z);
+    }
+
+    /**
+     * 속도벡터
+     */
+    open fun getVelocity() : Vector3{
+        val v = entity.velocity;
+        return this.geometryModule.vec3(v.x, v.y, v.z);
     }
 
     open fun setVelocity(vec : Vector3){
@@ -126,6 +136,9 @@ abstract class EREntity(
         addVelocity(x, y, z);
     }
 
+    /**
+     * 물리 적용
+     * */
     open fun setVelocity(x : Double, y : Double, z : Double){
         this.dpEngine.appendCommand(SetSpigotEntityVelocity(entity, x, y, z))
     }

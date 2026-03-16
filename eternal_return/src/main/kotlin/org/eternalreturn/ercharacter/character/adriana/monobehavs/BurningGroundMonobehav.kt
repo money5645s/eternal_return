@@ -4,9 +4,12 @@ import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Location
 import org.bukkit.Particle
+import org.bukkit.World
 import org.bukkit.entity.LivingEntity
 import org.eternalreturn.ercharacter.character.adriana.entities.BurningGroundVirtualEntity
 import org.eternalreturn.ercharacter.character.adriana.events.LetsBurn
+import org.eternalreturn.erentity.events.EREntityBurnEvent
+import org.eternalreturn.system.EREngine
 
 class BurningGroundMonobehav : Monobehaviour<LetsBurn>() {
 
@@ -21,6 +24,7 @@ class BurningGroundMonobehav : Monobehaviour<LetsBurn>() {
         val burningGround = actor as BurningGroundVirtualEntity;
 
         val loc: Location = burningGround.location
+        val world : World = loc.world!!
         val caster = burningGround.caster
 
         val lifeTime = (System.currentTimeMillis() - burningGround.startTime) / 50
@@ -31,17 +35,19 @@ class BurningGroundMonobehav : Monobehaviour<LetsBurn>() {
             return
         }
 
-        //dpEngine.appendCommand()
-
-        loc.getWorld()!!.spawnParticle(Particle.FLAME, loc, 3, 0.2, 0.1, 0.2, 0.02)
+        world.spawnParticle(Particle.FLAME, loc, 3, 0.2, 0.1, 0.2, 0.02)
         if (lifeTime % 5 == 0L) {
-            loc.getWorld()!!.spawnParticle(Particle.SMOKE, loc, 1, 0.1, 0.1, 0.1, 0.02)
+            world.spawnParticle(Particle.SMOKE, loc, 1, 0.1, 0.1, 0.1, 0.02)
         }
 
         // 데미지 판정: 주변 1.2칸 내의 적에게 화상
-        for (entity in loc.getWorld()!!.getNearbyEntities(loc, 1.2, 1.2, 1.2)) {
-            if (entity is LivingEntity && entity != caster) {
-                entity.fireTicks = 100 // 2초간 불타게 함
+        for (erEntity in (dpEngine as EREngine).entityList) {
+            if(erEntity === caster) continue;
+
+            val distSqr = magnitudeSqr(caster.getPosition() - erEntity.getPosition());
+
+            if(distSqr <= 3.0 * 3.0){
+                erEntity.submitEvent(EREntityBurnEvent(caster, 100))
             }
         }
     }

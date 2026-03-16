@@ -164,8 +164,7 @@ abstract class ERAnimal(
     }
 
     override fun damageForce(amount : Double, attacker : EREntity){
-        invulnerableTime = 0;
-        damage(amount, attacker);
+        __damage(amount, attacker);
     }
 
     override fun damageNotSendEvent(amount : Double, attacker : EREntity){

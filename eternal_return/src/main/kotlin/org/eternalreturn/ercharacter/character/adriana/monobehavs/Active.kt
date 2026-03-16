@@ -50,11 +50,9 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             return;
         }
 
-        adriana.player.sendMessage("Summon BurningGroundVirtualEntity")
-
         val burningGroundEntity = BurningGroundVirtualEntity(
             dpEngine,
-            adriana.player,
+            adriana,
             Location(adriana.player.world, pos.x(), pos.y(), pos.z()),
             System.currentTimeMillis())
 

@@ -1,7 +1,6 @@
 package org.eternalreturn.ercharacter.character.yuki
 
 import org.bukkit.Sound
-import org.bukkit.entity.LivingEntity
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
@@ -30,7 +29,6 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
             player.sendMessage("§f[유키] §7옷매무새 중에는 공격할 수 없습니다.")
             return
         }
-
 
         // 2. 단추 소모 및 강화
         if (yuki.buttonCount > 0) {

@@ -13,28 +13,18 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
     override fun start(event: EREntityAttackEvent) {
         val isaac = actor as Character_Isaac
 
-        val victimEntity = event.victim.entity
-
-        if (victimEntity !is LivingEntity) {
-            return
-        }
-
-        if (System.currentTimeMillis() < punchTimeMillis) {
-            return
-        }
-
+        val victim = event.victim
         punchTimeMillis = System.currentTimeMillis() + 10 * 50
 
         if (isaac.isActiveSkill) {
             player.sendMessage("§f[아이작] 경화 발동")
-            victimEntity.noDamageTicks = 0
-            victimEntity.damage(5.0)
+            victim.damageForce(5.0, isaac)
             // 쿨타임 등록
             isaac.cooldown.set("Active", isaac.ActiveCooldownSeconds)
             isaac.isActiveSkill = false
         }
 
-        event.victim.submitEvent(PassiveCountEvent(this.getEREntity().entity as Player))
+        event.victim.submitEvent(PassiveCountEvent(this.erPlayer))
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {

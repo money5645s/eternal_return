@@ -41,7 +41,10 @@ public class ERListener implements Listener {
         var engine = PluginInstance.getEREngine();
         ERPlayer erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
 
-        if(e.getAction().isLeftClick() && erPlayer != null){
+        var action = e.getAction();
+        //var action = e.getClickedBlock().;
+
+        if(action.isLeftClick() && erPlayer != null){
             erPlayer.shootRay();
         }
     }

@@ -4,6 +4,7 @@ import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.util.Vector
+import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.erentity.EREntity
@@ -78,7 +79,14 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                 if(victim === attacker) continue;
                 val p = attacker.getPosition();
                 val t = victim.getPosition();
-                if(magnitudeSqr(p - t) <= 3.0 * 3.0) {
+
+                val distSqr = magnitudeSqr(p - t);
+                val isInDistance = when(victim){ //우히히
+                    is ERAnimal          -> distSqr <= 3.0 * 3.0;
+                    else /*is ERPlayer*/ -> distSqr <= 0.8 * 0.8;
+                }
+
+                if(isInDistance){
                     hitEntities[victim] = 0;
                 }
             }
@@ -105,6 +113,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         }
 
         if (tick > 6){
+            hitEntities.clear()
             player.sendMessage("§c[디버깅] §f돌진 종료")
             // 쿨타임 등록
             attacker.cooldown.set("Active", attacker.ActiveCooldownSeconds)
@@ -112,6 +121,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         }
 
         if (isWallSlam){
+            hitEntities.clear()
             player.sendMessage("§c[디버깅] §f돌진 종료")
             // 쿨타임 등록
             attacker.cooldown.set("Active", attacker.ActiveCooldownSeconds)
