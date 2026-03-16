@@ -1,0 +1,4 @@
+on rightclick on interaction:
+    if event-entity has the scoreboard tag "stick":
+        if player don't have the scoreboard tag "click_stick":
+            add "click_stick" to the scoreboard tags of player

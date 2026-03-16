@@ -1,0 +1,4 @@
+on rightclick on interaction:
+    if event-entity has the scoreboard tag "mushroom":
+        if player don't have the scoreboard tag "click_mushroom":
+            add "click_mushroom" to the scoreboard tags of player

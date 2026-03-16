@@ -1,0 +1,4 @@
+on rightclick on interaction:
+    if event-entity has the scoreboard tag "potato":
+        if player don't have the scoreboard tag "click_potato":
+            add "click_potato" to the scoreboard tags of player

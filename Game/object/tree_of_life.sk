@@ -1,0 +1,4 @@
+on rightclick on interaction:
+    if event-entity has the scoreboard tag "tree":
+        if player don't have the scoreboard tag "click_tree":
+            add "click_tree" to the scoreboard tags of player

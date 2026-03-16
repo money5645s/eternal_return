@@ -1,0 +1,4 @@
+on rightclick on interaction:
+    if event-entity has the scoreboard tag "fish":
+        if player don't have the scoreboard tag "click_fish":
+            add "click_fish" to the scoreboard tags of player

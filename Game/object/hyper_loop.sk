@@ -1,0 +1,4 @@
+on rightclick on interaction:
+    if event-entity has the scoreboard tag "hyperloop":
+        if player don't have the scoreboard tag "click_hyperloop":
+            add "click_hyperloop" to the scoreboard tags of player

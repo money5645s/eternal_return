@@ -1,0 +1,24 @@
+# 여기에 지도 맵 추가
+
+## 맵 UI
+# 추가로 플레이어 위치 표기 + 
+#    {"translate":"space.-24"},{"text":"\u1001","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-12"},{"text":"\u1008","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-18"},{"text":"\u1000","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-71"},{"text":"\u1014","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-8"},{"text":"\u1006","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-21"},{"text":"\u1011","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-108"},{"text":"\u1010","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.0"},{"text":"\u1019","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.4"},{"text":"\u1017","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-64"},{"text":"\u1012","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-19"},{"text":"\u1016","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-104"},{"text":"\u1007","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-7"},{"text":"\u1003","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-112"},{"text":"\u1002","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-18"},{"text":"\u1018","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-14"},{"text":"\u1004","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-53"},{"text":"\u1015","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.18"},{"text":"\u1009","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-52"},{"text":"\u1005","font":"map/icon","shadow_color": [0,0,0,0]},
+#    {"translate":"space.-76"},{"text":"\u1013","font":"map/icon","shadow_color": [0,0,0,0]},

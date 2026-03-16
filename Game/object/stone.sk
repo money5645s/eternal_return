@@ -1,0 +1,4 @@
+on rightclick on interaction:
+    if event-entity has the scoreboard tag "stone":
+        if player don't have the scoreboard tag "click_stone":
+            add "click_stone" to the scoreboard tags of player

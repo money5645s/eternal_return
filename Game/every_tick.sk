@@ -57,10 +57,44 @@ every 1 ticks:
             startLoadingBar(loop-player, 60, "minecraft:er.cctv.acitving", "minecraft:er.cctv.success_active", "cctv_loading", "보안콘솔 작동 중")
             remove "show_cctv_loading" from scoreboard tags of loop-player
         else if loop-player has the scoreboard tag "show_meteorite_loading":
-            startDoubleLoadingBar(loop-player, 150, "minecraft:er.item.collect.meteorite", "", "colleting_meteorite", "운석 채집 중")
+            startDoubleLoadingBar(loop-player, 100, "minecraft:er.item.collect.meteorite", "", "colleting_meteorite", "운석 채집 중")
             add "colleting_meteorite" to scoreboard tags of loop-player
             remove "show_meteorite_loading" from scoreboard tags of loop-player
             remove "click_meteorite" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "show_tree_loading":
+            startDoubleLoadingBar(loop-player, 100, "minecraft:er.item.collect.tree_of_life", "", "colleting_tree", "생명의 나무 채집 중")
+            add "colleting_tree" to scoreboard tags of loop-player
+            remove "show_tree_loading" from scoreboard tags of loop-player
+            remove "click_tree" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "show_stick_loading":
+            startLoadingBar(loop-player, 30, "minecraft:er.item.collect.stick", "", "colleting_stick", "나뭇가지 채집 중")
+            add "colleting_stick" to scoreboard tags of loop-player
+            remove "show_stick_loading" from scoreboard tags of loop-player
+            remove "click_stick" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "show_fishing_loading":
+            startLoadingBar(loop-player, 30, "minecraft:er.item.fishing", "", "fishing", "낚시 중")
+            add "fishing" to scoreboard tags of loop-player
+            remove "show_fishing_loading" from scoreboard tags of loop-player
+            remove "click_fishing" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "show_potato_loading":
+            startLoadingBar(loop-player, 30, "minecraft:er.item.collect.potato", "", "colleting_potato", "감자 캐는 중")
+            add "colleting_potato" to scoreboard tags of loop-player
+            remove "show_potato_loading" from scoreboard tags of loop-player
+            remove "click_potato" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "show_mushroom_loading":
+            startLoadingBar(loop-player, 30, "minecraft:er.item.collect.mushroom", "", "colleting_mushroom", "버섯 채집 중")
+            add "colleting_mushroom" to scoreboard tags of loop-player
+            remove "show_mushroom_loading" from scoreboard tags of loop-player
+            remove "click_mushroom" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "show_stone_loading":
+            startLoadingBar(loop-player, 30, "minecraft:er.item.collect.stone", "", "colleting_stone", "돌맹이 채집 중")
+            add "colleting_stone" to scoreboard tags of loop-player
+            remove "show_stone_loading" from scoreboard tags of loop-player
+            remove "click_stone" from scoreboard tags of loop-player
+        else if loop-player has the scoreboard tag "show_hyperloop_loading":
+            startLoadingBar(loop-player, 60, "minecraft:er.hyper_loop.acitving", "minecraft:er.hyper_loop.warp", "", "하이퍼루프 가동 중")
+            add "hyper_loop_activing" to scoreboard tags of loop-player
+            remove "show_hyperloop_loading" from scoreboard tags of loop-player
 
 
 
