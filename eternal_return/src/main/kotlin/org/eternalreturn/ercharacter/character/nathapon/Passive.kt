@@ -26,7 +26,6 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
 
         victimEntity.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 40, 1, false, true))
 
-
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {

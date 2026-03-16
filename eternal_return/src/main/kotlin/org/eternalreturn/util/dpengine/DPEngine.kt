@@ -44,13 +44,11 @@ abstract class DPEngine(bufferSize: Int = 512) {
                 "  __| |  _ \\\n" +
                 " / _` | |_) |\n" +
                 "| (_| |  __/\n" +
-                " \\__,_|_|ENGINE\n" +
-                "\n" +
+                " \\__,_|_|ENGINE\n\n" +
                 "The high-performance plugin engine with multi-threading\n" +
                 "Fast, modular, and built for experienced developers\n" +
                 "Powering the next generation of plugins\n" +
-                "\n" +
-                "MADE BY Danpung (TDanfung)")
+                "\nMADE BY Danpung (TDanfung)\n\n")
     }
 
 

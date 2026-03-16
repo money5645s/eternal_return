@@ -1,15 +1,25 @@
 package org.eternalreturn.ercharacter.character.jan
 
+import org.bukkit.entity.LivingEntity
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
+import org.eternalreturn.ercharacter.character.jan.event.JanPassiveTimerEvent
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
 class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
-    override fun start(event: EREntityAttackEvent) {
-        val jan = actor as Character_Jan
 
-        jan.sendMessage("평타 감지")
+    private var punchTimeMillis: Long = 0
+
+    override fun start(event: EREntityAttackEvent) {
+        val jan = actor as Character_Jan;
+
+        if (System.currentTimeMillis() < punchTimeMillis) {
+            return
+        }
+
+        punchTimeMillis = System.currentTimeMillis() + 10 * 50
         jan.Stack ++
+        jan.submitEvent(JanPassiveTimerEvent())
 
         if(jan.Stack > 5){
             jan.Stack = 5

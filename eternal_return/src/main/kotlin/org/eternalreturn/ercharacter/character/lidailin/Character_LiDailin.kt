@@ -16,6 +16,7 @@ class Character_LiDailin(erEngine : EREngine, player: Player) : ERPlayer(player,
         this.PassiveCooldownSeconds = 8
         registerMonobehaviour(Passive())
         registerMonobehaviour(Active())
+        registerMonobehaviour(DrunkTimer());
     }
 
 

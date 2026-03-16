@@ -5,23 +5,28 @@ import org.eternalreturn.ercharacter.event.CharacterKillEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Location
 import org.bukkit.Particle
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 class Passive : ERCharacterMonobehaviour<CharacterKillEvent>() {
 
     var endTimeMillis : Long = 0;
 
     override fun start(event: CharacterKillEvent) {
-        player.sendMessage("I killed");
-        endTimeMillis = System.currentTimeMillis() + 40 * 50;
+        val player = erPlayer.player
+        //player.sendMessage("I killed");
+        endTimeMillis = System.currentTimeMillis() + 100 * 50;
 
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         if(endTimeMillis >= System.currentTimeMillis()){
+            val player = erPlayer.player
             val loc : Location = player.location;
-            val world = loc.world;
+            val world = player.world;
             loc.y = loc.y + 2.5;
             world.spawnParticle(Particle.FLAME, loc, 3, 0.2, 0.1, 0.2, 0.02)
+            player.addPotionEffect(PotionEffect(PotionEffectType.STRENGTH, 2 * 20, 1, false, true))
         }else{
             stopMonobehav();
         }

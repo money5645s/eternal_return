@@ -11,11 +11,6 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
     private var punchTimeMillis: Long = 0
 
     override fun start(event: EREntityAttackEvent) {
-        val victimEntity = event.victim.entity
-
-        if (victimEntity !is LivingEntity) {
-            return
-        }
 
         if (System.currentTimeMillis() < punchTimeMillis) {
             return
@@ -23,7 +18,7 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
         punchTimeMillis = System.currentTimeMillis() + 10 * 50
 
         if((actor as Character_LiDailin).isDrunk){
-            event.victim.submitEvent(LiDailinPassiveTimerEvent(this.getEREntity().entity as Player))
+            event.victim.submitEvent(LiDailinPassiveTimerEvent(erPlayer))
         }
 
 

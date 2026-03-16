@@ -1,9 +1,12 @@
 package org.eternalreturn.ercharacter.character.isaac
 
+import org.bukkit.Effect
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Sound
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 import org.eternalreturn.ercharacter.character.isaac.Character_Isaac
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
@@ -26,6 +29,8 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         isaac.isActiveSkill = true;
 
         player.sendMessage("§f[아이작] §b경화: §f다음 공격에 추가 데미지를 부여합니다!")
+
+        player.addPotionEffect(PotionEffect(PotionEffectType.ABSORPTION, 2 * 20, 0, false, true))
         player.playSound(player.location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
     }
 

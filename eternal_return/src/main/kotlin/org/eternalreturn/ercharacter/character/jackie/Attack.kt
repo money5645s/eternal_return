@@ -8,7 +8,8 @@ import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 class Attack : ERCharacterMonobehaviour<EREntityAttackEvent>() {
 
     public override fun start(event: EREntityAttackEvent) {
-        val dir = this.erCharacter.getDirection();
+        val dir = erPlayer.getDirection();
+        val player = erPlayer.player
 
         if((actor as Character_Jackie).isBloodSweep){
             val maxHealth = player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH)?.value ?: 20.0
