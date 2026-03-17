@@ -10,11 +10,13 @@ import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.eranimal.animals.actors.Alpha
 import org.eternalreturn.eranimal.animals.actors.Bear
 import org.eternalreturn.eranimal.animals.actors.Boar
+import org.eternalreturn.eranimal.animals.actors.Omega
 import org.eternalreturn.eranimal.animals.actors.Wolf
 import org.eternalreturn.eranimal.manager.ERAnimalManager
 import org.eternalreturn.eranimal.manager.TextDisplayer
 import org.eternalreturn.eranimal.manager.events.AnimalManageEvent
 import org.eternalreturn.eranimal.manager.events.RemoveAllERAnimals
+import org.eternalreturn.eranimal.manager.events.SummonAlphaEvent
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
@@ -27,9 +29,10 @@ import kotlin.collections.set
 class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>() {
 
     val erAnimalMap = HashMap<ERAJEntity, ERAnimal>();
-    val animalIsSummoned = Array<Boolean>(animalSize){false};
-    val animalSummoningTicks = Array<Int>(animalSize){-1};
+    val animalIsSummoned = BooleanArray(animalSize){false};
+    val animalSummoningTicks = IntArray(animalSize){-1};
     val textDisplayList = ArrayList<TextDisplayer>();
+    val isFirstGeneration = BooleanArray(animalSize){true}
 
 
     override fun start(event: AnimalManageEvent) {
@@ -50,7 +53,12 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
             val textDisplayEREntity = TextDisplayer(textDisplay, dpEngine as EREngine); //어차피 생성되면서 MonobehaviourModule내에 들어가게 됨.
             textDisplayList.add(textDisplayEREntity)
         }
+
     }
+
+    var boarTick = 20 * 30;
+    var wolfTick = 20 * 60;
+    var bearTick = 20 * 90;
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         //RemoveAllERAnimals 이벤트가 삽입된 경우, 바로 제거 절차 진입.
@@ -72,7 +80,10 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
 
         for(i in 0 until animalSize){
             val animal = animalList[i];
-            if(animal.name == "animal_alpha"){
+            if(animal.name == "animal_alpha" && !manager.isAllowedToSummonAlpha){
+                continue;
+            }
+            if(animal.name == "animal_omega" && !manager.isAllowedToSummonOmega){
                 continue;
             }
 
@@ -82,32 +93,48 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
                 val textDisplay = textDisplayList[i].textDisplay
 
                 if(ticksLeft == -1){
-                    val testTicksForSummoning = when(animal.name){
-                        "animal_boar" -> 5;
-                        "animal_wolf" -> 5;
-                        "animal_bear" -> 5;
-                        else -> Integer.MAX_VALUE
+                    val ticksForSummoning : Int
+                    if(isFirstGeneration[i]){
+                        ticksForSummoning = when(animal.name){
+                            "animal_boar" -> 20 * 30;
+                            "animal_wolf" -> 20 * 60;
+                            "animal_bear" -> 20 * 90;
+                            "animal_alpha" -> 20 * 3;
+                            "animal_omega" -> 20 * 3;
+                            else -> Integer.MAX_VALUE
+                        }
+                    }else{
+                        ticksForSummoning = when(animal.name){
+                            "animal_boar" -> 20 * 65;
+                            "animal_wolf" -> 20 * 55;
+                            "animal_bear" -> 20 * 100;
+                            "animal_alpha" -> 20 * 3;
+                            "animal_omega" -> 20 * 3;
+                            else -> Integer.MAX_VALUE
+                        }
                     }
 
-                    animalSummoningTicks[i] = testTicksForSummoning;
-                    textDisplay.text(Component.text("$ticksLeft"))
+                    animalSummoningTicks[i] = ticksForSummoning;
+                    textDisplay.text(Component.text("${ticksForSummoning / 20} s"))
                     continue;
+
                 }else if(ticksLeft > 0){
                     animalSummoningTicks[i]--;
-                    textDisplay.text(Component.text("$ticksLeft"))
+                    textDisplay.text(Component.text("${(ticksLeft / 20)} s"))
                     continue;
                 }
 
                 //if ticksLeft == 0 then
-
                 val erAJAnimal = manager.entities[i]
-
-                if(!manager.entities[i].isShown){
-                    //println("[${this.javaClass.simpleName}] AJEntity가 아직 소환되지 않았으므로, 소환합니다.");
+                textDisplay.text(Component.empty()); //더이상 초 표기를 하지 않음.
+                
+                if(!manager.entities[i].isShown){//소환 밑준비
                     erAJAnimal.summon(0.0, 2.0, 0.0);
-                }else if(erAJAnimal.isValid){
+
+                }else if(erAJAnimal.isValid){//최종 소환
                     erAnimalMap[erAJAnimal] = createAnimal(erAJAnimal)
                     animalIsSummoned[i] = true;
+                    isFirstGeneration[i] = false;
                 }
             }
         }
@@ -121,6 +148,11 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
             val erAnimal = erAnimalMap[erAJAnimal]!!;
 
             if(erAnimal.isDead()){
+                if(erAJAnimal.name == "animal_alpha") {
+                    manager.allowToSummonAlpha(false);
+                } else if(erAJAnimal.name == "animal_omega"){
+                    manager.allowToSummonOmega(false);
+                }
                 animalSummoningTicks[i] = -1;
                 erAnimalMap.remove(erAJAnimal, erAnimal);
                 animalIsSummoned[i] = false;
@@ -148,6 +180,7 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
             "animal_bear"  -> Bear (dpEngine as EREngine, erAJAnimal);
             "animal_boar"  -> Boar (dpEngine as EREngine, erAJAnimal);
             "animal_wolf"  -> Wolf (dpEngine as EREngine, erAJAnimal);
+            "animal_omega" -> Omega(dpEngine as EREngine, erAJAnimal);
             else -> Boar (dpEngine as EREngine, erAJAnimal)
         }
         val engine = dpEngine as EREngine;

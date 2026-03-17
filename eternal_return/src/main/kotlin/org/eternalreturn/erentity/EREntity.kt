@@ -3,6 +3,8 @@ package org.eternalreturn.erentity
 import org.bukkit.Location
 import org.bukkit.attribute.Attributable
 import org.bukkit.attribute.Attribute
+import org.bukkit.damage.DamageSource
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.util.Vector
@@ -14,6 +16,7 @@ import org.eternalreturn.ercharacter.character.lidailin.LiDailinPassiveTimer
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.erentity.globalmonobehav.Burn
+import org.eternalreturn.erentity.globalmonobehav.EREntityMonobehavCreatedEvent
 import org.eternalreturn.erentity.globalmonobehav.Stun
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
@@ -57,6 +60,7 @@ abstract class EREntity(
 
     init {
         //Monobehaviour 등록
+        this.submitEvent(EREntityMonobehavCreatedEvent())
         this.registerMonobehaviour(Stun())
         this.registerMonobehaviour(Burn())
         this.registerMonobehaviour(ToucheCount())
@@ -168,11 +172,13 @@ abstract class EREntity(
     /**
      * 피해를 주는 메소드, 무적시간에 영향 받음.
      * */
+    val source = DamageSource.builder(DamageType.PLAYER_ATTACK).withDirectEntity(this.entity);
     open fun damage(amount : Double, attacker : EREntity){
         if(entity is LivingEntity){
             this.submitEvent(EREntityDamagedEvent(attacker))
             attacker.submitEvent(EREntityAttackEvent(attacker, this))
-            entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
+            source.withCausingEntity(attacker.entity)
+            entity.damage(amount, source.build()); //이것도 특수한 SoA 함수로 뺄 것
         }
     }
 
@@ -184,7 +190,8 @@ abstract class EREntity(
             entity.noDamageTicks = 0;
             this.submitEvent(EREntityDamagedEvent(attacker))
             attacker.submitEvent(EREntityAttackEvent(attacker, this))
-            entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
+            source.withCausingEntity(attacker.entity)
+            entity.damage(amount, source.build()); //이것도 특수한 SoA 함수로 뺄 것
         }
     }
 

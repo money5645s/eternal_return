@@ -115,14 +115,17 @@ public class ERAJEntity extends AJEntity {
             actor.remove();
             actor = null;
         }
+        if(hpbar != null){
+            hpbar.remove();
+            hpbar = null;
+        }
         this.isShown = false;
     }
 
     @Override
-    protected void afterSpawnEvent(Entity spawnedRootEntity){
+    protected void afterSpawnEvent(ItemDisplay spawnedRootEntity){
         rootEntity = spawnedRootEntity;
         rootEntity.addPassenger(hpbar);
-        //System.out.println("rootEntity가 성공적으로 전달되었습니다.");
     }
 
 

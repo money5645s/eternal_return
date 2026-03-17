@@ -6,6 +6,8 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
 import org.eternalreturn.ercharacter.event.*;
 import org.eternalreturn.erentity.EREntity;
 import org.eternalreturn.erplayer.ERPlayer;
@@ -70,11 +72,33 @@ public class ERListener implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e){
-        var player = e.getPlayer();
-        if(!player.getScoreboardTags().contains("resurrectable")){
+        var victim = e.getPlayer();
+        if(!victim.getScoreboardTags().contains("resurrectable")){
             return;
         }
-        e.getPlayer().setGameMode(GameMode.SPECTATOR);
+
+        var death = victim.getScoreboard().getObjective("death");
+        if(death != null){
+            var score = death.getScoreFor(victim);
+            score.setScore(score.getScore() + 1);
+        }
+
+        var deathCount = victim.getScoreboard().getObjective("death_count");
+        if(deathCount != null){
+            var score = deathCount.getScoreFor(victim);
+            score.setScore(score.getScore() + 1);
+        }
+
+        var killer = e.getDamageSource().getCausingEntity();
+        if(killer instanceof Player pKiller){
+            var killerScoreboard = pKiller.getScoreboard().getObjective("kill");
+            if(killerScoreboard != null){
+                var score = killerScoreboard.getScoreFor(pKiller);
+                score.setScore(score.getScore() + 1);
+            }
+        }
+
+        victim.setGameMode(GameMode.SPECTATOR);
         e.setCancelled(true);
     }
 
@@ -115,7 +139,6 @@ public class ERListener implements Listener {
         e.setCancelled(true);
         var player = (Player)e.getEntity();
         float force = e.getForce();
-        player.sendMessage("Force : " + force);
 
         var engine = PluginInstance.getEREngine();
         var erPlayer = engine.getEREntity(player);

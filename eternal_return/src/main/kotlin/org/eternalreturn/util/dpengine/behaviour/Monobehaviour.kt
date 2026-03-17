@@ -31,17 +31,17 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
      * MonobehaiourActor.registerMonobehaviour()의 인자로 넣기 위해서만 instantiate할 것.
      */
     init {
-        __getGenericClass()
+        this.eventType = __getGenericClass()
     }
 
-    private fun __getGenericClass() {
+    private fun __getGenericClass() : Class<T>{
         //Generic의 superClass를 얻어옴 (CharacterEvent)
         val superType = javaClass.getGenericSuperclass()
 
         //superType을 ParameterizedType으로 캐스팅하여 제네릭 정보를 얻어오기 위한 준비를 함.
         check(superType is ParameterizedType) { "Monobehaviour must be directly parameterized" }
         //바로 T에 대한 정보를 가져온다.
-        this.eventType = superType.actualTypeArguments[0] as Class<T>
+        return superType.actualTypeArguments[0] as Class<T>
         //System.out.println(eventType);
     }
 
@@ -59,7 +59,10 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
         }
     }
 
+    var gotSubscribedEvent = false;
     fun updateMonobehav(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
+        val eventClass = __getGenericClass();
+        gotSubscribedEvent = (eventMap[eventClass] != null)
         dpEngine.geometryModule.setVecScope().use { scope ->
             update(eventMap)
         }

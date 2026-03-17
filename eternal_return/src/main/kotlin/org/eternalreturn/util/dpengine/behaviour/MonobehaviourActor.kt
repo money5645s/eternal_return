@@ -1,6 +1,7 @@
 package org.eternalreturn.util.dpengine.behaviour
 
 import org.eternalreturn.util.dpengine.DPEngine
+import org.eternalreturn.util.dpengine.event.MonobehavCreatedEvent
 import org.eternalreturn.util.dpengine.geometry.GeometryModule
 import java.util.*
 
@@ -32,10 +33,6 @@ abstract class MonobehaviourActor(
 
     val geometryModule: GeometryModule
         get() = dpEngine.geometryModule
-
-    init{
-        dpEngine.monobehaviourModule.register(this);
-    }
 
 
     open var referenceCount = 0;
@@ -165,6 +162,12 @@ abstract class MonobehaviourActor(
         this.monobehaviourMap.put(monobehaviour.eventType, monobehaviour)
         monobehaviour.setMonobehaviourActor(this)
         //System.out.println("register event " + monobehaviour.getClass());
+    }
+
+
+    init{
+        dpEngine.monobehaviourModule.register(this);
+        this.submitEvent(MonobehavCreatedEvent())
     }
 
 }

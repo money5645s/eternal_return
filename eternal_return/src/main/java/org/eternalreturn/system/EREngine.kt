@@ -20,10 +20,7 @@ import org.eternalreturn.util.dpengine.physics.OrientedBoxSoA
 import org.eternalreturn.util.dpengine.physics.RaySoA
 import org.eternalreturn.util.dpengine.physics.TransformSoA
 import org.eternalreturn.util.dpengine.physics.UniformGrid
-import java.lang.Thread.sleep
 import java.util.concurrent.CompletableFuture
-import java.util.concurrent.atomic.AtomicLong
-import kotlin.math.acos
 
 /**
  * Bukkit 객체들과 유연하게 상호작용하기위한 엔진
@@ -187,8 +184,11 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
         get(){
             return day;
         }
+    private var halfday = 0;
 
     var dayScoreboard : Objective? = null;
+    var summonAlpha = false;
+    var summonOmega = false;
     override fun update(){
 
         val physicsFuture = CompletableFuture.runAsync { updatePhysicsModule(); }
@@ -196,16 +196,28 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
         monobehaviourModule.updateMonobehaviours();
         physicsFuture.join();
 
+        //orientedBoxSoA.debugOrientedBox()
+
         if(dayScoreboard == null){
             dayScoreboard = Bukkit.getScoreboardManager().mainScoreboard.getObjective("time");
         }
 
         if(dayScoreboard != null){
             day = dayScoreboard!!.getScore("day").score;
+            halfday = dayScoreboard!!.getScore("halfday").score;
         }
 
+        if(day == 2 && halfday == 1 && !summonAlpha){
+            println("Summoning alpha...")
+            summonAlpha = true;
+            areaSystem.allowToSummonAlphaOnDay2()
+        }
 
-        //orientedBoxSoA.debugOrientedBox()
+        if(day == 3 && halfday == 1 && !summonOmega){
+            println("Summoning omega...")
+            summonOmega = true;
+            areaSystem.allowToSummonOmegaOnDay3()
+        }
 
         applyVelocities();
         flushCommandQueue();

@@ -64,7 +64,7 @@ public final class PluginInstance extends JavaPlugin{
 
     //커맨드 로드용. 너무 길어질 것 같아서 미리 뺐음
     private void loadCommands() {
-        getCommand("er").setExecutor(new ERDebugCommand());
+        getCommand("er").setExecutor(new ERCommand());
     }
 
     @Override

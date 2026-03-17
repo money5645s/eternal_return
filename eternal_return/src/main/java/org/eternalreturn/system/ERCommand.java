@@ -9,6 +9,7 @@ import org.eternalreturn.ercharacter.character.jackie.Character_Jackie;
 import org.eternalreturn.ercharacter.character.jan.Character_Jan;
 import org.eternalreturn.ercharacter.character.lidailin.Character_LiDailin;
 import org.eternalreturn.ercharacter.character.nathapon.Character_Nathapon;
+import org.eternalreturn.ercharacter.character.sissela.Sissela;
 import org.eternalreturn.ercharacter.character.yuki.Character_Yuki;
 import org.eternalreturn.ercharacter.ERCharacter;
 import org.eternalreturn.ercharacter.event.CharacterParabolicFlyEvent;
@@ -33,8 +34,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-public class ERDebugCommand implements CommandExecutor {
+public class ERCommand implements CommandExecutor {
     private org.eternalreturn.eranimal.ERAJEntity testAnimal;
+
+    public ERCommand(){
+        __init();
+    }
+
+
+    private void __init(){
+
+    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -64,52 +74,7 @@ public class ERDebugCommand implements CommandExecutor {
             var areaSystem = PluginInstance.getEREngine().getAreaSystem();
             areaSystem.reset();
         }
-        else if(args.length == 1 && args[0].equalsIgnoreCase("showtags")){
-            p.sendMessage(tagSet.toString());
-            return true;
-        }
-        else if (args.length == 1 && args[0].equalsIgnoreCase("flushAJ")) {
-
-            AJEntityManager.flushAllEntities();
-
-        }
-
-        else if(args.length == 1 && args[0].equalsIgnoreCase("enchant")){
-
-            EntityEquipment equipment = null;
-            ItemStack mainHandItem = null;
-            ItemMeta mainHandItemMeta = null;
-            if((equipment = p.getEquipment()) == null
-                    || (mainHandItem = equipment.getItemInMainHand()).getType().equals(Material.AIR)
-                    || (mainHandItemMeta = mainHandItem.getItemMeta()) == null){
-                return false;
-            }
-
-            if(mainHandItem.getType().equals(Material.ENCHANTED_BOOK)){
-
-                EnchantmentStorageMeta meta = (EnchantmentStorageMeta)mainHandItemMeta;
-
-                p.sendMessage(meta.getStoredEnchants().toString());
-            }
-            else{
-                p.sendMessage(mainHandItemMeta.getEnchants().toString());
-            }
-
-
-        }
-        else if(args.length == 2 && args[0].equalsIgnoreCase("removetag")){
-            tagSet.remove(args[1]);
-            p.sendMessage(tagSet.toString());
-            return true;
-        }
-        else if(args.length == 1 && args[0].equalsIgnoreCase("scoreboard")){
-            ScoreboardManager scbManager = Bukkit.getScoreboardManager();
-            Score data = scbManager.getMainScoreboard().getObjective("area").getScore("data");
-            data.setScore(32768);
-            p.sendMessage(data.getScore() + "");
-        }
-
-        else if (args[0].equalsIgnoreCase("ch")) {
+        else if(args[0].equalsIgnoreCase("ch")) {
             if (args.length < 2) {
                 p.sendMessage("§c사용법: /er ch [캐릭터이름]");
                 return true;
@@ -151,6 +116,9 @@ public class ERDebugCommand implements CommandExecutor {
                 case "jan":
                     character = new Character_Jan(engine, p);
                     break;
+                case "sissela":
+                    character = new Sissela(engine, p);
+                    break;
                 default:
                     p.sendMessage("§c알 수 없는 캐릭터입니다: " + charName);
                     return true;
@@ -161,7 +129,6 @@ public class ERDebugCommand implements CommandExecutor {
 
             return true;
         }
-
         else if(args.length == 1 && args[0].equalsIgnoreCase("dummy")){
             
             var engine = PluginInstance.getEREngine();
@@ -171,32 +138,6 @@ public class ERDebugCommand implements CommandExecutor {
                     dummy,
                     new ERDummy(engine, dummy, engine.createOrientedBox(p.getLocation(),1.0/2,3.0/2,1.0/2)));
             p.sendMessage("Dummy set");
-        }
-
-        else if(args.length == 5 && args[0].equalsIgnoreCase("parabola")) {
-            var engine = PluginInstance.getEREngine();
-            var erPlayer = (ERPlayer)engine.getEREntity(p);
-            double dx, dy, dz, height;
-            dx = Double.parseDouble(args[1]);
-            dy = Double.parseDouble(args[2]);
-            dz = Double.parseDouble(args[3]);
-            height = Double.parseDouble(args[4]);
-            erPlayer.submitEvent(new CharacterParabolicFlyEvent(dx, dy, dz, height, 1.5));
-        }
-
-        else if(args.length == 1 && args[0].equalsIgnoreCase("benchmark")){
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
         return false;

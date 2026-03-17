@@ -138,6 +138,7 @@ abstract class ERAnimal(
         aJEntity.remove();
     }
 
+    val hurtSound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT);
     private fun __damage(amount: Double, attacker: EREntity){
         this.hp -= amount;
         if(this.hp <= 0){
@@ -146,10 +147,8 @@ abstract class ERAnimal(
             }
             dpEngine.appendCommand(AddTagToSpigotEntity(attacker.entity, "kill_" + this.aJEntity.name))
         }
-
-        val sound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT).build()
-        updateHPBar()
-        attacker.entity.playSound(sound);
+        attacker.entity.playSound(hurtSound.build(), entity);
+        updateHPBar();
     }
 
     var invulnerableTime : Long = 0
@@ -164,6 +163,8 @@ abstract class ERAnimal(
     }
 
     override fun damageForce(amount : Double, attacker : EREntity){
+        this.submitEvent(EREntityDamagedEvent(attacker))
+        attacker.submitEvent(EREntityAttackEvent(attacker, this))
         __damage(amount, attacker);
     }
 

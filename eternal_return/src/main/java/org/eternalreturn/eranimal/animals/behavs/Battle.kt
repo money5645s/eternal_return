@@ -50,6 +50,8 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
         ySpawn = ajEntity.location.y;
         zSpawn = ajEntity.location.z;
         speed = (ajEntity.actor as Husk).getAttribute(Attribute.MOVEMENT_SPEED)!!.baseValue;
+        speed = speed * 1.2;
+        (ajEntity.actor as Husk).getAttribute(Attribute.MOVEMENT_SPEED)!!.baseValue = speed;
 
     }
 
@@ -111,11 +113,18 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
 
         //상태 결정
         val currentBaseSpeed =  erAnimal.movementSpeed
-        if (!ajEntity.isPlaying("move") && isInDistance(5.0, actor, target)) {//범위 내에 있으면 계속 공격 해야 함.
+
+        if(ajEntity.isPlaying("attack")){
+            attackAnimTick++;
+        }
+
+
+        if (isInDistance(5.0, actor, target)) {//범위 내에 있으면 계속 공격 해야 함.
             erAnimal.movementSpeed = 0.0;
             (ajEntity.actor as Husk).getAttribute(Attribute.MOVEMENT_SPEED)!!.baseValue = 0.0
             attack(targetEREntity)
-        } else {
+
+        } else if(!ajEntity.isPlaying("attack")) {
             if(-1E-7 < currentBaseSpeed && currentBaseSpeed < 1E-7){
                 erAnimal.movementSpeed = speed;
             }
@@ -131,29 +140,24 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
         ajEntity.playAnimForce("move")
     }
 
-    var animTick = 0;
+    var attackAnimTick = 0;
     fun attack(target : EREntity){
 
         val erEntity = (this.actor as ERAnimal);
         val ajEntity = erEntity.aJEntity
-        //println("$animTick ticks, !ajEntity.isPlaying(\"attack\") == ${!ajEntity.isPlaying("attack")}");
 
         if(!ajEntity.isPlaying("attack")){
-            //println(ajEntity.animationPlaying)
             ajEntity.playAnimForce("attack");
-            animTick = 0;
-            return;
+            attackAnimTick = 0;
         }
 
-        if(animTick > 20 * 3){
-            return;
-        }
+        if(ajEntity.isPlaying("attack")){
+            if(ajEntity.getCurrentTicks() == erEntity.attackTicks[0] || ajEntity.getCurrentTicks() == erEntity.attackTicks[1]){
+                target.damage(erEntity.damage, erEntity);
 
-        if(animTick == erEntity.attackTicks[0] || animTick == erEntity.attackTicks[1]){
-            target.damage(erEntity.damage, erEntity);
-        }
+            }
 
-        animTick++;
+        }
 
     }
 

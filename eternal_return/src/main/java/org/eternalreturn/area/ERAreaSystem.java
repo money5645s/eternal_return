@@ -2,12 +2,11 @@ package org.eternalreturn.area;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.eternalreturn.system.PluginInstance;
-import org.eternalreturn.system.SystemManager;
-import org.eternalreturn.util.DataStructure.Graph.Edge;
+import org.eternalreturn.eranimal.manager.ERAnimalManager;
+import org.eternalreturn.eranimal.manager.behavs.ManageERAnimals;
+import org.eternalreturn.eranimal.manager.events.SummonAlphaEvent;
 import org.eternalreturn.util.DataStructure.Graph.Graph;
 import org.eternalreturn.util.DataStructure.Graph.Vertex;
-import org.yaml.snakeyaml.util.ArrayStack;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -53,7 +52,33 @@ public class ERAreaSystem extends Graph<AreaNode>{
         }
     }
 
+    ERAnimalManager managerWhichHasSummonedAlpha = null;
+    public void allowToSummonAlphaOnDay2(){
+        int lastIdx = greenNodes.size();
+        int randIdx = (int)(Math.random() * (lastIdx - 1));
+        var vertex = greenNodes.get(randIdx);
+        var manager = vertex.getManager();
+        manager.allowToSummonAlpha(true);
 
+        managerWhichHasSummonedAlpha = manager;
+
+        System.out.println("[ERAreaSystem] " + vertex.getName() + "에서 알파가 소환됨. -> manager info : " + manager.getAreaName());
+    }
+
+    public void allowToSummonOmegaOnDay3(){
+        int lastIdx = greenNodes.size();
+
+        ERAnimalManager manager = null;
+        AreaNode vertex = null;
+        do{
+            int randIdx = (int)(Math.random() * (lastIdx - 1));
+            vertex = greenNodes.get(randIdx);
+            manager = vertex.getManager();
+        }while(manager == managerWhichHasSummonedAlpha);
+
+        manager.allowToSummonOmega(true);
+        System.out.println("[ERAreaSystem] " + vertex.getName() + "에서 오메가가 소환됨. -> manager info : " + manager.getAreaName());
+    }
 
     public void sendAreaStateToScoreboard(){
 

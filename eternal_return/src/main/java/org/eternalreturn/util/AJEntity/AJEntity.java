@@ -1,7 +1,11 @@
 package org.eternalreturn.util.AJEntity;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.ItemDisplay;
+import org.bukkit.scoreboard.Objective;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
@@ -15,13 +19,15 @@ public abstract class AJEntity{
 
     protected Location location;
 
+    protected long animationStartTime;
+
     public enum ANIMATION_STATE{
         PLAY,
         PAUSE,
         STOP
     };
 
-    protected Entity rootEntity;
+    protected ItemDisplay rootEntity;
 
     protected String name;
 
@@ -29,13 +35,17 @@ public abstract class AJEntity{
 
     /**
      * 현재 실행 중인 애니메이션의 상태 <br>
+     * <blockquote><pre>
      * ANIMATION_STATE.PLAY, ANIMATION_STATE.PAUSE, ANIMATION_STATE.STOP
+     * </pre></blockquote>
      * */
     protected ANIMATION_STATE animationState;
 
     /**
-     * 현재 실행 중인 애니메이션의 이름<br>
-     * registerAnimation(String,String) 메소드를 통해 등록해야 함.
+     * 현재 실행 중인 애니메이션의 이름
+     * <blockquote><pre>
+     * registerAnimation(String,String)
+     * </pre></blockquote>메소드를 통해 등록해야 함.
      * */
     protected String animationPlaying = NO_ANIM;
 
@@ -49,12 +59,14 @@ public abstract class AJEntity{
 
     protected abstract void afterSummoning();
 
-    protected abstract void afterSpawnEvent(Entity spawnedRootEntity);
+    protected abstract void afterSpawnEvent(ItemDisplay spawnedRootEntity);
 
     /**
      * 해당 월드에서 AJEntity를 제거한다. <br>
-     * AJEntity.remove(AJEntity ajEntity, Entity rootEntity){...}를 내부적으로 호출한다.<br>
-     *
+     * <blockquote><pre>
+     *     AJEntity.remove(AJEntity ajEntity, Entity rootEntity){...}
+     * </pre></blockquote>
+     * 를 내부적으로 호출한다.<br>
      * */
     public void remove(){
         AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + "animated_java:" + this.name + "/remove/this");
@@ -64,9 +76,9 @@ public abstract class AJEntity{
     /**
      * 애니메이션을 등록하는 메소드.<br>
      * HashMap<>에 다음과 같이 등록된다
-     * <code>
-     *     .put(animationState,"animated_java:"+this.name+"/animations/"+animationState);
-     * <code/>
+     * <blockquote><pre>
+     *     .put(animationState,"animated_java:"+this.name+"animations"+animationState);
+     * </pre></blockquote>
      * */
     public void registerAnimation(String animationState,double durationSeconds){
         animationMap.put(
@@ -81,9 +93,9 @@ public abstract class AJEntity{
     /**
      * 애니메이션을 등록하는 메소드.<br>
      * HashMap<>에 다음과 같이 등록된다
-     * <code>
-     *     .put(animationState,"animated_java:"+this.name+"/animations/"+animationState);
-     * <code/>
+     * <blockquote><pre>
+     *     .put(animationState,"animated_java:"+this.name+"animations"+animationState);
+     * </pre></blockquote>
      * */
     public void registerAnimation(String animationState,long durationTicks){
         animationMap.put(
@@ -93,6 +105,26 @@ public abstract class AJEntity{
                         durationTicks
                 )
         );
+    }
+
+    /**
+     * 현재 실행되고 있는 애니메이션의 프레임에 대응되는 tick 값을 해당 함수의 호출 시점 기준으로 쿼리한다.
+     * <p>
+     * 아래 상황에서 반환값은 2이다.
+     *
+     * <blockquote><pre>
+     *     Animated JAVA   :                  v playing()
+     *     Animation frame : [frame0][frame1][frame2][frame3][frame4][frame5]
+     *     this function   :                  ^ call()
+     *     ticks           :  0       1       2       3       4       5
+     * </pre></blockquote>
+     *
+     * */
+    public int getCurrentTicks(){
+        if(this.rootEntity == null){
+            return -1;
+        }
+        return (int)(System.currentTimeMillis() - this.animationStartTime) / 50;
     }
 
     /**
@@ -129,20 +161,21 @@ public abstract class AJEntity{
      * */
     public void playAnim(String selectedAnimation)throws AJAnimationNotFoundException{
 
+        AJAnimation acb = this.animationMap.get(selectedAnimation);
         long currentTime = System.currentTimeMillis();
+        long durationTicks = acb.durationTicks();
+        String animation = acb.animation();
+
         if(animationEndTime > currentTime){
             return;
         }
-
-        AJAnimation acb = this.animationMap.get(selectedAnimation);
-        long durationTicks = acb.durationTicks();
-        String animation = acb.animation();
 
         if(animation.equals(NO_ANIM)){
             throw new AJAnimationNotFoundException(
                     "AJAnimation is not found : \"" + selectedAnimation + "\"\n"
                             +"Solution : Check the animated_java project name and your JAVA code");
         }
+
         __setAnim(animation, durationTicks, currentTime);
     }
 
@@ -152,8 +185,8 @@ public abstract class AJEntity{
         //현재 실행하는 애니메이션의 이름과 경로
         this.animationPlaying = animation;
         this.animationEndTime = durationTicks * 50 + currentTime;
+        this.animationStartTime = currentTime;
         this.animationState = ANIMATION_STATE.PLAY;
-        //String command = getExecuteAsRunFuncPrefix() + this.animationPlaying + "/play";
         cmdBuilder.append(getExecuteAsRunFuncPrefix()).append(this.animationPlaying).append("/play");
         AJEntityManager.sendCommand(cmdBuilder.toString());
         cmdBuilder.delete(0, cmdBuilder.length());
@@ -262,7 +295,7 @@ public abstract class AJEntity{
 
     //setter
 
-    public void setRootEntity(Entity entity){
+    public void setRootEntity(ItemDisplay entity){
         this.rootEntity = entity;
     }
 

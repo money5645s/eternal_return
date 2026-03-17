@@ -1,6 +1,7 @@
 package org.eternalreturn.util.AJEntity;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.ItemDisplay;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
@@ -23,7 +24,7 @@ public class AJEntityListener implements Listener {
             return;
         }
 
-        if(AJEntityManager.isAJEntityRoot(entity)){
+        if(entity instanceof ItemDisplay root && AJEntityManager.isAJEntityRoot(entity)){
             //System.out.println(entity);
 
             AJEntity ajEntity = ajEntitySummonQueue.removeLast();
@@ -32,10 +33,10 @@ public class AJEntityListener implements Listener {
 
             assert ajEntity != null : "ajEntity가 Null 입니다. AJEntityManager.summon(AJEntity, Location) AJEntity에 잘못된 값이 들어갔습니다.";
 
-            ajEntityMap.put(entity, ajEntity);
+            ajEntityMap.put(root, ajEntity);
             ajEntities.add(ajEntity);
 
-            ajEntity.afterSpawnEvent(entity);
+            ajEntity.afterSpawnEvent(root);
 
             //System.out.println("ajEntity가 생성되었습니다. : " + ajEntity.getRootEntity().getUniqueId());
         }

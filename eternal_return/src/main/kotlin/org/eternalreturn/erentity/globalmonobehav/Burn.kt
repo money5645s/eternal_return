@@ -14,10 +14,31 @@ class Burn : EREntityMonobehaviour<EREntityBurnEvent>() {
     var ticksLeft : Int = 0;
     var attacker : EREntity by Delegates.notNull()
 
+    var flameParticle : com.destroystokyo.paper.ParticleBuilder by Delegates.notNull();
+    var smokeParticle : com.destroystokyo.paper.ParticleBuilder by Delegates.notNull();
+
     override fun start(event: EREntityBurnEvent) {
         ticksLeft = event.ticks;
         attacker = event.attacker;
+
+        flameParticle = Particle.FLAME.builder()
+            .location(erEntity.location)
+            .offset(0.5, 0.5, 0.5)
+            .count(3)
+            .extra(0.03)
+            .receivers(32, true);
+
+        smokeParticle = Particle.SMOKE.builder()
+            .location(erEntity.location)
+            .offset(0.5, 0.5, 0.5)
+            .count(3)
+            .extra(0.03)
+            .receivers(32, true);
+
+
     }
+
+
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
 
@@ -31,31 +52,14 @@ class Burn : EREntityMonobehaviour<EREntityBurnEvent>() {
 
             if(ticksLeft % 5 == 0){
                 val bukkitEntity = victim.entity;
-                val world = bukkitEntity.world;
                 val loc = bukkitEntity.location;
 
-                val flameParticle = Particle.FLAME.builder()
-                    .location(loc)
-                    .offset(0.5, 0.5, 0.5)
-                    .count(3)
-                    .extra(0.03)
-                    .receivers(32, true);
-
-
-                val smokeParticle = Particle.SMOKE.builder()
-                    .location(loc)
-                    .offset(0.5, 0.5, 0.5)
-                    .count(3)
-                    .extra(0.03)
-                    .receivers(32, true);
-
-
-                flameParticle.spawn();
-                smokeParticle.spawn();
+                flameParticle.location(loc).spawn();
+                smokeParticle.location(loc).spawn();
             }
 
             if(ticksLeft % 20 == 0){
-                victim.damage(1.0, attacker);
+                victim.damageForce(1.0, attacker);
             }
             return;
         }

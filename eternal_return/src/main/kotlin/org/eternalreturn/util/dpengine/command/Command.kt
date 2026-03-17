@@ -1,5 +1,5 @@
 package org.eternalreturn.util.dpengine.command
 
-abstract class Command {
+interface Command {
     abstract fun run();
 }

@@ -1,9 +1,11 @@
 package org.eternalreturn.eranimal.manager;
 
+import org.eternalreturn.area.AreaNode;
 import org.eternalreturn.eranimal.*;
 import org.eternalreturn.eranimal.manager.behavs.DetectingPlayersInRange;
 import org.eternalreturn.eranimal.manager.behavs.ManageERAnimals;
 import org.eternalreturn.eranimal.manager.events.DetectingPlayerEvent;
+import org.eternalreturn.system.EREngine;
 import org.eternalreturn.util.dpengine.DPEngine;
 import org.eternalreturn.system.PluginInstance;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
@@ -39,16 +41,45 @@ public class ERAnimalManager extends MonobehaviourActor {
      * */
     private static List<ERAnimalManager> animalManagers = new ArrayList<>();
 
+    private boolean allowedToSummonAlpha = false;
+    public boolean isAllowedToSummonAlpha(){
+        return allowedToSummonAlpha;
+    }
+    public void allowToSummonAlpha(boolean b){
+        allowedToSummonAlpha = b;
+    }
+
+    private boolean allowedToSummonOmega = false;
+    public boolean isAllowedToSummonOmega(){
+        return allowedToSummonOmega;
+    }
+    public void allowToSummonOmega(boolean b){
+        allowedToSummonOmega = b;
+    }
+
+    public static List<ERAnimalManager> getAnimalManagers(){
+        return animalManagers;
+    }
+
+
     /**
      * ERAnimalManager들은 MonobehaviourActor이므로, dpEngine의 MonobehaviourModule에 register해야 함.
      * */
-    public static void initERAnimalManagers(AJEntityManager ajEntityManager, DPEngine engine){
+    public static void initERAnimalManagers(AJEntityManager ajEntityManager, EREngine engine){
         areaInfoList = erAnimalLoader.load();
         var world = PluginInstance.getServerInstance().getServer().getWorlds().getFirst();
 
+        var areaSystem = engine.getAreaSystem();
+
         /// areaInfoList를 순회하며 해당하는 ERAnimalManager들을 생성, 등록
         for(AreaERAnimalInfo info : areaInfoList){
+
+            var vertex = areaSystem.getVertex(new AreaNode(info.name())).getData();
+
+            System.out.println(vertex.getName() + " <-> " + info.name());
+
             var animalManager = new ERAnimalManager(ajEntityManager, engine, world, info);
+            vertex.setManager(animalManager);
             animalManagers.add(animalManager);
         }
     }
@@ -61,6 +92,10 @@ public class ERAnimalManager extends MonobehaviourActor {
     public @NotNull World getWorld(){return world;}
 
     private @NotNull String areaName;
+    public @NotNull String getAreaName() {
+        return areaName;
+    }
+
     private @NotNull DPEngine engine;
     private @NotNull List<ERAJEntity> entities;
 
