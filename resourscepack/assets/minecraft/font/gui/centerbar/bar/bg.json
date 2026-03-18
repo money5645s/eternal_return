@@ -6,6 +6,13 @@
 			"ascent": -62,
 			"height": 13,
 			"chars": ["0"]
+		},
+		{
+			"type": "bitmap",
+			"file": "minecraft:font/bg/center_text.png",
+			"ascent": -2,
+			"height": 13,
+			"chars": ["1"]
 		}
 	]
 }

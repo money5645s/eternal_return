@@ -1,0 +1,19 @@
+{
+    "providers": [
+		{
+			"type": "bitmap","file": "minecraft:font/bg/respawn.png",
+			"ascent": 10,"height": 13,
+			"chars": ["0"]
+		},
+		{
+			"type": "bitmap","file": "minecraft:font/bg/respawn_yellow.png",
+			"ascent": 10,"height": 13,
+			"chars": ["1"]
+		},
+		{
+			"type": "bitmap","file": "minecraft:font/bg/respawn_red.png",
+			"ascent": 10,"height": 13,
+			"chars": ["2"]
+		}
+    ]
+}

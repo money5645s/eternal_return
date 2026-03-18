@@ -1,0 +1,6 @@
+{
+	"providers": [
+		{"type": "bitmap","file": "minecraft:gui/screen_image/banned_area.png","ascent": 42, "height": 90,"chars": ["r"]}
+		
+	]
+}

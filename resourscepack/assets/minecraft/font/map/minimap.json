@@ -1,0 +1,25 @@
+{
+  "providers": [
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/background/text.png", "ascent": -40, "height": 35, "chars": ["\u0999"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/alley.png", "ascent": -5, "height": 36, "chars": ["\u1000"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/archery_range.png", "ascent": -30, "height": 36, "chars": ["\u1001"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/beach.png", "ascent": -88, "height": 39, "chars": ["\u1002"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/cemetery.png", "ascent": -89, "height": 44, "chars": ["\u1003"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/chapel.png", "ascent": -111, "height": 39, "chars": ["\u1004"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/factory.png", "ascent": -115, "height": 42, "chars": ["\u1005"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/fire.png", "ascent": -41, "height": 42, "chars": ["\u1006"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/forest.png", "ascent": -82, "height": 46, "chars": ["\u1007"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/gas_station.png", "ascent": -12, "height": 40, "chars": ["\u1008"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/hospital.png", "ascent": -83, "height": 36, "chars": ["\u1009"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/hotel.png", "ascent": -57, "height": 45, "chars": ["\u1010"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/police.png", "ascent": -29, "height": 40, "chars": ["\u1011"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/pond.png", "ascent": -65, "height": 42, "chars": ["\u1012"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/port.png", "ascent": -143, "height": 28, "chars": ["\u1013"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/school.png", "ascent": -39, "height": 48, "chars": ["\u1014"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/storage.png", "ascent": -134, "height": 30, "chars": ["\u1015"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/stream.png", "ascent": -57, "height": 42, "chars": ["\u1016"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/temple.png", "ascent": -26, "height": 48, "chars": ["\u1017"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/icon/village.png", "ascent": -110, "height": 41, "chars": ["\u1018"] },
+    { "type": "bitmap", "file": "minecraft:font/hyperloop/background/lab.png", "ascent": -71, "height": 37, "chars": ["\u1019"] }
+  ]
+}
