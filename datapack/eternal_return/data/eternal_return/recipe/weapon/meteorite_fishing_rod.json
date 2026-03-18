@@ -1,0 +1,114 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:fishing_rod"
+    ],
+    [
+      "minecraft:slime_ball"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:fishing_rod",
+    "components": {
+      "minecraft:lore": [
+        {
+          "color": "#DAA82B",
+          "italic": false,
+          "text": "전설"
+        },
+        {
+          "color": "gray",
+          "italic": false,
+          "text": "낚시대"
+        }
+      ],
+      "minecraft:tooltip_style": "meteorite",
+      "minecraft:attribute_modifiers": [
+        {
+          "id": "2bfcdeab-5995-47e2-b46d-d031c08da3bc",
+          "type": "minecraft:attack_damage",
+          "amount": 7,
+          "operation": "add_value",
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "+8 공격 피해"
+            }
+          }
+        },
+        {
+          "id": "fb28966c-18ab-4e2e-b6dc-38363639cdf6",
+          "type": "minecraft:attack_speed",
+          "amount": -3.0,
+          "operation": "add_value",
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "+1.0 공격 속도"
+            }
+          }
+        },
+        {
+          "id": "02964e98-e2aa-4a9a-a06f-8743b7caf1f2",
+          "type": "minecraft:burning_time",
+          "amount": -0.1,
+          "operation": "add_value",
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "-10% 연소시간"
+            }
+          }
+        },
+        {
+          "id": "67808d81-27e7-4d54-b58b-67dc4b1dee53",
+          "type": "minecraft:entity_interaction_range",
+          "amount": 0.15,
+          "operation": "add_value",
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "text": "+0.15 기본 공격 사거리"
+            }
+          }
+        },
+        {
+          "id": "d9778c2e-9a10-4a88-95c0-804ff9e71c5c",
+          "type": "minecraft:gravity",
+          "amount": -0.01,
+          "operation": "add_value",
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "text": "-0.01 중력"
+            }
+          }
+        }
+      ],
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "루나루어"
+      },
+      "minecraft:unbreakable": {},
+      "minecraft:damage_type": "player_attack",
+      "minecraft:item_model": "custom_weapon/meteorite_fishing_rod"
+    },
+    "count": 1
+  }
+}

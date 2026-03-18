@@ -1,0 +1,81 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    [
+      "minecraft:fishing_rod"
+    ],
+    [
+      "minecraft:prismarine_shard"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:fishing_rod",
+    "components": {
+      "minecraft:lore": [
+        {
+          "color": "#DAA82B",
+          "italic": false,
+          "text": "전설"
+        },
+        {
+          "color": "gray",
+          "italic": false,
+          "text": "낚시대"
+        }
+      ],
+      "minecraft:tooltip_style": "tree_of_life",
+      "minecraft:attribute_modifiers": [
+        {
+          "id": "c56b9043-f72a-41a4-bf7f-3859a4e6cbb6",
+          "type": "minecraft:attack_damage",
+          "amount": 5,
+          "operation": "add_value",
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "+6 공격 피해"
+            }
+          }
+        },
+        {
+          "id": "17f6e9d7-653d-4b9b-b816-00918a9c2fbc",
+          "type": "minecraft:attack_speed",
+          "amount": -3.0,
+          "operation": "add_value",
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "+1.0 공격 속도"
+            }
+          }
+        },
+        {
+          "id": "ff40b59d-223c-4d56-85e3-9a531837a6ab",
+          "type": "minecraft:max_health",
+          "amount": 5,
+          "operation": "add_value",
+          "slot": "mainhand"
+        }
+      ],
+      "minecraft:enchantments": {
+        "minecraft:fire_aspect": 1
+      },
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "이너피싱"
+      },
+      "minecraft:unbreakable": {},
+      "minecraft:damage_type": "player_attack",
+      "minecraft:item_model": "custom_weapon/tree_of_life_fishing_rod"
+    },
+    "count": 1
+  }
+}
