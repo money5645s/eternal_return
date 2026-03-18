@@ -1,0 +1,125 @@
+on load:
+    set {emoji::*} to "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+
+
+
+
+
+
+
+on swap hand items:
+    # 플레이어가 쉬프트를 누르지 않았을 때 (그냥 F)
+    if player is not sneaking:
+        cancel event
+        open_custom_menu(player)
+    # 플레이어가 쉬프트를 누른 상태에서 F를 눌렀을 때
+    else:
+        cancel event
+        open_info_gui(player)
+
+# --- GUI 생성 함수 ---
+function open_info_gui(p: player):
+    set {_gui} to chest inventory with 5 rows named "&0 이모티콘"
+    
+    loop 36 times:
+        set {_num} to loop-number
+        set {_slot} to {_num} - 1
+        set {_uuid} to uuid of {_p}
+        set {_item} to guster banner pattern named "&e이모티콘 %{_num}%"
+        
+        # 미리 로드된 {emoji::*} 리스트에서 순서대로 꺼내 로어에 적용
+        set line 1 of component lore of {_item} to mini message from " "
+        set line 2 of component lore of {_item} to mini message from " "
+        set line 3 of component lore of {_item} to mini message from " "
+        set line 4 of component lore of {_item} to mini message from "<font:emoji><color:white><italic:false>%{emoji::%{_num}%}%"
+        # 커스텀 모델 데이터 (1번부터 시작)
+        apply custom model data to {_item}:
+            floats: {_num}
+            strings: "emoji"
+        
+        set slot {_slot} of {_gui} to {_item}
+
+    if {emoji_status::%{_uuid}%} is not "off":
+        set slot 36 of {_gui} to ender eye named "&a이모티콘 수신: ON" with lore "&7클릭하면 &c끄기&7 상태로 변경합니다." and "&8이모티콘을 보낼 수 있지만 화면에 출력되지 않습니다."
+    else if {emoji_status::%{_uuid}%} is not "on":
+        set slot 36 of {_gui} to ender pearl named "&c이모티콘 수신: OFF" with lore "&7클릭하면 &a켜기&7 상태로 변경합니다."
+    
+    # 배경 및 닫기 버튼 배치 (이전과 동일)
+    loop 45 times:
+        set {_bg} to loop-number - 1
+        if slot {_bg} of {_gui} is air:
+            set slot {_bg} of {_gui} to black stained glass pane named " "
+    set slot 44 of {_gui} to barrier named "&c창 닫기"
+    
+    open {_gui} to {_p}
+
+# --- 설정 부분 ---
+options:
+    emoji_cooldown: 5 seconds # 쿨타임 시간 설정 (예: 3초)
+
+on inventory click:
+    if name of event-inventory is "&0 이모티콘":
+        cancel event
+        set {_uuid} to uuid of player
+        
+        if event-item is air or black stained glass pane:
+            stop
+            
+        # [닫기 버튼]
+        if index of event-slot is 44:
+            close player's inventory
+            stop
+            
+        # [왼쪽 하단 온오프 버튼]
+        if index of event-slot is 36:
+            if {emoji_status::%{_uuid}%} is not "off":
+                set {emoji_status::%{_uuid}%} to "off"
+                send "&c[!] 이모티콘을 다시 표시합니다" to player
+            else:
+                set {emoji_status::%{_uuid}%} to "on"
+                send "&a[!] 이제 이모티콘을 다시 표시합니다" to player
+            
+            # 상태 변경 후 GUI 새로고침
+            open_info_gui(player)
+            stop
+
+        # [이모티콘 클릭]
+        if index of event-slot <= 35:
+            # 쿨타임 체크
+            set {_waited} to difference between {emoji_last_use::%{_uuid}%} and now
+            if {_waited} is less than {@emoji_cooldown}:
+                play sound "minecraft:er.ui.error_sound1" with volume 1 and pitch 1 to player
+                stop
+            
+            # 이모티콘 실행
+            set {_num} to index of event-slot + 1
+            ShowEmoji(player, {emoji::%{_num}%})
+            
+            set {emoji_last_use::%{_uuid}%} to now
+            close player's inventory
+
+function ShowEmoji(p: player, emoji: text):
+    # 1. 서버 구동 시간 계산 (플레이어 번호 옆에 표시될 타임스탬프)
+    set {_diff} to difference between {server.starttime} and now
+    set {_sec} to floor(seconds of {_diff})
+    set {_min} to floor({_sec} / 60)
+    set {_s} to mod({_sec}, 60)
+
+    if {_s} < 10:
+        set {_s} to "0%{_s}%"
+    if {_min} < 10:
+        set {_min} to "0%{_min}%"
+
+    # 2. 메시지 구성 (MiniMessage 및 컴포넌트 활용)
+    # 요청하신 대로 긴 공백 뒤에 이모티콘 배치
+    set {_prefix} to "&x&3&f&c&9&c&7[%{_min}%:%{_s}%] Player %{player_num::%uuid of {_p}%}% : "
+    set {_emoji_msg} to mini message from "                             <font:emoji><color:white><italic:false>%{_emoji}%"
+
+    # 3. 모든 플레이어에게 루프를 돌며 전송 (설정 확인)
+    loop all players:
+        # 수신 거부 상태가 아닌 플레이어에게만 전송
+        if {emoji_status::%uuid of loop-player%} is not "off":
+            send {_prefix} to loop-player
+            send "" to loop-player
+            send "" to loop-player
+            send components {_emoji_msg} to loop-player

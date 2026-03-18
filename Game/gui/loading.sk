@@ -166,7 +166,7 @@ function startDoubleLoadingBar(p: player, totalTicks: int, startsound: text, end
 
 
 # 호출 예시
-command /asdf <int> <text>:
-    trigger:
-        # 인자: 플레이어, 틱수, 시작사운드, 끝사운드, 태그명, 표시할텍스트
-        startLoadingBar(player, 30, "minecraft:er.item.collect.meteorite", "", "use_cctv", "보안콘솔 작동 중")
+#command /asdf <int> <text>:
+#    trigger:
+#        # 인자: 플레이어, 틱수, 시작사운드, 끝사운드, 태그명, 표시할텍스트
+#        startLoadingBar(player, 30, "minecraft:er.item.collect.meteorite", "", "use_cctv", "보안콘솔 작동 중")

@@ -125,12 +125,7 @@ function getArmorDiscountRate(p: player) :: int:
     set {_result} to ({_result}+((1-{_result})*{_level}*0.2))*100
     return {_result}
     
-function pedzero(num: number, length: number, zeroText: text, font: text) :: text component:
-    set {_zerotextDigit} to {_length} - digitLength({_num})
-    loop {_zerotextDigit} times:
-        add {_zeroText} to {_result::*}
-    add {_num} to {_result::*}
-    return json component of "{text:""%mergeText({_result::*})%"",font:""%{_font}%""}"
+
 
 function digitLength(num: number) :: number:
     if {_num} <= 0:

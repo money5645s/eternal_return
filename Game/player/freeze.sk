@@ -1,0 +1,12 @@
+on player move:
+    if player has the scoreboard tag "freeze":
+        cancel event
+        if {map_state::%uuid of player%} is 1:
+            set {map_state::%uuid of player%} to 0
+
+
+every 1 ticks:
+    loop all players:
+        if loop-player has the scoreboard tag "freeze":
+            if {map_state::%uuid of loop-player%} is 1:
+                set {map_state::%uuid of loop-player%} to 0

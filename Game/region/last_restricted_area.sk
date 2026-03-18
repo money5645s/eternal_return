@@ -1,0 +1,155 @@
+on load:
+
+    # 경찰서
+    set {cctv::police_station::loc} to location(-722, 82, 568)
+
+    # 소방서
+    set {cctv::fire_station::loc} to location(-669, 82, 566)
+
+    # 숲
+    set {cctv::forest::loc} to location(-536, 82, 508)
+
+    # 절
+    set {cctv::temple::loc} to location(-759.5, 82, 514)
+
+    # 개울
+    set {cctv::stream::loc} to location(-709.5, 82, 454)
+
+    # 병원
+    set {cctv::hospital::loc} to location(-669, 82, 395)
+
+    # 공장
+    set {cctv::factory::loc} to location(-569, 82, 339)
+
+    # 묘지
+    set {cctv::cemetery::loc} to location(-579, 82, 451)
+
+    # 연못
+    set {cctv::pond::loc} to location(-643, 82, 467)
+
+    # 학교
+    set {cctv::school::loc} to location(-574, 82, 634)
+
+    # 양궁장
+    set {cctv::archery_range::loc} to location(-610, 85, 699)
+
+    # 골목길
+    set {cctv::alley::loc} to location(-723, 82, 651)
+
+    # 모래사장
+    set {cctv::beach::loc} to location(-437, 80, 574)
+
+    # 항구
+    set {cctv::dock::loc} to location(-459, 82, 381)
+
+    # 주유소
+    set {cctv::gas_station::loc} to location(-707, 82, 690)
+
+    # 호텔
+    set {cctv::hotel::loc} to location(-498, 82, 642)
+
+    # 창고
+    set {cctv::warehouse::loc} to location(-450, 82, 424)
+
+    # 성당
+    set {cctv::chapel::loc} to location(-554, 82, 421)
+
+    # 고급 주택가
+    set {cctv::uptown::loc} to location(-431, 82, 477)
+
+
+
+
+function startZoneBorder(zone: text):
+    set {_loc} to {cctv::%{_zone}%::loc}
+    if {_loc} is not set:
+        stop
+
+    set {border.center} to {_loc}
+
+    set {_x} to x-coordinate of {_loc}
+    set {_z} to z-coordinate of {_loc}
+
+    # 1. 즉시 30으로 설정
+    execute console command "worldborder center %{_x}% %{_z}%"
+    execute console command "worldborder set 30 0"
+
+    # 2. 1초 대기
+    wait 1 second
+
+    # 3. 줄어들기 시작 시점 기록 (🔥 중요)
+    set {border.start} to now
+
+    # 4. 30 → 1 (30초)
+    execute console command "worldborder set 1 30s"
+
+
+
+function getCurrentBorderSize() :: number:
+    if {border.start} is not set:
+        return 31
+
+    set {_time} to difference between now and {border.start}
+    set {_sec} to {_time} / 1 second
+
+    if {_sec} >= 30:
+        return 1
+
+    return 31 - {_sec}
+
+
+
+function checkBorder(p: player):
+    set {_center} to {border.center}
+    if {_center} is not set:
+        stop
+
+    set {_size} to getCurrentBorderSize()
+    set {_radius} to {_size} / 2
+
+    set {_px} to x-coordinate of {_p}
+    set {_pz} to z-coordinate of {_p}
+
+    set {_cx} to x-coordinate of {_center}
+    set {_cz} to z-coordinate of {_center}
+
+    set {_dx} to {_px} - {_cx}
+    set {_dz} to {_pz} - {_cz}
+    set {_dist} to sqrt({_dx}^2 + {_dz}^2)
+
+    if {_dist} > {_radius}:
+        add "in_restricted_area" to the scoreboard tags of {_p}
+    else:
+        remove "in_restricted_area" from the scoreboard tags of {_p}
+
+
+every 2 ticks:
+    loop all players:
+        checkBorder(loop-player)
+
+# 1. 서버 실행 시 지역 이름들을 리스트에 담아둡니다.
+on load:
+    set {RegionList::*} to "alley", "archery_range", "beach", "cemetery", "chapel", "dock", "factory", "fire_station", "forest", "gas_station", "hospital", "hotel", "police_station", "pond", "school", "stream", "temple", "uptown", "warehouse"
+
+# 2. 함수에서 이 리스트를 루프합니다.
+function getLastRegion() :: text:
+    set {_found} to ""
+    set {_count} to 0
+
+    loop {RegionList::*}:
+        set {_region} to loop-value # 리스트에 담긴 지역명 (alley 등)
+        
+        # 실제 데이터 변수 {Region::지역::state} 값을 직접 확인
+        if {Region::%{_region}%::state} is 1:
+            add 1 to {_count}
+            set {_found} to {_region}
+
+    if {_count} is 1:
+        return {_found}
+    return "none"
+
+
+command /월:
+    trigger:
+        broadcast getLastRegion()
+        #startZoneBorder("forest")

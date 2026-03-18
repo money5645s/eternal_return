@@ -1,0 +1,103 @@
+function updateAttribute(p: player, attr_type: text, val: number, is_rare: boolean):
+    # 속성(Attribute) 매핑
+    if {_attr_type} is "attack_damage":
+        set {_attr} to generic attack damage attribute of {_p}
+    else if {_attr_type} is "max_health":
+        set {_attr} to generic max health attribute of {_p}
+    else if {_attr_type} is "movement_speed":
+        set {_attr} to generic movement speed attribute of {_p}
+    else if {_attr_type} is "attack_speed":
+        set {_attr} to generic attack speed attribute of {_p}
+    else if {_attr_type} is "knockback_resistance":
+        set {_attr} to generic knockback resistance attribute of {_p}
+    else if {_attr_type} is "armor":
+        set {_attr} to generic armor attribute of {_p}
+    else if {_attr_type} is "armor_toughness":
+        set {_attr} to generic armor toughness attribute of {_p}
+
+    # 수치 적용 (중첩 가능)
+    if {_is_rare} is false:
+        # 일반형: 현재 기본값 기준 % 증가 (복리 중첩)
+        set {_current} to base value of {_attr}
+        set {_bonus} to {_current} * {_val}
+        add {_bonus} to {_attr}
+    else:
+        # 고급형: 베이스 수치에 직접 추가 (단리 중첩)
+        add {_val} to {_attr}
+
+
+function applyOption(p: player, raw_name: text):
+    set {_u} to uuid of {_p}
+    # 아이템 이름에서 모든 색상 코드를 제거
+    set {_name} to uncolored {_raw_name}
+    
+    # 1. 일반 옵션북 처리 (이름 일치 확인)
+    if {_name} is "연소 저항 룬":
+        # 연소 저항은 데미지 이벤트에서 처리 (리스트에만 추가됨)
+        set {_valid} to true
+    else if {_name} is "공격 속도 룬":
+        updateAttribute({_p}, "attack_speed", 0.1, false)
+        set {_valid} to true
+    else if {_name} is "방어 룬":
+        updateAttribute({_p}, "armor", 1, false)
+        set {_valid} to true
+    else if {_name} is "속도 룬":
+        updateAttribute({_p}, "movement_speed", 0.002, false)
+        set {_valid} to true
+    else if {_name} is "공격 룬":
+        updateAttribute({_p}, "attack_damage", 0.5, false)
+        set {_valid} to true
+    else if {_name} is "체력 룬":
+        updateAttribute({_p}, "max_health", 2, false)
+        set {_valid} to true
+
+    # 2. 고급 옵션북 처리
+    else if {_name} is "고급 연소 저항 룬":
+        set {_valid} to true
+    else if {_name} is "고급 넉백 저항 룬":
+        updateAttribute({_p}, "knockback_resistance", 0.1, true)
+        set {_valid} to true
+    else if {_name} is "고급 방어 룬":
+        updateAttribute({_p}, "armor_toughness", 2, true)
+        set {_valid} to true
+    else if {_name} is "고급 공격 속도 룬":
+        updateAttribute({_p}, "attack_speed", 0.1, true)
+        set {_valid} to true
+    else if {_name} is "고급 공격 룬":
+        updateAttribute({_p}, "attack_damage", 0.1, true)
+        set {_valid} to true
+    else if {_name} is "고급 체력 룬":
+        updateAttribute({_p}, "max_health", 0.1, true)
+        set {_valid} to true
+
+    # 데이터 기록 (유효한 룬일 경우에만)
+    if {_valid} is true:
+        add 1 to {option.count::%{_u}%}
+        # 저장할 때는 원본(색상 포함) 이름을 저장해야 나중에 GUI에서 예쁘게 보입니다.
+        add {_raw_name} to {option.list::%{_u}%::*}
+        send "§a[!] %{_raw_name}%§f 효과가 적용되었습니다!" to {_p}
+        play sound "entity.experience_orb.pickup" with volume 0.5 to {_p}
+
+
+on right click:
+    if player's tool is sugar:
+        set {_raw} to name of player's tool
+        set {_clean} to uncolored {_raw}
+        
+        # 룬 아이템인지 확인 (이름에 '룬'이 포함되어 있는지)
+        if {_clean} contains "룬":
+            cancel event
+            
+            if {option.count::%uuid of player%} >= 5:
+                send "§c[!] 옵션북은 최대 5개까지만 적용 가능합니다." to player
+                stop
+            
+            # 아이템 소모 및 함수 실행
+            remove 1 of player's tool from player's tool
+            applyOption(player, {_raw})
+command /옵션북:
+    trigger:
+        set {_gui} to chest inventory with 1 rows named "§8장착된 옵션 목록"
+        loop {option.list::%uuid of player%::*}:
+            set slot (loop-index parsed as integer - 1) of {_gui} to sugar named "§f%loop-value%"
+        open {_gui} to player

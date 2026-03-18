@@ -88,6 +88,33 @@ on load:
     addRegion("briefing_room", -340, 60, 411, 92, 17, 74)
     send "§a[Region] 모든 구역 데이터 로드 완료!" to console
 
+
+on load:
+    # 보스바 표기 이름 세팅
+    delete {Region_Bossbar::*}
+    setBossbarNameSpace("alley","골목길",8,7,"gui/bossbar/place")
+    setBossbarNameSpace("archery_range","양궁장",8,7,"gui/bossbar/place")
+    setBossbarNameSpace("beach","모래사장",5,4,"gui/bossbar/place")
+    setBossbarNameSpace("cemetery","묘지",11,10,"gui/bossbar/place")
+    setBossbarNameSpace("chapel","성당",11,10,"gui/bossbar/place")
+    setBossbarNameSpace("dock","항구",11,10,"gui/bossbar/place")
+    setBossbarNameSpace("factory","공장",11,10,"gui/bossbar/place")
+    setBossbarNameSpace("fire_station","소방서",8,7,"gui/bossbar/place")
+    setBossbarNameSpace("forest","숲",14,13,"gui/bossbar/place")
+    setBossbarNameSpace("gas_station","주유소",8,7,"gui/bossbar/place")
+    setBossbarNameSpace("hospital","병원",11,10,"gui/bossbar/place")
+    setBossbarNameSpace("hotel","호텔",11,10,"gui/bossbar/place")
+    setBossbarNameSpace("police_station","경찰서",8,7,"gui/bossbar/place")
+    setBossbarNameSpace("pond","연못",11,10,"gui/bossbar/place")
+    setBossbarNameSpace("school","학교",11,10,"gui/bossbar/place")
+    setBossbarNameSpace("stream","개울",11,10,"gui/bossbar/place")
+    setBossbarNameSpace("temple","절",14,13,"gui/bossbar/place")
+    setBossbarNameSpace("uptown","고급 주택가",0,0,"gui/bossbar/place")
+    setBossbarNameSpace("warehouse","창고",11,10,"gui/bossbar/place")
+    setBossbarNameSpace("research_center","연구소",11,4,"gui/bossbar/place")
+    setBossbarNameSpace("briefing_room","브리핑 룸",3,3,"gui/bossbar/place")
+
+
 # --- 보조 함수: 데이터를 변수에 저장 ---
 function addRegion(name: string, x: number, y: number, z: number, dx: number, dy: number, dz: number):
     # 새로운 인덱스 생성
@@ -97,6 +124,11 @@ function addRegion(name: string, x: number, y: number, z: number, dx: number, dy
     # x,y,z 지점과 x+dx, y+dy, z+dz 지점 저장
     set {Region::%{_name}%::%{_i}%::pos1} to location({_x}, {_y}, {_z}, world "overworld")
     set {Region::%{_name}%::%{_i}%::pos2} to location(({_x} + {_dx}), ({_y} + {_dy}), ({_z} + {_dz}), world "overworld")
+
+
+
+
+
 
 # --- 핵심 함수: 현재 플레이어 위치의 구역 이름 반환 ---
 function getPlayerRegion(p: player):
@@ -132,7 +164,8 @@ function isChangedPlayerRegion(p:player):
 
     if {_CurrentRegion} is not {_LastRegion}:
         set {lastregion::%{_p}%} to {inRegion::%{_p}%}
-        #send action bar convertZoneName({inRegion::%{_p}%}) to {_p}
+        set {_koname} to convertZoneName({inRegion::%{_p}%})
+        region_annonce({_p},"%{_koname}%",30)
 
 function convertZoneName(name: string) :: string:
     if {_name} is "alley":
@@ -180,6 +213,6 @@ function convertZoneName(name: string) :: string:
     
     return "야생"
 
-every 0.5 seconds:
+every 1 ticks:
     loop all players:
         isChangedPlayerRegion(loop-player)

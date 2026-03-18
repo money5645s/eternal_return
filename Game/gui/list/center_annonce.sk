@@ -1,0 +1,46 @@
+function center_annonce(text: text, time: integer, sound: text):
+    # 1. 고유 실행 ID 생성 (기존 실행 중인 루프를 덮어쓰기 위함)
+    add 1 to {center_bar_id}
+    set {_current_id} to {center_bar_id}
+
+    # 2. UI 조립
+    # 상단 바 (배경)
+    clear {_t::*}
+    add json component from "{""text"":""0"",""font"":""gui/centerbar/bar/bg"",""shadow_color"":0}" to {_t::*}
+    set {_json1} to serialized json string of merge components {_t::*}
+    
+    # 하단 바 (텍스트)
+    clear {_b::*}
+    add json component from "{""text"":""!"",""font"":""gui/icon"",""shadow_color"":0}" to {_b::*}
+    add translate component of "space.2" to {_b::*}
+    add json component from "{""text"":""%{_text}%"",""font"":""gui/centerbar/bar/text"",""color"":""white"",""shadow_color"":0}" to {_b::*}
+    set {_json2} to serialized json string of merge components {_b::*}
+
+    # 3. 최초 보스바 표시 (중복 체크 로직 추가)
+    loop all players:
+        play sound "%{_sound}%" with volume 0.5 to loop-player
+        
+        # [수정] 2번 라인(배경) 중복 체크
+        if {Last_Center_2::%uuid of loop-player%} is not {_json1}:
+            updateBossBar(loop-player, 2, {_json1})
+            set {Last_Center_2::%uuid of loop-player%} to {_json1}
+            
+        # [수정] 3번 라인(텍스트) 중복 체크
+        if {Last_Center_3::%uuid of loop-player%} is not {_json2}:
+            updateBossBar(loop-player, 3, {_json2})
+            set {Last_Center_3::%uuid of loop-player%} to {_json2}
+    
+    # 4. 루프 제어 (시간 대기 및 덮어쓰기 체크)
+    loop {_time} times:
+        if {_current_id} is not {center_bar_id}:
+            stop
+        wait 1 ticks
+
+    # 5. 마지막까지 살아남은 최신 루프만 보스바를 제거 및 변수 삭제
+    if {_current_id} is {center_bar_id}:
+        loop all players:
+            updateBossBar(loop-player, 2, "")
+            updateBossBar(loop-player, 3, "")
+            # 변수 초기화 (다음에 같은 공지가 올라올 때 다시 뜰 수 있게 함)
+            delete {Last_Center_2::%uuid of loop-player%}
+            delete {Last_Center_3::%uuid of loop-player%}

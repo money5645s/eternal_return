@@ -1,14 +1,8 @@
 
-
-
-# 첫 입장시
-on join:
-    if player has not played before:
-
-
-
-
-
+command /초기화:
+    trigger:
+        set {kill::%{_p}%} to 0
+        set {death::%{_p}%} to 0
 
 
 
@@ -16,7 +10,7 @@ command /캐릭터선택 <text>:
     trigger:
         set {player.character::%uuid of player%} to arg-1
         send "§a%arg-1%§f 캐릭터를 선택했습니다."
-        setPlayerStateGUIJson(player)
+        setPlayerGameUIJson(player)
         #set {_t} to {stateGUI::%uuid of player%}
         #updateBossBar(player, 6, {_t})
         # 선택 즉시 사이드바 갱신
@@ -27,11 +21,13 @@ on tab complete of "/캐릭터선택":
 
 # attribute 가져오기
 function getPlayerState(p: player):
-    set {_atkdmg} to pedzero({_p}'s attack damage final attribute, 2, " ", "")
-    set {_atkspd} to pedzero({_p}'s attack speed final attribute * 25, 2, " ", "")
-    set {_armor} to pedzero(getArmorDiscountRate({_p}), 2, " ", "")
-    set {_movespd} to pedzero({_p}'s movement speed attribute * 1000, 2, " ", "")
+    set {stats::%{_p}%::atk} to floor({_p}'s attack damage final attribute)
+    set {stats::%{_p}%::atk_spd} to floor({_p}'s attack speed final attribute * 25)
+    set {stats::%{_p}%::armor} to floor(getArmorDiscountRate({_p}))
+    set {stats::%{_p}%::speed} to floor({_p}'s movement speed final attribute * 1000)
+
     getPlayerScoreState({_p})
+    
 
 # 스코어보드 스탯 가져오기
 function getPlayerScoreState(p: player):
@@ -70,9 +66,26 @@ function getPlayerScoreState(p: player):
     # 금지구역 남은 시간
     set {_bantime} to objective with id "bantime"
     set {bantime::%uuid of {_p}%} to score of {_p} for {_bantime}
+    # 부활 가능횟수
+    set {_res} to objective with id "resurrection"
+    set {_resurrection} to score of {_p} for {_res}
+    set {resurrection::%uuid of {_p}%} to {_resurrection}
+    # 킬
+    set {_kill} to objective with id "kill"
+    set {_kills} to score of {_p} for {_kill}
+    set {kill::%uuid of {_p}%} to {_kills}
+    # 데스
+    set {_death} to objective with id "death"
+    set {_deaths} to score of {_p} for {_death}
+    set {death::%uuid of {_p}%} to {_deaths}
 
-
-
+    # 캐릭터 등록
+    if {player.character::%uuid of {_p}%} is not set:
+        set {_char} to objective with id "character"
+        set {_charnum} to score of {_p} for {_char}
+        
+        set {player.character::%uuid of {_p}%} to {characterlist::%{_charnum}%}
+        execute {_p} command "/er ch %{characterlist::%{_charnum}%}%"
 
 command /state <player>:
     trigger:
@@ -86,11 +99,12 @@ command /state <player>:
 function sendPlayerData(p:player):
     send "&a%name of {_p}%님의 정보:" to {_p}
     send "현재 지역 : %convertZoneName({inRegion::%{_p}%})% | 금지구역 남은시간 : %{bantime::%uuid of {_p}%}%s" to {_p}
-    send "K : %{kills::%uuid of {_p}%}% | D : %{deaths::%uuid of {_p}%}%" to {_p}
+    send "K : %{kill::%uuid of {_p}%}% | D : %{death::%uuid of {_p}%}%" to {_p}
     send "캐릭터 : %{player.character::%uuid of {_p}%}%" to {_p}
     send "소유 크래딧 : %{credit::%uuid of {_p}%}%" to {_p}
     send "레벨 : %{level::%uuid of {_p}%}% | 경험치 : %{exp::%uuid of {_p}%}%" to {_p}
     send "스킬 포인트 : %{skill_point::%uuid of {_p}%}%" to {_p}
     send "A.L : %{active_level::%uuid of {_p}%}% | P.L : %{passive_level::%uuid of {_p}%}%" to {_p}
     send "ACD: %{active_cool::%uuid of {_p}%}%s | PCD : %{passive_cool::%uuid of {_p}%}%s" to {_p}
+    send "부활 가능 횟수 : %{resurrection::%uuid of {_p}%}% " to {_p}
     

@@ -55,20 +55,20 @@ function registerCharacter(name:text, number:int, ko_name:text, passive_name:tex
     add 1 to {characterCount}
 
 
-command /캐릭터 <text>:
-    trigger:
-        send "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        send "&a%arg-1%&f의 캐릭터 정보입니다"
-        send "이름 : &7%{character::%arg-1%::ko_name}%&f, 번호 : &7%{character::%arg-1%::number}%&f, 유니코드 : &7%{character::%arg-1%::unicord}%"
-        send "패시브 스킬 정보:"
-        send "  &7%{character::%arg-1%::passive_name}%"
-        send "  &7%{character::%arg-1%::passive_lore}%"
-        send "  &7%{character::%arg-1%::passive_cool}%"
-        send "액티브 스킬 정보:"
-        send "  &7%{character::%arg-1%::active_name}%"
-        send "  &7%{character::%arg-1%::active_lore}%"
-        send "  &7%{character::%arg-1%::active_cool}%"
-        send "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+#command /캐릭터 <text>:
+#    trigger:
+#        send "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+#        send "&a%arg-1%&f의 캐릭터 정보입니다"
+#        send "이름 : &7%{character::%arg-1%::ko_name}%&f, 번호 : &7%{character::%arg-1%::number}%&f, 유니코드 : &7%{character::%arg-1%::unicord}%"
+#        send "패시브 스킬 정보:"
+#        send "  &7%{character::%arg-1%::passive_name}%"
+#        send "  &7%{character::%arg-1%::passive_lore}%"
+#        send "  &7%{character::%arg-1%::passive_cool}%"
+#        send "액티브 스킬 정보:"
+#        send "  &7%{character::%arg-1%::active_name}%"
+#        send "  &7%{character::%arg-1%::active_lore}%"
+#        send "  &7%{character::%arg-1%::active_cool}%"
+#        send "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 on tab complete of "/캐릭터":
 	set tab completions for position 1 to {characterlist::*}

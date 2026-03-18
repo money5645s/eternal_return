@@ -1,0 +1,44 @@
+function updateWaitBossBar(p: player):
+    # 1. JSON 컴포넌트 리스트 초기화
+    delete {_t::*}
+
+    set {_obj1} to objective with id "time"
+    set {_count} to score of "player" for {_obj1}
+    set {_sec} to score of "left.sec" for {_obj1}
+    set {_bg} to score of "left.time.bg.num" for {_obj1}
+    
+    set {_nbg} to score of "now.bg" for {_obj1}
+
+    if {_sec} > 5:
+        # 2. 각 구성 요소 추가 (순서대로)
+        add json component from "{""text"":""%{_bg}%"",""font"":""gui/centerbar/wait/bg"",""shadow_color"":0}" to {_t::*}
+        add json component from "{""translate"":""space.-95"",""font"":""minecraft:default""}" to {_t::*}
+        add json component from "{""text"":""남은 시간 : "",""font"":""gui/centerbar/wait/remaining_text""}" to {_t::*}
+        if {_sec} < 10:
+            add json component from "{""translate"":""space.4"",""font"":""minecraft:default""}" to {_t::*}
+            add json component from "{""text"":""%pedzero({_sec},3," ","")%"",""font"":""gui/centerbar/wait/remaining_num"",""color"":""aqua""}" to {_t::*}
+        else:
+            add json component from "{""text"":""%pedzero({_sec},3," ","")%"",""font"":""gui/centerbar/wait/remaining_num"",""color"":""aqua""}" to {_t::*}
+        add json component from "{""text"":""초"",""font"":""gui/centerbar/wait/remaining_text"",""color"":""white""}" to {_t::*}
+        
+        add json component from "{""translate"":""space.-34"",""font"":""minecraft:default""}" to {_t::*}
+        add json component from "{""text"":""%pedzero({_count},2," ","")%"",""font"":""gui/centerbar/wait/count"",""shadow_color"":0}" to {_t::*}
+        add json component from "{""text"":""/16"",""font"":""gui/centerbar/wait/count"",""shadow_color"":0}" to {_t::*}
+        add json component from "{""translate"":""space.54"",""font"":""minecraft:default""}" to {_t::*}
+            
+        set {_final_json} to serialized json string of merge components {_t::*}
+            
+        updateBossBar({_p}, 2, {_final_json})
+
+    else if {_sec} > 0:
+        if {_nbg} > 0:
+            set {_t} to json component from "{""text"":""%{_nbg}%"",""font"":""gui/centerbar/now/bg"",""shadow_color"":0}"
+        if {_nbg} = 9:
+            set {_b} to json component from "{""text"":"" 곧 루미아 섬으로 이동합니다."",""font"":""gui/centerbar/now/text"",""shadow_color"":0}"
+        else:
+            set {_b} to json component from "{""text"":"" "",""font"":""gui/centerbar/now/text"",""shadow_color"":0}"
+        
+        set {_final_json} to serialized json string of {_t}
+        set {_final_json2} to serialized json string of {_b}
+        updateBossBar({_p}, 2, {_final_json})
+        updateBossBar({_p}, 3, {_final_json2})

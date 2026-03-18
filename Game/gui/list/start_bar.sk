@@ -1,0 +1,23 @@
+function updateStartBossBar(p: player):
+    # 1. JSON 컴포넌트 리스트 초기화
+    delete {_t::*}
+
+    set {_obj1} to objective with id "time"
+    set {_tick} to score of "start.tick" for {_obj1}
+    set {_sec} to floor({_tick} / 20)
+    if {_sec} > 0:
+        add json component from "{""text"":""0"",""font"":""gui/centerbar/left_time/bg"",""shadow_color"":0}" to {_t::*}
+        if {_sec} > 1:
+            add json component from "{""translate"":""space.-125"",""font"":""minecraft:default""}" to {_t::*}
+        else:
+            add json component from "{""translate"":""space.-122"",""font"":""minecraft:default""}" to {_t::*}
+        add json component from "{""text"":""%{_sec}%"",""font"":""gui/centerbar/left_time/num"",""shadow_color"":0}" to {_t::*}
+        add json component from "{""translate"":""space.-35"",""font"":""minecraft:default""}" to {_t::*}
+        add json component from "{""text"":""실험을 곧 시작합니다."",""font"":""gui/centerbar/left_time/text""}" to {_t::*}
+        add json component from "{""translate"":""space.85"",""font"":""minecraft:default""}" to {_t::*}
+
+        set {_final_json} to serialized json string of merge components {_t::*}
+        updateBossBar({_p}, 2, {_final_json})
+    else if {_sec} = 0:
+        if {_tick} = 12:
+            center_annonce("실험이 시작되었습니다.", 80,"")

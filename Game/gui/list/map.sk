@@ -1,0 +1,185 @@
+function get_icon_component(char: text, state: integer) :: object:
+    # 상태별 색상 설정 (0: 흰색, 1: 노란색, 2: 빨간색)
+    set {_color} to "white"
+    if {_state} is 1:
+        set {_color} to "yellow"
+    else if {_state} is 2:
+        set {_color} to "red"
+        
+    # JSON 컴포넌트 생성 및 반환
+    set {_comp} to json component from "{""text"":""%{_char}%"",""color"":""%{_color}%"",""font"":""map/minimap"",""shadow_color"":0}"
+    return {_comp}
+
+function updateReigonStateinBossbar():
+    getReigonState()
+    clear {_t::*}
+    
+    # [1] 시작 위치 및 Alley
+    add translate component of "%space(260)%" to {_t::*}
+    add get_icon_component("\u1001", {Region::alley::state}) to {_t::*}
+    
+    # [2] Gas Station
+    add translate component of "%space(-12)%" to {_t::*}
+    add get_icon_component("\u1008", {Region::gas_station::state}) to {_t::*}
+    
+    # [3] Archery Range
+    add translate component of "%space(-18)%" to {_t::*}
+    add get_icon_component("\u1000", {Region::archery_range::state}) to {_t::*}
+    
+    # [4] School
+    add translate component of "%space(-71)%" to {_t::*}
+    add get_icon_component("\u1014", {Region::school::state}) to {_t::*}
+    
+    # [5] Fire Station
+    add translate component of "%space(-8)%" to {_t::*}
+    add get_icon_component("\u1006", {Region::fire_station::state}) to {_t::*}
+    
+    # [6] Police Station
+    add translate component of "%space(-21)%" to {_t::*}
+    add get_icon_component("\u1011", {Region::police_station::state}) to {_t::*}
+    
+    # [7] Hotel
+    add translate component of "%space(-108)%" to {_t::*}
+    add get_icon_component("\u1010", {Region::hotel::state}) to {_t::*}
+    
+    # [8] Research Center (기존 Lab)
+    add translate component of "%space(0)%" to {_t::*}
+    add get_icon_component("\u1019", {Region::research_center::state}) to {_t::*}
+    
+    # [9] Temple
+    add translate component of "%space(4)%" to {_t::*}
+    add get_icon_component("\u1017", {Region::temple::state}) to {_t::*}
+    
+    # [10] Pond
+    add translate component of "%space(-64)%" to {_t::*}
+    add get_icon_component("\u1012", {Region::pond::state}) to {_t::*}
+    
+    # [11] Stream
+    add translate component of "%space(-19)%" to {_t::*}
+    add get_icon_component("\u1016", {Region::stream::state}) to {_t::*}
+    
+    # [12] Forest
+    add translate component of "%space(-104)%" to {_t::*}
+    add get_icon_component("\u1007", {Region::forest::state}) to {_t::*}
+    
+    # [13] Cemetery
+    add translate component of "%space(-7)%" to {_t::*}
+    add get_icon_component("\u1003", {Region::cemetery::state}) to {_t::*}
+    
+    # [14] Beach
+    add translate component of "%space(-112)%" to {_t::*}
+    add get_icon_component("\u1002", {Region::beach::state}) to {_t::*}
+    
+    # [15] Uptown (기존 Village)
+    add translate component of "%space(-18)%" to {_t::*}
+    add get_icon_component("\u1018", {Region::uptown::state}) to {_t::*}
+    
+    # [16] Chapel
+    add translate component of "%space(-14)%" to {_t::*}
+    add get_icon_component("\u1004", {Region::chapel::state}) to {_t::*}
+    
+    # [17] Warehouse (기존 Storage)
+    add translate component of "%space(-53)%" to {_t::*}
+    add get_icon_component("\u1015", {Region::warehouse::state}) to {_t::*}
+    
+    # [18] Hospital
+    add translate component of "%space(18)%" to {_t::*}
+    add get_icon_component("\u1009", {Region::hospital::state}) to {_t::*}
+    
+    # [19] Factory
+    add translate component of "%space(-52)%" to {_t::*}
+    add get_icon_component("\u1005", {Region::factory::state}) to {_t::*}
+    
+    # [20] Dock (기존 Port)
+    add translate component of "%space(-76)%" to {_t::*}
+    add get_icon_component("\u1013", {Region::dock::state}) to {_t::*}
+
+    set {bossbar.list::map} to serialized json string of merge components {_t::*}
+    
+function giveFixedItems(p: player):
+    set slot 8 of {_p} to map named "&f맵" with lore "&8우클릭으로 미니맵을 끄거나 킬 수 있습니다"
+
+on join:
+    clear player's inventory
+    giveFixedItems(player)
+
+on respawn:
+    giveFixedItems(player)
+
+# 2. 인벤토리 모든 조작 차단 (마우스 클릭 + 숫자 키)
+on inventory click:
+    if player has scoreboard tag "in_game":
+        # 1. 클릭한 인벤토리가 플레이어의 소지품 창(Bottom Inventory)인지 확인
+        if event-inventory is player's inventory:
+            
+            # 직접 슬롯을 클릭했을 때 (8번 슬롯 = 단축바 마지막 칸)
+            if index of event-slot is 8:
+                cancel event
+                stop
+                
+            # 다른 칸(상자 등)에서 숫자 키 9번을 눌러 내 8번 슬롯으로 옮기려 할 때
+            if click type is number key:
+                if hotbar button is 8:
+                    cancel event
+                    stop
+        
+        # 2. 상자 등을 클릭했는데 숫자 키 9번을 눌러서 내 8번 슬롯의 아이템과 바꾸려 할 때
+        else if click type is number key:
+            if hotbar button is 8:
+                cancel event
+                stop
+
+on inventory click:
+    if player has scoreboard tag "in_game":
+        if event-item is map named "&f맵":
+            cancel event
+
+
+on right click with map:
+    # 1. 아이템 이름 확인
+    if event-item is map named "&f맵":
+        
+        # [핵심] 클릭한 대상이 엔티티가 아닐 때만 실행
+        if clicked entity is not set:
+            cancel event
+            
+            # 2. 상태 토글 (변수명: {map_state})
+            if {map_state::%uuid of player%} is not set:
+                set {map_state::%uuid of player%} to 0
+                
+            if {map_state::%uuid of player%} is 0:
+                set {map_state::%uuid of player%} to 1
+                
+                # 지도를 켤 때 보스바 표시
+                updateReigonStateinBossbar()
+                updateBossBar(player, 6, {bossbar.list::map})
+                
+                play sound "ui.button.click" with volume 0.5 and pitch 1 to player
+            else:
+                set {map_state::%uuid of player%} to 0
+                
+                # 지도를 끌 때 보스바 제거
+                updateBossBar(player, 6, "")
+                
+                play sound "ui.button.click" with volume 0.5 and pitch 1 to player
+
+
+# 서버 실행 중 계속 돌아가는 매틱 루프
+every 1 ticks:
+    
+    loop all players:
+        # 1. 지도가 켜져 있는 상태인지 확인
+        if {map_state::%uuid of loop-player%} is 1:
+            
+            # 2. [최적화] 이전 틱의 결과와 다를 때만 보스바 업데이트
+            if {last_map_json::%uuid of loop-player%} is not {bossbar.list::map}:
+                set {last_map_json::%uuid of loop-player%} to {bossbar.list::map}
+                
+                # 라인 6번에 지도 표시 (5번이나 6번 중 사용하시는 번호로 맞추세요)
+                updateBossBar(loop-player, 6, {bossbar.list::map})
+        
+        else:
+            # 지도가 꺼졌을 때 한 번만 보스바 제거
+            if {last_map_json::%uuid of loop-player%} is set:
+                updateBossBar(loop-player, 6, "")
+                delete {last_map_json::%uuid of loop-player%}

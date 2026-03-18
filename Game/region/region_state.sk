@@ -1,0 +1,44 @@
+function getReigonState():
+    set {_obj} to objective with id "Region"
+    set {RegionState::alley} to score of "alley" for {_obj}
+    set {RegionState::archery_range} to score of "archery_range" for {_obj}
+    set {RegionState::beach} to score of "beach" for {_obj}
+    set {RegionState::cemetery} to score of "cemetery" for {_obj}
+    set {RegionState::chapel} to score of "chapel" for {_obj}
+    set {RegionState::dock} to score of "dock" for {_obj}
+    set {RegionState::factory} to score of "factory" for {_obj}
+    set {RegionState::fire_station} to score of "fire_station" for {_obj}
+    set {RegionState::forest} to score of "forest" for {_obj}
+    set {RegionState::gas_station} to score of "gas_station" for {_obj}
+    set {RegionState::hospital} to score of "hospital" for {_obj}
+    set {RegionState::hotel} to score of "hotel" for {_obj}
+    set {RegionState::police_station} to score of "police_station" for {_obj}
+    set {RegionState::pond} to score of "pond" for {_obj}
+    set {RegionState::school} to score of "school" for {_obj}
+    set {RegionState::stream} to score of "stream" for {_obj}
+    set {RegionState::temple} to score of "temple" for {_obj}
+    set {RegionState::uptown} to score of "uptown" for {_obj}
+    set {RegionState::warehouse} to score of "warehouse" for {_obj}
+    set {RegionState::research_center} to score of "research_center" for {_obj}
+
+
+    set {Region::alley::state} to score of "alley" for {_obj}
+    set {Region::archery_range::state} to score of "archery_range" for {_obj}
+    set {Region::beach::state} to score of "beach" for {_obj}
+    set {Region::cemetery::state} to score of "cemetery" for {_obj}
+    set {Region::chapel::state} to score of "chapel" for {_obj}
+    set {Region::dock::state} to score of "dock" for {_obj}
+    set {Region::factory::state} to score of "factory" for {_obj}
+    set {Region::fire_station::state} to score of "fire_station" for {_obj}
+    set {Region::forest::state} to score of "forest" for {_obj}
+    set {Region::gas_station::state} to score of "gas_station" for {_obj}
+    set {Region::hospital::state} to score of "hospital" for {_obj}
+    set {Region::hotel::state} to score of "hotel" for {_obj}
+    set {Region::police_station::state} to score of "police_station" for {_obj}
+    set {Region::pond::state} to score of "pond" for {_obj}
+    set {Region::school::state} to score of "school" for {_obj}
+    set {Region::stream::state} to score of "stream" for {_obj}
+    set {Region::temple::state} to score of "temple" for {_obj}
+    set {Region::uptown::state} to score of "uptown" for {_obj}
+    set {Region::warehouse::state} to score of "warehouse" for {_obj}
+    set {Region::research_center::state} to score of "research_center" for {_obj}

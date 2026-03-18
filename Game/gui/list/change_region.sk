@@ -1,0 +1,37 @@
+function region_annonce(p:player, text:text, time: integer):
+    # 1. 고유 실행 ID 생성
+    add 1 to {Region_cool::%{_p}%}
+    set {_current_id} to {Region_cool::%{_p}%}
+
+    # 2. UI 조립
+    # 상단 바 (배경)
+    clear {_t::*}
+    add json component from "{""text"":""1"",""font"":""gui/centerbar/bar/bg"",""shadow_color"":0}" to {_t::*}
+    set {_json1} to serialized json string of merge components {_t::*}
+    
+    # 하단 바 (텍스트)
+    clear {_b::*}
+    add json component from "{""text"":""%{_text}%"",""font"":""gui/centerbar/bar/region"",""color"":""white"",""shadow_color"":0}" to {_b::*}
+    set {_json2} to serialized json string of merge components {_b::*}
+
+    # 3. [핵심] 기존 내용과 비교하여 다를 때만 updateBossBar 호출
+    if {Last_BossBar_4::%{_p}%} is not {_json1}:
+        updateBossBar({_p}, 4, {_json1})
+        set {Last_BossBar_4::%{_p}%} to {_json1}
+        
+    if {Last_BossBar_5::%{_p}%} is not {_json2}:
+        updateBossBar({_p}, 5, {_json2})
+        set {Last_BossBar_5::%{_p}%} to {_json2}
+    
+    # 4. 루프 제어
+    loop {_time} times:
+        if {_current_id} is not {Region_cool::%{_p}%}:
+            stop
+        wait 1 ticks
+
+    # 5. 마지막까지 살아남은 최신 루프만 보스바를 제거 및 변수 초기화
+    if {_current_id} is {Region_cool::%{_p}%}:
+        updateBossBar({_p}, 4, "")
+        updateBossBar({_p}, 5, "")
+        delete {Last_BossBar_4::%{_p}%}
+        delete {Last_BossBar_5::%{_p}%}

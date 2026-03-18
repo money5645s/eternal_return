@@ -1,0 +1,18 @@
+every 1 tick:
+    updateReigonStateinBossbar()
+    loop all players:
+        # 1. 플레이어가 현재 위치한 지역 확인
+        set {_region} to {inRegion::%loop-player%} # 현재 지역 이름을 반환하는 함수 호출
+        
+        if {_region} is set:
+            # 2. 해당 지역의 상태가 2(적 점령 등)인지 확인
+            if {Region::%{_region}%::state} is 0:
+                remove "in_scheduled_restricted_area" from scoreboard tags of loop-player
+                remove "in_restricted_area" from scoreboard tags of loop-player
+            if {Region::%{_region}%::state} is 1:
+                add "in_scheduled_restricted_area" to scoreboard tags of loop-player
+                remove "in_restricted_area" from scoreboard tags of loop-player
+
+            if {Region::%{_region}%::state} is 2:
+                add "in_restricted_area" to scoreboard tags of loop-player
+                remove "in_scheduled_restricted_area" from scoreboard tags of loop-player

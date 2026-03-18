@@ -1,0 +1,11 @@
+## 로비 문양
+function showLeftTimeInSelectCharacter(p:player):
+    set {_obj1} to objective with id "Page.sec"
+    set {_sec} to score of {_p} for {_obj1}
+    add json component from "{text:""%{_sec}%"",font:""mono/13"",shadow_color:0}" to {_t::*}
+    
+    set {bossbar.list::%uuid of {_p}%} to serialized json string of merge components {_t::*}
+    
+
+
+        

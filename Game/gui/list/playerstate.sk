@@ -1,85 +1,277 @@
-on load:
-    clear {GUI::state1::*}
-    # 배경 및 고정 레이아웃 레이어
-    add json component from "{text:""b"",font:""gui/character/bg"",shadow_color:0}" to {GUI::state1::*}
-    add translate component of "%space(0)%" to {GUI::state1::*}
-    add json component from "{text:""c"",font:""gui/character/bg"",shadow_color:0}" to {GUI::state1::*}
-    add translate component of "%space(4)%" to {GUI::state1::*}
+function get_exp_image_step(p: player) :: number:
+    set {_uuid} to uuid of {_p}
+    set {_lv} to {level::%{_uuid}%} # 플레이어의 현재 레벨 (1, 2, 3...)
+    set {_cur_exp} to {exp::%{_uuid}%} # 플레이어가 현재 해당 레벨에서 쌓은 경험치
 
-
-
-
-
-
-
-
-
-
-
-
-function setPlayerStateGUIJson(pl: player):
-    set {_p} to uuid of {_pl}
-    set {_char} to {character::%{_p}%}
-    getPlayerSkillCoolDown({_p})
-    getPlayerState({_p})
+    # 1. 현재 레벨에 필요한 총 경험치 가져오기
+    set {_need} to {need_exp::%{_lv}%}
     
-    # 해당 캐릭터의 유니코드 가져오기 (비어있으면 공백 처리)
-    set {_icon} to {character::%{_char}%::unicord}
-    if {_icon} is not set:
-        set {_icon} to "?"
+    # 만약 만렙이거나 설정된 경험치가 없다면 5단계(꽉 참) 반환
+    if {_need} is not set:
+        return 5
+        
+    # 2. 진행도 비율 계산 (현재 / 필요량)
+    set {_ratio} to {_cur_exp} / {_need}
+    
+    # 3. 0~5 단계로 변환 (곱하기 5 후 소수점 버림)
+    set {_step} to floor({_ratio} * 5)
+    
+    # 4. 범위를 0~5 사이로 안전하게 고정 (Clamping)
+    set {_step} to max(0, min(5, {_step}))
+    
+    return {_step}
+
+command /경험치:
+    trigger:
+        broadcast "%{exp::%uuid of player%}%"
+        get_exp_image_step(player)
+
+
+function setPlayerGameUIJson(pl: player):
+    set {_p} to uuid of {_pl}
+    set {_char} to {player.character::%{_p}%}
+    
+    # --- [1. 기본 및 캐릭터 정보] ---
+    set {_icon} to {character::%{_char}%::unicord} ? "\u1001"
+    send "%{_icon}%" to {_p}
+    set {_sk_point} to {skill_point::%{_p}%} ? "0"
+    set {_act_lv} to {active_level::%{_p}%} ? "0"
+    set {_pas_lv} to {passive_level::%{_p}%} ? "0"
+    set {_char_lv} to {level::%{_p}%} ? "1" # 캐릭터 레벨 (Level2 폰트용)
+
+    # --- [2. 스탯 데이터 (%% 사용으로 % 문자 보존)] ---
+    set {_atk} to {stats::%{_p}%::atk} ? "10"
+    set {_atk_spd} to {stats::%{_p}%::atk_spd} ? "100"
+    set {_armor} to {stats::%{_p}%::armor} ? "100"
+    set {_speed} to {stats::%{_p}%::speed} ? "100"
+    set {_credit} to {credit::%{_p}%} ? " 0"
+    
+    # --- [3. 쿨타임 데이터 및 전용 폰트 설정] ---
+    set {_act_cool} to {active_cool::%{_p}%} ? "10"
+    set {_pas_cool} to {passive_cool::%{_p}%} ? "10"
+    
+    # 리스폰/부활 횟수 (섹션 4에서 사용)
+    set {_res_count} to {resurrection::%{_p}%} ? "1"
+    # 경험치 바
+    set {_exp_image} to get_exp_image_step({_p})
+        
+    # 스킬 포인트 표기 조건
+    if {_sk_point} <= 0:
+        set {_active_lvup} to 2
+        set {_passive_lvup} to 2
+    else:
+        # --- 액티브 스킬 체크 ---
+        if {_act_lv} < 5:
+            set {_active_lvup} to 0
+        else:
+            set {_active_lvup} to 1
+
+        # --- 패시브 스킬 체크 ---
+        if {_pas_lv} < 5:
+            set {_passive_lvup} to 0
+        else:
+            set {_passive_lvup} to 1
+
+    # 쿨타임 배경 표기 조건
+    if {_act_cool} > 0:
+        set {_is_act_cool} to 1
+    else:
+        set {_is_act_cool} to 0
+    if {_pas_cool} > 0:
+        set {_is_pas_cool} to 1
+    else:
+        set {_is_pas_cool} to 0
+
+    # --- [4. 상단 게임 현황 데이터] ---
+    set {_kills} to {kill::%{_p}%} ? "0"
+    set {_deaths} to {death::%{_p}%} ? "0"
+    set {_place} to {Region_Bossbar::%{inRegion::%{_p}%}%} ? " 브리핑 룸 "
+    set {_min} to {game_min} ? "00"
+    set {_sec} to {game_sec} ? "00"
+    set {_team} to {team_name::%{_p}%} ? "TEAM"
+    set {_day} to {game_day} ? "1"
+    set {_halfday} to {game_halfday} ? "1"
+    set {_total_players} to {total_players} ? "16"
+    set {_player_count} to {total_players} ? "16"
+    set {_bantime} to {bantime::%{_p}%} ? "30"
+    set {_respawn} to {game_respawn} ? "0"
+    
 
     clear {_t::*}
-    add {GUI::state1::*} to {_t::*}
-    add json component from "{text:""1"",font:""gui/character/skill/exp"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(-12)%" to {_t::*}
-    add json component from "{text:""%{_icon}%"",font:""gui/character/skill/profile"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(-56)%" to {_t::*}
-    add json component of "{text:""d"",font:""gui/character/bg"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(-150)%" to {_t::*}
-    add json component of "{text:""a"",font:""gui/character/bg"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(-42)%" to {_t::*}    
-    add json component of "{text:""0"",font:""gui/character/skill/active_level"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(1)%" to {_t::*}
-    add json component of "{text:""0"",font:""gui/character/skill/passive_level"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(-40)%" to {_t::*}    
-    ## 액티브 스킬 이미지
-    add json component of "{text:""%{_icon}%"",font:""gui/character/skill/active"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(-19)%" to {_t::*}
-    add json component of "{text:""1"",font:""gui/character/skill/active"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(3)%" to {_t::*}
 
-    ## 패시브 스킬 이미지
-    add json component of "{text:""%{_icon}%"",font:""gui/character/skill/passive"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(-17)%" to {_t::*}
-    add json component of "{text:""1"",font:""gui/character/skill/passive"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(-39)%" to {_t::*}
-    #    
-    ## 수치 데이터 표기
-    add json component of "{text:""0"",font:""gui/character/skill/skill_point"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(5)%" to {_t::*}
-    add json component of "{text:""0"",font:""gui/character/skill/skill_point"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(0)%" to {_t::*}
-        
-    if {active_cool::%{_p}%} > 10:
-        add pedzero({active_cool::%{_p}%},2," ","gui/character/skill/text/active_cool") to {_t::*}
-    else if {active_cool::%{_p}%} > 0:
-        add pedzero({active_cool::%{_p}%},2," ","gui/character/skill/text/active_cool2") to {_t::*}
+    # --- [2. 좌측 캐릭터 및 배경 섹션] ---
+    add json component from "{""text"":""c"",""font"":""gui/character/bg"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.4" to {_t::*}
+    add json component from "{""text"":""%{_exp_image}%"",""font"":""gui/character/skill/exp"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.-13" to {_t::*}
+    add json component from "{""text"":""%{_icon}%"",""font"":""gui/character/skill/profile"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.-55" to {_t::*}
+    add json component from "{""text"":""d"",""font"":""gui/character/bg"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.-1" to {_t::*}
+    add json component from "{""text"":""b"",""font"":""gui/character/bg"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.-50" to {_t::*}
+    add json component from "{""text"":""a"",""font"":""gui/character/bg"",""shadow_color"":0}" to {_t::*}
+
+    # --- [스킬 포인트 레이어] ---
+    add translate component of "space.-41" to {_t::*}
+    add json component from "{""text"":""%{_active_lvup}%"",""font"":""gui/character/skill/skill_point"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.5" to {_t::*}
+    add json component from "{""text"":""%{_passive_lvup}%"",""font"":""gui/character/skill/skill_point"",""shadow_color"":0}" to {_t::*}
+
+    # --- [액티브/패시브 레벨 숫자] ---
+    add translate component of "space.-41" to {_t::*}
+    add json component from "{""text"":""%{_act_lv}%"",""font"":""gui/character/skill/active_level"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.2" to {_t::*}
+    add json component from "{""text"":""%{_pas_lv}%"",""font"":""gui/character/skill/passive_level"",""shadow_color"":0}" to {_t::*}
+
+    # --- [스킬 아이콘 베이스 (\u1001 레이어)] ---
+    add translate component of "space.-41" to {_t::*}
+    add json component from "{""text"":""%{_icon}%"",""font"":""gui/character/skill/active"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.4" to {_t::*}
+    add json component from "{""text"":""%{_icon}%"",""font"":""gui/character/skill/passive"",""shadow_color"":0}" to {_t::*}
+
+    # --- [스킬 아이콘 상단 레이어 (텍스트 "1" 레이어)] ---
+    add translate component of "space.-40" to {_t::*}
+    add json component from "{""text"":""%{_is_act_cool}%"",""font"":""gui/character/skill/active"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.4" to {_t::*}
+    add json component from "{""text"":""%{_is_pas_cool}%"",""font"":""gui/character/skill/passive"",""shadow_color"":0}" to {_t::*}
+
+    # --- [스태터스 텍스트 섹션 시작] ---
+    # 1. 스킬 강화 포인트 안내 문구
+    add translate component of "space.-45" to {_t::*}
+    if {_sk_point} > 0:
+        add json component from "{""text"":""스킬 강화 포인트 + "",""font"":""gui/character/skill/text/level_text"",""color"":""yellow"",""shadow_color"":0}" to {_t::*}
+        add json component from "{""text"":""%pedzero({_sk_point},2," ","")%"",""font"":""gui/character/skill/text/point_mono"",""color"":""yellow"",""shadow_color"":0}" to {_t::*}
     else:
-        add pedzero({active_cool::%{_p}%},2," ","gui/character/skill/text/active_cool2") to {_t::*} 
-    add json component of "{text:""%{passive_cool::%{_p}%}%"",font:""gui/character/skill/text/passive_cool"",shadow_color:0}" to {_t::*}
-    add json component of "{text:""700"",font:""gui/character/skill/text/credit"",shadow_color:0}" to {_t::*}
-    add json component of "{text:""20"",font:""gui/character/skill/text/level"",shadow_color:0}" to {_t::*}    
-    add translate component of "%space(0)%" to {_t::*}
-    add json component of "{text:""8"",font:""gui/character/skill/text/atk"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(-8)%" to {_t::*}
-    add json component of "{text:""200%%"",font:""gui/character/skill/text/atk_spd"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(-15)%" to {_t::*}
-    add json component of "{text:""100%%"",font:""gui/character/skill/text/armor"",shadow_color:0}" to {_t::*}
-    add translate component of "%space(-14)%" to {_t::*}
-    add json component of "{text:""100%%"",font:""gui/character/skill/text/speed"",shadow_color:0}" to {_t::*} 
-    add translate component of "%space(100)%" to {_t::*} 
-    set {_t} to serialized json string of merge components {_t::*}
-    set {stateGUI::%{_p}%} to {_t}
+        add translate component of "space.57" to {_t::*}
+
+    # 2. 공격력 (ATK) 수치
+    add translate component of "space.-133" to {_t::*}
+    if {_atk} < 10:
+        add json component from "{""text"":"" %{_atk}%"",""font"":""gui/character/skill/text/atk"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else:
+        add json component from "{""text"":""%{_atk}%"",""font"":""gui/character/skill/text/atk"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+
+    # 3. 공격 속도 (ATK_SPD) 수치
+    add translate component of "space.-11" to {_t::*}
+    if {_atk_spd} < 10:
+        add translate component of "space.4" to {_t::*}
+        add json component from "{""text"":"" %{_atk_spd}%%%"",""font"":""gui/character/skill/text/atk_spd"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else if {_atk_spd} < 100:
+        add json component from "{""text"":"" %{_atk_spd}%%%"",""font"":""gui/character/skill/text/atk_spd"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else:
+        add json component from "{""text"":""%{_atk_spd}%%%"",""font"":""gui/character/skill/text/atk_spd"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+
+    # 4. 방어력 (ARMOR) 수치
+    add translate component of "space.-14" to {_t::*}
+    if {_armor} < 10:
+        add translate component of "space.4" to {_t::*}
+        add json component from "{""text"":"" %{_armor}%%%"",""font"":""gui/character/skill/text/armor"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else if {_armor} < 100:
+        add json component from "{""text"":"" %{_armor}%%%"",""font"":""gui/character/skill/text/armor"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else:
+        add json component from "{""text"":""%{_armor}%%%"",""font"":""gui/character/skill/text/armor"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    # 5. 이동 속도 (SPEED) 수치
+    add translate component of "space.-15" to {_t::*}
+    if {_speed} < 10:
+        add translate component of "space.4" to {_t::*}
+        add json component from "{""text"":"" %{_speed}%%%"",""font"":""gui/character/skill/text/speed"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else if {_speed} < 100:
+        add json component from "{""text"":"" %{_speed}%%%"",""font"":""gui/character/skill/text/speed"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else:
+        add json component from "{""text"":""%{_speed}%%%"",""font"":""gui/character/skill/text/speed"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+        
+    # 6. 캐릭터 레벨 (Level2)
+    add translate component of "space.-19" to {_t::*}
+    if {_char_lv} >= 10:
+        add json component from "{""text"":""%{_char_lv}%"",""font"":""gui/character/skill/text/level"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else if {_char_lv} < 10:
+        add json component from "{""text"":"" %{_char_lv}%"",""font"":""gui/character/skill/text/level2"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+
+    # 7. 크레딧 (Credit)
+    add translate component of "space.136" to {_t::*}
+    if {_credit} < 10:
+        add translate component of "space.4" to {_t::*}
+        add json component from "{""text"":"" %{_credit}%"",""font"":""gui/character/skill/text/credit"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else if {_credit} < 100:
+        add json component from "{""text"":"" %{_credit}%"",""font"":""gui/character/skill/text/credit"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else if {_credit} < 1000:
+        add json component from "{""text"":""%{_credit}%"",""font"":""gui/character/skill/text/credit"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else:
+        add json component from "{""text"":""MAX"",""font"":""gui/character/skill/text/credit"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+
+    # 8. 액티브 스킬 쿨타임 (Active Cool)
+    add translate component of "space.-27" to {_t::*}
+    if {_act_cool} >= 10:
+        add json component from "{""text"":""%{_act_cool}%"",""font"":""gui/character/skill/text/active_cool"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else if {_act_cool} > 1:
+        add json component from "{""text"":"" %{_act_cool}%"",""font"":""gui/character/skill/text/active_cool2"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else:
+        add translate component of "space.7" to {_t::*}
+
+    # 9. 패시브 스킬 쿨타임 (Passive Cool)
+    add translate component of "space.1" to {_t::*}
+    if {_pas_cool} >= 10:
+        add json component from "{""text"":""%{_pas_cool}%"",""font"":""gui/character/skill/text/passive_cool"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+
+    else if {_pas_cool} > 1:
+        add json component from "{""text"":"" %{_pas_cool}%"",""font"":""gui/character/skill/text/passive_cool2"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    else:
+        # 4. 0이거나 그 외 (쿨타임이 없을 때)
+        add translate component of "space.7" to {_t::*}
+
+    # 1. 배경 및 리스폰/부활 정보
+    add translate component of "space.-235" to {_t::*}
+    add json component from "{""text"":""2"",""font"":""gui/bossbar/bg"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.125" to {_t::*}
+    add json component from "{""text"":""%{_respawn}%"",""font"":""gui/bossbar/respawn"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.-29" to {_t::*}
+    add json component from "{""text"":""%{_res_count}%"",""font"":""gui/bossbar/resurrection"",""shadow_color"":0}" to {_t::*}
+
+    # 2. 추가 배경 (1, 3) 및 킬/데스/장소
+    add translate component of "space.3" to {_t::*}
+    add json component from "{""text"":""1"",""font"":""gui/bossbar/bg"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.-13" to {_t::*}
+    add json component from "{""text"":""3"",""font"":""gui/bossbar/bg"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.-13" to {_t::*}
+    add json component from "{""text"":""%pedzero({_kills},2," ","")%"",""font"":""gui/bossbar/kill"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.10" to {_t::*}
+    add json component from "{""text"":""%pedzero({_deaths},2," ","")%"",""font"":""gui/bossbar/death"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.10" to {_t::*}
+
+    # 장소 표기
+    add {_place} to {_t::*}
+
+    # 3. 타이머 및 팀/인원 정보
+    add translate component of "space.-198" to {_t::*}
+    add json component from "{""text"":""%{_halfday}%"",""font"":""gui/icon"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.2" to {_t::*}
+    add json component from "{""text"":""%pedzero({_min},2,"0","")%:%pedzero({_sec},2,"0","")%"",""font"":""gui/bossbar/timer"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.26" to {_t::*}
+    add json component from "{""text"":""%{_total_players}%"",""font"":""gui/bossbar/team"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.2" to {_t::*}
+    add json component from "{""text"":""TEAM"",""font"":""gui/bossbar/team"",""color"":""blue"",""shadow_color"":0}" to {_t::*}
+
+    # 4. 일차 및 생존 인원
+    add translate component of "space.36" to {_t::*}
+    add json component from "{""text"":""%{_day}%"",""font"":""gui/bossbar/day"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.0" to {_t::*}
+    add json component from "{""text"":""일차"",""font"":""gui/bossbar/day_text"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.-10" to {_t::*}
+    add json component from "{""text"":""%{_player_count}%"",""font"":""gui/bossbar/player"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+
+    # 5. 밴타임 및 특수 아이콘 (c, k)
+    add translate component of "space.-118" to {_t::*}
+    add json component from "{""text"":""c"",""font"":""gui/icon"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.1" to {_t::*}
+    add json component from "{""text"":""%pedzero({_bantime},2," ","")%"",""font"":""gui/bossbar/bantime"",""color"":""white"",""shadow_color"":-36238}" to {_t::*}
+    add translate component of "space.90" to {_t::*}
+    add json component from "{""text"":""k"",""font"":""gui/icon"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.87" to {_t::*}
+
+    # 최종 결과물 저장
+    set {_final} to serialized json string of merge components {_t::*}
+    set {stateGUI::%{_p}%} to {_final}
 
 
 
@@ -98,6 +290,7 @@ function pedzero(num: number, length: number, zeroText: text, font: text) :: tex
         add {_zeroText} to {_result::*}
     add {_num} to {_result::*}
     return json component of "{text:""%mergeText({_result::*})%"",font:""%{_font}%""}"
+
 
 function digitLength(num: number) :: number:
     if {_num} <= 0:

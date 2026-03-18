@@ -1,0 +1,5 @@
+function setRestricted_area(num:int):
+    if {_num} > 0:
+        execute console command "/er area %{num}%"
+    else:   
+        execute console command "/er reset"

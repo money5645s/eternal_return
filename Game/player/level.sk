@@ -30,7 +30,7 @@ function level_up(p: player):
         add 1 to score of {_p} for {_obj_sp}
         
         # 안내 메시지
-        send "§a레벨업! 현재 레벨: %{_current_lvl} + 1%§f" to {_p}
+        #send "§a레벨업! 현재 레벨: %{_current_lvl} + 1%§f" to {_p}
         play sound "minecraft:er.player.level_up" to {_p}
         # 다음 반복을 위해 변수 업데이트
         add 1 to {_current_lvl}
@@ -56,10 +56,6 @@ every 1 tick:
                 set {last_exp::%{_uuid}%} to 0
 
             if {_current_exp} is not {last_exp::%{_uuid}%}:
-                send "%{_p}%의 경험치 변동 감지! (%{last_exp::%{_uuid}%}% -> %{_current_exp}%)" to {_p}
+                #send "%{_p}%의 경험치 변동 감지! (%{last_exp::%{_uuid}%}% -> %{_current_exp}%)" to {_p}
                 level_up(loop-player)
                 set {last_exp::%{_uuid}%} to {_current_exp}
-
-
-#set {_objective} to "test"
- #       set score of player for {_objective} to 10

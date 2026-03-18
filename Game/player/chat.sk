@@ -15,6 +15,8 @@ function broadcastChat(msg: text):
 
     broadcast "&6[%{_min}%:%{_s}%] %{_msg}%"
 
+
+
 on chat:
     cancel event
     
@@ -38,36 +40,47 @@ on quit:
     set quit message to ""
 
 
-## 플레이어 K/D
+## 플레이어 정보 설정
 options:
     kd-prefix-color: &7
     kd-bracket-color: &8
     kd-number-color: &e
+    # 이름 색상 설정
+    name-color: &f
 
 function updateKD(p: player):
+    set {_uuid} to uuid of {_p}
+    # 1. 킬/데스 변수 초기화
+    #getPlayerScoreState({_p})
+    if {kill::%{_uuid}%} is not set:
+        set {kill::%{_uuid}%} to 0
+    if {death::%{_uuid}%} is not set:
+        set {death::%{_uuid}%} to 0
     
-    if {kills::%uuid of {_p}%} is not set:
-        set {kills::%uuid of {_p}%} to 0
-        if {deaths::%uuid of {_p}%} is not set:
-            set {deaths::%uuid of {_p}%} to 0
-            
-    set {_k} to {kills::%uuid of {_p}%}
-    set {_d} to {deaths::%uuid of {_p}%}
-    set tab list name of {_p} to "&f[&e%{_k}%&f/&c%{_d}%&f] &f%name of {_p}% "
+    # 2. 플레이어 번호 부여 (처음 접속 시)
+    if {player_num::%{_uuid}%} is not set:
+        add 1 to {total_player_count}
+        set {player_num::%{_uuid}%} to {total_player_count}
+        # 관리용으로 실제 이름 기록
+        set {realname::%{_uuid}%} to name of {_p}
+    
+
+    set {_k} to {kill::%{_uuid}%} ? "5"
+    set {_d} to {death::%{_uuid}%} ? "0"
+    set {_n} to {player_num::%{_uuid}%}
+    
+    # 3. 탭 리스트 이름 업데이트 (K/D + Player 번호)
+    # 형식: [킬/데스] Player 번호
+    set tab list name of {_p} to "&f[&e%{_k}%&f/&c%{_d}%&f] {@name-color}Player %{_n}%"
+    
+    # 4. (선택 사항) 채팅창 이름도 Player 번호로 변경
+    set {_p}'s display name to "{@name-color}Player %{_n}%"
 
 on join:
     wait 1 tick
     updateKD(player)
-
-
-
-
-
-on death of player:
-    add 1 to {deaths::%uuid of victim%}
     
-    if attacker is a player:
-        add 1 to {kills::%uuid of attacker%}
-        updateKD(attacker)
-
-    updateKD(victim)
+every 1 ticks:
+    loop all players:
+        wait 1 tick
+        updateKD(loop-player)

@@ -2,9 +2,9 @@
 
 
 
-command /점수확인:
-    trigger:
-        set {_objective} to "test"
-        set score of player for {_objective} to 10
-        
-        send "%{_objective}%" to player
+#command /점수확인:
+#    trigger:
+#        set {_objective} to "test"
+#        set score of player for {_objective} to 10
+#        
+#        send "%{_objective}%" to player

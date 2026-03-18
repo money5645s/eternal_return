@@ -9,11 +9,24 @@ function createBossBars(p: player):
         add {_p} to {_bar}
 
 # [2] 특정 줄의 보스바를 수정하는 함수 (핵심 접근 함수)
-function updateBossBar(p: player, line: int, title: string):
+function updateBossBar(p: player, line: int, title: text):
     set {_id} to "bos_%{_line}%_%uuid of {_p}%"
-    set {_bar} to bossbar with id {_id}
     
-    dispatch {_p} command "/bossbar set %{_id}% name %{_title}%" with permission "minecraft.command.bossbar"
+    # [추가] 마지막으로 설정했던 타이틀과 현재 타이틀이 같은지 확인
+    # 변수 형태: {Last_Bar::플레이어UUID::라인번호}
+    if {Last_Bar::%uuid of {_p}%::%{_line}%} is {_title}:
+        stop # 내용이 완벽히 같으면 여기서 함수를 종료 (업데이트 안 함)
+
+    # 내용이 다를 경우에만 아래 코드 실행
+    if {_title} is "":
+        dispatch {_p} command "/bossbar set %{_id}% name {text:"" ""}" with permission "minecraft.command.bossbar"
+    else:
+        dispatch {_p} command "/bossbar set %{_id}% name %{_title}%" with permission "minecraft.command.bossbar"
+    
+    # [추가] 새로운 타이틀을 변수에 저장하여 다음 비교에 사용
+    set {Last_Bar::%uuid of {_p}%::%{_line}%} to {_title}
+
+
 # [3] 전체 보스바 숨기기/보이기/제거 함수
 function manageAllBossBars(p: player, action: text):
     loop 6 times:
@@ -27,8 +40,23 @@ function manageAllBossBars(p: player, action: text):
             delete bossbar with id {_id}
 
 
+
+
+# 보스바 표기 이름 추가
+function setBossbarNameSpace(name:text, text:text,front:int,back:int,font:text):
+    add translate component of "space.%{_front}%" to {_t::*}
+    add json component from "{""text"":""%{_text}%"",""font"":""%{_font}%"",""color"":""white"",""shadow_color"":0}" to {_t::*}
+    add translate component of "space.%{_back}%" to {_t::*}
+    set {_final} to merge components {_t::*}
+    set {Region_Bossbar::%{_name}%} to {_final}
+
+
+
+
+
 on join:
     if player has not played before:
+        manageAllBossBars(player, "delete")
         createBossBars(player)
     manageAllBossBars(player, "hide")
     manageAllBossBars(player, "show")
@@ -44,24 +72,42 @@ command /bosrev:
         manageAllBossBars(player, "delete")
         send "&c모든 보스바가 제거되었습니다."
 
-command /boshide:
+
+every 1 ticks:
+    getGameState()
+    loop all players:
+        if loop-player has the scoreboard tag "in_game":
+            set {_uuid} to uuid of loop-player
+            
+            # 1. 현재 상태 데이터 가져오기 (데이터 업데이트)
+            getPlayerState(loop-player)
+            setPlayerGameUIJson(loop-player)
+            
+            # 2. 새로 생성된 UI 컴포넌트 가져오기
+            set {_current_ui} to {stateGUI::%{_uuid}%}
+            
+            # 3. 변경 사항 확인 (이전 값과 비교)
+            # {lastStateGUI::*} 변수는 이전에 성공적으로 업데이트된 값을 저장합니다.
+            if {_current_ui} is not {lastStateGUI::%{_uuid}%}:
+
+                # 4. 데이터가 바뀐 경우에만 보스바 업데이트 실행
+                updateBossBar(loop-player, 1, {_current_ui})
+
+                # 5. 현재 값을 마지막 업데이트 값으로 기록
+                set {lastStateGUI::%{_uuid}%} to {_current_ui}
+
+                # (디버그용) 
+                # send "UI가 변경되어 업데이트되었습니다." to loop-player
+
+
+
+command /보스:
     trigger:
-        manageAllBossBars(player, "hide")
-
-command /bosshow:
-    trigger:
-        manageAllBossBars(player, "show")
-
-
-#every 1 ticks:
-#    loop all players:
-#        setPlayerStateGUIJson(loop-player)
-#        set {_t} to {stateGUI::%uuid of loop-player%}
-#        if {bossbar1.last::%{_p}%} is not {_t}:
-#            send "다름!" to loop-player
-#            updateBossBar(loop-player, 6, {_t})
-#            set {bossbar1.last::%{_p}%} to {_t}
-
+        getPlayerState(player)
+        getGameState()
+        setPlayerGameUIJson(player)
+        set {_t} to {stateGUI::%uuid of player%}
+        updateBossBar(player, 1, {_t})
 
 function space(space: int) :: text components:
     set {_s} to translate component of "space.%{_space}%"
@@ -73,7 +119,7 @@ command /투:
         set {_msg2} to mini message from "<font:haesu/8>이니다."
 
         set {_msg} to mini message from "<font:haesu/8>1234</font> <lang:space.0> <red>1234"
-        setPlayerStateGUIJson(player)
+        setPlayerGameUIJson(player)
         set {_t} to {stateGUI::%uuid of player%}
         updateBossBar(player, 6, {_t})
 

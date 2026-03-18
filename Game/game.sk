@@ -1,0 +1,14 @@
+function getGameState():
+    set {_PCD} to objective with id "time"
+    set {_min} to score of "min" for {_PCD}
+    set {_sec} to score of "sec" for {_PCD}
+    set {_day} to score of "day" for {_PCD}
+    set {_halfday} to score of "halfday" for {_PCD}
+    set {_respawn} to score of "respawn" for {_PCD}
+
+    set {total_players} to number of all players
+    set {game_respawn} to {_respawn}
+    set {game_day} to {_day}
+    set {game_halfday} to {_halfday}
+    set {game_sec} to {_sec}
+    set {game_min} to {_min}

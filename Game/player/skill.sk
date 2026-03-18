@@ -1,7 +1,4 @@
 
-on swap hand items:
-    cancel event
-    open_custom_menu(player)
 on drop:
     cancel event
     
@@ -23,7 +20,7 @@ function open_custom_menu(p: player):
         set {_lore_raw} to {character::%{_char}%::%{_raw_type}%_lore}
         set {_cool_raw} to {character::%{_char}%::%{_raw_type}%_cool} # 예: "10/8/6/4/2"
         
-        set {_item} to compass named "&6%{_name}% (Lv.%{_lvl}%)"
+        set {_item} to iron sword named "&6%{_name}% (Lv.%{_lvl}%)"
         
         # 1. 일반 스킬 설명 로어 가공
         set {_final_lore::*} to get_formatted_lore({_lore_raw}, {_lvl})
@@ -169,7 +166,7 @@ on inventory click:
                 set {_cool_key} to {character::%{_char}%::%{_raw_type}%_cool}
                 
                 # 아이템 생성 및 로어 구성
-                set {_item} to compass named "&6%{_name_key}% (Lv.%{_new_lvl}%)"
+                set {_item} to iron sword named "&6%{_name_key}% (Lv.%{_new_lvl}%)"
                 set {_final_lore::*} to get_formatted_lore({_lore_key}, {_new_lvl})
                 
                 # 쿨타임 추가 (요청하신 "쿨타임(초): " 형식 적용)
