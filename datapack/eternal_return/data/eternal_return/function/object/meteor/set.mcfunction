@@ -25,4 +25,4 @@ scoreboard players set @e[tag=selected,tag=!impacted,type=marker] ct1 0
 # 6. 운석 예고 메시지
 advancement revoke @a only eternal_return:meteor_30
 advancement grant @a only eternal_return:meteor_30
-scoreboard players set msg skript 3
+

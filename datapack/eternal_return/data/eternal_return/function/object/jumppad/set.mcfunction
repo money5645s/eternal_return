@@ -13,3 +13,7 @@
     # 연못2
         execute positioned -622 82 465 run function eternal_return:object/jumppad/summon {rotation:-55,place:"pondB_1"}
         execute positioned -593 82 485 run function eternal_return:object/jumppad/summon {rotation:125,place:"pondB_2"}
+
+    # 점프패드
+        scoreboard players set @e[tag=jumppad] ct1 0
+        scoreboard players set @e[tag=jumppad] ct2 0

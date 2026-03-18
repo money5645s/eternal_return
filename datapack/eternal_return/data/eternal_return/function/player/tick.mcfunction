@@ -22,3 +22,17 @@
 
 # 부시
     execute if entity @s[tag=player] at @s run function eternal_return:player/bush/tick
+# 금지구역
+    execute if entity @s[tag=player] at @s run function eternal_return:player/restricted_area
+# 데스
+    execute if entity @s[tag=player] at @s run function eternal_return:player/death
+# 부활
+    execute if entity @s[tag=player] at @s run function eternal_return:player/resurrection/tick
+
+
+
+
+# 승리
+    execute if entity @s[tag=player] at @s run function eternal_return:player/win
+# 패배
+    execute if entity @s[tag=player] at @s run function eternal_return:player/lose

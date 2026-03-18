@@ -1,0 +1,21 @@
+
+scoreboard players set alley Region 0
+scoreboard players set archery_range Region 0
+scoreboard players set beach Region 0
+scoreboard players set cemetery Region 0
+scoreboard players set chapel Region 0
+scoreboard players set dock Region 0
+scoreboard players set factory Region 0
+scoreboard players set fire_station Region 0
+scoreboard players set forest Region 0
+scoreboard players set gas_station Region 0
+scoreboard players set hospital Region 0
+scoreboard players set hotel Region 0
+scoreboard players set police_station Region 0
+scoreboard players set pond Region 0
+scoreboard players set school Region 0
+scoreboard players set stream Region 0
+scoreboard players set temple Region 0
+scoreboard players set uptown Region 0
+scoreboard players set warehouse Region 0
+scoreboard players set research_center Region 2

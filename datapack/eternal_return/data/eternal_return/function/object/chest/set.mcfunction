@@ -31,3 +31,5 @@
 ## 상자 생성
     execute as @e[type=marker,tag=chestplace,tag=!pizza] at @s run setblock ~ ~ ~ minecraft:barrel[facing=up]{LootTable:"eternal_return:chests/normal"}
     execute as @e[type=marker,tag=chestplace,tag=pizza] at @s run setblock ~ ~ ~ minecraft:barrel[facing=up]{LootTable:"eternal_return:chests/normal_pizza"}
+
+kill @e[tag=chestplace]

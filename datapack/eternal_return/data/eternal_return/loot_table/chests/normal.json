@@ -1,194 +1,43 @@
 {
-  "type": "chest",
+  "type": "minecraft:chest",
   "pools": [
-        {"rolls": 1,"entries": [
-        {"type": "empty","weight": 9},
-        {"type": "minecraft:item","name": "minecraft:arrow","weight": 1,
-          "functions": [{"function": "minecraft:set_count","count": 5,"conditions": []}]}]},
-    {"rolls": 1,"entries": [
-        {"type": "empty","weight": 7},
-        {"type": "minecraft:item","name": "minecraft:flow_banner_pattern","weight": 3,
-        "functions": [
-            {"function": "minecraft:set_components",
-              "components": {"minecraft:max_stack_size": 6,"minecraft:food": {"nutrition": 0,"saturation": 0,"can_always_eat": true},"minecraft:consumable": {"animation": "eat","on_consume_effects": [
-                    {
-                      "type": "minecraft:apply_effects",
-                      "effects": [
-                        {
-                          "id": "minecraft:regeneration",
-                          "amplifier": 0,
-                          "duration": 100,
-                          "show_particles": true
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 1,
-              "conditions": []
-            },
-            {
-              "function": "minecraft:set_lore",
-              "lore": [
-                {
-                  "text": "음식",
-                  "color": "gray",
-                  "italic": false
-                }
-              ],
-              "mode": "append"
-            },
-            {
-              "function": "minecraft:set_custom_model_data",
-              "floats": {
-                "values": [
-                  0
-                ],
-                "mode": "append"
-              },
-              "strings": {
-                "values": [
-                  "food"
-                ],
-                "mode": "append"
-              }
-            },
-            {
-              "function": "minecraft:set_name",
-              "name": {
-                "text": "빵",
-                "color": "#ffffff",
-                "italic": false
-              }
-            }
-          ],
-          "conditions": []
-        }
-      ]
-    },
     {
-      "rolls": 1,
+      "rolls": { "min": 3, "max": 3 },
       "entries": [
         {
-          "type": "item",
-          "weight": 15,
-          "name": "minecraft:enchanted_book",
+          "type": "minecraft:item",
+          "name": "minecraft:bread",
+          "weight": 180,
           "functions": [
             {
-              "function": "set_count",
-              "count": 1
-            },
-            {
-              "function": "set_components",
+              "function": "minecraft:set_components",
               "components": {
-                "minecraft:stored_enchantments": {
-                  "levels": {
-                    "minecraft:sweeping_edge": 1
-                  },
-                  "show_in_tooltip": true
-                }
+                "minecraft:max_stack_size": 6,
+                "minecraft:food": { "nutrition": 0, "saturation": 0, "can_always_eat": true },
+                "minecraft:consumable": { "consume_seconds": 0, "on_consume_effects": [ { "type": "minecraft:apply_effects", "effects": [ { "id": "minecraft:regeneration", "amplifier": 0, "duration": 200, "show_particles": false } ] } ] },
+                "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"음식"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+4 체력 재생"} ]
               }
             }
           ]
         },
-        {
-          "type": "item",
-          "weight": 10,
-          "name": "minecraft:enchanted_book",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1
-            },
-            {
-              "function": "set_components",
-              "components": {
-                "minecraft:stored_enchantments": {
-                  "levels": {
-                    "minecraft:sharpness": 1
-                  },
-                  "show_in_tooltip": true
-                }
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "weight": 15,
-          "name": "minecraft:enchanted_book",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1
-            },
-            {
-              "function": "set_components",
-              "components": {
-                "minecraft:stored_enchantments": {
-                  "levels": {
-                    "minecraft:swift_sneak": 2
-                  },
-                  "show_in_tooltip": true
-                }
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "weight": 20,
-          "name": "minecraft:enchanted_book",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1
-            },
-            {
-              "function": "set_components",
-              "components": {
-                "minecraft:stored_enchantments": {
-                  "levels": {
-                    "minecraft:fire_protection": 2
-                  },
-                  "show_in_tooltip": true
-                }
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "weight": 15,
-          "name": "minecraft:enchanted_book",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1
-            },
-            {
-              "function": "set_components",
-              "components": {
-                "minecraft:stored_enchantments": {
-                  "levels": {
-                    "minecraft:projectile_protection": 2
-                  },
-                  "show_in_tooltip": true
-                }
-              }
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "weight": 15,
-          "name": "minecraft:enchanted_book",
-          "functions": [{"function": "set_count","count": 1},{"function": "set_components","components": {"minecraft:stored_enchantments": {"levels": {"minecraft:thorns": 1},"show_in_tooltip": true}}}]},
-        {"type": "item","weight": 10,"name": "minecraft:enchanted_book","functions": [
-            {"function": "set_count","count": 1},
-            {"function": "set_components","components": {"minecraft:stored_enchantments": {"levels": {"minecraft:protection": 1},"show_in_tooltip": true}}}]}]}]
+        { "type": "minecraft:item", "name": "minecraft:arrow", "weight": 100, "functions": [ { "function": "minecraft:set_count", "count": 5 } ] },
+
+
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 120, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "연소 저항 룬", "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"-10% 연소시간"} ], "minecraft:custom_model_data": { "floats": [11], "strings": ["option_book"] } } } ] },
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 110, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "공격 속도 룬", "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+0.1 공격 속도"} ], "minecraft:custom_model_data": { "floats": [5], "strings": ["option_book"] } } } ] },
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 110, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "방어 룬", "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+1 방어 수치"} ], "minecraft:custom_model_data": { "floats": [1], "strings": ["option_book"] } } } ] },
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 100, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "속도 룬", "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+0.002 속도"} ], "minecraft:custom_model_data": { "floats": [7], "strings": ["option_book"] } } } ] },
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 80, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "공격 룬", "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+0.5 공격 피해"} ], "minecraft:custom_model_data": { "floats": [3], "strings": ["option_book"] } } } ] },
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 80, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "체력 룬", "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+2 최대 생명력"} ], "minecraft:custom_model_data": { "floats": [9], "strings": ["option_book"] } } } ] },
+
+        
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 25, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "고급 연소 저항 룬", "minecraft:lore": [ {"color":"#2EAE32","italic":false,"text":"고급"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"-20% 연소 시간"} ], "minecraft:custom_model_data": { "floats": [12], "strings": ["option_book"] } } } ] },
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 25, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "고급 넉백 저항 룬", "minecraft:lore": [ {"color":"#2EAE32","italic":false,"text":"고급"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+0.1 밀치기 저항"} ], "minecraft:custom_model_data": { "floats": [8], "strings": ["option_book"] } } } ] },
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 25, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "고급 방어 룬", "minecraft:lore": [ {"color":"#2EAE32","italic":false,"text":"고급"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+2 방어 강도"} ], "minecraft:custom_model_data": { "floats": [2], "strings": ["option_book"] } } } ] },
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 15, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "고급 공격 속도 룬", "minecraft:lore": [ {"color":"#2EAE32","italic":false,"text":"고급"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"*0.1 공격 속도"} ], "minecraft:custom_model_data": { "floats": [6], "strings": ["option_book"] } } } ] },
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 15, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "고급 공격 룬", "minecraft:lore": [ {"color":"#2EAE32","italic":false,"text":"고급"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"*0.1 공격 피해"} ], "minecraft:custom_model_data": { "floats": [4], "strings": ["option_book"] } } } ] },
+        { "type": "minecraft:item", "name": "minecraft:sugar", "weight": 15, "functions": [ { "function": "minecraft:set_components", "components": { "minecraft:max_stack_size": 1, "minecraft:item_name": "고급 체력 룬", "minecraft:lore": [ {"color":"#2EAE32","italic":false,"text":"고급"}, {"color":"gray","italic":false,"text":"강화"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"*0.1 최대 생명력"} ], "minecraft:custom_model_data": { "floats": [10], "strings": ["option_book"] } } } ] }
+      ]
+    }
+  ]
 }

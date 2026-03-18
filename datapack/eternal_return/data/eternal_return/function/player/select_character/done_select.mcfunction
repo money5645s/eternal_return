@@ -1,12 +1,10 @@
 ## 캐릭터 선택 완료
+
     # 다이얼로그 화면 끄기
         dialog clear @s
-    # 버튼소리
-        playsound minecraft:er.gamestart_button_click ui @s ~ ~ ~ 5 1
-    # 사이드바 팀 명명
-        function eternal_return:gui/sidebar/new with storage pdb:main args
+
     # 배경 제거
-        clear @s
+        clear @s paper
     # 대기실로 이동
         tp @s -277 63 448 90 0
     # 게임모드 변경
@@ -37,3 +35,12 @@
         function eternal_return:player/select_character/get_character with storage pdb:main in.character
     # 플레이어 데이터 저장
         function pdb:save_me
+    # 버튼소리
+        playsound minecraft:er.gamestart_button_click ui @s ~ ~ ~ 5 1
+    # 화면 표기
+        tag @s add bos.null2
+        tag @s add in_game
+        tag @s add bos.waitbar
+        tag @s add selected_character
+    # 태그 설정
+        tag @s remove selection_character

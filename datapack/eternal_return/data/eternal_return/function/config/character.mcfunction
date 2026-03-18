@@ -67,10 +67,11 @@
         {"text":"0","font":"gui/character/selection/hyunwoo","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 112"}},{"translate":"space.5","font":"minecraft:default"},\
         {"text":"0","font":"gui/character/selection/jackie","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 114"}},{"translate":"space.5","font":"minecraft:default"},\
         "\n\n\n\n\n\n\n",\
+        {"text":"0","font":"gui/character/selection/sissela","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 129"}},{"translate":"space.5","font":"minecraft:default"},\
         {"text":"0","font":"gui/character/selection/yuki","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 131"}},{"translate":"space.5","font":"minecraft:default"},\
         {"text":"0","font":"gui/character/selection/fiora","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 132"}},{"translate":"space.5","font":"minecraft:default"},\
         {"text":"0","font":"gui/character/selection/jan","shadow_color":[0,0,0,0],"click_event":{"action":"run_command","command":"/trigger select set 133"}},{"translate":"space.5","font":"minecraft:default"},\
-        {"translate":"space.92","font":"minecraft:default"},\
+        {"translate":"space.46","font":"minecraft:default"},\
         "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"]
 
 

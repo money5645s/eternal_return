@@ -17,12 +17,12 @@ forceload add -243 485 -243 479
 
 ## 게임 설정
     # 맵 기본 설정
-        function eternal_return:map/init
+
     # 게임 시간 초기화
     
 ## 청크 로딩
     function eternal_return:forceload
-
+    function eternal_return:game/fied_set
 
 
 
@@ -48,8 +48,9 @@ forceload add -243 485 -243 479
         scoreboard objectives add hp health {"text":"♥","color":"red"}
             scoreboard objectives setdisplay below_name hp
         scoreboard objectives add kill_player playerKillCount
-        scoreboard objectives add kill minecraft.killed:minecraft.player
+        scoreboard objectives add kill playerKillCount
         scoreboard objectives add death deathCount
+        scoreboard objectives add death_count deathCount
         # 레벨, 스킬포인트
         scoreboard objectives add level dummy
         scoreboard objectives add exp dummy
@@ -75,6 +76,7 @@ forceload add -243 485 -243 479
         scoreboard objectives add centerbar.tick dummy
         scoreboard objectives add centerbar.sec dummy
     # 부활 스코어
+        scoreboard objectives add resurrection dummy
         scoreboard objectives add resurretion.tick dummy
         scoreboard objectives add resurretion.sec dummy
     # 임시변수/넘버링변수
@@ -83,6 +85,8 @@ forceload add -243 485 -243 479
     # 오브젝트 쿨타임
         scoreboard objectives add ct1 dummy
         scoreboard objectives add ct2 dummy
+    # 게임시간
+    scoreboard objectives add time dummy
     # 상수
         scoreboard objectives add CONST dummy
         # 상수 리스트
@@ -99,6 +103,7 @@ forceload add -243 485 -243 479
             scoreboard players set #10 CONST 10
             scoreboard players set #20 CONST 20
             scoreboard players set #60 CONST 60
+            scoreboard players set #90 CONST 90
             scoreboard players set #100 CONST 100
             scoreboard players set #200 CONST 200
             scoreboard players set #360 CONST 360
@@ -111,6 +116,11 @@ forceload add -243 485 -243 479
 
     # 금지구역 남은 시간
         scoreboard objectives add bantime dummy
+        scoreboard objectives add bantime.tick dummy
+    # 승리 쿨타임
+        scoreboard objectives add win.tick dummy
+    # 패배 쿨타임
+        scoreboard objectives add lose.tick dummy
     ## 스크립트 정보교환
         scoreboard objectives add skript dummy
     ## 선택지 트리거 명령어
@@ -163,7 +173,7 @@ forceload add -243 485 -243 479
             scoreboard players set #ER.animal.alpha.attack_tick_second ER.sys 34
 
             
-
+        scoreboard players set game.start time 0
 
 
     # 하이퍼루프 영역 번호 지정
@@ -189,5 +199,8 @@ forceload add -243 485 -243 479
         scoreboard players set #ER.place.jul ER.sys 19
     
     # 브리핑룸 남은 시간/인원 표기 창
-        scoreboard players set #wait.bg ct1 1
-        scoreboard players set #wait.bg.tick NUM 1
+        
+        scoreboard players set now.bg time 0
+        scoreboard players set left.time.bg.tick time 0
+        scoreboard players set left.time.bg.num time 0
+        function eternal_return:game/timer/init

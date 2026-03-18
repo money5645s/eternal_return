@@ -1,311 +1,140 @@
 {
   "type": "minecraft:chest",
   "pools": [
+
     {
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:flow_banner_pattern",
+          "name": "minecraft:apple",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3
+            }
+          ]
+        }
+      ]
+    },
+
+
+    {
+      "rolls": 1,
+      "entries": [
+
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cooked_chicken",
+          "weight": 35,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 6
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:max_stack_size": 6,
+                "minecraft:food": { "nutrition": 0, "saturation": 0, "can_always_eat": true },
+                "minecraft:consumable": { "consume_seconds": 0, "on_consume_effects": [ { "type": "minecraft:apply_effects", "effects": [ { "id": "minecraft:regeneration", "amplifier": 1, "duration": 300, "show_particles": false } ] } ] },
+                "minecraft:custom_name": [{"color":"white","italic":false,"text":"탄두리"}],
+                "minecraft:lore": [
+                  {"color":"#993bda","italic":false,"text":"영웅"},
+                  {"color":"gray","italic":false,"text":"음식"},
+                  {"color":"white","italic":false,"text":" "},
+                  {"color":"white","italic":false,"text":"소비 효과 :"},
+                  {"color":"blue","italic":false,"text":"+12 체력 재생"}
+                ]
+              }
+            }
+          ]
+        },
+
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:tropical_fish",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 6
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:max_stack_size": 6,
+                "minecraft:food": { "nutrition": 0, "saturation": 0, "can_always_eat": true },
+                "minecraft:consumable": { "consume_seconds": 0, "on_consume_effects": [ { "type": "minecraft:apply_effects", "effects": [ { "id": "minecraft:regeneration", "amplifier": 2, "duration": 200, "show_particles": false } ] } ] },
+                "minecraft:custom_name": [{"color":"white","italic":false,"text":"피쉬앤 칩스"}],
+                "minecraft:lore": [
+                  {"color":"#DAA82B","italic":false,"text":"전설"},
+                  {"color":"gray","italic":false,"text":"음식"},
+                  {"color":"white","italic":false,"text":" "},
+                  {"color":"white","italic":false,"text":"소비 효과 :"},
+                  {"color":"blue","italic":false,"text":"+16 체력 재생"}
+                ]
+              }
+            }
+          ]
+        },
+
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:melon_slice",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 6
+            },
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:max_stack_size": 6,
+                "minecraft:food": { "nutrition": 0, "saturation": 0, "can_always_eat": true },
+                "minecraft:consumable": { "consume_seconds": 0, "on_consume_effects": [ { "type": "minecraft:apply_effects", "effects": [ { "id": "minecraft:regeneration", "amplifier": 2, "duration": 200, "show_particles": false } ] } ] },
+                "minecraft:custom_name": [{"color":"white","italic":false,"text":"민트 초코"}],
+                "minecraft:lore": [
+                  {"color":"#DAA82B","italic":false,"text":"전설"},
+                  {"color":"gray","italic":false,"text":"음식"},
+                  {"color":"white","italic":false,"text":" "},
+                  {"color":"white","italic":false,"text":"소비 효과 :"},
+                  {"color":"blue","italic":false,"text":"+16 체력 재생"}
+                ]
+              }
+            }
+          ]
+        },
+
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_carrot",
           "weight": 15,
           "functions": [
             {
-              "function": "minecraft:set_components",
-              "components": {
-                "minecraft:max_stack_size": 6,
-                "minecraft:food": {
-                  "nutrition": 0,
-                  "saturation": 0,
-                  "can_always_eat": true
-                },
-                "minecraft:consumable": {
-                  "animation": "eat",
-                  "on_consume_effects": [
-                    {
-                      "type": "minecraft:apply_effects",
-                      "effects": [
-                        {
-                          "id": "minecraft:regeneration",
-                          "amplifier": 2,
-                          "duration": 100,
-                          "show_particles": true
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            },
-            {
               "function": "minecraft:set_count",
-              "count": 3,
-              "conditions": []
+              "count": 6
             },
-            {
-              "function": "minecraft:set_lore",
-              "lore": [
-                {
-                  "text": "음식",
-                  "color": "gray",
-                  "italic": false
-                }
-              ],
-              "mode": "append"
-            },
-            {
-              "function": "minecraft:set_custom_model_data",
-              "floats": {
-                "values": [
-                  7
-                ],
-                "mode": "append"
-              },
-              "strings": {
-                "values": [
-                  "food"
-                ],
-                "mode": "append"
-              }
-            },
-            {
-              "function": "minecraft:set_name",
-              "name": {
-                "text": "민트 초코",
-                "color": "#d22eff",
-                "italic": false
-              },
-              "conditions": []
-            }
-          ],
-          "conditions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:flow_banner_pattern",
-          "weight": 25,
-          "functions": [
             {
               "function": "minecraft:set_components",
               "components": {
                 "minecraft:max_stack_size": 6,
-                "minecraft:food": {
-                  "nutrition": 0,
-                  "saturation": 0,
-                  "can_always_eat": true
-                },
-                "minecraft:consumable": {
-                  "animation": "eat",
-                  "on_consume_effects": [
-                    {
-                      "type": "minecraft:apply_effects",
-                      "effects": [
-                        {
-                          "id": "minecraft:regeneration",
-                          "amplifier": 2,
-                          "duration": 100,
-                          "show_particles": true
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 3,
-              "conditions": []
-            },
-            {
-              "function": "minecraft:set_lore",
-              "lore": [
-                {
-                  "text": "음식",
-                  "color": "gray",
-                  "italic": false
-                }
-              ],
-              "mode": "append"
-            },
-            {
-              "function": "minecraft:set_custom_model_data",
-              "floats": {
-                "values": [
-                  8
-                ],
-                "mode": "append"
-              },
-              "strings": {
-                "values": [
-                  "food"
-                ],
-                "mode": "append"
-              }
-            },
-            {
-              "function": "minecraft:set_name",
-              "name": {
-                "text": "탄두리",
-                "color": "#d22eff",
-                "italic": false
-              },
-              "conditions": []
-            }
-          ],
-          "conditions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:flow_banner_pattern",
-          "weight": 30,
-          "functions": [
-            {
-              "function": "minecraft:set_components",
-              "components": {
-                "minecraft:max_stack_size": 6,
-                "minecraft:food": {
-                  "nutrition": 0,
-                  "saturation": 0,
-                  "can_always_eat": true
-                },
-                "minecraft:consumable": {
-                  "animation": "eat",
-                  "on_consume_effects": [
-                    {
-                      "type": "minecraft:apply_effects",
-                      "effects": [
-                        {
-                          "id": "minecraft:regeneration",
-                          "amplifier": 1,
-                          "duration": 100,
-                          "show_particles": true
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 3,
-              "conditions": []
-            },
-            {
-              "function": "minecraft:set_lore",
-              "lore": [
-                {
-                  "text": "음식",
-                  "color": "gray",
-                  "italic": false
-                }
-              ],
-              "mode": "append"
-            },
-            {
-              "function": "minecraft:set_custom_model_data",
-              "floats": {
-                "values": [
-                  5
-                ],
-                "mode": "append"
-              },
-              "strings": {
-                "values": [
-                  "food"
-                ],
-                "mode": "append"
-              }
-            },
-            {
-              "function": "minecraft:set_name",
-              "name": {
-                "text": "감자튀김",
-                "color": "#01a2ff",
-                "italic": false
+                "minecraft:food": { "nutrition": 0, "saturation": 0, "can_always_eat": true },
+                "minecraft:consumable": { "consume_seconds": 0, "on_consume_effects": [ { "type": "minecraft:apply_effects", "effects": [ { "id": "minecraft:regeneration", "amplifier": 2, "duration": 200, "show_particles": false } ] } ] },
+                "minecraft:custom_name": [{"color":"white","italic":false,"text":"트러플 파스타"}],
+                "minecraft:lore": [
+                  {"color":"#DAA82B","italic":false,"text":"전설"},
+                  {"color":"gray","italic":false,"text":"음식"},
+                  {"color":"white","italic":false,"text":" "},
+                  {"color":"white","italic":false,"text":"소비 효과 :"},
+                  {"color":"blue","italic":false,"text":"+16 체력 재생"}
+                ]
               }
             }
-          ],
-          "conditions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:flow_banner_pattern",
-          "weight": 30,
-          "functions": [
-            {
-              "function": "minecraft:set_components",
-              "components": {
-                "minecraft:max_stack_size": 6,
-                "minecraft:food": {
-                  "nutrition": 0,
-                  "saturation": 0,
-                  "can_always_eat": true
-                },
-                "minecraft:consumable": {
-                  "animation": "eat",
-                  "on_consume_effects": [
-                    {
-                      "type": "minecraft:apply_effects",
-                      "effects": [
-                        {
-                          "id": "minecraft:regeneration",
-                          "amplifier": 1,
-                          "duration": 100,
-                          "show_particles": true
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 3,
-              "conditions": []
-            },
-            {
-              "function": "minecraft:set_lore",
-              "lore": [
-                {
-                  "text": "음식",
-                  "color": "gray",
-                  "italic": false
-                }
-              ],
-              "mode": "append"
-            },
-            {
-              "function": "minecraft:set_custom_model_data",
-              "floats": {
-                "values": [
-                  4
-                ],
-                "mode": "append"
-              },
-              "strings": {
-                "values": [
-                  "food"
-                ],
-                "mode": "append"
-              }
-            },
-            {
-              "function": "minecraft:set_name",
-              "name": {
-                "text": "생선까스",
-                "color": "#01a2ff",
-                "italic": false
-              }
-            }
-          ],
-          "conditions": []
+          ]
         }
-      ],
-      "functions": [],
-      "conditions": []
+      ]
     }
-  ],
-  "functions": []
+  ]
 }

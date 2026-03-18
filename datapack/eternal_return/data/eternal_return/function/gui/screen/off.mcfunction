@@ -17,7 +17,7 @@
     title @s times 0 0 0
 
     # 핫바 비우기
-    clear @s paper
+    
     clear @s warped_fungus_on_a_stick
 
     # 포션효과 제거
