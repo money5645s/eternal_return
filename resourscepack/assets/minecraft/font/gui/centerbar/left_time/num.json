@@ -2,7 +2,7 @@
     "providers": [
         {
             "type": "ttf",
-            "file": "minecraft:godo.ttf",
+            "file": "minecraft:mono.ttf",
             "oversample": 12.0,
             "size": 25,
             "shift": [ 0.0, 57.0 ]
