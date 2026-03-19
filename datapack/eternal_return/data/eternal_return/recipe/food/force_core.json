@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    [
+      "minecraft:slime_ball"
+    ],
+    [
+      "minecraft:prismarine_shard"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:armadillo_scute",
+    "count": 1
+  }
+}

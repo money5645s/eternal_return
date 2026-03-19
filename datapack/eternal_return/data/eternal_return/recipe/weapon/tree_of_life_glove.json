@@ -27,7 +27,7 @@
       "minecraft:tooltip_style": "tree_of_life",
       "minecraft:attribute_modifiers": [
         {
-          "id": "825a2fcb-a1f1-4b8a-978e-a707b4d81abb",
+          "id": "5a52bb3f-f5ce-47ab-9a7d-1abe3dc1e8a5",
           "type": "minecraft:attack_damage",
           "amount": 3,
           "operation": "add_value",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "id": "51e01df7-dcf0-46b2-9161-abfd51de6edf",
+          "id": "a057e75e-697a-49e6-94e3-6ce31f024180",
           "type": "minecraft:attack_speed",
           "amount": 0.0,
           "operation": "add_value",
@@ -57,9 +57,9 @@
           }
         },
         {
-          "id": "c21b0add-1fe8-4a7c-89c6-6c27cf7552b0",
-          "type": "minecraft:max_health",
-          "amount": 4,
+          "id": "a7a9ccdb-4af1-4939-810b-335e5557ae71",
+          "type": "minecraft:armor",
+          "amount": 2,
           "operation": "add_value",
           "slot": "mainhand"
         }

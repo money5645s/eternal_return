@@ -27,7 +27,7 @@
       "minecraft:tooltip_style": "vf_blood_sample",
       "minecraft:attribute_modifiers": [
         {
-          "id": "e480bf59-964e-4c01-8537-7063c036d0fc",
+          "id": "5493fb46-9971-4dcf-82f1-4772b7daae47",
           "type": "minecraft:attack_damage",
           "amount": 3,
           "operation": "add_value",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "id": "38c1a7ac-a2ee-4cbf-abbb-54b43ff9243e",
+          "id": "33d9f297-ae12-42ea-b87f-d16c094e2762",
           "type": "minecraft:attack_speed",
           "amount": -3.0,
           "operation": "add_value",
@@ -57,11 +57,19 @@
           }
         },
         {
-          "id": "1454681a-4109-4796-a641-f2119117d8f7",
-          "type": "minecraft:movement_speed",
-          "amount": 0.01,
+          "id": "556de925-293c-4adc-80e0-380837e82447",
+          "type": "minecraft:luck",
+          "amount": 0,
           "operation": "add_value",
-          "slot": "mainhand"
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "+0.6 장전시 속도"
+            }
+          }
         }
       ],
       "minecraft:custom_name": {
@@ -75,7 +83,15 @@
         "minecraft:flame": 1,
         "minecraft:power": 3
       },
-      "minecraft:item_model": "custom_weapon/blood_sample_bow"
+      "minecraft:item_model": "custom_weapon/blood_sample_bow",
+      "minecraft:use_cooldown": {
+        "seconds": 0.2,
+        "cooldown_group": "1"
+      },
+      "minecraft:use_effects": {
+        "speed_multiplier": 0.6,
+        "can_sprint": true
+      }
     },
     "count": 1
   }

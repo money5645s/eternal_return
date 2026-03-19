@@ -29,12 +29,12 @@
       "entries": [
         {
           "type": "minecraft:empty",
-          "weight": 915
+          "weight": 910
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:prismarine_shard",
-          "weight": 25
+          "weight": 30
         },
         {
           "type": "minecraft:item",

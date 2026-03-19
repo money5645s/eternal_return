@@ -27,7 +27,7 @@
       "minecraft:tooltip_style": "meteorite",
       "minecraft:attribute_modifiers": [
         {
-          "id": "1178dd72-72e2-467c-9768-ee62a69152b0",
+          "id": "5493fb46-9971-4dcf-82f1-4772b7daae47",
           "type": "minecraft:attack_damage",
           "amount": 3,
           "operation": "add_value",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "id": "f7464c27-482f-45bd-a043-93dc502cfe2e",
+          "id": "33d9f297-ae12-42ea-b87f-d16c094e2762",
           "type": "minecraft:attack_speed",
           "amount": -3.0,
           "operation": "add_value",
@@ -57,17 +57,17 @@
           }
         },
         {
-          "id": "d9ab60dc-fe90-4640-bbc8-a753d056a31e",
-          "type": "minecraft:movement_speed",
-          "amount": -0.005,
+          "id": "556de925-293c-4adc-80e0-380837e82447",
+          "type": "minecraft:luck",
+          "amount": 0,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
             "type": "override",
             "value": {
-              "color": "red",
+              "color": "blue",
               "italic": false,
-              "text": "-0.005 속도"
+              "text": "+0.4 장전시 속도"
             }
           }
         }
@@ -82,7 +82,15 @@
       "minecraft:enchantments": {
         "minecraft:power": 2
       },
-      "minecraft:item_model": "custom_weapon/meteorite_bow"
+      "minecraft:item_model": "custom_weapon/meteorite_bow",
+      "minecraft:use_cooldown": {
+        "seconds": 0.2,
+        "cooldown_group": "1"
+      },
+      "minecraft:use_effects": {
+        "speed_multiplier": 0.4,
+        "can_sprint": true
+      }
     },
     "count": 1
   }

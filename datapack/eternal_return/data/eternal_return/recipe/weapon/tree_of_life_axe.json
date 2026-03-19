@@ -14,7 +14,7 @@
     "components": {
       "minecraft:lore": [
         {
-          "color": "#daa82b",
+          "color": "#DAA82B",
           "italic": false,
           "text": "전설"
         },
@@ -27,7 +27,7 @@
       "minecraft:tooltip_style": "tree_of_life",
       "minecraft:attribute_modifiers": [
         {
-          "id": "97ebe8b2-c2ce-4ad9-80ac-1aec106bea8d",
+          "id": "8481a162-35e8-41c7-912b-01b499daaa3e",
           "type": "minecraft:attack_damage",
           "amount": 7,
           "operation": "add_value",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "id": "addd00a9-d696-4b07-aaf2-a76b2795b0da",
+          "id": "6ad51e9a-93bd-4e7b-bf8d-98083778726b",
           "type": "minecraft:attack_speed",
           "amount": -3.2,
           "operation": "add_value",
@@ -57,16 +57,16 @@
           }
         },
         {
-          "id": "295bd6af-8bb0-406d-836f-b3a14ecc1ebe",
+          "id": "166af05a-9262-4fa8-877f-653650aaf4e4",
           "type": "minecraft:knockback_resistance",
           "amount": 0.1,
           "operation": "add_value",
           "slot": "mainhand"
         },
         {
-          "id": "71487e75-e511-4442-9e12-d456a562fc56",
-          "type": "minecraft:max_health",
-          "amount": 4,
+          "id": "5817c467-b2e0-4ba4-be7e-d96803f44ff2",
+          "type": "minecraft:sneaking_speed",
+          "amount": 0.45,
           "operation": "add_value",
           "slot": "mainhand"
         }

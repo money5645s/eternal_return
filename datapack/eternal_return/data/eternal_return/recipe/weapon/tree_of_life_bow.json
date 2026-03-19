@@ -27,7 +27,7 @@
       "minecraft:tooltip_style": "tree_of_life",
       "minecraft:attribute_modifiers": [
         {
-          "id": "92c68f9f-a6e7-4815-80ef-72f12ce875a4",
+          "id": "1bbcb137-50b5-4086-9b85-cdb26a50bb6c",
           "type": "minecraft:attack_damage",
           "amount": 3,
           "operation": "add_value",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "id": "35f3917e-4e72-4a25-a802-1f1fc7797a2d",
+          "id": "1fdbedf9-71db-4292-8e46-7c2ff39c940f",
           "type": "minecraft:attack_speed",
           "amount": -3.0,
           "operation": "add_value",
@@ -57,11 +57,19 @@
           }
         },
         {
-          "id": "d41210a0-5252-40f8-a161-9d1e749bded2",
-          "type": "minecraft:max_health",
-          "amount": 3,
+          "id": "d82be117-df55-439a-859e-ed82fd6c8f45",
+          "type": "minecraft:luck",
+          "amount": 0,
           "operation": "add_value",
-          "slot": "mainhand"
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "+0.4 장전시 속도"
+            }
+          }
         }
       ],
       "minecraft:custom_name": {
@@ -74,7 +82,15 @@
       "minecraft:enchantments": {
         "minecraft:flame": 1
       },
-      "minecraft:item_model": "custom_weapon/tree_of_life_bow"
+      "minecraft:item_model": "custom_weapon/tree_of_life_bow",
+      "minecraft:use_cooldown": {
+        "seconds": 0.2,
+        "cooldown_group": "1"
+      },
+      "minecraft:use_effects": {
+        "speed_multiplier": 0.4,
+        "can_sprint": true
+      }
     },
     "count": 1
   }

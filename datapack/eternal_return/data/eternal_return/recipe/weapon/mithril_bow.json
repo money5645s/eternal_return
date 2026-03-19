@@ -27,7 +27,7 @@
       "minecraft:tooltip_style": "mithril",
       "minecraft:attribute_modifiers": [
         {
-          "id": "a0d72a79-0da2-4e96-aea9-57df96f5dda2",
+          "id": "5493fb46-9971-4dcf-82f1-4772b7daae47",
           "type": "minecraft:attack_damage",
           "amount": 3,
           "operation": "add_value",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "id": "ac14e666-2d39-41b2-97b2-481df598f92a",
+          "id": "33d9f297-ae12-42ea-b87f-d16c094e2762",
           "type": "minecraft:attack_speed",
           "amount": -3.0,
           "operation": "add_value",
@@ -53,6 +53,21 @@
               "color": "blue",
               "italic": false,
               "text": "+1.0 공격 속도"
+            }
+          }
+        },
+        {
+          "id": "556de925-293c-4adc-80e0-380837e82447",
+          "type": "minecraft:luck",
+          "amount": 0,
+          "operation": "add_value",
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "+0.6 장전시 속도"
             }
           }
         }
@@ -68,7 +83,15 @@
         "minecraft:power": 1,
         "minecraft:punch": 1
       },
-      "minecraft:item_model": "custom_weapon/mithril_bow"
+      "minecraft:item_model": "custom_weapon/mithril_bow",
+      "minecraft:use_cooldown": {
+        "seconds": 0.2,
+        "cooldown_group": "1"
+      },
+      "minecraft:use_effects": {
+        "speed_multiplier": 0.6,
+        "can_sprint": true
+      }
     },
     "count": 1
   }

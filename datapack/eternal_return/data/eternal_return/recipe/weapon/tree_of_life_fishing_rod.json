@@ -57,16 +57,29 @@
           }
         },
         {
-          "id": "ff40b59d-223c-4d56-85e3-9a531837a6ab",
-          "type": "minecraft:max_health",
-          "amount": 5,
+          "id": "armor",
+          "type": "minecraft:armor",
+          "amount": 1,
           "operation": "add_value",
           "slot": "mainhand"
+        },
+        {
+          "id": "jump_strength",
+          "type": "minecraft:jump_strength",
+          "amount": 0.005,
+          "operation": "add_value",
+          "slot": "mainhand",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "+0.005 점프 세기"
+            }
+          }
         }
       ],
-      "minecraft:enchantments": {
-        "minecraft:fire_aspect": 1
-      },
+      "minecraft:item_model": "custom_weapon/tree_of_life_fishing_rod",
       "minecraft:custom_name": {
         "color": "white",
         "italic": false,
@@ -74,7 +87,9 @@
       },
       "minecraft:unbreakable": {},
       "minecraft:damage_type": "player_attack",
-      "minecraft:item_model": "custom_weapon/tree_of_life_fishing_rod"
+      "minecraft:enchantments": {
+        "minecraft:fire_aspect": 1
+      }
     },
     "count": 1
   }

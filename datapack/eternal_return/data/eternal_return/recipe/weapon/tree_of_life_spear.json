@@ -27,9 +27,9 @@
       "minecraft:tooltip_style": "tree_of_life",
       "minecraft:attribute_modifiers": [
         {
-          "id": "7d18d528-ccea-48f1-8b3c-dad54f37d908",
+          "id": "160b2b28-d168-4128-b648-45360a267bd8",
           "type": "minecraft:attack_damage",
-          "amount": 3,
+          "amount": 4,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -37,12 +37,12 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+4 공격 피해"
+              "text": "+5 공격 피해"
             }
           }
         },
         {
-          "id": "b6a85de8-9257-4b4a-b483-6406b5c9de53",
+          "id": "11c55efe-4a63-4045-994a-40a1f786f448",
           "type": "minecraft:attack_speed",
           "amount": -2.46,
           "operation": "add_value",
@@ -57,9 +57,9 @@
           }
         },
         {
-          "id": "a9d01330-d3ce-4f85-87a9-36ef158f85d7",
-          "type": "minecraft:max_health",
-          "amount": 5,
+          "id": "3ce5217a-8dbe-46ac-9572-a3bb009f28fb",
+          "type": "minecraft:armor",
+          "amount": 1,
           "operation": "add_value",
           "slot": "mainhand"
         }

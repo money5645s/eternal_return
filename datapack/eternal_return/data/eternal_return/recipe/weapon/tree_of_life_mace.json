@@ -27,7 +27,7 @@
       "minecraft:tooltip_style": "tree_of_life",
       "minecraft:attribute_modifiers": [
         {
-          "id": "4aa1cb06-9cca-418b-826a-f46eb216c3cd",
+          "id": "491a8a07-410d-4941-b429-a21ac4312cad",
           "type": "minecraft:attack_damage",
           "amount": 3,
           "operation": "add_value",
@@ -42,7 +42,7 @@
           }
         },
         {
-          "id": "d4fa6337-d57b-4ab6-9c12-8ef6e4e9932f",
+          "id": "0171beac-de3f-4b4e-a280-ee9aecf9cf25",
           "type": "minecraft:attack_speed",
           "amount": -3.0,
           "operation": "add_value",
@@ -57,34 +57,20 @@
           }
         },
         {
-          "id": "b6a517c8-8a66-46e9-8e53-204e3295bd63",
+          "id": "b13c9ccb-144b-4e41-b115-cb5ab0be0710",
           "type": "minecraft:armor",
-          "amount": 3,
+          "amount": 1,
           "operation": "add_value",
           "slot": "mainhand"
         },
         {
-          "id": "03e559d2-314b-4ccb-a48b-f229abfbb730",
+          "id": "0d77534f-df7f-4ba3-9a96-8cfa0e864622",
           "type": "minecraft:knockback_resistance",
           "amount": 0.2,
           "operation": "add_value",
           "slot": "mainhand"
-        },
-        {
-          "id": "cbd00cea-c5be-47ce-930f-ff70b9beb4d8",
-          "type": "minecraft:max_health",
-          "amount": 3,
-          "operation": "add_value",
-          "slot": "mainhand"
         }
       ],
-      "minecraft:custom_name": {
-        "color": "white",
-        "italic": false,
-        "text": "뿅망치"
-      },
-      "minecraft:unbreakable": {},
-      "minecraft:damage_type": "player_attack",
       "minecraft:custom_model_data": {
         "floats": [
           1
@@ -92,6 +78,16 @@
         "strings": [
           "mace"
         ]
+      },
+      "minecraft:custom_name": {
+        "color": "white",
+        "italic": false,
+        "text": "뿅망치"
+      },
+      "minecraft:unbreakable": {},
+      "minecraft:damage_type": "player_attack",
+      "minecraft:enchantments": {
+        "minecraft:fire_aspect": 1
       }
     },
     "count": 1
