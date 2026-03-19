@@ -1,0 +1,26 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/diamond_axe"
+    },
+    "cases": [
+      {
+        "when": "axe",
+        "model": {
+          "type": "minecraft:range_dispatch",
+          "property": "minecraft:custom_model_data",
+          "entries": [
+              {"threshold": 1, "model": {"type": "minecraft:model", "model": "minecraft:item/weapon/tree_of_life_axe"}},
+              {"threshold": 2, "model": {"type": "minecraft:model", "model": "minecraft:item/weapon/meteorite_axe"}},
+              {"threshold": 3, "model": {"type": "minecraft:model", "model": "minecraft:item/weapon/mithril_axe"}},
+              {"threshold": 4, "model": {"type": "minecraft:model", "model": "minecraft:item/weapon/blood_sample_axe"}}
+
+          ]
+        }
+      }
+    ]
+  }
+}
