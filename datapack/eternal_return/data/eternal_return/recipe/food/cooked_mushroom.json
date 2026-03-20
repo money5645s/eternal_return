@@ -15,7 +15,7 @@
               {
                 "id": "minecraft:regeneration",
                 "amplifier": 1,
-                "duration": 200,
+                "duration": 300,
                 "show_icon": true,
                 "show_particles": false
               }
@@ -52,12 +52,13 @@
           "italic": false
         },
         {
-          "text": "+8 체력 재생",
+          "text": "+12 체력 재생",
           "type": "text",
           "color": "blue",
           "italic": false
         }
       ]
-    }
+    },
+    "count": 2
   }
 }

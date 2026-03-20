@@ -23,7 +23,6 @@
           }
         ]
       },
-      "minecraft:max_stack_size": 6,
       "minecraft:food": {
         "nutrition": 0,
         "saturation": 0,
@@ -58,6 +57,7 @@
           "italic": false
         }
       ]
-    }
+    },
+    "count": 2
   }
 }

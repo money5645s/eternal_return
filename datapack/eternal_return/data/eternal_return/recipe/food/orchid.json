@@ -19,7 +19,7 @@
             "effects": [
               {
                 "id": "minecraft:regeneration",
-                "amplifier": 0,
+                "amplifier": 1,
                 "duration": 300,
                 "show_icon": true,
                 "show_particles": false
@@ -28,7 +28,6 @@
           }
         ]
       },
-      "minecraft:max_stack_size": 6,
       "minecraft:food": {
         "nutrition": 0,
         "saturation": 0,
@@ -57,12 +56,13 @@
           "italic": false
         },
         {
-          "text": "+6 체력 재생",
+          "text": "+12 체력 재생",
           "type": "text",
           "color": "blue",
           "italic": false
         }
       ]
-    }
+    },
+    "count": 2
   }
 }

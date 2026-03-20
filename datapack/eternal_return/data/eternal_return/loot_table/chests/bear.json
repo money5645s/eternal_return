@@ -12,10 +12,9 @@
             {
               "function": "minecraft:set_components",
               "components": {
-                "minecraft:max_stack_size": 6,
                 "minecraft:food": { "nutrition": 0, "saturation": 0, "can_always_eat": true },
-                "minecraft:consumable": { "consume_seconds": 0, "on_consume_effects": [ { "type": "minecraft:apply_effects", "effects": [ { "id": "minecraft:regeneration", "amplifier": 0, "duration": 200, "show_particles": false } ] } ] },
-                "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"음식"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+4 체력 재생"} ]
+                "minecraft:consumable": { "consume_seconds": 0, "on_consume_effects": [ { "type": "minecraft:apply_effects", "effects": [ { "id": "minecraft:regeneration", "amplifier": 1, "duration": 200, "show_particles": false } ] } ] },
+                "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"음식"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+8 체력 재생"} ]
               }
             }
           ]
