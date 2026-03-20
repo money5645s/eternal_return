@@ -2,15 +2,15 @@
 # 상위 함수 : function eternal_return:player/tick
 # 입력 : @s pdb:main
 
-execute if entity @s[tag=kill_animal_bear] run give @s beef[consumable={consume_seconds:0,on_consume_effects:[{type:"minecraft:apply_effects",effects:[{id:"minecraft:regeneration",amplifier:0,duration:200,show_particles:0b}]}]},lore=[{"color":"#B7B7B7","italic":false,"text":"일반"},{"color":"gray","italic":false,"text":"음식"},{"color":"white","italic":false,"text":" "},{"color":"white","italic":false,"text":"소비 효과 :"},{"color":"blue","italic":false,"text":"+4 체력 재생"}],food={nutrition:0,saturation:0,can_always_eat:true},max_stack_size=6] 2
+execute if entity @s[tag=kill_animal_bear] run loot give @s loot eternal_return:chests/bear
 execute if entity @s[tag=kill_animal_bear] run scoreboard players add @s credit 7
 execute if entity @s[tag=kill_animal_bear] run scoreboard players add @s exp 360
 
-execute if entity @s[tag=kill_animal_wolf] run give @s beef[consumable={consume_seconds:0,on_consume_effects:[{type:"minecraft:apply_effects",effects:[{id:"minecraft:regeneration",amplifier:0,duration:200,show_particles:0b}]}]},lore=[{"color":"#B7B7B7","italic":false,"text":"일반"},{"color":"gray","italic":false,"text":"음식"},{"color":"white","italic":false,"text":" "},{"color":"white","italic":false,"text":"소비 효과 :"},{"color":"blue","italic":false,"text":"+4 체력 재생"}],food={nutrition:0,saturation:0,can_always_eat:true},max_stack_size=6] 1
+execute if entity @s[tag=kill_animal_wolf] run give @s beef[consumable={consume_seconds:0,on_consume_effects:[{type:"minecraft:apply_effects",effects:[{id:"minecraft:regeneration",amplifier:0,duration:200,show_particles:0b}]}]},lore=[{"color":"#B7B7B7","italic":false,"text":"일반"},{"color":"gray","italic":false,"text":"음식"},{"color":"white","italic":false,"text":" "},{"color":"white","italic":false,"text":"장착 효과 :"},{"color":"blue","italic":false,"text":"+4 체력 재생"}],food={nutrition:0,saturation:0,can_always_eat:true},max_stack_size=6] 1
 execute if entity @s[tag=kill_animal_wolf] run scoreboard players add @s credit 5
 execute if entity @s[tag=kill_animal_wolf] run scoreboard players add @s exp 150
 
-execute if entity @s[tag=kill_animal_boar] run give @s beef[consumable={consume_seconds:0,on_consume_effects:[{type:"minecraft:apply_effects",effects:[{id:"minecraft:regeneration",amplifier:0,duration:200,show_particles:0b}]}]},lore=[{"color":"#B7B7B7","italic":false,"text":"일반"},{"color":"gray","italic":false,"text":"음식"},{"color":"white","italic":false,"text":" "},{"color":"white","italic":false,"text":"소비 효과 :"},{"color":"blue","italic":false,"text":"+4 체력 재생"}],food={nutrition:0,saturation:0,can_always_eat:true},max_stack_size=6] 1
+execute if entity @s[tag=kill_animal_boar] run give @s beef[consumable={consume_seconds:0,on_consume_effects:[{type:"minecraft:apply_effects",effects:[{id:"minecraft:regeneration",amplifier:0,duration:200,show_particles:0b}]}]},lore=[{"color":"#B7B7B7","italic":false,"text":"일반"},{"color":"gray","italic":false,"text":"음식"},{"color":"white","italic":false,"text":" "},{"color":"white","italic":false,"text":"장착 효과 :"},{"color":"blue","italic":false,"text":"+4 체력 재생"}],food={nutrition:0,saturation:0,can_always_eat:true},max_stack_size=6] 1
 execute if entity @s[tag=kill_animal_boar] run scoreboard players add @s credit 7
 execute if entity @s[tag=kill_animal_boar] run scoreboard players add @s exp 210
 

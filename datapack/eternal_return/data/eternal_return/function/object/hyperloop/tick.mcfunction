@@ -3,10 +3,10 @@
 # 입출력 없음
 
 ## 클릭감지
-execute if entity @e[type=interaction,tag=hyperloop,distance=..3,limit=1] run dialog show @s[tag=click_hyperloop] eternal_return:hyperloop
+execute if entity @e[type=interaction,tag=hyperloop,distance=..1.8,limit=1] run dialog show @s[tag=click_hyperloop,tag=!hyper_loop_activing] eternal_return:hyperloop
 
 
-execute at @s[tag=hyper_loop_activing] if entity @e[type=interaction,tag=hyperloop,distance=3..9] run function eternal_return:object/hyperloop/cancle_warp
+execute at @s[tag=hyper_loop_activing] if entity @e[type=interaction,tag=hyperloop,distance=1.8..9] run function eternal_return:object/hyperloop/cancle_warp
 
 
 execute if score @s select matches 1..19 run tag @s add show_hyperloop_loading

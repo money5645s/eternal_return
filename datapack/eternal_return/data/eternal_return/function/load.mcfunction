@@ -24,8 +24,8 @@ forceload add -243 485 -243 479
     function eternal_return:forceload
     function eternal_return:game/fied_set
 
-
-
+worldborder set 10000 1
+gamerule pvp false
 ## 팀 추가
     team add player
     team modify player nametagVisibility never
@@ -36,6 +36,9 @@ forceload add -243 485 -243 479
 
 
 ## 스코어 보드 추가
+    # 운석 충돌 장소
+        scoreboard objectives add imapct1 dummy
+        scoreboard objectives add imapct2 dummy
     # 스크린
         scoreboard objectives add Page.loading dummy
         scoreboard objectives add Page.loading.tick dummy
@@ -110,7 +113,7 @@ forceload add -243 485 -243 479
             scoreboard players set #600 CONST 600
             scoreboard players set #1000 CONST 1000
             scoreboard players set #100000 CONST 100000
-
+        scoreboard objectives add Region dummy
     # 금지구역 남은 시간
         scoreboard objectives add warp_point dummy
 
@@ -173,7 +176,7 @@ forceload add -243 485 -243 479
             scoreboard players set #ER.animal.alpha.attack_tick_second ER.sys 34
 
             
-        scoreboard players set game.start time 0
+       
 
 
     # 하이퍼루프 영역 번호 지정
@@ -199,8 +202,9 @@ forceload add -243 485 -243 479
         scoreboard players set #ER.place.jul ER.sys 19
     
     # 브리핑룸 남은 시간/인원 표기 창
-        
         scoreboard players set now.bg time 0
         scoreboard players set left.time.bg.tick time 0
         scoreboard players set left.time.bg.num time 0
+
+    # 게임타이머 초기화
         function eternal_return:game/timer/init

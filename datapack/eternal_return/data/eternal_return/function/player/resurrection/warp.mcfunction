@@ -20,11 +20,14 @@ execute if score @s select matches 417 run tp @s -418 82 478 ~ 0
 execute if score @s select matches 418 run tp @s -461 82 418 ~ 0
 execute if score @s select matches 419 run tp @s -455 82 370 ~ 0
 tag @s remove freeze
+tag @s remove is_resurretion
 effect clear @s
 gamemode adventure @s
 # 스코어 초기화
 execute at @s run playsound minecraft:er.player.max_credit master @s ~ ~ ~
 execute at @s run particle minecraft:trial_spawner_detection ~ ~0.5 ~ 0.5 0.6 0.5 0 40 force
 scoreboard players set @s select -1
-# 태그 제거
+# 화면 끄기
 dialog clear @s
+scoreboard players reset @s resurretion.sec
+scoreboard players set @s bantime 10

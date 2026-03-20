@@ -2,15 +2,13 @@
     # 버튼 클릭음
     #playsound minecraft:ui.button.click ui @s[tag=!slot_click] ~ ~ ~ 5 1
     # 랜덤 클릭시(베타테스트 전용)
-    execute if score @s select matches 100 store result score #random_sel TEMP run random value 1..8
+    execute if score @s select matches 100 store result score #random_sel TEMP run random value 1..6
     execute if score @s select matches 100 if score #random_sel TEMP matches 1 run scoreboard players set @s select 101
     execute if score @s select matches 100 if score #random_sel TEMP matches 2 run scoreboard players set @s select 111
     execute if score @s select matches 100 if score #random_sel TEMP matches 3 run scoreboard players set @s select 112
     execute if score @s select matches 100 if score #random_sel TEMP matches 4 run scoreboard players set @s select 114
     execute if score @s select matches 100 if score #random_sel TEMP matches 5 run scoreboard players set @s select 129
     execute if score @s select matches 100 if score #random_sel TEMP matches 6 run scoreboard players set @s select 131
-    execute if score @s select matches 100 if score #random_sel TEMP matches 7 run scoreboard players set @s select 132
-    execute if score @s select matches 100 if score #random_sel TEMP matches 8 run scoreboard players set @s select 133
     scoreboard players reset #random_sel TEMP
     # (정식버전)
     #execute if score @s select matches 100 if score #random_sel TEMP matches 7 run random value 101..133

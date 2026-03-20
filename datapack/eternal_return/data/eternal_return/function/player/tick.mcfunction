@@ -29,10 +29,18 @@
 # 부활
     execute if entity @s[tag=player] at @s run function eternal_return:player/resurrection/tick
 
+# 크래딧 제거 한게치
+    execute if entity @s[tag=player] at @s if score @s credit matches 1000.. run scoreboard players set @s credit 1000
+# 금구 타이머 한계치
+    execute if score day time matches ..3 if entity @s[tag=player] if score @s bantime matches 20.. run scoreboard players set @s bantime 20
+    execute if score day time matches 4.. if entity @s[tag=player] if score @s bantime matches 30.. run scoreboard players set @s bantime 30
+    execute if score day time matches 5 if score halfday time matches 1 if score tick time matches 1 if entity @s[tag=player] run scoreboard players add @s bantime 20
 
+    # 플레이어
+        execute if entity @s[tag=player] at @s run function eternal_return:object/hyperloop/tick
 
 
 # 승리
-    execute if entity @s[tag=player] at @s run function eternal_return:player/win
+    execute if score game.start time matches 1 if entity @s[tag=player] at @s run function eternal_return:player/win
 # 패배
     execute if entity @s[tag=player] at @s run function eternal_return:player/lose

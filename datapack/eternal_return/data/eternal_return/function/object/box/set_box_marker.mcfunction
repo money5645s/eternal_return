@@ -7,7 +7,7 @@ function eternal_return:object/box/remove
 
 
 # 골목길
-    summon marker -723 82 647 {Tags:["box_place"]}
+    summon marker -722 82 640 {Tags:["box_place"]}
     summon marker -738 82 631 {Tags:["box_place"]}
     summon marker -759 84 605 {Tags:["box_place"]}
 # 주유소
@@ -15,8 +15,8 @@ function eternal_return:object/box/remove
     summon marker -710 82 687 {Tags:["box_place"]}
     summon marker -722 82 682 {Tags:["box_place"]}
 # 경찰서
-    summon marker -719 82 568 {Tags:["box_place"]}
-    summon marker -735 82 566 {Tags:["box_place"]}
+    summon marker -713 82 564 {Tags:["box_place"]}
+    summon marker -733 82 551 {Tags:["box_place"]}
     summon marker -704 82 518 {Tags:["box_place"]}
 # 소방서
     summon marker -653 82 579 {Tags:["box_place"]}

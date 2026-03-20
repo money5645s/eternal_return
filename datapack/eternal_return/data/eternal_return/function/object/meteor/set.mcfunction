@@ -18,6 +18,7 @@ tag @e[tag=selected,tag=temp_select] remove temp_select
 execute as @e[tag=temp_select,limit=1] run scoreboard players operation impact2 skript = @s NUM
 tag @e[tag=temp_select] add selected
 tag @e[tag=selected] remove temp_select
+scoreboard players set msg skript 3
 
 # 5. 스코어 초기화 (이제 둘 다 selected 태그를 가짐)
 scoreboard players set @e[tag=selected,tag=!impacted,type=marker] ct1 0

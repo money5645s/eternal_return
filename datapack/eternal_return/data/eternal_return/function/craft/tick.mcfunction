@@ -1,1 +1,1 @@
-recipe take @s[tag=craft_sword] eternal_return:weapon/tree_of_life_sword
+#recipe take @s[tag=craft_sword] eternal_return:weapon/tree_of_life_sword

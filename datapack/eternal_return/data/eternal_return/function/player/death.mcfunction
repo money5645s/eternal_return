@@ -22,7 +22,6 @@ execute if score @s[tag=death.] resurrection matches 0 run gamemode spectator @s
 execute if score @s[tag=death.] resurrection matches 0 run tp @s -254 75 487
 execute if score @s[tag=death.] resurrection matches 0 run scoreboard players set @s lose.tick 1
 execute if score @s[tag=death.,tag=resurrectable] resurrection matches 1.. run scoreboard players set @s resurretion.tick 300
-execute if score @s[tag=death.,tag=resurrectable] resurrection matches 1.. run scoreboard players remove @s resurrection 1
 
 
 

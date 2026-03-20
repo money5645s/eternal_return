@@ -1,4 +1,4 @@
-execute if score @s select matches 20..26 run tag @s add bos.null5
+
 execute if score @s select matches 20 run function eternal_return:object/kiosk/buy/meteor
 execute if score @s select matches 21 run function eternal_return:object/kiosk/buy/tree_of_life
 execute if score @s select matches 22 run function eternal_return:object/kiosk/buy/force_core

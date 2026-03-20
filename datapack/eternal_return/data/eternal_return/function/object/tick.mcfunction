@@ -9,8 +9,6 @@
 # 하이퍼루프
     # 인터렉션
         #execute as @e[type=interaction,tag=click_interaction,tag=hyperloop] run function eternal_return:object/hyperloop/tick
-    # 플레이어
-        execute as @a[tag=player] at @s run function eternal_return:object/hyperloop/tick
 
 # CCTV
     # 플레이어
