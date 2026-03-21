@@ -9,7 +9,7 @@ class SkillCooldown {
     }
 
     // 쿨타임 여부 확인
-    fun isWaiting(skillName: String?): Boolean {
+    fun isWaiting(skillName: String): Boolean {
         if (!cooldowns.containsKey(skillName)) return false
         return System.currentTimeMillis() < cooldowns[skillName]!!
     }

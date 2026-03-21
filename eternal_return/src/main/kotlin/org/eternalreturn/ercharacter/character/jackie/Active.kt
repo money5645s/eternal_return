@@ -14,12 +14,10 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
     override fun start(event: CharacterSwapHandEvent) {
         val jackie = actor as Character_Jackie
-        val cd = jackie.cooldown
 
-        if (cd.isWaiting("Active")) {
-            val remain = String.format("%.1f", cd.getLeft("Active"))
-            jackie.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
-            return
+        if(erCharacter.activeCooldown > 0 || erCharacter.activeLevel == 0){
+            stopMonobehav();
+            return;
         }
 
         // 스킬이 이미 켜져 있다면 중복 발동 방지 (선택 사항)
@@ -30,7 +28,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         this.isActive = true
         (actor as Character_Jackie).isBloodSweep = true;
 
-        player.sendMessage("§c[재키] §f스킬 발동! 5초간 유지됩니다.")
+        //player.sendMessage("§c[재키] §f스킬 발동! 5초간 유지됩니다.")
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
@@ -46,10 +44,9 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         // 시작한 시간으로부터 5초가 지났는지 확인
         if (currentTime - skillActiveTick > durationMillis) {
             isActive = false // 상태 종료
-            // 쿨타임 등록
-            jackie.cooldown.set("Active", jackie.ActiveCooldownSeconds)
             (actor as Character_Jackie).isBloodSweep = false
-            jackie.sendMessage("§7[재키] 스킬 상태가 종료되었습니다.")
+            // 쿨타임 등록
+            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
             stopMonobehav()
         }
     }

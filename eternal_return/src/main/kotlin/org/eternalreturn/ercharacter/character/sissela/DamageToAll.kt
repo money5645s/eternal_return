@@ -24,6 +24,12 @@ class DamageToAll : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             return;
         }
 
+        if(erCharacter.activeCooldown > 0 || erCharacter.activeLevel == 0){
+            stopMonobehav();
+            return;
+        }
+        erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
+
         val orangeLightBeamParticle = Particle.DUST.builder()
             .location(sissela.location)
             .color(org.bukkit.Color.ORANGE)
@@ -49,30 +55,17 @@ class DamageToAll : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                     orangeLightBeamParticle.location(world, x, y + dy, z).spawn();
                 }
 
-                victim.damageForce(4.0, sissela);
+                victim.damageForce(sissela.activeExtraDamageForEachLevel[sissela.activeLevel], sissela);
                 bukkitVictim.playSound(sisselaWitchMagicCastSound0, victim.entity)
                 bukkitVictim.playSound(sisselaWitchMagicCastSound1, victim.entity)
             }
         }
 
-        cooldown = sissela.ActiveCooldownSeconds * 20;
+
 
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
-
-        val sissela = actor as Sissela;
-
-        if(cooldown <= 0){
-            stopMonobehav();
-            return;
-        }
-
-        if(gotSubscribedEvent){
-            sissela.sendMessage(String.format("§c[!] §7쿨타임 중입니다. %.1f 초", (cooldown / 20).toFloat()));
-        }
-
-        cooldown--;
-
+        stopMonobehav();
     }
 }

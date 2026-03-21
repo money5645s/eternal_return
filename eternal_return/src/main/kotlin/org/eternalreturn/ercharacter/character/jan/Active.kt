@@ -29,10 +29,10 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         val world = loc.world!!;
         val cd = jan.cooldown
 
-        if (cd.isWaiting("Active")) {
-            val remain = String.format("%.1f", cd.getLeft("Active"))
-            jan.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
-            return
+
+        if(erCharacter.activeCooldown > 0 || erCharacter.activeLevel == 0){
+            stopMonobehav();
+            return;
         }
 
         if (jan.Stack >= 5){
@@ -103,14 +103,14 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
         if (jan.StackSkill){
             if (jan.SkillReuse == 0) {
-                player.sendMessage("스킬")
+                //player.sendMessage("스킬")
                 this.getEREntity().submitEvent(JanActiveTimerEvent())
                 jan.SkillReuse++
             } else if (jan.SkillReuse == 1) {
-                player.sendMessage("재사용")
+                //player.sendMessage("재사용")
                 jan.SkillReuse = 0
                 jan.StackSkill = false
-                jan.cooldown.set("Active", jan.ActiveCooldownSeconds)
+                erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
             }
         }
     }

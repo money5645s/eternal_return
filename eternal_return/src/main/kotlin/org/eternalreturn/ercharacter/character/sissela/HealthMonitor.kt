@@ -21,6 +21,12 @@ class HealthMonitor : ERCharacterMonobehaviour<EREntityMonobehavCreatedEvent>() 
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
+
+        if(erCharacter.passiveCooldown > 0 || erCharacter.passiveLevel == 0){
+            //stopMonobehav(); 한번만 켜지는 거니까 이건 꺼야 함.
+            return;
+        }
+
         val sissela = actor as Sissela
 
         val maxHealth = player.getAttribute(Attribute.MAX_HEALTH)!!.baseValue

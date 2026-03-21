@@ -13,8 +13,11 @@ class Passive : ERCharacterMonobehaviour<CharacterKillEvent>() {
     var endTimeMillis : Long = 0;
 
     override fun start(event: CharacterKillEvent) {
-        val player = erPlayer.player
-        //player.sendMessage("I killed");
+
+        if(erCharacter.passiveCooldown > 0 || erCharacter.passiveLevel == 0){
+            stopMonobehav();
+            return;
+        }
         endTimeMillis = System.currentTimeMillis() + 100 * 50;
 
     }
@@ -26,7 +29,7 @@ class Passive : ERCharacterMonobehaviour<CharacterKillEvent>() {
             val world = player.world;
             loc.y = loc.y + 2.5;
             world.spawnParticle(Particle.FLAME, loc, 3, 0.2, 0.1, 0.2, 0.02)
-            player.addPotionEffect(PotionEffect(PotionEffectType.STRENGTH, 2 * 20, 1, false, true))
+            player.addPotionEffect(PotionEffect(PotionEffectType.STRENGTH, 20 * 20, 0, false, true))
         }else{
             stopMonobehav();
         }

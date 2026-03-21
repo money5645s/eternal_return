@@ -6,7 +6,7 @@ import org.eternalreturn.ercharacter.ERCharacter
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.Gui.InventoryGui.View.IController
 
-open class ERPlayer(p: Entity, engine: EREngine) : ERCharacter(p, engine) {
+abstract class ERPlayer(p: Entity, engine: EREngine) : ERCharacter(p, engine) {
 
     var attackCooldown : Float = 0.0F;
     val player : Player

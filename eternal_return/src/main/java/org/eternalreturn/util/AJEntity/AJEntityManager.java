@@ -1,6 +1,7 @@
 package org.eternalreturn.util.AJEntity;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.ItemDisplay;
 import org.eternalreturn.util.Free.FreeAble;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -30,7 +31,7 @@ public class AJEntityManager implements FreeAble, Runnable {
 
     private static Plugin plugin = null;
 
-    static List<AJEntity> ajEntitySummonQueue = new LinkedList<>();
+    static ArrayDeque<AJEntity> ajEntitySummonQueue = new ArrayDeque<AJEntity>();
 
     public static void sendCommand(String cmd){
         Bukkit.dispatchCommand(commandSender, cmd);
@@ -112,16 +113,12 @@ public class AJEntityManager implements FreeAble, Runnable {
                     .append(" rotated ").append(location.getYaw()).append(" ").append(location.getPitch()).append(" run function animated_java:")
                     .append(ajEntity.getName()).append("/summon {args:0}");
 
-//            String command =  "execute"
-//                    +" positioned " + (location.getX() + lx) + " " + (location.getY() + ly) + " " + (location.getZ() + lz)
-//                    +" rotated " + location.getYaw() + " " + location.getPitch()
-//                    +" run function animated_java:" + ajEntity.getName() + "/summon {args:0}";
-
-            //var cache = new AJCache(location.getX() + lx, location.getY() + ly, location.getZ() + lz, location.getYaw(), location.getPitch(), ajEntity.getName());
-            //AJEntityManager.sendCommand(cmdBuilder.toString());
-            commandQueue.addLast(cmdBuilder.toString());
+            //commandQueue.addLast(cmdBuilder.toString());
+            sendCommand(cmdBuilder.toString());
+            var world = location.getWorld();
+            var chunk = location.getChunk();
+            world.loadChunk(chunk);
             cmdBuilder.delete(0, cmdBuilder.length());
-
         }
     }
 
@@ -159,16 +156,23 @@ public class AJEntityManager implements FreeAble, Runnable {
 
 
     private int commandDispatchLimit = 1;
+
+
+
     @Override
     public void run() {
 
-        int i = 0;
 
-        while(!commandQueue.isEmpty() && i < commandDispatchLimit){
-            var cmd = commandQueue.removeFirst();
-            sendCommand(cmd);
-            i++;
-        }
+
+
+
+//        int i = 0;
+//
+//        while(!commandQueue.isEmpty() && i < commandDispatchLimit){
+//            var cmd = commandQueue.removeFirst();
+//            sendCommand(cmd);
+//            i++;
+//        }
 
     }
 }

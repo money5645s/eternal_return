@@ -27,7 +27,7 @@ class Idle : ERAnimalMonobehaviour<IdleEvent>() {
         val engine = dpEngine as EREngine
         for(p in engine.players.curQueue){
             //생성 좌표
-            val pos = vec3(ajEntity.location.x, ajEntity.location.y, ajEntity.location.z)
+            val pos = vec3(ajEntity.spawnLocation.x, ajEntity.spawnLocation.y, ajEntity.spawnLocation.z)
             if(magnitudeSqr(pos - p.getPosition()) <= 16 * 16){
                 ajEntity.playAnim("ready");
                 return;

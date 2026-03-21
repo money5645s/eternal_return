@@ -1,11 +1,14 @@
 package org.eternalreturn.ercharacter
 
 import org.bukkit.entity.Entity
-import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.event.CharacterRunTimerEvent
+import org.eternalreturn.ercharacter.globalmonobehav.ERCharacterUpdate
 import org.eternalreturn.ercharacter.globalmonobehav.ParabolicFly
 import org.eternalreturn.ercharacter.globalmonobehav.ShootProjectile
 import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.system.EREngine
+
+
 
 abstract class ERCharacter(
     player : Entity,
@@ -14,13 +17,33 @@ abstract class ERCharacter(
 
     @JvmField
     var ActiveCooldownSeconds: Long = 0
+
     @JvmField
     var PassiveCooldownSeconds: Long = 0
-    var cooldown: SkillCooldown = SkillCooldown()
+
+    val cooldown = SkillCooldown();
+
+
+    var activeLevel : Int = -1;
+    var activeCooldown: Long = -1;
+    abstract val activeCoolForEachLevel : LongArray;
+    val currentActiveCoolTime : Long get() = activeCoolForEachLevel[activeLevel]
+    fun resetCooldown(){
+        activeCooldown = currentActiveCoolTime;
+    }
+
+    var passiveCooldown: Long = -1
+    var passiveLevel : Int = -1;
+    abstract val passiveCoolForEachLevel : LongArray;
+    val currentPassiveCoolTime : Long get() = activeCoolForEachLevel[activeLevel]
 
     init {
+
+        registerMonobehaviour(ERCharacterUpdate())
         registerMonobehaviour(ParabolicFly())
         registerMonobehaviour(ShootProjectile())
+
+        this.submitEvent(CharacterRunTimerEvent());
     }
 
     abstract val name: String

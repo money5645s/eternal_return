@@ -30,13 +30,13 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
 
         //println("CurrentCount : $count ");
         if(count >= 4) {
-            player.sendMessage("§f[피오라] §b§l뚜셰! §f적중");
+            //player.sendMessage("§f[피오라] §b§l뚜셰! §f적중");
             player.playSound(player.location, Sound.ITEM_MACE_SMASH_GROUND_HEAVY, 1f, 1.5f)
 
-            victim.damage(20.0, event.player);
+            victim.damage(event.damage, event.player);
             val healAmount = 3.0
             val maxHealth = player.getAttribute(Attribute.MAX_HEALTH)?.value ?: 20.0
-            val finalHealth = Math.min(player.health + healAmount, maxHealth)
+            val finalHealth = kotlin.math.min(player.health + healAmount, maxHealth)
             player.health = finalHealth
 
             count = 0;
@@ -48,7 +48,7 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
         if(isNotEnd(startTime, durationTicks)){
             count ++;
             startTime = System.currentTimeMillis();
-            player.sendMessage("카운트 : $count");
+            //player.sendMessage("카운트 : $count");
             erEntity.submitEvent(ToucheEffectStartEvent(durationTicks, count));
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_CHIME, 1f, 1f + (count * 0.2f))
             stopMonobehav();
@@ -56,7 +56,7 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
         }
         else{
             count = 1;
-            player.sendMessage("카운트 : $count");
+            //player.sendMessage("카운트 : $count");
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_CHIME, 1f, 1f + (count * 0.2f))
             startTime = System.currentTimeMillis();
             erEntity.submitEvent(ToucheEffectStartEvent(durationTicks, count));

@@ -15,12 +15,10 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
     override fun start(event: CharacterSwapHandEvent) {
         val isaac = actor as Character_Isaac
-        val cd = isaac.cooldown
 
-        if (cd.isWaiting("Active")) {
-            val remain = String.format("%.1f", cd.getLeft("Active"))
-            player.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
-            return
+        if(erCharacter.activeCooldown > 0 || erCharacter.activeLevel == 0){
+            stopMonobehav();
+            return;
         }
 
         if (isaac.isActiveSkill) return
@@ -28,7 +26,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         this.skillActiveTick = System.currentTimeMillis()
         isaac.isActiveSkill = true;
 
-        player.sendMessage("§f[아이작] §b경화: §f다음 공격에 추가 데미지를 부여합니다!")
+        //player.sendMessage("§f[아이작] §b경화: §f다음 공격에 추가 데미지를 부여합니다!")
 
         player.addPotionEffect(PotionEffect(PotionEffectType.ABSORPTION, 2 * 20, 0, false, true))
         player.playSound(player.location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
@@ -48,8 +46,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         if (currentTime - skillActiveTick > durationMillis || !isaac.isActiveSkill) {
             isaac.isActiveSkill = false
 
-            // 쿨타임 등록
-            isaac.cooldown.set("Active", isaac.ActiveCooldownSeconds)
+            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel] * 20;
 
             player.sendMessage("§7[아이작] 스킬 상태가 종료되었습니다.")
             stopMonobehav()

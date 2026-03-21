@@ -9,6 +9,8 @@ import org.eternalreturn.system.EREngine
 
 class Character_Isaac(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     var isActiveSkill: Boolean = false
+    override val activeCoolForEachLevel: LongArray = longArrayOf(60, 60, 60, 60, 60)
+    override val passiveCoolForEachLevel: LongArray = longArrayOf(0, 0, 0, 0, 0)
 
     init {
         this.ActiveCooldownSeconds = 3

@@ -38,6 +38,11 @@ public class AreaNode {
         this.zoneState = state;
     }
 
+    public void setZoneAsRed(){
+        setZoneState(State.Red);
+        //this.manager.remove();
+    }
+
     public void setManager(@NotNull ERAnimalManager manager){
         this.manager = manager;
     }

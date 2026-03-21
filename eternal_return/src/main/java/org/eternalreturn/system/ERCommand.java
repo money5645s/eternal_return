@@ -35,7 +35,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
 public class ERCommand implements CommandExecutor {
-    private org.eternalreturn.eranimal.ERAJEntity testAnimal;
 
     public ERCommand(){
         __init();
@@ -49,7 +48,6 @@ public class ERCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-
         if(!(sender instanceof Player)){
             sender.sendMessage("Only players can use this command");
         }
@@ -57,24 +55,7 @@ public class ERCommand implements CommandExecutor {
         Player p = (Player)sender;
         Set<String> tagSet = p.getScoreboardTags();
 
-        if(args.length == 2 && args[0].equalsIgnoreCase("area")){
-            int num = -1;
-            try{
-                num = Integer.parseInt(args[1]);
-            }catch (NumberFormatException e){
-                p.sendMessage("두 번째 매개변수는 양의 정수여야 합니다.");
-                return false;
-            }
-            if(num == -1) return false;
-            var areaSystem = PluginInstance.getEREngine().getAreaSystem();
-            areaSystem.update(num);
-            areaSystem.sendAreaStateToScoreboard();
-        }
-        else if(args.length == 1 && args[0].equalsIgnoreCase("reset")){
-            var areaSystem = PluginInstance.getEREngine().getAreaSystem();
-            areaSystem.reset();
-        }
-        else if(args[0].equalsIgnoreCase("ch")) {
+        if(args[0].equalsIgnoreCase("ch")) {
             if (args.length < 2) {
                 p.sendMessage("§c사용법: /er ch [캐릭터이름]");
                 return true;
@@ -125,7 +106,7 @@ public class ERCommand implements CommandExecutor {
             }
             
             engine.registerBukkitActor(p, character);
-            p.sendMessage("§a캐릭터가 변경되었습니다: §f" + character.getName());
+            //p.sendMessage("§a캐릭터가 변경되었습니다: §f" + character.getName());
 
             return true;
         }
@@ -134,9 +115,7 @@ public class ERCommand implements CommandExecutor {
             var engine = PluginInstance.getEREngine();
             var erPlayer = (ERPlayer)engine.getEREntity(p);
             Entity dummy = p.getWorld().spawnEntity(p.getLocation(), EntityType.VILLAGER);
-            engine.registerBukkitActor(
-                    dummy,
-                    new ERDummy(engine, dummy, engine.createOrientedBox(p.getLocation(),1.0/2,3.0/2,1.0/2)));
+            engine.registerBukkitActor(dummy, new ERDummy(engine, dummy));
             p.sendMessage("Dummy set");
         }
 

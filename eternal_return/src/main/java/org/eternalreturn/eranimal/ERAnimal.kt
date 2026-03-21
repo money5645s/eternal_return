@@ -6,6 +6,8 @@ import net.kyori.adventure.text.Component
 import org.bukkit.Location
 import org.bukkit.attribute.Attributable
 import org.bukkit.attribute.Attribute
+import org.bukkit.entity.EntityType
+import org.bukkit.entity.Husk
 import org.bukkit.entity.LivingEntity
 import org.bukkit.util.Vector
 import org.eternalreturn.eranimal.animals.behavs.Battle
@@ -72,10 +74,18 @@ abstract class ERAnimal(
         this.submitEvent(StatEnhanceEvent())
     }
 
-    fun updateHPBar(){
-        val str = Component.text(String.format("LV : %d | HP : %d\n\n\n\n", this.level, kotlin.math.max(1, this.hp.toInt())))
-        str.font(Key.key("haesu/8"));
-        this.aJEntity.setDebugDisplay(str);
+    /**
+     * 해당 객체가 참조하고 있는 AJEntity의 HPBar을 수정한다.
+     *
+     * isShown이 true여야 수정되며, true가 아니면 false를 반환한다.
+     * */
+    fun updateHPBar() : Boolean{
+        if(this.aJEntity.isShown){
+            val str = Component.text(String.format("LV : %d | HP : %d\n\n\n\n", this.level, kotlin.math.max(1, this.hp.toInt())))
+            str.font(Key.key("haesu/8"));
+            this.aJEntity.setDebugDisplay(str);
+        }
+        return this.aJEntity.isShown;
     }
 
     private fun isActorNotValid() : Boolean{
@@ -114,28 +124,23 @@ abstract class ERAnimal(
     }
 
     /**
-     * ERAJEntity의 속도를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
+     * ERAJEntity의 위치를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
      * */
     override fun setPosition(x : Double, y : Double, z : Double){
-        if(isActorNotValid()) return;
-        this.dpEngine.appendCommand(SetSpigotEntityPosition(aJEntity.actor, x, y, z))
+        if(!isActorNotValid())this.dpEngine.appendCommand(SetSpigotEntityPosition(aJEntity.actor, x, y, z))
+        else if(this.aJEntity.rootEntity != null)this.dpEngine.appendCommand(SetSpigotEntityPosition(aJEntity.rootEntity, x, y, z))
     }
 
     /**
      * ERAJEntity의 속도를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
      * */
     override fun addPosition(x : Double, y : Double, z : Double){
-        if(isActorNotValid()) return;
-        this.dpEngine.appendCommand(AddSpigotEntityPosition(aJEntity.actor, x, y, z))
+        if(!isActorNotValid())this.dpEngine.appendCommand(AddSpigotEntityPosition(aJEntity.actor, x, y, z))
+        else if(this.aJEntity.rootEntity != null)this.dpEngine.appendCommand(AddSpigotEntityPosition(aJEntity.rootEntity, x, y, z))
     }
 
     override fun applyBukkitVelocityOnMainThread(x: Double, y: Double, z: Double) {
         aJEntity.actor.velocity = Vector(x, y, z);
-    }
-
-    override fun remove() {
-        super.remove()
-        aJEntity.remove();
     }
 
     val hurtSound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT);
@@ -176,6 +181,14 @@ abstract class ERAnimal(
         }
     }
 
+    /**
+     * 피해를 주는 메소드, 무적시간에 영향 받지 않음, MonobehaviourEvent를 전달하지 않음.
+     * */
+    override fun damageNotSendEventPierce(amount : Double, attacker : EREntity){
+        invulnerableTime = 0;
+        __damage(amount, attacker); //이것도 특수한 SoA 함수로 뺄 것
+    }
+
     private var isDead = false;
     fun isDead() : Boolean{
         return isDead;
@@ -190,6 +203,17 @@ abstract class ERAnimal(
     }
     fun haveToReturnToPoint() : Boolean{
         return returnToPoint;
+    }
+
+    fun setNotBeShown() {
+        val spwloc = aJEntity.spawnLocation.clone();
+        if(aJEntity.actor != null){
+            aJEntity.actor.removePassenger(aJEntity.rootEntity);
+            aJEntity.actor.remove();
+            spwloc.y += 2;
+            aJEntity.rootEntity.teleport(spwloc)
+        }
+        aJEntity.setNotBeShown();
     }
 
 

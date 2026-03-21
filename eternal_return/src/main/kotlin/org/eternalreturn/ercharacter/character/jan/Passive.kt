@@ -8,16 +8,14 @@ import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
 class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
 
-    private var punchTimeMillis: Long = 0
-
     override fun start(event: EREntityAttackEvent) {
         val jan = actor as Character_Jan;
 
-        if (System.currentTimeMillis() < punchTimeMillis) {
-            return
+        if(erCharacter.passiveCooldown > 0 || erCharacter.passiveLevel == 0){
+            stopMonobehav();
+            return;
         }
 
-        punchTimeMillis = System.currentTimeMillis() + 10 * 50
         jan.Stack ++
         jan.submitEvent(JanPassiveTimerEvent())
 

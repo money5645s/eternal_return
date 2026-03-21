@@ -4,4 +4,4 @@ import org.eternalreturn.erentity.events.EREntityEvent
 import org.bukkit.entity.Player
 import org.eternalreturn.erplayer.ERPlayer
 
-class ERToucheCountEvent(val player: ERPlayer) : EREntityEvent
+class ERToucheCountEvent(val player: ERPlayer, val damage : Double) : EREntityEvent

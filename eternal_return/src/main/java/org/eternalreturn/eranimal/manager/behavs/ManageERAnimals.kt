@@ -1,85 +1,69 @@
 package org.eternalreturn.eranimal.manager.behavs
 
 import net.kyori.adventure.text.Component
-import org.bukkit.Location
-import org.bukkit.entity.Display
-import org.bukkit.entity.EntityType
 import org.bukkit.entity.TextDisplay
 import org.eternalreturn.eranimal.ERAJEntity
 import org.eternalreturn.eranimal.ERAnimal
-import org.eternalreturn.eranimal.animals.actors.Alpha
-import org.eternalreturn.eranimal.animals.actors.Bear
-import org.eternalreturn.eranimal.animals.actors.Boar
-import org.eternalreturn.eranimal.animals.actors.Omega
-import org.eternalreturn.eranimal.animals.actors.Wolf
+import org.eternalreturn.eranimal.animals.actors.*
 import org.eternalreturn.eranimal.manager.ERAnimalManager
-import org.eternalreturn.eranimal.manager.TextDisplayer
 import org.eternalreturn.eranimal.manager.events.AnimalManageEvent
 import org.eternalreturn.eranimal.manager.events.RemoveAllERAnimals
-import org.eternalreturn.eranimal.manager.events.SummonAlphaEvent
-import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
-import java.util.LinkedList
-import kotlin.collections.remove
-import kotlin.collections.set
 
 
 class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>() {
 
-    val erAnimalMap = HashMap<ERAJEntity, ERAnimal>();
-    val animalIsSummoned = BooleanArray(animalSize){false};
-    val animalSummoningTicks = IntArray(animalSize){-1};
-    val textDisplayList = ArrayList<TextDisplayer>();
-    val isFirstGeneration = BooleanArray(animalSize){true}
 
+    val animalSummoningTicks = LongArray(animalSize){-1};
+
+    val animalShownState = Array<ShowState>(animalSize){ShowState.NOT_SHOWN};
+    val summoningCondition = Array<Condition>(animalSize){Condition.NOTHING}; //야생동물 원위치로 돌아감
+
+
+    enum class ShowState{
+        SHOW_PROCESSING,
+        SHOWN,
+        NOT_SHOWN
+    }
+
+    enum class Condition{
+        GET_KILLED,
+        HAVE_TO_RETURN,
+        NOTHING,
+        OUT_OF_RANGE
+    }
 
     override fun start(event: AnimalManageEvent) {
 
+    }
+    
+    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         val manager = actor as ERAnimalManager;
         
-        //초기화
-        for(erAJAnimal in manager.entities){
-            val loc = Location(
-                manager.world,
-                erAJAnimal.location.x,
-                erAJAnimal.location.y + 3.0,
-                erAJAnimal.location.z
-            )
-            val textDisplay = manager.world.spawnEntity(loc, EntityType.TEXT_DISPLAY) as TextDisplay
-            textDisplay.billboard = Display.Billboard.CENTER; //어느 방향에서 봐도 똑같이 보인다.
-
-            val textDisplayEREntity = TextDisplayer(textDisplay, dpEngine as EREngine); //어차피 생성되면서 MonobehaviourModule내에 들어가게 됨.
-            textDisplayList.add(textDisplayEREntity)
-        }
-
-    }
-
-    var boarTick = 20 * 30;
-    var wolfTick = 20 * 60;
-    var bearTick = 20 * 90;
-
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
         //RemoveAllERAnimals 이벤트가 삽입된 경우, 바로 제거 절차 진입.
         if(eventMap[RemoveAllERAnimals::class.java] != null){
-            for(animal in erAnimalMap.values){
-                if(animal.isAlive()){
-                    animal.remove();
-                }
+            for(animal in manager.erAnimalMap.values){
+                animal.setNotBeShown();
             }
 
-            java.util.Arrays.fill(animalIsSummoned,false);
-            java.util.Arrays.fill(animalSummoningTicks,-1);
+            for(i in 0 until animalSize){
+                animalShownState[i] = ShowState.NOT_SHOWN;
+                summoningCondition[i] = Condition.OUT_OF_RANGE;
+            }
+
             stopMonobehav();
             return;
         }
 
-        val manager = actor as ERAnimalManager;
-        val animalList = manager.entities;
 
         for(i in 0 until animalSize){
-            val animal = animalList[i];
+
+            /**
+             * ERAJEntity
+             * */
+            val animal = manager.entities[i];
             if(animal.name == "animal_alpha" && !manager.isAllowedToSummonAlpha){
                 continue;
             }
@@ -87,81 +71,41 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
                 continue;
             }
 
-            if(!animalIsSummoned[i]){
+            if(animalShownState[i] == ShowState.NOT_SHOWN){
+                animalShownState[i] = setCooldown(i);
+            }
 
-                val ticksLeft = animalSummoningTicks[i]
-                val textDisplay = textDisplayList[i].textDisplay
-
-                if(ticksLeft == -1){
-                    val ticksForSummoning : Int
-                    if(isFirstGeneration[i]){
-                        ticksForSummoning = when(animal.name){
-                            "animal_boar" -> 20 * 30;
-                            "animal_wolf" -> 20 * 60;
-                            "animal_bear" -> 20 * 90;
-                            "animal_alpha" -> 20 * 3;
-                            "animal_omega" -> 20 * 3;
-                            else -> Integer.MAX_VALUE
-                        }
-                    }else{
-                        ticksForSummoning = when(animal.name){
-                            "animal_boar" -> 20 * 65;
-                            "animal_wolf" -> 20 * 55;
-                            "animal_bear" -> 20 * 100;
-                            "animal_alpha" -> 20 * 3;
-                            "animal_omega" -> 20 * 3;
-                            else -> Integer.MAX_VALUE
-                        }
-                    }
-
-                    animalSummoningTicks[i] = ticksForSummoning;
-                    textDisplay.text(Component.text("${ticksForSummoning / 20} s"))
-                    continue;
-
-                }else if(ticksLeft > 0){
-                    animalSummoningTicks[i]--;
-                    textDisplay.text(Component.text("${(ticksLeft / 20)} s"))
-                    continue;
-                }
-
-                //if ticksLeft == 0 then
-                val erAJAnimal = manager.entities[i]
-                textDisplay.text(Component.empty()); //더이상 초 표기를 하지 않음.
-                
-                if(!manager.entities[i].isShown){//소환 밑준비
-                    erAJAnimal.summon(0.0, 2.0, 0.0);
-
-                }else if(erAJAnimal.isValid){//최종 소환
-                    erAnimalMap[erAJAnimal] = createAnimal(erAJAnimal)
-                    animalIsSummoned[i] = true;
-                    isFirstGeneration[i] = false;
-                }
+            if(animalShownState[i] == ShowState.SHOW_PROCESSING){
+                animalShownState[i] = cooldownNShowProcessing(i);
             }
         }
 
         for(i in 0 until animalSize){
-            if(!animalIsSummoned[i]){
+            if(animalShownState[i] != ShowState.SHOWN){
                 continue;
             }
 
-            val erAJAnimal = manager.entities[i];
-            val erAnimal = erAnimalMap[erAJAnimal]!!;
+            val animal = manager.entities[i];
+            val erAnimal = manager.erAnimalMap[animal]!!;
 
             if(erAnimal.isDead()){
-                if(erAJAnimal.name == "animal_alpha") {
+                if(animal.name == "animal_alpha") {
                     manager.allowToSummonAlpha(false);
-                } else if(erAJAnimal.name == "animal_omega"){
+                } else if(animal.name == "animal_omega"){
                     manager.allowToSummonOmega(false);
                 }
-                animalSummoningTicks[i] = -1;
-                erAnimalMap.remove(erAJAnimal, erAnimal);
-                animalIsSummoned[i] = false;
+
+                summoningCondition[i] = Condition.GET_KILLED;
+                animalSummoningTicks[i] = 0;
+                animalShownState[i] = ShowState.NOT_SHOWN;
+                erAnimal.setNotBeShown();
                 erAnimal.remove();
 
             } else if(erAnimal.haveToReturnToPoint()){
+                summoningCondition[i] = Condition.HAVE_TO_RETURN;
                 animalSummoningTicks[i] = 0;
-                erAnimalMap.remove(erAJAnimal, erAnimal);
-                animalIsSummoned[i] = false;
+                animalShownState[i] = ShowState.NOT_SHOWN;
+                erAnimal.setNotBeShown();
                 erAnimal.remove();
 
             }
@@ -171,10 +115,107 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
     }
 
     /**
+     * 야생동물의 사망 여부 (Condition)의 여부를 고려하여 적절한 쿨다운 설정
+     *
+     * 상태 전이
+     *
+     *           --[시간 설정 완료]--> ShowState.SHOW_PROCESSING
+     *
+     * */
+    private fun setCooldown(animalID : Int) : ShowState{
+        val manager = actor as ERAnimalManager
+
+        var ticksForSummoning : Int = 0
+        val i = animalID
+        val animal = manager.entities[i];
+        val textDisplay = manager.textDisplayList[i]
+        if(summoningCondition[i] == Condition.NOTHING){
+            ticksForSummoning = when(animal.name){
+                "animal_boar" -> 20 * 30;
+                "animal_wolf" -> 20 * 60;
+                "animal_bear" -> 20 * 90;
+                "animal_alpha" -> 20 * 3;
+                "animal_omega" -> 20 * 3;
+                else -> Integer.MAX_VALUE
+            }
+        }
+
+        if(summoningCondition[i] == Condition.GET_KILLED){
+            ticksForSummoning = when(animal.name){
+                "animal_boar" -> 20 * 65;
+                "animal_wolf" -> 20 * 55;
+                "animal_bear" -> 20 * 100;
+                "animal_alpha" -> 20 * 3;
+                "animal_omega" -> 20 * 3;
+                else -> Integer.MAX_VALUE
+            }
+        }
+
+//        if(summoningCondition[i] == Condition.NOTHING){
+//            ticksForSummoning = when(animal.name){
+//                "animal_boar" -> 20 * 3;
+//                "animal_wolf" -> 20 * 3;
+//                "animal_bear" -> 20 * 3;
+//                "animal_alpha" -> 20 * 3;
+//                "animal_omega" -> 20 * 3;
+//                else -> Integer.MAX_VALUE
+//            }
+//        }
+//
+//        if(summoningCondition[i] == Condition.GET_KILLED){
+//            ticksForSummoning = when(animal.name){
+//                "animal_boar" -> 20 * 1;
+//                "animal_wolf" -> 20 * 1;
+//                "animal_bear" -> 20 * 1;
+//                "animal_alpha" -> 20 * 3;
+//                "animal_omega" -> 20 * 3;
+//                else -> Integer.MAX_VALUE
+//            }
+//        }
+
+        animalShownState[i] = ShowState.SHOW_PROCESSING
+        animalSummoningTicks[i] = ticksForSummoning * 50 + (System.currentTimeMillis());
+        textDisplay.text(Component.text("${(ticksForSummoning / 20)} s"))
+        return ShowState.SHOW_PROCESSING
+    }
+
+    /**
+     *
+     * 쿨타임을 지속적으로 재 계산한다. 쿨타임이 끝나면 Shown으로 변경한다.
+     *
+     * 상태 전이
+     *
+     *           --[시간 남음]--> ShowState.SHOW_PROCESSING
+     *
+     *           --[시간 종료]--> ShowState.SHOWN
+     * */
+    private fun cooldownNShowProcessing(animalID : Int) : ShowState{
+        val manager = actor as ERAnimalManager
+        val i = animalID;
+        val animal = manager.entities[i];
+        val textDisplay = manager.textDisplayList[i]
+        val ticksLeft : Long = animalSummoningTicks[i] - System.currentTimeMillis();
+        if(ticksLeft >= 0){
+            textDisplay.text(Component.text("${(ticksLeft / 1000)} s"))
+            return ShowState.SHOW_PROCESSING;
+        }
+
+        //if ticksLeft == 0 then
+
+        textDisplay.text(Component.empty()); //더이상 초 표기를 하지 않음.
+
+        manager.erAnimalMap[animal] = createAnimal(animal);
+        animal.setBeShown();
+        animalShownState[i] = ShowState.SHOWN;
+        return ShowState.SHOWN;
+    }
+
+
+    /**
      * 소환된 ERAJEntity에 맞는 ERAnimal객체를 생성하는 함수
      * */
     private fun createAnimal(erAJAnimal : ERAJEntity) : ERAnimal{
-        val erAJAnimalLoc = erAJAnimal.location;
+        val erAJAnimalLoc = erAJAnimal.spawnLocation;
         val newAnimal = when (erAJAnimal.name) {
             "animal_alpha" -> Alpha(dpEngine as EREngine, erAJAnimal);
             "animal_bear"  -> Bear (dpEngine as EREngine, erAJAnimal);

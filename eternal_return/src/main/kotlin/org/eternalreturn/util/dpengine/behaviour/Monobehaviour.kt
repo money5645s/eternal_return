@@ -12,8 +12,8 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
     open lateinit var eventType: Class<T>
     open lateinit var actor: MonobehaviourActor
     lateinit var dpEngine: DPEngine;
+
     var state: State = State.STOP
-        private set
 
     val isRunning: Boolean
         get() = this.state == State.RUNNING
@@ -22,10 +22,7 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
      * RUNNING : update가 실행되는 상태
      * STOP : update가 종료된 상태
      */
-    enum class State {
-        RUNNING,
-        STOP
-    }
+    enum class State { START, RUNNING, STOP }
 
     /**
      * MonobehaiourActor.registerMonobehaviour()의 인자로 넣기 위해서만 instantiate할 것.
@@ -47,10 +44,10 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
 
 
     fun dispatchEvent(event: MonobehaviourEvent) {
-        check(eventType.isInstance(event)) { "Wrong event type: " + event.javaClass }
+        this.state = State.START;
+        check(eventType.isInstance(event)) { "Wrong event type: " + event.javaClass };
+        startMonobehav(eventType.cast(event));
         //println("DispatchedEvent : " + event);
-        startMonobehav(eventType.cast(event))
-        this.state = State.RUNNING
     }
 
     fun startMonobehav(event: T) {
@@ -61,6 +58,7 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
 
     var gotSubscribedEvent = false;
     fun updateMonobehav(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
+        this.state = State.RUNNING;
         val eventClass = __getGenericClass();
         gotSubscribedEvent = (eventMap[eventClass] != null)
         dpEngine.geometryModule.setVecScope().use { scope ->

@@ -5,4 +5,4 @@ import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.eternalreturn.erplayer.ERPlayer
 
-class PassiveTimerEvent(var player: ERPlayer) : EREntityEvent
+class PassiveTimerEvent(val damage : Double, val player: ERPlayer) : EREntityEvent

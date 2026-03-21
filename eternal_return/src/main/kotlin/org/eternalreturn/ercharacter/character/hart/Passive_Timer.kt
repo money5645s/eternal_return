@@ -18,9 +18,11 @@ class Passive_Timer : EREntityMonobehaviour<PassiveTimerEvent>(){
     var tick = 0;
     var attacker: ERPlayer by Delegates.notNull()
     var attackerBukkit : Player by Delegates.notNull()
+    var damage = 0.0
 
     override fun start(event: PassiveTimerEvent) {
         tick = 0
+        damage = event.damage
         attacker = event.player
         attackerBukkit = attacker.player
         val loc = attackerBukkit.location
@@ -36,16 +38,10 @@ class Passive_Timer : EREntityMonobehaviour<PassiveTimerEvent>(){
 
         tick++
         if(tick == 10){
-            victimEREntity.damageNotSendEvent(5.0, attacker)
+            victimEREntity.damageNotSendEvent(damage, attacker)
             victimBukkit.world.spawnParticle(Particle.NOTE, loc.clone().add(0.0, 1.0, 0.0), 1, 0.5, 0.5, 0.5, 1.0)
             attackerBukkit.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_GUITAR, 1f, 1.68f)
 
-        }
-        if(tick == 20){
-            victimEREntity.damageNotSendEvent(5.0, attacker)
-            victimBukkit.world.spawnParticle(Particle.NOTE, loc.clone().add(0.0, 1.0, 0.0), 1, 0.5, 0.5, 0.5, 1.0)
-            attackerBukkit.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_GUITAR, 1f, 2f)
-            stopMonobehav()
         }
     }
 }

@@ -1,9 +1,11 @@
 package org.eternalreturn.eranimal.manager;
 
+import org.bukkit.entity.Display;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.TextDisplay;
 import org.eternalreturn.area.AreaNode;
 import org.eternalreturn.eranimal.*;
-import org.eternalreturn.eranimal.manager.behavs.DetectingPlayersInRange;
-import org.eternalreturn.eranimal.manager.behavs.ManageERAnimals;
+import org.eternalreturn.eranimal.manager.behavs.*;
 import org.eternalreturn.eranimal.manager.events.DetectingPlayerEvent;
 import org.eternalreturn.system.EREngine;
 import org.eternalreturn.util.dpengine.DPEngine;
@@ -15,6 +17,7 @@ import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -56,7 +59,6 @@ public class ERAnimalManager extends MonobehaviourActor {
     public void allowToSummonOmega(boolean b){
         allowedToSummonOmega = b;
     }
-
     public static List<ERAnimalManager> getAnimalManagers(){
         return animalManagers;
     }
@@ -85,6 +87,7 @@ public class ERAnimalManager extends MonobehaviourActor {
     }
 
 
+
     /**
      * 실제 ERAnimalManager가 갖는 필드들
      * */
@@ -99,6 +102,22 @@ public class ERAnimalManager extends MonobehaviourActor {
     private @NotNull DPEngine engine;
     private @NotNull List<ERAJEntity> entities;
 
+    private @NotNull ArrayList<TextDisplayer> textDisplayList = new ArrayList<>();
+    public ArrayList<TextDisplayer> getTextDisplayList() { return textDisplayList; }
+
+    private @NotNull HashMap<ERAJEntity, ERAnimal> erAnimalMap = new HashMap<>();
+    public HashMap<ERAJEntity, ERAnimal> getERAnimalMap() { return erAnimalMap; }
+
+    public double px; public double py; public double pz;
+
+    @Override
+    public void remove() {
+        super.remove();
+        for(var textDisplayer : textDisplayList){
+            textDisplayer.remove();
+        }
+    }
+
     public ERAnimalManager(@NotNull AJEntityManager ajEntityManager, @NotNull DPEngine engine, @NotNull World world, @NotNull AreaERAnimalInfo info){
         super(engine);
         this.world = world;
@@ -111,11 +130,28 @@ public class ERAnimalManager extends MonobehaviourActor {
             entities.add(animal);
         }
 
+        for(var erAJAnimal : entities){
+            var loc = new Location(
+                    world,
+                    erAJAnimal.getSpawnLocation().x(),
+                    erAJAnimal.getSpawnLocation().y() + 3.0,
+                    erAJAnimal.getSpawnLocation().z()
+            );
+
+            var textDisplay = (TextDisplay)this.world.spawnEntity(loc, EntityType.TEXT_DISPLAY);
+            textDisplay.setBillboard(Display.Billboard.CENTER); //어느 방향에서 봐도 똑같이 보인다.
+
+            var textDisplayEREntity = new TextDisplayer(textDisplay, (EREngine)getDpEngine()); //어차피 생성되면서 MonobehaviourModule내에 들어가게 됨.
+            this.textDisplayList.add(textDisplayEREntity);
+        }
+
+        registerMonobehaviour(new InitializeManager(128.0));
+        registerMonobehaviour(new WaitForSummoning());
         registerMonobehaviour(new ManageERAnimals(this.entities.size()));
         registerMonobehaviour(new DetectingPlayersInRange());
 
-        //한번만 제출하면 됨. 매 틱마다 동작할 것.
-        this.submitEvent(new DetectingPlayerEvent());
+
+        this.submitEvent(new InitializeEvent());
     }
 
     public List<@NotNull ERAJEntity> getEntities(){

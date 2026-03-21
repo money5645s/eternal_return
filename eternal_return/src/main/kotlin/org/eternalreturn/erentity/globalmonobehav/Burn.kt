@@ -35,9 +35,7 @@ class Burn : EREntityMonobehaviour<EREntityBurnEvent>() {
             .extra(0.03)
             .receivers(32, true);
 
-
     }
-
 
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
@@ -59,7 +57,7 @@ class Burn : EREntityMonobehaviour<EREntityBurnEvent>() {
             }
 
             if(ticksLeft % 20 == 0){
-                victim.damageForce(1.0, attacker);
+                victim.damageNotSendEventPierce(1.0, attacker);
             }
             return;
         }

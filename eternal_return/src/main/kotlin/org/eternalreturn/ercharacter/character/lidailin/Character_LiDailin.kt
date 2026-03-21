@@ -10,6 +10,8 @@ import org.eternalreturn.system.EREngine
 class Character_LiDailin(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     var isDrunk: Boolean = false
     var drinkCount: Int = 0
+    override val activeCoolForEachLevel: LongArray = longArrayOf(60, 60, 60, 60, 60)
+    override val passiveCoolForEachLevel: LongArray = longArrayOf(10, 10, 10, 10, 10)
 
     init {
         this.ActiveCooldownSeconds = 3

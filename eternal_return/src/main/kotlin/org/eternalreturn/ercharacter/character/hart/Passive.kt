@@ -6,18 +6,19 @@ import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.eternalreturn.erentity.events.EREntityAttackEvent
+import org.eternalreturn.erentity.events.EREntityBurnEvent
 
 class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
-    private var punchTimeMillis: Long = 0
 
     override fun start(event: EREntityAttackEvent) {
-
-        if (System.currentTimeMillis() < punchTimeMillis) {
-            return
+        if(erCharacter.passiveCooldown > 0 || erCharacter.passiveLevel == 0){
+            stopMonobehav();
+            return;
         }
-        punchTimeMillis = System.currentTimeMillis() + 10 * 50
+        erCharacter.passiveCooldown = erCharacter.passiveCoolForEachLevel[erCharacter.passiveLevel] * 20;
 
-        event.victim.submitEvent(PassiveTimerEvent(this.erPlayer))
+        val hart = erCharacter as Character_Hart;
+        event.victim.submitEvent(PassiveTimerEvent(hart.passiveExtraDamageForEachLevel[hart.passiveLevel], this.erPlayer))
 
     }
 

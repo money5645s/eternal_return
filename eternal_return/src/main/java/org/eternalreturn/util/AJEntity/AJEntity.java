@@ -1,13 +1,13 @@
 package org.eternalreturn.util.AJEntity;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemDisplay;
-import org.bukkit.scoreboard.Objective;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import org.bukkit.scoreboard.Objective;
 
 
 /**
@@ -19,7 +19,7 @@ public abstract class AJEntity{
 
     protected Location location;
 
-    protected long animationStartTime;
+    protected Objective animationTickingObjective;
 
     public enum ANIMATION_STATE{
         PLAY,
@@ -32,6 +32,11 @@ public abstract class AJEntity{
     protected String name;
 
     protected HashMap<String, AJAnimation> animationMap;
+
+    /**
+     * 현재 AJEntity가 렌더링되는지를 저장하는 변수
+     * */
+    protected boolean isShown;
 
     /**
      * 현재 실행 중인 애니메이션의 상태 <br>
@@ -52,6 +57,7 @@ public abstract class AJEntity{
     protected long animationEndTime;
 
     public AJEntity(String name, Location location) {
+        this.isShown = false;
         this.name = name;
         this.location = location;
         this.animationMap = new HashMap<>();
@@ -62,6 +68,23 @@ public abstract class AJEntity{
     protected abstract void afterSpawnEvent(ItemDisplay spawnedRootEntity);
 
     /**
+     * 해당 AJEntity를 소환한다.
+     * */
+    public void summon() {
+        AJEntityManager.summon(this, location, 0.0, 0.0 ,0.0);
+        this.isShown = true;
+    }
+
+    /**
+     * 해당 location에 AJEntity를 소환한다.
+     * 이는 강제 청크로딩을 발생시킨다.
+     * */
+    public void summon(double lx, double ly, double lz) {
+        AJEntityManager.summon(this, location, lx, ly, lz);
+        this.isShown = true;
+    }
+
+    /**
      * 해당 월드에서 AJEntity를 제거한다. <br>
      * <blockquote><pre>
      *     AJEntity.remove(AJEntity ajEntity, Entity rootEntity){...}
@@ -69,7 +92,13 @@ public abstract class AJEntity{
      * 를 내부적으로 호출한다.<br>
      * */
     public void remove(){
-        AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + "animated_java:" + this.name + "/remove/this");
+        //AJEntityManager.sendCommand(getExecuteAsRunFuncPrefix() + "animated_java:" + this.name + "/remove/this");
+
+        for(var p : rootEntity.getPassengers()){
+            //topSystem.out.println(p.getType());
+            p.remove();
+        }
+
         EXECUTE_AS_UUID_RUN_FUNCTION = null;
     }
 
@@ -124,7 +153,7 @@ public abstract class AJEntity{
         if(this.rootEntity == null){
             return -1;
         }
-        return (int)(System.currentTimeMillis() - this.animationStartTime) / 50;
+        return animationTickingObjective.getScoreFor(this.rootEntity).getScore();
     }
 
     /**
@@ -150,6 +179,7 @@ public abstract class AJEntity{
             return;
         }
 
+        animationTickingObjective = Bukkit.getScoreboardManager().getMainScoreboard().getObjective("aj."+selectedAnimation+".frame");
         __setAnim(animation, durationTicks, currentTime);
     }
 
@@ -176,6 +206,7 @@ public abstract class AJEntity{
                             +"Solution : Check the animated_java project name and your JAVA code");
         }
 
+        animationTickingObjective = Bukkit.getScoreboardManager().getMainScoreboard().getObjective("aj."+selectedAnimation+".frame");
         __setAnim(animation, durationTicks, currentTime);
     }
 
@@ -185,7 +216,6 @@ public abstract class AJEntity{
         //현재 실행하는 애니메이션의 이름과 경로
         this.animationPlaying = animation;
         this.animationEndTime = durationTicks * 50 + currentTime;
-        this.animationStartTime = currentTime;
         this.animationState = ANIMATION_STATE.PLAY;
         cmdBuilder.append(getExecuteAsRunFuncPrefix()).append(this.animationPlaying).append("/play");
         AJEntityManager.sendCommand(cmdBuilder.toString());
@@ -252,6 +282,38 @@ public abstract class AJEntity{
         return "execute as " + rootEntity.getUniqueId() + " run function ";
     }
 
+    public boolean isShown(){
+        return this.isShown;
+    }
+
+    /**
+     * 해당 AJEntity를 렌더링하도록 설정.
+     * isShown은 true가 됨.
+     * */
+    public void setBeShown(){
+        if(rootEntity == null) return;
+        for(var p : rootEntity.getPassengers()){
+            if(p instanceof ItemDisplay passengerItemDisplay){
+                passengerItemDisplay.setViewRange(1.0F);
+            }
+        }
+        isShown = true;
+    }
+
+    /**
+     * 해당 AJEntity를 렌더링하지 않음.
+     * isShown은 false가 됨.
+     * */
+    public void setNotBeShown(){
+        if(rootEntity == null) return;
+        for(var p : rootEntity.getPassengers()){
+            if(p instanceof ItemDisplay passengerItemDisplay){
+                passengerItemDisplay.setViewRange(0.0F);
+            }
+        }
+        isShown = false;
+    }
+
     //getter
 
     /**
@@ -286,13 +348,13 @@ public abstract class AJEntity{
         return (this.rootEntity != null);
     }
 
+
     /**
      * 현재 AJEntity가 처리되고 있는 World를 가져온다.
      * */
-    public Location getLocation(){
+    public Location getSpawnLocation(){
         return this.location;
     }
-
     //setter
 
     public void setRootEntity(ItemDisplay entity){

@@ -195,12 +195,35 @@ abstract class EREntity(
         }
     }
 
+    /**
+     * 무적시간에 관계 없이 & 방어력을 무시하고 강제적으로 피해를 주는 메소드
+     * */
+    open fun damageForcePierce(amount : Double, attacker : EREntity){
+        if(entity is LivingEntity){
+            entity.noDamageTicks = 0;
+            this.submitEvent(EREntityDamagedEvent(attacker))
+            attacker.submitEvent(EREntityAttackEvent(attacker, this))
+            source.withCausingEntity(attacker.entity)
+            entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
+        }
+    }
+
 
     /**
      * 피해를 주는 메소드, 무적시간에 영향 받음, MonobehaviourEvent를 전달하지 않음.
      * */
     open fun damageNotSendEvent(amount : Double, attacker : EREntity){
         if(entity is LivingEntity){
+            entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
+        }
+    }
+
+    /**
+     * 피해를 주는 메소드, 무적시간에 영향 받음, MonobehaviourEvent를 전달하지 않음.
+     * */
+    open fun damageNotSendEventPierce(amount : Double, attacker : EREntity){
+        if(entity is LivingEntity){
+            entity.noDamageTicks = 0;
             entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
         }
     }

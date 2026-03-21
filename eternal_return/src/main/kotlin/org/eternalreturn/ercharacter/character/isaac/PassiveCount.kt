@@ -29,13 +29,13 @@ class PassiveCount : EREntityMonobehaviour<PassiveCountEvent>() {
         val victim : EREntity =  erEntity
 
         if(count >= 2) {
-            playerBukkit.sendMessage("§f[아이작] 착취 발동");
+            //playerBukkit.sendMessage("§f[아이작] 착취 발동");
             playerBukkit.playSound(event.player.location, Sound.ITEM_MACE_SMASH_GROUND_HEAVY, 1f, 1.5f)
 
             victim.damageForce(5.0, event.player);
             val healAmount = 3.0
             val maxHealth = playerBukkit.getAttribute(Attribute.MAX_HEALTH)!!.value
-            val finalHealth = Math.min(playerBukkit.health + healAmount, maxHealth)
+            val finalHealth = kotlin.math.min(playerBukkit.health + healAmount, maxHealth)
             playerBukkit.health = finalHealth
             playerBukkit.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 20, 0, false, false))
 
@@ -47,14 +47,14 @@ class PassiveCount : EREntityMonobehaviour<PassiveCountEvent>() {
         if(isNotEnd(startTime, durationTicks)){
             count ++;
             startTime = System.currentTimeMillis();
-            playerBukkit.sendMessage("카운트 : $count");
+            //playerBukkit.sendMessage("카운트 : $count");
             playerBukkit.playSound(event.player.location, Sound.BLOCK_NOTE_BLOCK_CHIME, 1f, 1f + (count * 0.2f))
             stopMonobehav();
             return;
         }
         else{
             count = 1;
-            playerBukkit.sendMessage("타임아웃 ! 카운트 : $count");
+            //playerBukkit.sendMessage("타임아웃 ! 카운트 : $count");
             playerBukkit.playSound(event.player.location, Sound.BLOCK_NOTE_BLOCK_CHIME, 1f, 1f + (count * 0.2f))
             startTime = System.currentTimeMillis();
             stopMonobehav();

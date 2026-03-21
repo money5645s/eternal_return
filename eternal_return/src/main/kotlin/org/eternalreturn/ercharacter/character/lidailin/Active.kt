@@ -21,13 +21,13 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
         if(liDailin.isDrunk){
             player.sendMessage("§c[리 다이린] §7만취 상태에선 술을 마실 수 없습니다!")
+            stopMonobehav();
             return
         }
 
-        if (cd.isWaiting("Active")) {
-            val remain = String.format("%.1f", cd.getLeft("Active"))
-            player.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
-            return
+        if(erCharacter.activeCooldown > 0 || erCharacter.activeLevel == 0){
+            stopMonobehav();
+            return;
         }
 
         player.sendMessage("§c[리 다이린] §7술 마시는 중...")
@@ -42,18 +42,6 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         val liDailin = actor as Character_LiDailin
         val currentTime = System.currentTimeMillis()
 
-        val cd = liDailin.cooldown
-
-        if(liDailin.isDrunk){
-            stopMonobehav()
-            return
-        }
-
-        if (cd.isWaiting("Active")) {
-            stopMonobehav()
-            return
-        }
-
         // 시작한 시간으로부터 2초가 지났는지 확인
         if (currentTime - skillActiveTick > durationMillis) {
             liDailin.player.sendMessage("§7[리 다이린] 술 다 마심.")
@@ -61,7 +49,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             stack()
 
             // 쿨타임 등록
-            liDailin.cooldown.set("Active", liDailin.ActiveCooldownSeconds)
+            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
             stopMonobehav()
         }
     }

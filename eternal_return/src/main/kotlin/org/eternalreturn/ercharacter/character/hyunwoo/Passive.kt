@@ -13,18 +13,20 @@ import kotlin.math.min
 
 class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
     private val hitCountMap = HashMap<EREntity, Int>()
-    private var punchTimeMillis: Long = 0
 
     override fun start(event: EREntityAttackEvent) {
 
         val victim = event.victim;
         val attacker = event.attacker as ERPlayer;
         val bukkitAttacker = attacker.player;
+        val hyunwoo = erPlayer as Character_Hyunwoo
 
-        if (System.currentTimeMillis() < punchTimeMillis) {
-            return
+        if(erCharacter.passiveCooldown > 0 || erCharacter.passiveLevel == 0){
+            stopMonobehav();
+            return;
         }
-        punchTimeMillis = System.currentTimeMillis() + 10 * 50
+
+        erCharacter.passiveCooldown = erCharacter.passiveCoolForEachLevel[erCharacter.passiveLevel];
 
         if(!hitCountMap.contains(event.victim)){
             hitCountMap[victim] = 0;
@@ -35,20 +37,17 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
 
         if (count >= 5) {
             // 5회 타격 시 체력 3 회복 (2가 하트 1칸이므로 3은 하트 1.5칸)
-            val health = bukkitAttacker.health + 3
+            val health = bukkitAttacker.health + hyunwoo.passiveHealingForEachLevel[hyunwoo.passiveLevel];
             // 최대 체력을 넘지 않도록 설정
             val maxHealth = bukkitAttacker.getAttribute(Attribute.MAX_HEALTH)!!.value
             bukkitAttacker.health = min(health, maxHealth)
 
-            bukkitAttacker.sendMessage("§b[현우] §f패시브 발동! 체력을 회복했습니다.")
             bukkitAttacker.playSound(bukkitAttacker.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 2f)
 
             // 카운트 초기화
             hitCountMap[victim] = 0;
         } else {
             hitCountMap[victim] = count;
-            // 진행 상황 알림 (선택 사항)
-            attacker.sendMessage("§7[현우] §f도그파이트: " + count + "/5")
         }
     }
 

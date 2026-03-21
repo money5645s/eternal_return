@@ -11,12 +11,10 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
     override fun start(event: CharacterSwapHandEvent) {
         val yuki = actor as Character_Yuki
-        val cd = yuki.cooldown
 
-        if (cd.isWaiting("Active")) {
-            val remain = String.format("%.1f", cd.getLeft("Active"))
-            player.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
-            return
+        if(erCharacter.activeCooldown > 0 || erCharacter.activeLevel == 0){
+            stopMonobehav();
+            return;
         }
 
         if (yuki.isActiveSkill) return
@@ -42,9 +40,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             yuki.isActiveSkill = false
 
             // 쿨타임 등록
-            yuki.cooldown.set("Active", yuki.ActiveCooldownSeconds)
-
-            player.sendMessage("§7[유키] 스킬 상태가 종료되었습니다.")
+            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
             stopMonobehav()
         }
     }

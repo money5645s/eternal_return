@@ -24,51 +24,32 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var tick = 0
 
     override fun start(event: CharacterSwapHandEvent) {
-        val hyunwoo = actor as Character_Hyunwoo
-        val cd = hyunwoo.cooldown
 
-        isOnGround = false
-
-        if (cd.isWaiting("Active")) {
-            val remain = String.format("%.1f", cd.getLeft("Active"))
-            player.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
-            return
+        if(erCharacter.activeCooldown > 0 || erCharacter.activeLevel == 0){
+            stopMonobehav();
+            return;
         }
 
         if (player.location.add(0.0, -0.5, 0.0).block.type.isAir()) {
-            player.sendMessage("§c[현우] §f지상에서만 사용할 수 있습니다.")
             player.playSound(player.location, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
             isOnGround = true
+            stopMonobehav();
             return
         }
 
+        val hyunwoo = actor as Character_Hyunwoo
         this.direction = hyunwoo.location.direction;
         this.direction.y = 0.0;
-
         this.isWallSlam = false
         tick = 0
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
-        val engine = dpEngine as EREngine
         val attacker = actor as Character_Hyunwoo
-        val cd = attacker.cooldown
-
-        if (isOnGround) {
-            stopMonobehav()
-            return
-        }
-
-        if (cd.isWaiting("Active")) {
-            stopMonobehav()
-            return
-        }
 
         tick ++
 
         if (!isWallSlam && tick < 7){
-
-            player.sendMessage("§c[디버깅] §f${tick}")
 
             val velocity = attacker.getDirection()
             velocity.y(0.0)
@@ -94,7 +75,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             for (victim in hitEntities.keys) {
                 if (hitEntities[victim] == 0) {
                     hitEntities[victim] = 1;
-                    victim.damage(2.0, attacker);
+                    victim.damage(attacker.activeExtraDamageForEachLevel[attacker.activeLevel], attacker);
                 }
                 victim.setVelocity(velocity * 1.2);
             }
@@ -114,28 +95,27 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 
         if (tick > 6){
             hitEntities.clear()
-            player.sendMessage("§c[디버깅] §f돌진 종료")
-            // 쿨타임 등록
-            attacker.cooldown.set("Active", attacker.ActiveCooldownSeconds)
+            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
             stopMonobehav()
         }
 
         if (isWallSlam){
             hitEntities.clear()
-            player.sendMessage("§c[디버깅] §f돌진 종료")
-            // 쿨타임 등록
-            attacker.cooldown.set("Active", attacker.ActiveCooldownSeconds)
+            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
             stopMonobehav()
         }
     }
 
     private fun handleWallSlamSuccess(player: ERPlayer) {
+
+        val hyunwoo = erPlayer as Character_Hyunwoo
+
         for (victim in hitEntities.keys) {
 
             // 벽꿍 추가 피해 (10.0)
-            victim.damage(10.0, player)
+            victim.damage(hyunwoo.activeWallslamDamageForEachLevel[hyunwoo.activeLevel], player)
 
-            victim.submitEvent(EREntityStunEvent(1 * 20)) // 40틱 = 2초
+            victim.submitEvent(EREntityStunEvent(1 * 20))
 
             player.sendMessage("§b[현우] §f벽꿍 성공!")
             val p = player.entity as Player

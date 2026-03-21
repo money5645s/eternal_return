@@ -42,13 +42,13 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
         }
 
         val world = PluginInstance.getServerInstance().server.worlds.first();
-        ajEntity.setActor(world.spawnEntity(ajEntity.location, EntityType.HUSK) as Husk);
+        ajEntity.setActor(world.spawnEntity(ajEntity.spawnLocation, EntityType.HUSK) as Husk);
         (ajEntity.getActor() as Husk).setAI(true)
         //println("attacked by a player")
 
-        xSpawn = ajEntity.location.x;
-        ySpawn = ajEntity.location.y;
-        zSpawn = ajEntity.location.z;
+        xSpawn = ajEntity.spawnLocation.x;
+        ySpawn = ajEntity.spawnLocation.y;
+        zSpawn = ajEntity.spawnLocation.z;
         speed = (ajEntity.actor as Husk).getAttribute(Attribute.MOVEMENT_SPEED)!!.baseValue;
         speed = speed * 1.2;
         (ajEntity.actor as Husk).getAttribute(Attribute.MOVEMENT_SPEED)!!.baseValue = speed;
@@ -62,7 +62,14 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
         val erAnimal = this.actor as ERAnimal;
         val ajEntity = (this.actor as ERAnimal).aJEntity;
 
+        if(!ajEntity.isShown){
+            ajEntity.stopAnim();
+            stopMonobehav();
+            return;
+        }
+
         if(eventMap[GetBackEvent::class.java] != null){
+            ajEntity.stopAnim();
             stopMonobehav();
             return;
         }

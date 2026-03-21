@@ -1,5 +1,6 @@
 package org.eternalreturn.eranimal.manager
 
+import net.kyori.adventure.text.Component
 import org.bukkit.entity.TextDisplay
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.system.EREngine
@@ -19,6 +20,10 @@ class TextDisplayer(
 
     init{
         dpEngine.monobehaviourModule.register(this);
+    }
+
+    fun text(component : Component){
+        textDisplay.text(component);
     }
 
 }

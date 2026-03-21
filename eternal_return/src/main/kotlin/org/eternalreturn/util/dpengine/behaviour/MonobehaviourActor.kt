@@ -49,9 +49,6 @@ abstract class MonobehaviourActor(
     open fun remove(){
         this.referenceCount = 0;
     }
-    fun dereference(){
-        this.referenceCount--;
-    }
     fun refer(){
         this.referenceCount++;
     }
@@ -104,10 +101,10 @@ abstract class MonobehaviourActor(
             val event = currentEventQueue.removeFirst()
             val monobehav = monobehaviourMap[event.javaClass]
             //System.out.println(event.getClass());
-            if (monobehav != null && !monobehav.isRunning){
+            if (monobehav != null && (monobehav.state == Monobehaviour.State.STOP)){
                 runningBehaviours.add(monobehav)
-                //println("Event 소비됨 : ${event.javaClass.simpleName} \t<- ${this.javaClass.simpleName}");
                 monobehav.dispatchEvent(event)
+                //println("Event 소비됨 : ${event.javaClass.simpleName} \t<- ${this.javaClass.simpleName}");
             }
             checkedEvent.putIfAbsent(event.javaClass, event)
         }
@@ -137,12 +134,14 @@ abstract class MonobehaviourActor(
         val monobehavNode = runningBehaviours.iterator()
         while (monobehavNode.hasNext()) {
             val monobehaviour: Monobehaviour<*> = monobehavNode.next()
-            monobehaviour.updateMonobehav(checkedEvent)
 
-            if (!monobehaviour.isRunning) {
+            if (monobehaviour.state == Monobehaviour.State.STOP) {
                 monobehavNode.remove()
+                continue;
                 //println("removed : " + monobehaviour.javaClass.simpleName);
             }
+
+            monobehaviour.updateMonobehav(checkedEvent)
         }
         checkedEvent.clear()
         return true

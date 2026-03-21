@@ -18,7 +18,7 @@ class ProjectileFlight : Monobehaviour<ProjectileInitEvent>(){
     var life : Long = 0;
     override fun start(event: ProjectileInitEvent) {
         val projectile = actor as ERProjectile;
-        life = System.currentTimeMillis() + 1000 * 10; //10초 날아간다
+        life = System.currentTimeMillis() + 1000 * 20; //20초 날아간다
         startPoint.x = projectile.x;
         startPoint.y = projectile.y;
         startPoint.z = projectile.z;

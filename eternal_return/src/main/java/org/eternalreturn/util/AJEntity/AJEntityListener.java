@@ -1,10 +1,13 @@
 package org.eternalreturn.util.AJEntity;
 
+import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityPlaceEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.server.ServerCommandEvent;
 
 import static org.eternalreturn.util.AJEntity.AJEntityManager.*;
 
@@ -35,7 +38,6 @@ public class AJEntityListener implements Listener {
 
             ajEntityMap.put(root, ajEntity);
             ajEntities.add(ajEntity);
-
             ajEntity.afterSpawnEvent(root);
 
             //System.out.println("ajEntity가 생성되었습니다. : " + ajEntity.getRootEntity().getUniqueId());

@@ -9,6 +9,13 @@ import org.eternalreturn.system.EREngine
 
 class Character_Hyunwoo(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     // 플레이어별 공격 횟수를 저장하는 맵
+    override val activeCoolForEachLevel: LongArray = longArrayOf(25 * 20, 23 * 20, 21 * 20, 19 * 20, 15 * 20)
+    override val passiveCoolForEachLevel: LongArray = longArrayOf(0, 0, 0, 0, 0)
+
+    val passiveHealingForEachLevel : DoubleArray = doubleArrayOf(1.0, 2.0, 3.0, 4.0, 5.0);
+    val activeWallslamDamageForEachLevel : DoubleArray = doubleArrayOf(3.0, 4.0, 5.0, 6.0, 8.0);
+    val activeExtraDamageForEachLevel : DoubleArray = doubleArrayOf(7.0, 8.0, 9.0, 10.0, 11.0);
+
     init {
         this.ActiveCooldownSeconds = 8
         this.PassiveCooldownSeconds = 8

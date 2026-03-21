@@ -18,10 +18,11 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
         val yuki = actor as Character_Yuki
         val victim = event.victim
 
-        if (System.currentTimeMillis() < punchTimeMillis) {
-            return
+        if(erCharacter.passiveCooldown > 0 || erCharacter.passiveLevel == 0){
+            stopMonobehav();
+            return;
         }
-        punchTimeMillis = System.currentTimeMillis() + 10 * 50
+        erCharacter.passiveCooldown = erCharacter.passiveCoolForEachLevel[erCharacter.passiveLevel];
 
 
         // 1. 재봉 중이면 공격 취소
@@ -35,18 +36,16 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
             yuki.buttonCount--
 
             punchTimeMillis = System.currentTimeMillis() + 500
-            victim.damageForce(2.0, yuki)
+            victim.damageForce(yuki.passiveExtraDamageForEachLevel[yuki.passiveLevel], yuki)
 
             player.sendMessage("§f[유키] §b완벽한 옷매무새: §f남은 단추 (${yuki.buttonCount}/4)")
             player.playSound(player.location, Sound.ENTITY_ITEM_BREAK, 1f, 1.8f)
 
             if (yuki.isActiveSkill) {
                 player.sendMessage("§f[유키] 머리!")
-                event.victim.submitEvent(EREntityStunEvent(1 * 20)) //2초
-
-                // 쿨타임 등록
-                yuki.cooldown.set("Active", yuki.ActiveCooldownSeconds)
-
+                victim.damageForce(yuki.activeExtraDamageForEachLevel[yuki.activeLevel], yuki)
+                event.victim.submitEvent(EREntityStunEvent(1 * 20))
+                erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
                 yuki.isActiveSkill = false
             }
 

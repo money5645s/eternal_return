@@ -8,74 +8,36 @@ import org.eternalreturn.ercharacter.character.hart.event.HartActiveEvent
 import org.eternalreturn.ercharacter.event.CooldownEvent
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
-    var direction: Vector? = null
-    private var isWallSlam = false
-    private var tick = 0
 
+    private var skillTicks = 0;
     override fun start(event: CharacterSwapHandEvent) {
 
-        val hart = actor as Character_Hart
-        val cd = hart.cooldown
-
-        if (cd.isWaiting("Active")) {
-            val remain = String.format("%.1f", cd.getLeft("Active"))
-            player.sendMessage("§c[!] §7쿨타임 중입니다. (${remain}초)")
-            return
-        }
-        player.sendMessage("F 디버깅")
-        // 시선과 무관하게 수평 방향 벡터로 고정 (y=0)
-        this.direction = player.getLocation().getDirection().setY(0).normalize().multiply(1)
-        tick = 0
-
-        if (hart.stack == 0) {
-            player.sendMessage("스킬")
-            this.getEREntity().submitEvent(HartActiveEvent())
-            hart.stack++
-        } else if (hart.stack == 1) {
-            player.sendMessage("재사용")
-            hart.stack = 0
+        if(erCharacter.activeCooldown > 0 || erCharacter.activeLevel == 0){
+            stopMonobehav();
+            return;
         }
 
+        val velocity = erCharacter.getDirection() * 2.0;
+        velocity.y(0.0)
+        erCharacter.setVelocity(velocity);
+        skillTicks = 100;
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
-        val hart = actor as Character_Hart
-        val cd = hart.cooldown
 
-        if (cd.isWaiting("Active")) {
-            stopMonobehav()
-            return
-        }
-
-        tick ++
-
-        if (!isWallSlam && tick < 4) {
-            player.sendMessage("§c[디버깅] §f${tick}")
-
-            // 1. 돌진 물리 적용
-            val curVelocity = player.getVelocity()
-            direction!!.setY(curVelocity.getY())
-            player.setVelocity(direction!!)
-        }
-
-        if (tick > 3){
-            player.sendMessage("§c[디버깅] §f돌진 종료")
-            if(hart.stack == 0) {
-                // 쿨타임 등록
-                hart.cooldown.set("Active", hart.ActiveCooldownSeconds)
-                this.getEREntity().submitEvent(CooldownEvent("Active", hart.ActiveCooldownSeconds))
+        if(skillTicks > 0){
+            if((100 - 1) >= skillTicks && gotSubscribedEvent){ //다음 틱부터 사용 가능
+                val velocity = erCharacter.getDirection() * 2.0;
+                velocity.y(0.0)
+                erCharacter.setVelocity(velocity);
+                erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel] * 20;
+                stopMonobehav();
+                return;
             }
-            stopMonobehav()
+            skillTicks--;
         }
 
-        if (isWallSlam){
-            player.sendMessage("§c[디버깅] §f돌진 종료")
-            if(hart.stack == 0) {
-                // 쿨타임 등록
-                hart.cooldown.set("Active", hart.ActiveCooldownSeconds)
-                this.getEREntity().submitEvent(CooldownEvent("Active", hart.ActiveCooldownSeconds))
-            }
-            stopMonobehav()
-        }
+
+
     }
 }

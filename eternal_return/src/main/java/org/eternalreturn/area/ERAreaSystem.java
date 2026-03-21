@@ -66,18 +66,18 @@ public class ERAreaSystem extends Graph<AreaNode>{
     }
 
     public void allowToSummonOmegaOnDay3(){
-        int lastIdx = greenNodes.size();
 
-        ERAnimalManager manager = null;
-        AreaNode vertex = null;
-        do{
-            int randIdx = (int)(Math.random() * (lastIdx - 1));
-            vertex = greenNodes.get(randIdx);
-            manager = vertex.getManager();
-        }while(manager == managerWhichHasSummonedAlpha);
+        List<AreaNode> greenNodes = new ArrayList<>(List.copyOf(this.greenNodes));
+        Collections.shuffle(greenNodes);
 
+        var randNode = greenNodes.getFirst();
+        if(randNode.getManager() == managerWhichHasSummonedAlpha){
+            randNode = greenNodes.getLast();
+        }
+
+        var manager = randNode.getManager();
         manager.allowToSummonOmega(true);
-        System.out.println("[ERAreaSystem] " + vertex.getName() + "에서 오메가가 소환됨. -> manager info : " + manager.getAreaName());
+        System.out.println("[ERAreaSystem] " + randNode.getName() + "에서 오메가가 소환됨. -> manager info : " + manager.getAreaName());
     }
 
     public void sendAreaStateToScoreboard(){
@@ -114,7 +114,7 @@ public class ERAreaSystem extends Graph<AreaNode>{
         //옐로 존 모두 레드존으로 변경
         if(!yellowNodes.isEmpty()){
             for(AreaNode yellowNode : yellowNodes){
-                yellowNode.setZoneState(AreaNode.State.Red);
+                yellowNode.setZoneAsRed();
                 redNodes.add(yellowNode);
             }
             yellowNodes.clear();
@@ -135,7 +135,7 @@ public class ERAreaSystem extends Graph<AreaNode>{
         var iter = greenNodes.iterator();
         while(iter.hasNext()){
 
-            if(yellows == 4) break;
+            if(yellows == numToBeYellow) break;
 
             var gNode = iter.next();
             //해당 노드를 yellow라고 가정하고 dfs 계산

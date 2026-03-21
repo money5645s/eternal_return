@@ -9,6 +9,8 @@ import org.eternalreturn.system.EREngine
 
 class Character_Nathapon(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     // 플레이어별 공격 횟수를 저장하는 맵
+    override val activeCoolForEachLevel: LongArray = longArrayOf(8, 8, 8, 8, 8)
+    override val passiveCoolForEachLevel: LongArray = longArrayOf(8, 8, 8, 8, 8)
     init {
         this.ActiveCooldownSeconds = 8
         this.PassiveCooldownSeconds = 8
