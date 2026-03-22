@@ -10,7 +10,7 @@
         function pdb:save_me
     
     # 능력치 조정
-        attribute @s minecraft:waypoint_transmit_range base set 40
+        attribute @s minecraft:waypoint_transmit_range base set 55
         attribute @s minecraft:waypoint_receive_range base set 0
         attribute @s fall_damage_multiplier base set 0
     # tp
@@ -43,7 +43,7 @@
                 scoreboard players set @s passive_level 0
                 scoreboard players set @s PCD 0
         # 금구 남은시간
-            scoreboard players set @s bantime 15
+            scoreboard players set @s bantime 30
             scoreboard players set @s bantime.tick 0
         # CCTV 시간
             scoreboard players set @s cctv_tick 0

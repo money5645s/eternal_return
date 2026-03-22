@@ -1,6 +1,7 @@
 #execute if score @s win.tick matches 1.. run scoreboard players add @s win.tick 1
 
 execute if score @s win.tick matches 2 run tag @s remove in_game
+execute if score @s win.tick matches 5 run kill @e[type=!player]
 execute if score @s win.tick matches 5 run playsound minecraft:er.game.win master @s ~ ~ ~
 execute if score @s win.tick matches 10 run tag @s remove in_restricted_area
 execute if score @s win.tick matches 1.. run title @s times 0 5000 0

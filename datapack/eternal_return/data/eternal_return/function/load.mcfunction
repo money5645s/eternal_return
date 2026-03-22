@@ -24,11 +24,12 @@ forceload add -243 485 -243 479
     function eternal_return:forceload
     function eternal_return:game/fied_set
 
-worldborder set 10000 1
-gamerule pvp false
+    worldborder set 10000 1
+    gamerule fall_damage false
+    gamerule pvp false
 ## 팀 추가
     team add player
-    team modify player nametagVisibility never
+    team modify player nametagVisibility always
     team modify player seeFriendlyInvisibles true
     team add bush
     team modify bush nametagVisibility never

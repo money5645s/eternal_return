@@ -38,6 +38,7 @@
     # 버튼소리
         playsound minecraft:er.gamestart_button_click ui @s ~ ~ ~ 5 1
     # 화면 표기
+        tag @s add set_char
         tag @s add bos.null2
         tag @s add in_game
         tag @s add bos.waitbar

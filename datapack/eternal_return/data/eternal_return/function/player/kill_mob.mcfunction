@@ -18,8 +18,13 @@ execute if entity @s[tag=kill_animal_alpha] run give @s clay_ball[lore=[{"color"
 execute if entity @s[tag=kill_animal_alpha] run scoreboard players add @s credit 15
 execute if entity @s[tag=kill_animal_alpha] run scoreboard players add @s exp 450
 
+execute if entity @s[tag=kill_animal_omega] run give @s minecraft:armadillo_scute[lore=[{"color":"#993bda","italic":false,"text":"영웅"},{"color":"gray","italic":false,"text":"재료"}],tooltip_style="force_core",max_stack_size=3] 1
+execute if entity @s[tag=kill_animal_omega] run scoreboard players add @s credit 30
+execute if entity @s[tag=kill_animal_omega] run scoreboard players add @s exp 600
+
 
 tag @s[tag=kill_animal_bear] remove kill_animal_bear
 tag @s[tag=kill_animal_wolf] remove kill_animal_wolf
 tag @s[tag=kill_animal_boar] remove kill_animal_boar
 tag @s[tag=kill_animal_alpha] remove kill_animal_alpha
+tag @s[tag=kill_animal_omega] remove kill_animal_omega

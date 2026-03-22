@@ -8,7 +8,7 @@ function eternal_return:game/tick
 ## 플레이어
     # 플레이어 설정
 
-    execute as @a run function eternal_return:player/tick
+    execute as @a at @s run function eternal_return:player/tick
 
 # 삼지창을 던질때 설정
 #execute as @a[tag=tri] if score @s rc matches 0 run attribute @s minecraft:movement_speed base reset

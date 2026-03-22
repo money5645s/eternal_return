@@ -16,6 +16,8 @@
 # 태그
     # 플레이어 로딩 후 태그 제거
         scoreboard players set @a[tag=activing,distance=..1.8] cctv_tick 120
+        scoreboard players add @a[tag=activing,distance=..1.8] credit 5
+        scoreboard players add @a[tag=activing,distance=..1.8] exp 20
         tag @a[tag=activing,distance=..1.8] remove done.loading
         tag @a[tag=activing,distance=..1.8] remove activing
     # CCTV

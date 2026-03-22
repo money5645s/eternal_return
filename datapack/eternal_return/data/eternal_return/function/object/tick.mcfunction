@@ -5,23 +5,20 @@
 
 # 키오스크
     # 인터렉션
-        function eternal_return:object/kiosk/tick
+        execute as @e[tag=kiosk,type=armor_stand,tag=on] run data modify entity @s equipment.head.components."minecraft:custom_model_data".strings[0] set value "kiosk"
+        execute as @e[tag=kiosk,type=armor_stand,tag=!on] run data modify entity @s equipment.head.components."minecraft:custom_model_data".strings[0] set value "kiosk_off"
 # 하이퍼루프
     # 인터렉션
-        #execute as @e[type=interaction,tag=click_interaction,tag=hyperloop] run function eternal_return:object/hyperloop/tick
+        execute as @e[type=interaction,tag=click_interaction,tag=hyperloop] run function eternal_return:object/hyperloop/tick
 
 # CCTV
-    # 플레이어
-        # 플레이어가 클릭했을 때
-        execute as @a[tag=player] at @s run function eternal_return:object/cctv/player_tick
     # 인터렉션
         execute as @e[type=item_display,tag=cctv] at @s run function eternal_return:object/cctv/tick
     # 텍스트 디스플레이 [쿨타임]
         execute as @e[type=text_display,tag=cool] at @s run function eternal_return:object/cctv/cooltime/tick
-
 # 점프패드
     execute as @e[tag=jumppad] at @s run function eternal_return:object/jumppad/tick
-    execute as @a[tag=player] at @s run function eternal_return:object/jumppad/player_tick
+
 
 # 소환진
     # 운석
@@ -29,9 +26,8 @@
         execute as @e[type=interaction,tag=meteorite] at @s if entity @a[tag=done.loading,distance=..2] run function eternal_return:object/meteor/interaction_tick
         execute as @e[type=marker,tag=meteor,tag=selected,tag=!impacted] at @s run function eternal_return:object/meteor/tick
         execute as @e[type=item_display,tag=meteor_info] at @s run function eternal_return:object/meteor/info/rotate
-        execute as @a[tag=player] at @s run function eternal_return:object/meteor/player
+        
     # 생명의 나무
         function eternal_return:object/tree_of_life/tick
-        #execute as @a[tag=player] at @s run function eternal_return:object/meteor/player
     # 상자
         function eternal_return:object/box/tick

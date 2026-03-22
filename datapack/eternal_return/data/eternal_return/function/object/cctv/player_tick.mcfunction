@@ -10,5 +10,5 @@ execute if entity @e[type=item_display,distance=1.8..7,limit=1] run tag @s[tag=a
 
 
 execute if score @s cctv_tick matches 0 run attribute @s minecraft:waypoint_receive_range base set 0
-execute if score @s cctv_tick matches 1.. run attribute @s minecraft:waypoint_receive_range base set 40
+execute if score @s cctv_tick matches 1.. run attribute @s minecraft:waypoint_receive_range base set 55
 execute if score @s cctv_tick matches 1.. run scoreboard players remove @s cctv_tick 1
