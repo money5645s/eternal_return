@@ -2,9 +2,8 @@ package org.eternalreturn.ercharacter.globalmonobehav
 
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterParabolicFlyEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import org.eternalreturn.util.dpengine.command.SetSpigotEntityVelocity
-import kotlin.math.sqrt
 
 class ParabolicFly : ERCharacterMonobehaviour<CharacterParabolicFlyEvent>() {
 

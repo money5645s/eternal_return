@@ -17,7 +17,7 @@ import org.eternalreturn.system.EREngine
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.AJEntity.AJEntityManager
 import org.eternalreturn.util.dpengine.DPEngine
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
 import java.io.File
 
 /**

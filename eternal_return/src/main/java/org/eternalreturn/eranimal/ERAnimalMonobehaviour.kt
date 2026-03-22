@@ -1,10 +1,9 @@
 package org.eternalreturn.eranimal
 
-import org.bukkit.entity.Entity
 import org.eternalreturn.erentity.events.EREntityEvent
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 abstract class ERAnimalMonobehaviour<T : EREntityEvent> : Monobehaviour<T>() {
 

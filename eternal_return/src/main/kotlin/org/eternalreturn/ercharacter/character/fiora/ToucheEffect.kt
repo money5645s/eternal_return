@@ -4,7 +4,7 @@ import org.bukkit.Location
 import org.bukkit.Particle
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.erentity.events.EREntityEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class ToucheEffectStartEvent(val durationTicks : Long, val count : Int) : EREntityEvent;
 

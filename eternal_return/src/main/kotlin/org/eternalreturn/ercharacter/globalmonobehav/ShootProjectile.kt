@@ -4,7 +4,7 @@ import org.eternalreturn.ercharacter.event.CharacterShootProjectileEvent
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.projectile.ERProjectile
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class ShootProjectile : EREntityMonobehaviour<CharacterShootProjectileEvent>() {
 

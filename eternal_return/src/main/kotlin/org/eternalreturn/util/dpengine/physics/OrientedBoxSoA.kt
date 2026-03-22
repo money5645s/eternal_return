@@ -13,7 +13,7 @@ import org.eternalreturn.projectile.ERProjectile
 import org.eternalreturn.projectile.events.ProjectileRayCastEvent
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.system.PluginInstance
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin

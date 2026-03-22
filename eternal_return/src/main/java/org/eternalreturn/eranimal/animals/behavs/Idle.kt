@@ -5,7 +5,7 @@ import org.eternalreturn.eranimal.ERAnimalMonobehaviour
 import org.eternalreturn.eranimal.animals.events.IdleEvent
 import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class Idle : ERAnimalMonobehaviour<IdleEvent>() {
     override fun start(event: IdleEvent) {

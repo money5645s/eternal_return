@@ -1,8 +1,7 @@
 package org.eternalreturn.util.dpengine.datastructure
 
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
 import java.util.Vector
-import java.util.concurrent.CopyOnWriteArrayList
 
 /**
  * 엔진 객체들을 관리하기 위한 컨테이너.

@@ -11,11 +11,11 @@ class Character_Yuki(erEngine : EREngine, player: Player) : ERPlayer(player, erE
     var isActiveSkill: Boolean = false
 
 
-    override val activeCoolForEachLevel: LongArray = longArrayOf(30 * 20, 27 * 20, 24 * 20, 21 * 20, 18 * 20)
-    override val passiveCoolForEachLevel: LongArray = longArrayOf(15 * 20, 15 * 20, 15 * 20, 15 * 20, 15 * 20)
+    override val activeCoolForEachLevel: LongArray = longArrayOf(30 * 20, 27 * 20, 24 * 20, 21 * 20, 18 * 20, 0)
+    override val passiveCoolForEachLevel: LongArray = longArrayOf(15 * 20, 15 * 20, 15 * 20, 15 * 20, 15 * 20, 0)
 
-    val passiveExtraDamageForEachLevel : DoubleArray = doubleArrayOf(1.0, 2.0 ,3.0, 4.0, 5.0)
-    val activeExtraDamageForEachLevel : DoubleArray = doubleArrayOf(3.0, 4.0, 5.0, 6.0, 8.0)
+    val passiveExtraDamageForEachLevel : DoubleArray = doubleArrayOf(1.0, 2.0 ,3.0, 4.0, 5.0, 100.0)
+    val activeExtraDamageForEachLevel : DoubleArray = doubleArrayOf(3.0, 4.0, 5.0, 6.0, 8.0, 100.0)
 
     init {
         this.ActiveCooldownSeconds = 3

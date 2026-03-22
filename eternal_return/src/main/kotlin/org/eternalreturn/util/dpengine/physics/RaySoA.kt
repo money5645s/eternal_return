@@ -1,7 +1,7 @@
 package org.eternalreturn.util.dpengine.physics
 
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
 import kotlin.math.cos
 import kotlin.math.sin
 

@@ -3,7 +3,7 @@ package org.eternalreturn.eranimal.animals.behavs
 import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.eranimal.ERAnimalMonobehaviour
 import org.eternalreturn.eranimal.animals.events.StatEnhanceEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class EnhanceStatByDay : ERAnimalMonobehaviour<StatEnhanceEvent>() {
 

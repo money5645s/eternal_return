@@ -8,7 +8,7 @@ import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.erentity.events.EREntityRayCastEvent
 import org.eternalreturn.erplayer.ERPlayer
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import kotlin.math.min
 

@@ -109,7 +109,7 @@ abstract class ERAnimal(
     }
 
     private fun isActorNotValid() : Boolean{
-        return (aJEntity.actor == null) || !aJEntity.actor.isValid
+        return (aJEntity.actor == null) || !aJEntity.actor!!.isValid
     }
 
     override var movementSpeed : Double
@@ -132,7 +132,7 @@ abstract class ERAnimal(
      * */
     override fun setVelocity(x : Double, y : Double, z : Double){
         if(isActorNotValid()) return;
-        this.dpEngine.appendCommand(SetSpigotEntityVelocity(aJEntity.actor, x, y, z))
+        this.dpEngine.appendCommand(SetSpigotEntityVelocity(aJEntity.actor!!, x, y, z))
     }
 
     /**
@@ -140,14 +140,14 @@ abstract class ERAnimal(
      * */
     override fun addVelocity(x : Double, y : Double, z : Double){
         if(isActorNotValid()) return;
-        this.dpEngine.appendCommand(AddSpigotEntityVelocity(aJEntity.actor, x, y, z))
+        this.dpEngine.appendCommand(AddSpigotEntityVelocity(aJEntity.actor!!, x, y, z))
     }
 
     /**
      * ERAJEntity의 위치를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
      * */
     override fun setPosition(x : Double, y : Double, z : Double){
-        if(!isActorNotValid())this.dpEngine.appendCommand(SetSpigotEntityPosition(aJEntity.actor, x, y, z))
+        if(!isActorNotValid())this.dpEngine.appendCommand(SetSpigotEntityPosition(aJEntity.actor!!, x, y, z))
         else if(this.aJEntity.rootEntity != null)this.dpEngine.appendCommand(SetSpigotEntityPosition(aJEntity.rootEntity, x, y, z))
     }
 
@@ -155,12 +155,12 @@ abstract class ERAnimal(
      * ERAJEntity의 속도를 변경한다. 그러나 Actor가 없다면 아무런 작용도 하지 않는다.
      * */
     override fun addPosition(x : Double, y : Double, z : Double){
-        if(!isActorNotValid())this.dpEngine.appendCommand(AddSpigotEntityPosition(aJEntity.actor, x, y, z))
+        if(!isActorNotValid())this.dpEngine.appendCommand(AddSpigotEntityPosition(aJEntity.actor!!, x, y, z))
         else if(this.aJEntity.rootEntity != null)this.dpEngine.appendCommand(AddSpigotEntityPosition(aJEntity.rootEntity, x, y, z))
     }
 
     override fun applyBukkitVelocityOnMainThread(x: Double, y: Double, z: Double) {
-        aJEntity.actor.velocity = Vector(x, y, z);
+        aJEntity.actor!!.velocity = Vector(x, y, z);
     }
 
     val hurtSound = Sound.sound().type(org.bukkit.Sound.ENTITY_GENERIC_HURT);
@@ -229,8 +229,8 @@ abstract class ERAnimal(
     fun setNotBeShown() {
         val spwloc = aJEntity.spawnLocation.clone();
         if(aJEntity.actor != null){
-            aJEntity.actor.removePassenger(aJEntity.rootEntity);
-            aJEntity.actor.remove();
+            aJEntity.actor!!.removePassenger(aJEntity.rootEntity);
+            aJEntity.actor!!.remove();
             spwloc.y += 2;
             aJEntity.rootEntity.teleport(spwloc)
         }

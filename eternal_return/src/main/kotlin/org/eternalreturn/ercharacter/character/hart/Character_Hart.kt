@@ -8,7 +8,7 @@ import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erentity.events.EREntityEvent
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class Character_Hart(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     var stack: Int = 0

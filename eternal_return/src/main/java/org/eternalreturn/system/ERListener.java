@@ -1,9 +1,13 @@
 package org.eternalreturn.system;
 
+import com.destroystokyo.paper.event.player.PlayerAdvancementCriterionGrantEvent;
 import com.destroystokyo.paper.event.player.PlayerAttackEntityCooldownResetEvent;
+import com.destroystokyo.paper.event.player.PlayerHandshakeEvent;
+import com.destroystokyo.paper.event.player.PlayerUseUnknownEntityEvent;
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scoreboard.Objective;
@@ -21,21 +25,7 @@ import org.bukkit.event.player.*;
 
 public class ERListener implements Listener {
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e){
-        //Player p = e.getPlayer();
-        //SystemManager.addPlayer(p);
-        //System.out.println("플레이어가 업데이트되었습니다. : " + p);
-        ////p.sendMessage("당신이 리스트에 추가되었습니다.");
-    }
 
-    @EventHandler
-    public void onPlayerLeave(PlayerQuitEvent e){
-        //Player p = e.getPlayer();
-        //SystemManager.removePlayer(p);
-        //System.out.println("플레이어가 업데이트되었습니다. : " + p);
-        ////p.sendMessage("플레이어가 게임을 떠났습니다.");
-    }
 
 
     @EventHandler
@@ -44,9 +34,9 @@ public class ERListener implements Listener {
         ERPlayer erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
 
         var action = e.getAction();
-        //var action = e.getClickedBlock().;
 
-        if(action.isLeftClick() && erPlayer != null){
+        if((action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) && erPlayer != null){
+            erPlayer.submitEvent(new CharacterLeftClickEvent());
             erPlayer.shootRay();
         }
     }
@@ -58,17 +48,8 @@ public class ERListener implements Listener {
         if(erPlayer != null) {
             erPlayer.shootRay();
         }
-    }
 
-//    @EventHandler
-//    public void onPlayerSwap(PlayerSwapHandItemsEvent e){
-//        var engine = PluginInstance.getEREngine();
-//        var erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
-//        if(erPlayer != null) {
-//            erPlayer.submitEvent(new CharacterSwapHandEvent(erPlayer));
-//        }
-//        e.setCancelled(true);
-//    }
+    }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e){
@@ -76,18 +57,6 @@ public class ERListener implements Listener {
         if(!victim.getScoreboardTags().contains("resurrectable")){
             return;
         }
-
-//        var death = victim.getScoreboard().getObjective("death");
-//        if(death != null){
-//            var score = death.getScoreFor(victim);
-//            score.setScore(score.getScore() + 1);
-//        }
-//
-//        var deathCount = victim.getScoreboard().getObjective("death_count");
-//        if(deathCount != null){
-//            var score = deathCount.getScoreFor(victim);
-//            score.setScore(score.getScore() + 1);
-//        }
 
         var killer = e.getDamageSource().getCausingEntity();
         if(killer instanceof Player pKiller){
@@ -107,6 +76,8 @@ public class ERListener implements Listener {
         e.setCancelled(true); //사실 어디 위치시켜도 상관 없음.
         var engine = PluginInstance.getEREngine();
         var erPlayer = (ERPlayer)engine.getEREntity(e.getPlayer());
+
+
         if(erPlayer != null) {
             erPlayer.submitEvent(new CharacterSwapHandEvent(erPlayer));
         }

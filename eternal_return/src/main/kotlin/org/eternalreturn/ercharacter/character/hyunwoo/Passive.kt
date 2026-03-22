@@ -7,7 +7,7 @@ import org.eternalreturn.ercharacter.ERCharacterSkillMonobehaviour
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erplayer.ERPlayer
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import kotlin.math.min
 
 class Passive(

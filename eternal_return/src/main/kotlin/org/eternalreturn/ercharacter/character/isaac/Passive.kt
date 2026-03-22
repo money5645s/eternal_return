@@ -1,11 +1,9 @@
 package org.eternalreturn.ercharacter.character.isaac
 
-import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.character.isaac.event.PassiveCountEvent
 import org.eternalreturn.erentity.events.EREntityAttackEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
 

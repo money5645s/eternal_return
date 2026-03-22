@@ -3,14 +3,13 @@ package org.eternalreturn.ercharacter.character.adriana
 import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.CooldownContext
-import org.eternalreturn.ercharacter.ERCharacter
 import org.eternalreturn.ercharacter.ERCharacterSkillMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erentity.events.EREntityBurnEvent
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 
 

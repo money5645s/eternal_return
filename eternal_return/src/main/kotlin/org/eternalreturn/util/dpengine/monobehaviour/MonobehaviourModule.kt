@@ -1,4 +1,4 @@
-package org.eternalreturn.util.dpengine.behaviour
+package org.eternalreturn.util.dpengine.monobehaviour
 
 import org.eternalreturn.util.dpengine.DPEngine
 import org.eternalreturn.util.dpengine.datastructure.UpdateList

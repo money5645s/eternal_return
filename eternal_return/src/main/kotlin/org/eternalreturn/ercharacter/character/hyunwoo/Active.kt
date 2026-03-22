@@ -1,26 +1,13 @@
 package org.eternalreturn.ercharacter.character.hyunwoo
 
 import org.bukkit.Sound
-import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.Player
-import org.bukkit.util.Vector
-import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.ercharacter.CooldownContext
-import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.ERCharacterSkillMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
-import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.erentity.events.EREntityEvent
-import org.eternalreturn.erentity.events.EREntityStunEvent
-import org.eternalreturn.erplayer.ERPlayer
-import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
-import org.eternalreturn.util.dpengine.geometry.Vector3
-import kotlin.math.cos
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import kotlin.math.max
-import kotlin.math.sin
-import kotlin.properties.Delegates
 
 /**
  * 액티브 진행을 끄기 위해 전달하는 이벤트
@@ -84,7 +71,6 @@ class Active(
 
                 if(down < 0 && up > 0){
 
-                    victim.setVelocity(dx, 0.0, dz);
                     val dmg = player.activeWallslamDamageForEachLevel[player.activeLevel];
                     victim.sumbitMonobehav(WallSlamDetector(dmg, player, dx, 0.0, dz, 100L, durationTicks))
 

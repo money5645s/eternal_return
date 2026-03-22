@@ -1,18 +1,10 @@
 package org.eternalreturn.eranimal.manager.behavs
 
-import org.eternalreturn.eranimal.ERAJEntity
-import org.eternalreturn.eranimal.ERAnimal
-import org.eternalreturn.eranimal.animals.actors.Alpha
-import org.eternalreturn.eranimal.animals.actors.Bear
-import org.eternalreturn.eranimal.animals.actors.Boar
-import org.eternalreturn.eranimal.animals.actors.Omega
-import org.eternalreturn.eranimal.animals.actors.Wolf
 import org.eternalreturn.eranimal.manager.ERAnimalManager
 import org.eternalreturn.eranimal.manager.events.AnimalManageEvent
 import org.eternalreturn.eranimal.manager.events.DetectingPlayerEvent
-import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class WaitForSummoningEvent() : MonobehaviourEvent
 

@@ -8,8 +8,8 @@ import org.eternalreturn.eranimal.manager.ERAnimalManager
 import org.eternalreturn.eranimal.manager.events.AnimalManageEvent
 import org.eternalreturn.eranimal.manager.events.RemoveAllERAnimals
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 
 class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>() {

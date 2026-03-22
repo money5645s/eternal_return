@@ -7,8 +7,8 @@ import org.bukkit.World
 import org.eternalreturn.projectile.ERProjectile
 import org.eternalreturn.projectile.events.ProjectileInitEvent
 import org.eternalreturn.system.PluginInstance
-import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class ProjectileFlight : Monobehaviour<ProjectileInitEvent>(){
 

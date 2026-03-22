@@ -1,13 +1,11 @@
 package org.eternalreturn.ercharacter.character.isaac
 
-import org.bukkit.Effect
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import org.bukkit.Sound
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
-import org.eternalreturn.ercharacter.character.isaac.Character_Isaac
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var skillActiveTick: Long = 0

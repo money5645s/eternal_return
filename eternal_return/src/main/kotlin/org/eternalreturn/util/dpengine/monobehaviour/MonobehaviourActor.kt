@@ -1,6 +1,7 @@
-package org.eternalreturn.util.dpengine.behaviour
+package org.eternalreturn.util.dpengine.monobehaviour
 
 import org.eternalreturn.util.dpengine.DPEngine
+import org.eternalreturn.util.dpengine.datastructure.ArrayListSet
 import org.eternalreturn.util.dpengine.event.MonobehavCreatedEvent
 import org.eternalreturn.util.dpengine.geometry.GeometryModule
 import java.util.*
@@ -65,12 +66,6 @@ abstract class MonobehaviourActor(
 
 
     /**
-     * update(MonobehaviourEvent)를 호출할 Monobehaviour들을 스케줄링하기 위해 유지하는 링크드 리스트
-     */
-    val runningBehaviours: LinkedList<Monobehaviour<out MonobehaviourEvent>> = LinkedList<Monobehaviour<out MonobehaviourEvent>>()
-
-
-    /**
      * 제출된 이벤트를 담는 큐 ( Array<ArrayDeque<MonobehaviourEvent>>> )
      */
     val submittedEvent: Array<ArrayDeque<MonobehaviourEvent>> = Array<ArrayDeque<MonobehaviourEvent>>(2){ArrayDeque<MonobehaviourEvent>()};
@@ -87,7 +82,6 @@ abstract class MonobehaviourActor(
         }
     }
 
-
     private val eventLessArg = EventLess();
     private val submittedMonobehav = Array(2){HashSet<Monobehaviour<EventLess>>()};
     private var curMonobehavIdx = 0;
@@ -96,7 +90,6 @@ abstract class MonobehaviourActor(
      */
     fun sumbitMonobehav(monobehaviour: Monobehaviour<EventLess>){
         val nextSet = submittedMonobehav[curMonobehavIdx xor 1]
-        //runningBehaviours.contains(monobehaviour) -> 이거 선형탐색임!
         if(isAlive() && !runningBehaviours.contains(monobehaviour) && !nextSet.contains(monobehaviour)){
             //println("Monobehav 제출됨 : ${monobehaviour.javaClass.simpleName} \t-> ${this.javaClass.simpleName}");
             nextSet.add(monobehaviour);
@@ -108,7 +101,7 @@ abstract class MonobehaviourActor(
     /**
      * update에 매개변수로써 제출하기 위한 이벤트 맵
      */
-    protected var checkedEvent: HashMap<Class<out MonobehaviourEvent>, MonobehaviourEvent> = HashMap<Class<out MonobehaviourEvent>, MonobehaviourEvent>()
+    protected var checkedEvent = HashMap<Class<out MonobehaviourEvent>, MonobehaviourEvent>()
 
     fun dispatchEvents() {
 
@@ -145,6 +138,11 @@ abstract class MonobehaviourActor(
     }
 
     /**
+     * update(MonobehaviourEvent)를 호출할 Monobehaviour들을 스케줄링하기 위해 유지하는 링크드 리스트
+     */
+    val runningBehaviours = ArrayListSet<Monobehaviour<out MonobehaviourEvent>>();
+
+    /**
      * 해당 Actor의 Monobehaviour을 update()함.
      * 만약 한개의 Monobehaviour도 Running이 아니라면 false를 반환
      * 그 외에는 true를 반환
@@ -159,20 +157,17 @@ abstract class MonobehaviourActor(
             return false
         }
 
-        //println("Updating monobehaviours : ${runningBehaviours.size}");
-
         //monobehaviour update() 스케줄링
-        val monobehavNode = runningBehaviours.iterator()
-        while (monobehavNode.hasNext()) {
-            val monobehaviour: Monobehaviour<*> = monobehavNode.next()
-
+        var idx = 0;
+        while (idx < runningBehaviours.size) {
+            val monobehaviour = runningBehaviours[idx];
             if (monobehaviour.state == Monobehaviour.State.STOP) {
-                monobehavNode.remove()
+                //println("${monobehaviour.javaClass.simpleName} is now STOP")
+                runningBehaviours.remove(idx); //remove 시에는 idx를 올리면 안됨.
                 continue;
-                //println("removed : " + monobehaviour.javaClass.simpleName);
             }
-
             monobehaviour.updateMonobehav(checkedEvent)
+            idx++;
         }
         checkedEvent.clear()
         return true
@@ -186,12 +181,11 @@ abstract class MonobehaviourActor(
      * 또한 해당 Monobehaviour의 DPEngine객체 또한 저장한다.
      */
     protected fun registerMonobehaviour(monobehaviour: Monobehaviour<*>) {
-        if (this.monobehaviourMap.get(monobehaviour.eventType) != null) {
+        if (this.monobehaviourMap[monobehaviour.eventType] != null) {
             throw DuplicatedMonobehaviourRegisterException("Key " + monobehaviour.eventType + " is duplicated.")
         }
         this.monobehaviourMap.put(monobehaviour.eventType, monobehaviour)
         monobehaviour.setMonobehaviourActor(this)
-        //System.out.println("register event " + monobehaviour.getClass());
     }
 
 
@@ -201,3 +195,4 @@ abstract class MonobehaviourActor(
     }
 
 }
+

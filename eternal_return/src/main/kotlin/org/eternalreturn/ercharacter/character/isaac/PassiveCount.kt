@@ -1,9 +1,8 @@
 package org.eternalreturn.ercharacter.character.isaac
 import org.eternalreturn.ercharacter.character.isaac.event.PassiveCountEvent
 import org.eternalreturn.erentity.EREntityMonobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import org.bukkit.Sound
-import org.bukkit.entity.LivingEntity
 import org.bukkit.attribute.Attribute
 import org.bukkit.damage.DamageType
 import org.bukkit.entity.Player

@@ -12,8 +12,8 @@ import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.projectile.ERProjectile
 import org.eternalreturn.util.dpengine.DPEngine
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import org.eternalreturn.util.dpengine.datastructure.DeadActorException
 import org.eternalreturn.util.dpengine.datastructure.UpdateView
 import org.eternalreturn.util.dpengine.physics.OrientedBoxSoA

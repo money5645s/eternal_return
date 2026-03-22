@@ -5,7 +5,7 @@ import org.eternalreturn.projectile.events.ProjectileInitEvent
 import org.eternalreturn.projectile.globalmonobehav.ProjectileFlight
 import org.eternalreturn.projectile.globalmonobehav.ProjectileRayCastingAttack
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
 
 class ERProjectile(
     engine : EREngine,

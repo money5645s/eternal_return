@@ -7,9 +7,9 @@ import org.eternalreturn.erentity.events.EREntityBurnEvent
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.DPEngine
-import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class BurningGroundVirtualEntity(
     dpEngine: DPEngine,

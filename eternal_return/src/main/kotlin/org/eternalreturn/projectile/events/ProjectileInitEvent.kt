@@ -1,5 +1,5 @@
 package org.eternalreturn.projectile.events
 
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class ProjectileInitEvent : MonobehaviourEvent;

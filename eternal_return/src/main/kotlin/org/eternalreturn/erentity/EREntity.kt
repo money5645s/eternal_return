@@ -19,7 +19,7 @@ import org.eternalreturn.erentity.events.EREntityEvent
 import org.eternalreturn.erentity.globalmonobehav.Burn
 import org.eternalreturn.erentity.globalmonobehav.Stun
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
 import org.eternalreturn.util.dpengine.command.*
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import org.eternalreturn.util.dpengine.physics.Handle

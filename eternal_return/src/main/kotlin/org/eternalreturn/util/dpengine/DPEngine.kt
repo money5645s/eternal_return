@@ -1,23 +1,12 @@
 package org.eternalreturn.util.dpengine
 
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourModule
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourModule
 import org.eternalreturn.util.dpengine.command.Command
-import org.eternalreturn.util.dpengine.geometry.Cylinder
 import org.eternalreturn.util.dpengine.geometry.GeometryModule
-import org.eternalreturn.util.dpengine.geometry.InfPlane
-import org.eternalreturn.util.dpengine.geometry.InfStraightLine
 import org.eternalreturn.util.dpengine.geometry.OrientedBox
 import org.bukkit.Location
-import org.eternalreturn.erplayer.ERPlayer
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
-import org.eternalreturn.util.dpengine.physics.OrientedBoxSoA
-import org.eternalreturn.util.dpengine.physics.TransformSoA
-import org.eternalreturn.util.dpengine.physics.UniformGrid
 import org.joml.Quaterniond
-import java.util.Vector
 import java.util.concurrent.ArrayBlockingQueue
-import kotlin.reflect.KClass
 
 /**
  * Made by Danpung (TDanfung)

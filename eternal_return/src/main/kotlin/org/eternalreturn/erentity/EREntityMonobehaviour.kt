@@ -1,10 +1,9 @@
 package org.eternalreturn.erentity
 
-import org.eternalreturn.erentity.events.EREntityEvent
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
+import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
 import org.bukkit.entity.Entity
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 abstract class EREntityMonobehaviour<T : MonobehaviourEvent>() : Monobehaviour<T>() {
 
@@ -46,4 +45,9 @@ abstract class EREntityTimerMonobehaviour<T : MonobehaviourEvent>(val duration :
         timerUpdate(eventMap);
         tickTimer++;
     }abstract fun timerUpdate(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>);
+
+    fun resetTimer(){
+        tickTimer = 0;
+    }
+
 }

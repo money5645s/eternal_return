@@ -9,6 +9,7 @@ import org.eternalreturn.ercharacter.character.jackie.Character_Jackie;
 import org.eternalreturn.ercharacter.character.jan.Character_Jan;
 import org.eternalreturn.ercharacter.character.lidailin.Character_LiDailin;
 import org.eternalreturn.ercharacter.character.nathapon.Character_Nathapon;
+import org.eternalreturn.ercharacter.character.rio.Rio;
 import org.eternalreturn.ercharacter.character.sissela.Sissela;
 import org.eternalreturn.ercharacter.character.yuki.Character_Yuki;
 import org.eternalreturn.ercharacter.ERCharacter;
@@ -99,6 +100,9 @@ public class ERCommand implements CommandExecutor {
                     break;
                 case "sissela":
                     character = new Sissela(engine, p);
+                    break;
+                case "rio":
+                    character = new Rio(engine, p);
                     break;
                 default:
                     p.sendMessage("§c알 수 없는 캐릭터입니다: " + charName);

@@ -2,8 +2,8 @@ package org.eternalreturn.eranimal.manager.behavs
 
 import org.eternalreturn.eranimal.manager.ERAnimalManager
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 
 class InitializeEvent : MonobehaviourEvent;

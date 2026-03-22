@@ -15,12 +15,7 @@ import org.eternalreturn.ercharacter.character.jan.event.JanPassiveTimerEvent
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.erentity.events.EREntityStunEvent
 import org.eternalreturn.erplayer.ERPlayer
-import org.eternalreturn.system.EREngine
-import org.eternalreturn.system.PluginInstance
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
-import kotlin.compareTo
-import kotlin.io.normalize
-import kotlin.text.set
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     override fun start(event: CharacterSwapHandEvent) {

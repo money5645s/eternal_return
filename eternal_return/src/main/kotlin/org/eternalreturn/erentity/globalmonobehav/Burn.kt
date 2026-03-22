@@ -1,12 +1,10 @@
 package org.eternalreturn.erentity.globalmonobehav
 
 import org.bukkit.Particle
-import org.bukkit.Particle.Trail
-import org.bukkit.entity.LivingEntity
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.erentity.events.EREntityBurnEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import kotlin.properties.Delegates
 
 class Burn : EREntityMonobehaviour<EREntityBurnEvent>() {

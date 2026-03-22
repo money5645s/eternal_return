@@ -1,13 +1,12 @@
 package org.eternalreturn.ercharacter.character.sissela
 
-import net.kyori.adventure.key.Key
 import net.kyori.adventure.sound.Sound
 import org.bukkit.attribute.Attribute
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.erentity.EREntityMonobehavCreatedEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 /**
  * 체력에 따라 로직을 진행하는 패시브

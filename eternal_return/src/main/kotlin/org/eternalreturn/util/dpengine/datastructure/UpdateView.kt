@@ -1,6 +1,6 @@
 package org.eternalreturn.util.dpengine.datastructure
 
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
 
 /**
  * 삽입 시 레퍼런스 카운트를 올리지 않는, View의 역할만을 하는 객체.

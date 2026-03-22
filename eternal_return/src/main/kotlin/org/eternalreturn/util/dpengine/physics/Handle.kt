@@ -1,6 +1,6 @@
 package org.eternalreturn.util.dpengine.physics
 
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
 
 /**
  * SparseIdx와 GenerationIdx를 함께 저장

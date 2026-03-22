@@ -1,6 +1,6 @@
 package org.eternalreturn.util.dpengine.datastructure
 
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
 
 /**
  * 삽입 시 레퍼런스 카운트를 1 올리는 컨테이너 객체.

@@ -1,7 +1,6 @@
 package org.eternalreturn.eranimal.animals.behavs
 
 import org.bukkit.attribute.Attribute
-import org.bukkit.attribute.AttributeInstance
 import org.bukkit.damage.DamageType
 import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
@@ -13,8 +12,7 @@ import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.system.PluginInstance
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
-import java.util.*
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
 
@@ -43,8 +41,8 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
         }
 
         val world = PluginInstance.getServerInstance().server.worlds.first();
-        ajEntity.setActor(world.spawnEntity(ajEntity.spawnLocation, EntityType.HUSK) as Husk);
-        (ajEntity.getActor() as Husk).setAI(true)
+        ajEntity.actor = (world.spawnEntity(ajEntity.spawnLocation, EntityType.HUSK) as Husk);
+        (ajEntity.actor as Husk).setAI(true)
         //println("attacked by a player")
 
         xSpawn = ajEntity.spawnLocation.x;

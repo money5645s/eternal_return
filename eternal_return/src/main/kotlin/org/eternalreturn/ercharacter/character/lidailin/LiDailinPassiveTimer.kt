@@ -5,7 +5,7 @@ import org.bukkit.Sound
 import org.bukkit.damage.DamageType
 import org.eternalreturn.ercharacter.character.lidailin.event.LiDailinPassiveTimerEvent
 import org.eternalreturn.erentity.EREntityMonobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import kotlin.properties.Delegates
 import org.eternalreturn.erplayer.ERPlayer
 

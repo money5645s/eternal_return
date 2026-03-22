@@ -11,8 +11,8 @@ import org.eternalreturn.projectile.ERProjectile
 import org.eternalreturn.projectile.events.ProjectileHitEvent
 import org.eternalreturn.projectile.events.ProjectileRayCastEvent
 import org.eternalreturn.system.PluginInstance
-import org.eternalreturn.util.dpengine.behaviour.Monobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import org.eternalreturn.util.dpengine.geometry.Vector3
 import kotlin.math.min
 

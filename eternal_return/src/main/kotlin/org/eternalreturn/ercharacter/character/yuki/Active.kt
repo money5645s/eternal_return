@@ -2,7 +2,7 @@ package org.eternalreturn.ercharacter.character.yuki
 
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import org.bukkit.Sound
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
