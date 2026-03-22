@@ -59,7 +59,15 @@
           "type": "minecraft:movement_speed",
           "amount": 0.005,
           "operation": "add_value",
-          "slot": "armor"
+          "slot": "armor",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "+0.005 속도"
+            }
+          }
         }
       ],
       "minecraft:unbreakable": {},

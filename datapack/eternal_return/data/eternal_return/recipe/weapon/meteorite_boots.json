@@ -45,6 +45,21 @@
           "type": "minecraft:movement_speed",
           "amount": 0.005,
           "operation": "add_value",
+          "slot": "armor",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "+0.005 속도"
+            }
+          }
+        },
+        {
+          "id": "a94e4794-ac46-4cc9-baec-2d4bef4f7b4b",
+          "type": "minecraft:sneaking_speed",
+          "amount": 0.45,
+          "operation": "add_value",
           "slot": "feet"
         }
       ],
@@ -61,9 +76,6 @@
         "color": "white",
         "italic": false,
         "text": "레이싱 부츠"
-      },
-      "minecraft:enchantments": {
-        "minecraft:depth_strider": 3
       }
     },
     "count": 1

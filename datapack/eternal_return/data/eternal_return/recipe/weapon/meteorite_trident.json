@@ -3,33 +3,33 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:bow"
+      "minecraft:trident"
     ],
     [
-      "minecraft:turtle_scute"
+      "minecraft:slime_ball"
     ]
   ],
   "result": {
-    "id": "minecraft:bow",
+    "id": "minecraft:trident",
     "components": {
       "minecraft:lore": [
         {
-          "color": "#c21f21",
+          "color": "#DAA82B",
           "italic": false,
-          "text": "초월"
+          "text": "전설"
         },
         {
           "color": "gray",
           "italic": false,
-          "text": "활"
+          "text": "삼지창"
         }
       ],
-      "minecraft:tooltip_style": "vf_blood_sample",
+      "minecraft:tooltip_style": "meteorite",
       "minecraft:attribute_modifiers": [
         {
-          "id": "5493fb46-9971-4dcf-82f1-4772b7daae47",
+          "id": "f466996a-70bd-40e7-86e7-092c88e1e4d3",
           "type": "minecraft:attack_damage",
-          "amount": 3,
+          "amount": 8,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -37,14 +37,14 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+4 공격 피해"
+              "text": "+9 공격 피해"
             }
           }
         },
         {
-          "id": "33d9f297-ae12-42ea-b87f-d16c094e2762",
+          "id": "1b747ceb-0fb6-4434-ac3b-5d0cd295cee2",
           "type": "minecraft:attack_speed",
-          "amount": -3.0,
+          "amount": -2.9,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -52,12 +52,12 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+1.0 공격 속도"
+              "text": "+1.1 공격 속도"
             }
           }
         },
         {
-          "id": "556de925-293c-4adc-80e0-380837e82447",
+          "id": "00889315-c25c-472f-af16-d8bb7eb17a1e",
           "type": "minecraft:luck",
           "amount": 0,
           "operation": "add_value",
@@ -67,7 +67,7 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+0.6 장전 시 속도"
+              "text": "+0.4 장전 시 속도"
             }
           }
         }
@@ -75,21 +75,24 @@
       "minecraft:custom_name": {
         "color": "white",
         "italic": false,
-        "text": "페일노트"
+        "text": "코스믹 바이언트"
       },
       "minecraft:unbreakable": {},
       "minecraft:damage_type": "player_attack",
       "minecraft:enchantments": {
-        "minecraft:flame": 1,
-        "minecraft:power": 3
+        "minecraft:channeling": 1,
+        "minecraft:loyalty": 1
       },
-      "minecraft:item_model": "custom_weapon/blood_sample_bow",
-      "minecraft:use_cooldown": {
-        "seconds": 0.2,
-        "cooldown_group": "1"
+      "minecraft:custom_model_data": {
+        "floats": [
+          2
+        ],
+        "strings": [
+          "trident"
+        ]
       },
       "minecraft:use_effects": {
-        "speed_multiplier": 0.6,
+        "speed_multiplier": 0.4,
         "can_sprint": true
       }
     },

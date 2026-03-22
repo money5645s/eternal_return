@@ -43,7 +43,7 @@
         {
           "id": "c3f8e8b6-7e51-4578-af42-793263dfe3fc",
           "type": "minecraft:max_health",
-          "amount": 6,
+          "amount": 5,
           "operation": "add_value",
           "slot": "armor"
         }

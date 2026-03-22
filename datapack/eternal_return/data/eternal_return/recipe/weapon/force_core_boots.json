@@ -36,7 +36,7 @@
         {
           "id": "2340a007-5f0f-47a6-b7ab-87a94e0a364a",
           "type": "minecraft:armor_toughness",
-          "amount": 2,
+          "amount": 1,
           "operation": "add_value",
           "slot": "armor"
         },
@@ -59,7 +59,15 @@
           "type": "minecraft:movement_speed",
           "amount": 0.005,
           "operation": "add_value",
-          "slot": "armor"
+          "slot": "armor",
+          "display": {
+            "type": "override",
+            "value": {
+              "color": "blue",
+              "italic": false,
+              "text": "+0.005 속도"
+            }
+          }
         }
       ],
       "minecraft:unbreakable": {},

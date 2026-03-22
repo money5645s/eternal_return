@@ -56,7 +56,7 @@
         "text": "배틀 슈트"
       },
       "minecraft:enchantments": {
-        "minecraft:thorns": 2
+        "minecraft:thorns": 1
       }
     },
     "count": 1

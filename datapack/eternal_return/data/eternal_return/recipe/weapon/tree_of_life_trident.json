@@ -3,33 +3,33 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:charcoal"
+      "minecraft:trident"
     ],
     [
-      "minecraft:turtle_scute"
+      "minecraft:prismarine_shard"
     ]
   ],
   "result": {
-    "id": "minecraft:charcoal",
+    "id": "minecraft:trident",
     "components": {
       "minecraft:lore": [
         {
-          "color": "#c21f21",
+          "color": "#DAA82B",
           "italic": false,
-          "text": "초월"
+          "text": "전설"
         },
         {
           "color": "gray",
           "italic": false,
-          "text": "글러브"
+          "text": "삼지창"
         }
       ],
-      "minecraft:tooltip_style": "vf_blood_sample",
+      "minecraft:tooltip_style": "tree_of_life",
       "minecraft:attribute_modifiers": [
         {
-          "id": "e7df8668-bd77-4591-9e67-654bcb807465",
+          "id": "dce710a5-0bfd-4668-845e-adbf3065a2cf",
           "type": "minecraft:attack_damage",
-          "amount": 5,
+          "amount": 7,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -37,14 +37,14 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+6 공격 피해"
+              "text": "+8 공격 피해"
             }
           }
         },
         {
-          "id": "b28eda93-6579-486a-a7b4-698da7a837cc",
+          "id": "8a868078-ff9b-409c-a91e-9506cbcf88ba",
           "type": "minecraft:attack_speed",
-          "amount": 0.0,
+          "amount": -2.9,
           "operation": "add_value",
           "slot": "mainhand",
           "display": {
@@ -52,36 +52,29 @@
             "value": {
               "color": "blue",
               "italic": false,
-              "text": "+4.0 공격 속도"
+              "text": "+1.1 공격 속도"
             }
           }
-        },
-        {
-          "id": "8452751d-75c7-47fc-8616-f6d6b9ad42e0",
-          "type": "minecraft:movement_speed",
-          "amount": 0.01,
-          "operation": "add_value",
-          "slot": "mainhand"
         }
       ],
-      "minecraft:custom_model_data": {
-        "floats": [
-          5
-        ],
-        "strings": [
-          "glove"
-        ]
-      },
       "minecraft:custom_name": {
         "color": "white",
         "italic": false,
-        "text": "블러디 핸즈"
+        "text": "화점창"
       },
       "minecraft:unbreakable": {},
       "minecraft:damage_type": "player_attack",
       "minecraft:enchantments": {
-        "minecraft:breach": 2,
-        "minecraft:fire_aspect": 2
+        "minecraft:fire_aspect": 1,
+        "minecraft:loyalty": 1
+      },
+      "minecraft:custom_model_data": {
+        "floats": [
+          1
+        ],
+        "strings": [
+          "trident"
+        ]
       }
     },
     "count": 1

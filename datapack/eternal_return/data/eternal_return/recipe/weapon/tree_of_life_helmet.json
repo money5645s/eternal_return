@@ -75,7 +75,7 @@
         "italic": false
       },
       "minecraft:enchantments": {
-        "minecraft:thorns": 2
+        "minecraft:thorns": 1
       },
       "minecraft:unbreakable": {}
     },
