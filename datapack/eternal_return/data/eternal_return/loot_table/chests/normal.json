@@ -7,12 +7,12 @@
       "entries": [
         { 
           "type": "minecraft:empty", 
-          "weight": 820 
+          "weight": 700 
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:bread",
-          "weight": 60,
+          "weight": 100,
           "functions": [
             {
               "function": "minecraft:set_components",
@@ -27,15 +27,14 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:dried_kelp",
-          "weight": 60,
+          "weight": 100,
           "functions": [
             {
               "function": "minecraft:set_components",
               "components": {
-                "minecraft:item_name": "초콜릿",
                 "minecraft:food": { "nutrition": 0, "saturation": 0, "can_always_eat": true },
-                "minecraft:consumable": { "consume_seconds": 0, "on_consume_effects": [ { "type": "minecraft:apply_effects", "effects": [ { "id": "minecraft:speed", "amplifier": 0, "duration": 200, "show_particles": false } ] } ] },
-                "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"음식"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+신속 버프"} ]
+                "minecraft:consumable": { "consume_seconds": 0, "on_consume_effects": [ { "type": "minecraft:apply_effects", "effects": [ { "id": "minecraft:regeneration", "amplifier": 1, "duration": 200, "show_particles": false } ] } ] },
+                "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"음식"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+8 체력 재생"} ]
               }
             }
           ]
@@ -43,16 +42,14 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:cake",
-          "weight": 60,
+          "weight": 100,
           "functions": [
             {
               "function": "minecraft:set_components",
               "components": {
-                "minecraft:item_name": "난초",
-                "minecraft:max_stack_size": 64,
                 "minecraft:food": { "nutrition": 0, "saturation": 0, "can_always_eat": true },
-                "minecraft:consumable": { "consume_seconds": 0, "on_consume_effects": [ { "type": "minecraft:apply_effects", "effects": [ { "id": "minecraft:absorption", "amplifier": 0, "duration": 600, "show_particles": false } ] } ] },
-                "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"음식"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+추가 체력(흡수)"} ]
+                "minecraft:consumable": { "consume_seconds": 0, "on_consume_effects": [ { "type": "minecraft:apply_effects", "effects": [ { "id": "minecraft:regeneration", "amplifier": 1, "duration": 200, "show_particles": false } ] } ] },
+                "minecraft:lore": [ {"color":"#B7B7B7","italic":false,"text":"일반"}, {"color":"gray","italic":false,"text":"음식"}, {"text":""}, {"color":"white","italic":false,"text":"소비 효과 :"}, {"color":"blue","italic":false,"text":"+8 체력 재생"} ]
               }
             }
           ]
