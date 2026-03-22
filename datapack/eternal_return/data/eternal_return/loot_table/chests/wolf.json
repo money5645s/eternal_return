@@ -28,17 +28,17 @@
       "entries": [
         {
           "type": "minecraft:empty",
-          "weight": 930
+          "weight": 940
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:prismarine_shard",
-          "weight": 35
+          "weight": 30
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:slime_ball",
-          "weight": 35
+          "weight": 30
         }
       ]
     }
