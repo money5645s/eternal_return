@@ -2,6 +2,7 @@ package org.eternalreturn.projectile.globalmonobehav
 
 import org.bukkit.Location
 import org.bukkit.World
+import org.bukkit.damage.DamageType
 import org.bukkit.util.RayTraceResult
 import org.bukkit.util.Vector
 import org.eternalreturn.erentity.EREntity
@@ -52,7 +53,7 @@ class ProjectileRayCastingAttack : Monobehaviour<ProjectileRayCastEvent>() {
 
         closestTarget.submitEvent(EREntityDamagedEvent(projectile.owner as EREntity))
         projectile.submitEvent(ProjectileHitEvent(closestTarget))
-        closestTarget.damage(projectile.damage , projectile.owner);
+        closestTarget.damage(projectile.damage , projectile.owner, DamageType.ARROW);
         projectile.remove();
         stopMonobehav();
     }

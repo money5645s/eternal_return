@@ -1,11 +1,12 @@
 package org.eternalreturn.ercharacter.character.fiora
 
-import org.eternalreturn.ercharacter.character.fiora.event.ToucheEffectStartEvent
-import org.eternalreturn.erentity.EREntityMonobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Location
 import org.bukkit.Particle
-import org.bukkit.entity.LivingEntity
+import org.eternalreturn.erentity.EREntityMonobehaviour
+import org.eternalreturn.erentity.events.EREntityEvent
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+
+class ToucheEffectStartEvent(val durationTicks : Long, val count : Int) : EREntityEvent;
 
 class ToucheEffect : EREntityMonobehaviour<ToucheEffectStartEvent>(){
 

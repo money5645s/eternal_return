@@ -5,6 +5,10 @@ import org.eternalreturn.eranimal.ERAJEntity
 import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.system.EREngine
 
+
+
+
+
 class Alpha(engine: EREngine, erAjEntity: ERAJEntity) :
     ERAnimal(engine, erAjEntity, 0.7, 1.5, 0.7, 0.0, -1.0, 0.0) {
 
@@ -15,21 +19,6 @@ class Alpha(engine: EREngine, erAjEntity: ERAJEntity) :
         this.aJEntity.registerAnimation("move",     3.5)
         this.aJEntity.registerAnimation("skill",    3.25)
         this.aJEntity.registerAnimation("death",    2.0)
-    }
-
-    override val maxLevel: Int = 2;
-
-    override var hp0: Double = 125.0;
-    override var hp: Double = 125.0;
-    override var hpInc: Double = 0.0;
-
-    override var damage0 : Double = 8.0;
-    override var damage : Double = 8.0;
-    override var damageInc: Double = 0.0;
-    override val attackTicks = arrayOf(12, 34);
-
-    init{
-        updateHPBar()
     }
 
 }

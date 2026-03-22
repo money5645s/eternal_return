@@ -1,32 +1,26 @@
 package org.eternalreturn.ercharacter.character.hyunwoo
 
-import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
-import org.bukkit.entity.LivingEntity
+import org.eternalreturn.ercharacter.CooldownContext
+import org.eternalreturn.ercharacter.ERCharacterSkillMonobehaviour
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erplayer.ERPlayer
-import java.util.*
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import kotlin.math.min
 
-class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
+class Passive(
+    cooldownContext : CooldownContext
+) : ERCharacterSkillMonobehaviour<EREntityAttackEvent, Character_Hyunwoo>(cooldownContext, 0, "PCD") {
     private val hitCountMap = HashMap<EREntity, Int>()
 
-    override fun start(event: EREntityAttackEvent) {
+    override fun skillStart(event: EREntityAttackEvent) {
 
         val victim = event.victim;
         val attacker = event.attacker as ERPlayer;
         val bukkitAttacker = attacker.player;
-        val hyunwoo = erPlayer as Character_Hyunwoo
-
-        if(erCharacter.passiveCooldown > 0 || erCharacter.passiveLevel == 0){
-            stopMonobehav();
-            return;
-        }
-
-        erCharacter.passiveCooldown = erCharacter.passiveCoolForEachLevel[erCharacter.passiveLevel];
+        val hyunwoo = player;
 
         if(!hitCountMap.contains(event.victim)){
             hitCountMap[victim] = 0;
@@ -39,10 +33,10 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
             // 5회 타격 시 체력 3 회복 (2가 하트 1칸이므로 3은 하트 1.5칸)
             val health = bukkitAttacker.health + hyunwoo.passiveHealingForEachLevel[hyunwoo.passiveLevel];
             // 최대 체력을 넘지 않도록 설정
-            val maxHealth = bukkitAttacker.getAttribute(Attribute.MAX_HEALTH)!!.value
-            bukkitAttacker.health = min(health, maxHealth)
+            val maxHealth = bukkitAttacker.getAttribute(Attribute.MAX_HEALTH)!!.value;
+            bukkitAttacker.health = min(health, maxHealth);
 
-            bukkitAttacker.playSound(bukkitAttacker.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 2f)
+            bukkitAttacker.playSound(bukkitAttacker.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 2f);
 
             // 카운트 초기화
             hitCountMap[victim] = 0;
@@ -51,7 +45,7 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
         }
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
+    override fun skillUpdate(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         stopMonobehav()
     }
 }

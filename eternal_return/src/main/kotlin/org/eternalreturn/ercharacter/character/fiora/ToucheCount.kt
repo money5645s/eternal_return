@@ -1,13 +1,15 @@
 package org.eternalreturn.ercharacter.character.fiora
 
-import org.eternalreturn.ercharacter.character.fiora.event.ERToucheCountEvent
-import org.eternalreturn.ercharacter.character.fiora.event.ToucheEffectStartEvent
-import org.eternalreturn.erentity.EREntityMonobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Sound
-import org.bukkit.entity.LivingEntity
 import org.bukkit.attribute.Attribute
+import org.bukkit.damage.DamageType
 import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.erentity.EREntityMonobehaviour
+import org.eternalreturn.erentity.events.EREntityEvent
+import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
+
+class ERToucheCountEvent(val player: ERPlayer, val damage : Double) : EREntityEvent
 
 /**
  * 이거는 EREntity에게 적용되는 Monobehaviour입니다.
@@ -33,7 +35,7 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
             //player.sendMessage("§f[피오라] §b§l뚜셰! §f적중");
             player.playSound(player.location, Sound.ITEM_MACE_SMASH_GROUND_HEAVY, 1f, 1.5f)
 
-            victim.damage(event.damage, event.player);
+            victim.damage(event.damage, event.player, DamageType.PLAYER_ATTACK);
             val healAmount = 3.0
             val maxHealth = player.getAttribute(Attribute.MAX_HEALTH)?.value ?: 20.0
             val finalHealth = kotlin.math.min(player.health + healAmount, maxHealth)

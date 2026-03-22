@@ -31,7 +31,7 @@ class EnhanceStatByDay : ERAnimalMonobehaviour<StatEnhanceEvent>() {
                 animal.level = animal.maxLevel;
             }
 
-            animal.hp = animal.hp0 + animal.hpInc * (animal.level - 1);
+            animal.hpMax = animal.hp0 + animal.hpInc * (animal.level - 1);
             animal.damage = animal.damage0 + animal.damageInc * (animal.level - 1);
             animal.updateHPBar();
 

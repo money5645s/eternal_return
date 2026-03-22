@@ -15,7 +15,9 @@ class BurningGroundVirtualEntity(
     dpEngine: DPEngine,
     val caster: ERPlayer,
     val location: Location,
-    val startTime: Long
+    val startTime: Long,
+    val damage: Double,
+    val duration : Long,
 ) : MonobehaviourActor(dpEngine) {
 
     override fun lateinit() {
@@ -57,8 +59,8 @@ class BurningGroundMonobehav : Monobehaviour<LetsBurnEvent>() {
                 val distSqr = magnitudeSqr(caster.getPosition() - erEntity.getPosition());
 
                 if(distSqr <= 3.0 * 3.0){
-                    erEntity.damageForcePierce(caster.fireFootPrintDamage[caster.activeLevel], caster)
-                    erEntity.submitEvent(EREntityBurnEvent(caster, caster.fireDuration[caster.activeLevel].toInt()))
+                    erEntity.damageForcePierce(burningGround.damage, caster)
+                    erEntity.submitEvent(EREntityBurnEvent(caster, burningGround.duration))
                 }
             }
         }

@@ -2,6 +2,7 @@ package org.eternalreturn.eranimal.animals.behavs
 
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeInstance
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Husk
@@ -97,7 +98,6 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
                 return;
             }
 
-            erAnimal.setDead(true);
             ajEntity.stopAnim();
             stopMonobehav();
             return;
@@ -160,7 +160,7 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
 
         if(ajEntity.isPlaying("attack")){
             if(ajEntity.getCurrentTicks() == erEntity.attackTicks[0] || ajEntity.getCurrentTicks() == erEntity.attackTicks[1]){
-                target.damage(erEntity.damage, erEntity);
+                target.damage(erEntity.damage, erEntity, DamageType.MOB_ATTACK);
 
             }
 

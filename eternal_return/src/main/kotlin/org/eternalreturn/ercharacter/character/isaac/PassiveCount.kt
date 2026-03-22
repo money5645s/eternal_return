@@ -5,6 +5,7 @@ import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Sound
 import org.bukkit.entity.LivingEntity
 import org.bukkit.attribute.Attribute
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
@@ -32,7 +33,7 @@ class PassiveCount : EREntityMonobehaviour<PassiveCountEvent>() {
             //playerBukkit.sendMessage("§f[아이작] 착취 발동");
             playerBukkit.playSound(event.player.location, Sound.ITEM_MACE_SMASH_GROUND_HEAVY, 1f, 1.5f)
 
-            victim.damageForce(5.0, event.player);
+            victim.damageForce(5.0, event.player, DamageType.PLAYER_ATTACK);
             val healAmount = 3.0
             val maxHealth = playerBukkit.getAttribute(Attribute.MAX_HEALTH)!!.value
             val finalHealth = kotlin.math.min(playerBukkit.health + healAmount, maxHealth)

@@ -2,6 +2,7 @@ package org.eternalreturn.ercharacter.character.sissela
 
 import net.kyori.adventure.sound.Sound
 import org.bukkit.Particle
+import org.bukkit.damage.DamageType
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
@@ -55,7 +56,7 @@ class DamageToAll : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                     orangeLightBeamParticle.location(world, x, y + dy, z).spawn();
                 }
 
-                victim.damageForce(sissela.activeExtraDamageForEachLevel[sissela.activeLevel], sissela);
+                victim.damageForce(sissela.activeExtraDamageForEachLevel[sissela.activeLevel], sissela, DamageType.PLAYER_ATTACK);
                 bukkitVictim.playSound(sisselaWitchMagicCastSound0, victim.entity)
                 bukkitVictim.playSound(sisselaWitchMagicCastSound1, victim.entity)
             }

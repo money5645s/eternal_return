@@ -6,6 +6,8 @@ import net.kyori.adventure.text.Component
 import org.bukkit.Location
 import org.bukkit.attribute.Attributable
 import org.bukkit.attribute.Attribute
+import org.bukkit.damage.DamageSource
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Husk
 import org.bukkit.entity.LivingEntity
@@ -15,6 +17,7 @@ import org.eternalreturn.eranimal.animals.behavs.EnhanceStatByDay
 import org.eternalreturn.eranimal.animals.behavs.Idle
 import org.eternalreturn.eranimal.animals.events.IdleEvent
 import org.eternalreturn.eranimal.animals.events.StatEnhanceEvent
+import org.eternalreturn.eranimal.manager.ERAnimalManager
 import org.eternalreturn.ercharacter.event.CharacterKillEvent
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.ERHitboxEntity
@@ -54,17 +57,19 @@ abstract class ERAnimal(
     var cooldownSeconds: Long = 0
 
     var level = 1;
-    abstract val maxLevel: Int
+    var maxLevel: Int
 
-    abstract var hp0 : Double;
-    abstract var hp : Double;
-    abstract var hpInc : Double;
+    var hp0 : Double;
+    var hp : Double;
+    var hpMax : Double;
+    var hpInc : Double;
 
-    abstract var damage0 : Double;
-    abstract var damage : Double;
-    abstract var damageInc : Double;
+    var damage0 : Double;
+    var damage : Double;
+    var damageInc : Double;
 
-    abstract val attackTicks : Array<Int>;
+    var attackTicks : IntArray;
+
 
     init {
         registerMonobehaviour(EnhanceStatByDay())
@@ -72,6 +77,21 @@ abstract class ERAnimal(
         registerMonobehaviour(Battle())
         this.submitEvent(IdleEvent())
         this.submitEvent(StatEnhanceEvent())
+
+
+        val stat = ERAnimalManager.Companion.animalMap[aJEntity.name]!!
+        this.maxLevel = stat.maxLevel;
+
+        this.hp0 = stat.hp0;
+        this.hp = stat.hpMax;
+        this.hpMax = stat.hpMax;
+        this.hpInc = stat.hpInc;
+
+        this.damage0 = stat.damage0;
+        this.damage = stat.damage;
+        this.damageInc = stat.damageInc;
+        this.attackTicks = stat.attackTicks;
+        updateHPBar()
     }
 
     /**
@@ -147,17 +167,18 @@ abstract class ERAnimal(
     private fun __damage(amount: Double, attacker: EREntity){
         this.hp -= amount;
         if(this.hp <= 0){
-            if(attacker is ERPlayer){
+            if(attacker is ERPlayer && !this.isDead){
                 attacker.submitEvent(CharacterKillEvent(this))
+                this.isDead = true;
+                dpEngine.appendCommand(AddTagToSpigotEntity(attacker.entity, "kill_" + this.aJEntity.name))
             }
-            dpEngine.appendCommand(AddTagToSpigotEntity(attacker.entity, "kill_" + this.aJEntity.name))
         }
         attacker.entity.playSound(hurtSound.build(), entity);
         updateHPBar();
     }
 
     var invulnerableTime : Long = 0
-    override fun damage(amount: Double, attacker: EREntity) {
+    override fun damage(amount: Double, attacker: EREntity, damageType : DamageType) {
         val currentTime = System.currentTimeMillis();
         if(invulnerableTime < currentTime){
             invulnerableTime = currentTime + (1000 shr 2);
@@ -167,7 +188,7 @@ abstract class ERAnimal(
         }
     }
 
-    override fun damageForce(amount : Double, attacker : EREntity){
+    override fun damageForce(amount : Double, attacker : EREntity, damageType : DamageType){
         this.submitEvent(EREntityDamagedEvent(attacker))
         attacker.submitEvent(EREntityAttackEvent(attacker, this))
         __damage(amount, attacker);
@@ -215,7 +236,6 @@ abstract class ERAnimal(
         }
         aJEntity.setNotBeShown();
     }
-
 
     val isShown: Boolean
         get() = this.aJEntity.isShown

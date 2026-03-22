@@ -19,40 +19,6 @@ public class SystemManager {
     private static List<ERPlayer> erPlayerList;
     private static CustomModelDataManager CustomModelDataManager;
 
-    public static int RED_ZONE = 0;
-    public static int YELLOW_ZONE = 1;
-    public static int GREEN_ZONE = 2;
-
-    public static String AREASTRING_alley = "alley";
-    public static String AREASTRING_gas_station = "gas_station";
-    public static String AREASTRING_archery_range = "archery_range";
-    public static String AREASTRING_temple = "temple";
-    public static String AREASTRING_hotel = "hotel";
-    public static String AREASTRING_school = "school";
-    public static String AREASTRING_fire = "fire";
-    public static String AREASTRING_police = "police";
-    public static String AREASTRING_stream = "stream";
-    public static String AREASTRING_pond = "pond";
-    public static String AREASTRING_forest = "forest";
-    public static String AREASTRING_cemetery = "cemetery";
-    public static String AREASTRING_beach = "beach";
-    public static String AREASTRING_village = "village";
-    public static String AREASTRING_hospital = "hospital";
-    public static String AREASTRING_chapel = "chapel";
-    public static String AREASTRING_factory = "factory";
-    public static String AREASTRING_storage = "storage";
-    public static String AREASTRING_port = "port";
-
-    public static String USE_KIOSK = "use_kiosk";
-    public static String USE_HYPERLOOP = "use_hyperloop";
-
-    public static CustomModelData EPIC_BLOOD_SAMPLE = new CustomModelData("epic",0.0f);
-    public static CustomModelData EPIC_FORCE_CORE   = new CustomModelData("epic",1.0f);
-    public static CustomModelData EPIC_METEORITE    = new CustomModelData("epic",2.0f);
-    public static CustomModelData EPIC_MITHRIL      = new CustomModelData("epic",3.0f);
-    public static CustomModelData EPIC_TREE_OF_LIFE = new CustomModelData("epic",4.0f);
-
-
 
     //free (메모리 할당 해제)
     public void free() {

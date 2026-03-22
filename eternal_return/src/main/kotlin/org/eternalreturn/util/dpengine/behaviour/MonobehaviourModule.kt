@@ -80,7 +80,10 @@ class MonobehaviourModule(val dpEngine: DPEngine) {
         return monobehaviourActorList.curQueue;
     }
 
-    fun submitActorWhoTriggeredEvent(actor : MonobehaviourActor){
+    /**
+     *
+     * */
+    fun submitActorWhoWasSubmitedEvent(actor : MonobehaviourActor){
         eventTriggeredActors[triggeredActorQueueIdx xor 1].add(actor);
     }
 

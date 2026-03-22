@@ -15,8 +15,8 @@ import org.eternalreturn.ercharacter.character.isaac.PassiveCount
 import org.eternalreturn.ercharacter.character.lidailin.LiDailinPassiveTimer
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erentity.events.EREntityDamagedEvent
+import org.eternalreturn.erentity.events.EREntityEvent
 import org.eternalreturn.erentity.globalmonobehav.Burn
-import org.eternalreturn.erentity.globalmonobehav.EREntityMonobehavCreatedEvent
 import org.eternalreturn.erentity.globalmonobehav.Stun
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourActor
@@ -26,6 +26,8 @@ import org.eternalreturn.util.dpengine.physics.Handle
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.properties.Delegates
+
+class EREntityMonobehavCreatedEvent : EREntityEvent
 
 /**
  * 모든 EREntity의 Subclass에게 동시에 통용되는 성질을 저장하는 곳.
@@ -172,22 +174,23 @@ abstract class EREntity(
     /**
      * 피해를 주는 메소드, 무적시간에 영향 받음.
      * */
-    val source = DamageSource.builder(DamageType.PLAYER_ATTACK).withDirectEntity(this.entity);
-    open fun damage(amount : Double, attacker : EREntity){
+    open fun damage(amount : Double, attacker : EREntity, damageType : DamageType){
         if(entity is LivingEntity){
+            val source = DamageSource.builder(damageType).withDirectEntity(this.entity)
             this.submitEvent(EREntityDamagedEvent(attacker))
             attacker.submitEvent(EREntityAttackEvent(attacker, this))
             source.withCausingEntity(attacker.entity)
-            entity.damage(amount, source.build()); //이것도 특수한 SoA 함수로 뺄 것
+            entity.damage(amount, ); //이것도 특수한 SoA 함수로 뺄 것
         }
     }
 
     /**
      * 무적시간에 관계 없이 강제적으로 피해를 주는 메소드
      * */
-    open fun damageForce(amount : Double, attacker : EREntity){
+    open fun damageForce(amount : Double, attacker : EREntity, damageType : DamageType){
         if(entity is LivingEntity){
             entity.noDamageTicks = 0;
+            val source = DamageSource.builder(damageType).withDirectEntity(this.entity)
             this.submitEvent(EREntityDamagedEvent(attacker))
             attacker.submitEvent(EREntityAttackEvent(attacker, this))
             source.withCausingEntity(attacker.entity)
@@ -203,7 +206,6 @@ abstract class EREntity(
             entity.noDamageTicks = 0;
             this.submitEvent(EREntityDamagedEvent(attacker))
             attacker.submitEvent(EREntityAttackEvent(attacker, this))
-            source.withCausingEntity(attacker.entity)
             entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
         }
     }
@@ -224,7 +226,7 @@ abstract class EREntity(
     open fun damageNotSendEventPierce(amount : Double, attacker : EREntity){
         if(entity is LivingEntity){
             entity.noDamageTicks = 0;
-            entity.damage(amount, attacker.entity); //이것도 특수한 SoA 함수로 뺄 것
+            entity.damage(amount, entity); //이것도 특수한 SoA 함수로 뺄 것
         }
     }
 

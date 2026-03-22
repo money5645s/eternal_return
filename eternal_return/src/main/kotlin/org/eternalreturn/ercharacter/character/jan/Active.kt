@@ -4,6 +4,7 @@ import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.Sound
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.LivingEntity
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
@@ -79,7 +80,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                 jan.sendMessage("현재 스택 ${jan.Stack}/5")
 
                 // 4. 공격 적용
-                victim.damageForce(0.0, jan);
+                victim.damageForce(0.0, jan, DamageType.PLAYER_ATTACK);
                 val bukkitEntity = when(victim){
                     is ERPlayer -> victim.player
                     is ERAnimal -> victim.aJEntity.actor

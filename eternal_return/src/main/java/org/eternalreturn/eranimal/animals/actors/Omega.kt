@@ -17,21 +17,6 @@ class Omega(engine: EREngine, erAjEntity: ERAJEntity) :
         this.aJEntity.registerAnimation("death",    2.0)
     }
 
-    override val maxLevel: Int = 2;
-
-    override var hp0: Double = 200.0;
-    override var hp: Double = 200.0;
-    override var hpInc: Double = 0.0;
-
-    override var damage0 : Double = 11.0;
-    override var damage : Double = 11.0;
-    override var damageInc: Double = 0.0;
-    override val attackTicks = arrayOf(12, 34);
-
-    init{
-        updateHPBar()
-    }
-
 }
 
 /**

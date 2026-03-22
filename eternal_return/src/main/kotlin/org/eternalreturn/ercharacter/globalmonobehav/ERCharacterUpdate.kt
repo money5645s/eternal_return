@@ -9,12 +9,11 @@ class ERCharacterUpdate : ERCharacterMonobehaviour<CharacterRunTimerEvent>() {
 
     val activeLevelObj = Bukkit.getScoreboardManager().mainScoreboard.getObjective("active_level")!!;
     val passiveLevelObj = Bukkit.getScoreboardManager().mainScoreboard.getObjective("passive_level")!!;
-    val activeCooldownObj = Bukkit.getScoreboardManager().mainScoreboard.getObjective("ACD")!!;
-    val passiveCooldownObj = Bukkit.getScoreboardManager().mainScoreboard.getObjective("PCD")!!;
 
     override fun start(event: CharacterRunTimerEvent) {}
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
+
         val player = erPlayer
         val bukkitPlayer = player.player;
 
@@ -28,15 +27,6 @@ class ERCharacterUpdate : ERCharacterMonobehaviour<CharacterRunTimerEvent>() {
         val newPassiveLevel = passiveLevelObj.getScoreFor(bukkitPlayer).score;
         if(player.passiveLevel != newPassiveLevel){
             player.passiveLevel = newPassiveLevel
-        }
-
-        if(player.activeCooldown > 0) {
-            player.activeCooldown--
-            activeCooldownObj.getScoreFor(bukkitPlayer).score = (player.activeCooldown / 20).toInt();
-        }
-        if(player.passiveCooldown > 0) {
-            player.passiveCooldown--
-            passiveCooldownObj.getScoreFor(bukkitPlayer).score = (player.passiveCooldown / 20).toInt();
         }
 
     }

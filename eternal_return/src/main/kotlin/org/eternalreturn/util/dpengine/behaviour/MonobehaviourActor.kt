@@ -59,20 +59,22 @@ abstract class MonobehaviourActor(
     /**
      * (MonobehaviourEvent, Monobehaviour)의 키 쌍
      */
-    open var monobehaviourMap: HashMap<Class<out MonobehaviourEvent>, Monobehaviour<out MonobehaviourEvent>> =
+    val monobehaviourMap: HashMap<Class<out MonobehaviourEvent>, Monobehaviour<out MonobehaviourEvent>> =
         HashMap<Class<out MonobehaviourEvent>, Monobehaviour<out MonobehaviourEvent>>()
 
-    /**
-     * 제출된 엔티티를 담는 큐 ( LinkedList )
-     */
-    open var submittedEvent: Array<ArrayDeque<MonobehaviourEvent>> = Array<ArrayDeque<MonobehaviourEvent>>(2){ArrayDeque<MonobehaviourEvent>()};
-    var curEventIdx = 0;
+
 
     /**
      * update(MonobehaviourEvent)를 호출할 Monobehaviour들을 스케줄링하기 위해 유지하는 링크드 리스트
      */
-    open var runningBehaviours: LinkedList<Monobehaviour<out MonobehaviourEvent>> = LinkedList<Monobehaviour<out MonobehaviourEvent>>()
+    val runningBehaviours: LinkedList<Monobehaviour<out MonobehaviourEvent>> = LinkedList<Monobehaviour<out MonobehaviourEvent>>()
 
+
+    /**
+     * 제출된 이벤트를 담는 큐 ( Array<ArrayDeque<MonobehaviourEvent>>> )
+     */
+    val submittedEvent: Array<ArrayDeque<MonobehaviourEvent>> = Array<ArrayDeque<MonobehaviourEvent>>(2){ArrayDeque<MonobehaviourEvent>()};
+    var curEventIdx = 0;
 
     /**
      * 외부에서 해당 객체에게 이벤트를 제출하기 위한 창구
@@ -81,26 +83,42 @@ abstract class MonobehaviourActor(
         if(isAlive()){
             //println("Event 제출됨 : ${event.javaClass.simpleName} \t-> ${this.javaClass.simpleName}");
             submittedEvent[curEventIdx xor 1].addLast(event)
-            monobehaviourModule.submitActorWhoTriggeredEvent(this)
+            monobehaviourModule.submitActorWhoWasSubmitedEvent(this)
+        }
+    }
+
+
+    private val eventLessArg = EventLess();
+    private val submittedMonobehav = Array(2){HashSet<Monobehaviour<EventLess>>()};
+    private var curMonobehavIdx = 0;
+    /**
+     * 실행될 임시 Monobehaviour<EventLess>을 제출한다.
+     */
+    fun sumbitMonobehav(monobehaviour: Monobehaviour<EventLess>){
+        val nextSet = submittedMonobehav[curMonobehavIdx xor 1]
+        //runningBehaviours.contains(monobehaviour) -> 이거 선형탐색임!
+        if(isAlive() && !runningBehaviours.contains(monobehaviour) && !nextSet.contains(monobehaviour)){
+            //println("Monobehav 제출됨 : ${monobehaviour.javaClass.simpleName} \t-> ${this.javaClass.simpleName}");
+            nextSet.add(monobehaviour);
+            monobehaviour.setMonobehaviourActor(this);
+            monobehaviourModule.submitActorWhoWasSubmitedEvent(this)
         }
     }
 
     /**
-     * 제출된 이벤트 디큐에서 하나씩 빼면서 dispatch,
-     * 해당 이벤트는 다시 checkedEvent 내에 삽입됨.
-     * 실행중인 Monobehaviour이면 무시됨.
+     * update에 매개변수로써 제출하기 위한 이벤트 맵
      */
     protected var checkedEvent: HashMap<Class<out MonobehaviourEvent>, MonobehaviourEvent> = HashMap<Class<out MonobehaviourEvent>, MonobehaviourEvent>()
 
     fun dispatchEvents() {
 
+        //바라보고 있는 큐를 교체한다.
         curEventIdx = curEventIdx xor 1;
         val currentEventQueue = submittedEvent[curEventIdx];
 
         while (currentEventQueue.isNotEmpty()) {
             val event = currentEventQueue.removeFirst()
             val monobehav = monobehaviourMap[event.javaClass]
-            //System.out.println(event.getClass());
             if (monobehav != null && (monobehav.state == Monobehaviour.State.STOP)){
                 runningBehaviours.add(monobehav)
                 monobehav.dispatchEvent(event)
@@ -108,9 +126,22 @@ abstract class MonobehaviourActor(
             }
             checkedEvent.putIfAbsent(event.javaClass, event)
         }
-
-        //다음 큐로 이동
         currentEventQueue.clear();
+
+        //바라보고 있는 큐를 교체한다.
+        curMonobehavIdx = curMonobehavIdx xor 1;
+        val currentSubmittedMonobehav = submittedMonobehav[curMonobehavIdx];
+
+        //해당 큐 내에 있는 Monobehav를 순차적으로 스케줄링한다.
+        for(monobehav in currentSubmittedMonobehav){
+            if (monobehav.state == Monobehaviour.State.STOP){
+                //println("${monobehav.javaClass.simpleName} 가 스케줄링 되었습니다.")
+                runningBehaviours.add(monobehav)
+                monobehav.dispatchEvent(eventLessArg);
+            }
+        }
+        currentSubmittedMonobehav.clear();
+
     }
 
     /**

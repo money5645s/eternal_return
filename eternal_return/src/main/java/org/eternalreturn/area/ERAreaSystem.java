@@ -62,7 +62,7 @@ public class ERAreaSystem extends Graph<AreaNode>{
 
         managerWhichHasSummonedAlpha = manager;
 
-        System.out.println("[ERAreaSystem] " + vertex.getName() + "에서 알파가 소환됨. -> manager info : " + manager.getAreaName());
+        System.out.println("[ERAreaSystem] " + vertex.getName() + "에서 알파가 소환됨. -> manager info : " + manager.areaName);
     }
 
     public void allowToSummonOmegaOnDay3(){
@@ -77,7 +77,7 @@ public class ERAreaSystem extends Graph<AreaNode>{
 
         var manager = randNode.getManager();
         manager.allowToSummonOmega(true);
-        System.out.println("[ERAreaSystem] " + randNode.getName() + "에서 오메가가 소환됨. -> manager info : " + manager.getAreaName());
+        System.out.println("[ERAreaSystem] " + randNode.getName() + "에서 오메가가 소환됨. -> manager info : " + manager.areaName);
     }
 
     public void sendAreaStateToScoreboard(){

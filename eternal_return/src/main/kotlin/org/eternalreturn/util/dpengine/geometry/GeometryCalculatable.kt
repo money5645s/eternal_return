@@ -2,6 +2,8 @@ package org.eternalreturn.util.geometryModule.Geometry
 
 import org.eternalreturn.util.dpengine.geometry.GeometryModule
 import org.eternalreturn.util.dpengine.geometry.Vector3
+import kotlin.math.cos
+import kotlin.math.sin
 import kotlin.math.sqrt
 
 
@@ -75,6 +77,12 @@ open class GeometryCalculatable{
         val out = geometryModule.vec3()
         geometryModule.scalarProd(out, -1.0, this)
         return out
+    }
+
+    fun Vector3.rotXZ(roatation : Double) : Vector3{
+        val rx = this.x() * cos(Math.toRadians(roatation)) - this.z() * sin(Math.toRadians(roatation))
+        val rz = this.x() * sin(Math.toRadians(roatation)) + this.z() * cos(Math.toRadians(roatation))
+        return vec3(rx, 0.0, rz);
     }
 
     fun Vector3.x(value : Double){

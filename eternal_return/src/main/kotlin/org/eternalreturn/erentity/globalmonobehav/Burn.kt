@@ -11,7 +11,7 @@ import kotlin.properties.Delegates
 
 class Burn : EREntityMonobehaviour<EREntityBurnEvent>() {
 
-    var ticksLeft : Int = 0;
+    var ticksLeft : Long = 0;
     var attacker : EREntity by Delegates.notNull()
 
     var flameParticle : com.destroystokyo.paper.ParticleBuilder by Delegates.notNull();
@@ -48,7 +48,7 @@ class Burn : EREntityMonobehaviour<EREntityBurnEvent>() {
         if(ticksLeft > 0){ ticksLeft--;
             val victim = erEntity;
 
-            if(ticksLeft % 5 == 0){
+            if(ticksLeft % 5 == 0.toLong()){
                 val bukkitEntity = victim.entity;
                 val loc = bukkitEntity.location;
 
@@ -56,7 +56,7 @@ class Burn : EREntityMonobehaviour<EREntityBurnEvent>() {
                 smokeParticle.location(loc).spawn();
             }
 
-            if(ticksLeft % 20 == 0){
+            if(ticksLeft % 20 == 0.toLong()){
                 victim.damageNotSendEventPierce(1.0, attacker);
             }
             return;

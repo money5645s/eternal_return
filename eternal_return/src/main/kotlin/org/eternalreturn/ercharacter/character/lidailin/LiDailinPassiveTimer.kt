@@ -2,6 +2,7 @@ package org.eternalreturn.ercharacter.character.lidailin
 
 import org.bukkit.Particle
 import org.bukkit.Sound
+import org.bukkit.damage.DamageType
 import org.eternalreturn.ercharacter.character.lidailin.event.LiDailinPassiveTimerEvent
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
@@ -29,7 +30,7 @@ class LiDailinPassiveTimer : EREntityMonobehaviour<LiDailinPassiveTimerEvent>(){
 
         tick++
         if(tick == 10){
-            victim.damageForce(5.0, attacker)
+            victim.damageForce(5.0, attacker, DamageType.PLAYER_ATTACK)
             world.spawnParticle(Particle.DAMAGE_INDICATOR, loc.clone().add(0.0, 1.0, 0.0), 1, 0.5, 0.5, 0.5, 0.3)
             player.playSound(player.location, Sound.ENTITY_PLAYER_ATTACK_CRIT, 1f, 1f)
             stopMonobehav()

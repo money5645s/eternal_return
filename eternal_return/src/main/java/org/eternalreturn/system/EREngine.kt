@@ -191,13 +191,6 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
     var summonOmega = false;
     override fun update(){
 
-        val physicsFuture = CompletableFuture.runAsync { updatePhysicsModule(); }
-        monobehaviourModule.consumeEvents();
-        monobehaviourModule.updateMonobehaviours();
-        physicsFuture.join();
-
-        //orientedBoxSoA.debugOrientedBox()
-
         if(dayScoreboard == null){
             dayScoreboard = Bukkit.getScoreboardManager().mainScoreboard.getObjective("time");
         }
@@ -218,6 +211,11 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
             summonOmega = true;
             areaSystem.allowToSummonOmegaOnDay3()
         }
+
+        val physicsFuture = CompletableFuture.runAsync { updatePhysicsModule(); }
+        monobehaviourModule.consumeEvents();
+        monobehaviourModule.updateMonobehaviours();
+        physicsFuture.join();
 
         applyVelocities();
         flushCommandQueue();

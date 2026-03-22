@@ -1,5 +1,6 @@
 package org.eternalreturn.erentity.globalmonobehav
 
+import org.bukkit.damage.DamageType
 import org.bukkit.entity.Player
 import org.eternalreturn.erentity.EREntity
 import org.eternalreturn.erentity.EREntityMonobehaviour
@@ -56,7 +57,7 @@ class EntityRayCastingMeleeAttack : EREntityMonobehaviour<EREntityRayCastEvent>(
         //println("damage : ${attackDamage * strength * strength} with strength : $strength")
 
 
-        closestTarget.damage(kotlin.math.max(attackDamage * strength * strength, 1.0), event.shooter);
+        closestTarget.damage(kotlin.math.max(attackDamage * strength * strength, 1.0), event.shooter, DamageType.ARROW);
     }
 
 

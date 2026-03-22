@@ -12,29 +12,35 @@ import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 
+
+
+
 class Character_Adriana(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
 
-    override val activeCoolForEachLevel: LongArray = longArrayOf(30 * 20, 28 * 20, 26 * 20, 24 * 20, 20 * 20)
-    override val passiveCoolForEachLevel: LongArray = longArrayOf(5 * 20, 4 * 20, 3 * 20, 2 * 20, 100)
+    override val activeCoolForEachLevel: LongArray = longArrayOf(30 * 20, 28 * 20, 26 * 20, 24 * 20, 20 * 20) //get from json
+    override val passiveCoolForEachLevel: LongArray = longArrayOf(5 * 20, 4 * 20, 3 * 20, 2 * 20, 100) //get from json
 
-    val fireFootPrintDamage : DoubleArray = doubleArrayOf(1.0, 2.0, 2.0, 3.0, 3.0);
-    val fireDuration: LongArray = longArrayOf(4 * 20, 5 * 20, 6 * 20, 7 * 20, 8 * 20)
+    val fireFootprintDamageList : DoubleArray = doubleArrayOf(1.0, 2.0, 2.0, 3.0, 3.0);
+    val fireFootprintDamage : Double get() = fireFootprintDamageList[this.activeLevel - 1];
+    val fireDurationList : LongArray = longArrayOf(4 * 20, 5 * 20, 6 * 20, 7 * 20, 8 * 20)
+    val fireDuration : Long get() = fireDurationList[this.passiveLevel - 1];
 
     val activeCooldownCtx = CooldownContext(activeCoolForEachLevel, this::activeLevel);
-    val passiveCooldownContext = CooldownContext(passiveCoolForEachLevel, this::passiveLevel);
+    val passiveCooldownCtx = CooldownContext(passiveCoolForEachLevel, this::passiveLevel);
 
     init {
         this.ActiveCooldownSeconds = 5
         this.PassiveCooldownSeconds = 5
         this.registerMonobehaviour(Active(activeCooldownCtx))
-        this.registerMonobehaviour(Passive(passiveCooldownContext))
+        this.registerMonobehaviour(Passive(passiveCooldownCtx))
     }
 
     override val name: String
         get() = "adriana"
 }
 
-class Active(activeCooldownCtx : CooldownContext) : ERCharacterSkillMonobehaviour<CharacterSwapHandEvent, Character_Adriana>(activeCooldownCtx, durationTicks = 5) {
+class Active(activeCooldownCtx : CooldownContext) :
+    ERCharacterSkillMonobehaviour<CharacterSwapHandEvent, Character_Adriana>(activeCooldownCtx, durationTicks = 5, "ACD") {
     override fun skillStart(event: CharacterSwapHandEvent) {
         var dir = player.getDirection();
 
@@ -48,11 +54,9 @@ class Active(activeCooldownCtx : CooldownContext) : ERCharacterSkillMonobehaviou
     override fun skillUpdate(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         val pos = player.getPosition();
 
-        val burningGroundEntity = BurningGroundVirtualEntity(
-            dpEngine,
-            player,
+        val burningGroundEntity = BurningGroundVirtualEntity(dpEngine, player,
             Location(player.player.world, pos.x(), pos.y(), pos.z()),
-            System.currentTimeMillis())
+            System.currentTimeMillis(), player.fireFootprintDamage, player.fireDuration)
 
         dpEngine.monobehaviourModule.register(burningGroundEntity);
         burningGroundEntity.submitEvent(LetsBurnEvent()); //태우기 실행
@@ -60,7 +64,8 @@ class Active(activeCooldownCtx : CooldownContext) : ERCharacterSkillMonobehaviou
 
 }
 
-class Passive(activeCooldownCtx : CooldownContext) : ERCharacterSkillMonobehaviour<EREntityAttackEvent, Character_Adriana>(activeCooldownCtx, durationTicks = 0) {
+class Passive(passiveCooldownCtx : CooldownContext) :
+    ERCharacterSkillMonobehaviour<EREntityAttackEvent, Character_Adriana>(passiveCooldownCtx, durationTicks = 0, "PCD") {
     override fun skillStart(event: EREntityAttackEvent) {
         event.victim.submitEvent(EREntityBurnEvent(player, 100))
     }

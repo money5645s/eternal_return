@@ -1,13 +1,11 @@
 package org.eternalreturn.ercharacter.character.hart
 
-import org.eternalreturn.ercharacter.character.hart.event.PassiveTimerEvent
-import org.eternalreturn.erentity.EREntityMonobehaviour
-import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import org.bukkit.Particle
 import org.bukkit.Sound
-import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.util.dpengine.behaviour.MonobehaviourEvent
 import kotlin.properties.Delegates
 
 /**

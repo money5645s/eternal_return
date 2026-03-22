@@ -7,6 +7,10 @@ import java.lang.reflect.ParameterizedType
 
 /**
  * 대부분의 수정 사항은 MonobehaviourActor.registerMonobehaviour()에서 이루어짐.
+ *
+ * 주의 : update 상태인 Monobehaviour은 구독 중인 Event를 전달받아도 강제로 start 상태로 넘어가지 않으며, update()가 stopMonobehav()로 인해 명시적으로 종료되었을 경우에만
+ * 다시 start 상태로 넘어갈 수 있음. 이는 의도한 것임.
+ *
  */
 abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : GeometryCalculatable() {
     open lateinit var eventType: Class<T>
@@ -56,6 +60,9 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
         }
     }
 
+    /**
+     * 해당 Monobehaviour가 구독중인 Event가 update 중에 들어온 경우에 true로 설정됨.
+     * */
     var gotSubscribedEvent = false;
     fun updateMonobehav(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
         this.state = State.RUNNING;
@@ -74,7 +81,7 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
      * 스케줄러에서 제거된 Monobehaviour은 update() 대상에서 제외됩니다. <br></br>
      * 다시 update()를 재개시키려면 해당 Monobehaviour에 맞는 MonobehaviourEvent를 해당 객체에 submit()해야 합니다.
      */
-    fun stopMonobehav() {
+    open fun stopMonobehav() {
         this.state = State.STOP
     }
 
@@ -91,6 +98,17 @@ abstract class Monobehaviour<T : MonobehaviourEvent> protected constructor() : G
         this.actor = actor
         this.dpEngine = actor.monobehaviourModule.dpEngine
         geometryCalculatableInit(dpEngine.geometryModule)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if(other is Monobehaviour<T>){
+            return other.javaClass == this.javaClass
+        }
+        return false;
+    }
+
+    override fun hashCode(): Int {
+        return this.javaClass.hashCode()
     }
 
 }

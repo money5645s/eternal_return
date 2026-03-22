@@ -17,20 +17,6 @@ class Bear(engine: EREngine, erAjEntity: ERAJEntity) :
         this.aJEntity.registerAnimation("death",    2.0)
     }
 
-    override val maxLevel: Int = 5;
-
-    override var hp0: Double = 42.0;
-    override var hp: Double = 42.0;
-    override var hpInc: Double = 10.0
-
-    override var damage0 : Double = 5.0;
-    override var damage : Double = 5.0;
-    override var damageInc: Double = 2.0
-    override val attackTicks = arrayOf(8, 8);
-
-    init{
-        updateHPBar()
-    }
 }
 
 /**

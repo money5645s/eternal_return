@@ -1,6 +1,7 @@
 package org.eternalreturn.ercharacter.character.yuki
 
 import org.bukkit.Sound
+import org.bukkit.damage.DamageType
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
@@ -36,14 +37,14 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
             yuki.buttonCount--
 
             punchTimeMillis = System.currentTimeMillis() + 500
-            victim.damageForce(yuki.passiveExtraDamageForEachLevel[yuki.passiveLevel], yuki)
+            victim.damageForce(yuki.passiveExtraDamageForEachLevel[yuki.passiveLevel], yuki, DamageType.PLAYER_ATTACK)
 
             player.sendMessage("§f[유키] §b완벽한 옷매무새: §f남은 단추 (${yuki.buttonCount}/4)")
             player.playSound(player.location, Sound.ENTITY_ITEM_BREAK, 1f, 1.8f)
 
             if (yuki.isActiveSkill) {
                 player.sendMessage("§f[유키] 머리!")
-                victim.damageForce(yuki.activeExtraDamageForEachLevel[yuki.activeLevel], yuki)
+                victim.damageForce(yuki.activeExtraDamageForEachLevel[yuki.activeLevel], yuki, DamageType.PLAYER_ATTACK)
                 event.victim.submitEvent(EREntityStunEvent(1 * 20))
                 erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
                 yuki.isActiveSkill = false

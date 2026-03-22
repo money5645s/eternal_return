@@ -1,7 +1,6 @@
 package org.eternalreturn.eranimal.manager.behavs
 
 import net.kyori.adventure.text.Component
-import org.bukkit.entity.TextDisplay
 import org.eternalreturn.eranimal.ERAJEntity
 import org.eternalreturn.eranimal.ERAnimal
 import org.eternalreturn.eranimal.animals.actors.*
@@ -129,49 +128,38 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
         val i = animalID
         val animal = manager.entities[i];
         val textDisplay = manager.textDisplayList[i]
-        if(summoningCondition[i] == Condition.NOTHING){
-            ticksForSummoning = when(animal.name){
-                "animal_boar" -> 20 * 30;
-                "animal_wolf" -> 20 * 60;
-                "animal_bear" -> 20 * 90;
-                "animal_alpha" -> 20 * 3;
-                "animal_omega" -> 20 * 3;
-                else -> Integer.MAX_VALUE
-            }
-        }
-
-        if(summoningCondition[i] == Condition.GET_KILLED){
-            ticksForSummoning = when(animal.name){
-                "animal_boar" -> 20 * 65;
-                "animal_wolf" -> 20 * 55;
-                "animal_bear" -> 20 * 100;
-                "animal_alpha" -> 20 * 3;
-                "animal_omega" -> 20 * 3;
-                else -> Integer.MAX_VALUE
-            }
-        }
 
 //        if(summoningCondition[i] == Condition.NOTHING){
 //            ticksForSummoning = when(animal.name){
-//                "animal_boar" -> 20 * 3;
-//                "animal_wolf" -> 20 * 3;
-//                "animal_bear" -> 20 * 3;
 //                "animal_alpha" -> 20 * 3;
+//                "animal_bear" -> 20 * 90;
+//                "animal_boar" -> 20 * 30;
 //                "animal_omega" -> 20 * 3;
+//                "animal_wolf" -> 20 * 60;
 //                else -> Integer.MAX_VALUE
 //            }
 //        }
 //
 //        if(summoningCondition[i] == Condition.GET_KILLED){
 //            ticksForSummoning = when(animal.name){
-//                "animal_boar" -> 20 * 1;
-//                "animal_wolf" -> 20 * 1;
-//                "animal_bear" -> 20 * 1;
 //                "animal_alpha" -> 20 * 3;
+//                "animal_bear" -> 20 * 100;
+//                "animal_boar" -> 20 * 65;
 //                "animal_omega" -> 20 * 3;
+//                "animal_wolf" -> 20 * 55;
 //                else -> Integer.MAX_VALUE
 //            }
 //        }
+
+
+
+        if(summoningCondition[i] == Condition.NOTHING){
+            ticksForSummoning = ERAnimalManager.Companion.animalMap[animal.name]!!.summonCooldownSeconds[0] * 20
+        }
+
+        if(summoningCondition[i] == Condition.GET_KILLED){
+            ticksForSummoning = ERAnimalManager.Companion.animalMap[animal.name]!!.summonCooldownSeconds[1] * 20
+        }
 
         animalShownState[i] = ShowState.SHOW_PROCESSING
         animalSummoningTicks[i] = ticksForSummoning * 50 + (System.currentTimeMillis());

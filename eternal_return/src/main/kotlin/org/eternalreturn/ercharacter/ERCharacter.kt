@@ -23,14 +23,10 @@ abstract class ERCharacter(
 
     val cooldown = SkillCooldown();
 
-
     var activeLevel : Int = -1;
     var activeCooldown: Long = -1;
     abstract val activeCoolForEachLevel : LongArray;
     val currentActiveCoolTime : Long get() = activeCoolForEachLevel[activeLevel]
-    fun resetCooldown(){
-        activeCooldown = currentActiveCoolTime;
-    }
 
     var passiveCooldown: Long = -1
     var passiveLevel : Int = -1;

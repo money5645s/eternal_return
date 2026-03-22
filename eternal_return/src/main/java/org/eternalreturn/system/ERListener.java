@@ -77,17 +77,17 @@ public class ERListener implements Listener {
             return;
         }
 
-        var death = victim.getScoreboard().getObjective("death");
-        if(death != null){
-            var score = death.getScoreFor(victim);
-            score.setScore(score.getScore() + 1);
-        }
-
-        var deathCount = victim.getScoreboard().getObjective("death_count");
-        if(deathCount != null){
-            var score = deathCount.getScoreFor(victim);
-            score.setScore(score.getScore() + 1);
-        }
+//        var death = victim.getScoreboard().getObjective("death");
+//        if(death != null){
+//            var score = death.getScoreFor(victim);
+//            score.setScore(score.getScore() + 1);
+//        }
+//
+//        var deathCount = victim.getScoreboard().getObjective("death_count");
+//        if(deathCount != null){
+//            var score = deathCount.getScoreFor(victim);
+//            score.setScore(score.getScore() + 1);
+//        }
 
         var killer = e.getDamageSource().getCausingEntity();
         if(killer instanceof Player pKiller){

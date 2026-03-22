@@ -1,0 +1,57 @@
+{
+  "animal_alpha": {
+    "maxLevel": 2,
+    "hp0": 125.0,
+    "hp": 125.0,
+    "hpInc": 0.0,
+    "damage0": 8.0,
+    "damage": 8.0,
+    "damageInc": 0.0,
+    "attackTicks": [12, 34],
+    "summonCooldownSeconds" : [3, 3]
+  },
+  "animal_bear": {
+    "maxLevel": 5,
+    "hp0": 42.0,
+    "hp": 42.0,
+    "hpInc": 10.0,
+    "damage0": 5.0,
+    "damage": 5.0,
+    "damageInc": 2.0,
+    "attackTicks": [8, 8],
+    "summonCooldownSeconds" : [90, 100]
+  },
+  "animal_boar": {
+    "maxLevel": 5,
+    "hp0": 26.0,
+    "hp": 26.0,
+    "hpInc": 8.0,
+    "damage0": 4.0,
+    "damage": 4.0,
+    "damageInc": 1.0,
+    "attackTicks": [7, 7],
+    "summonCooldownSeconds" : [30, 65]
+  },
+  "animal_omega": {
+    "maxLevel": 2,
+    "hp0": 200.0,
+    "hp": 200.0,
+    "hpInc": 0.0,
+    "damage0": 11.0,
+    "damage": 11.0,
+    "damageInc": 0.0,
+    "attackTicks": [12, 34],
+    "summonCooldownSeconds" : [3, 3]
+  },
+  "animal_wolf": {
+    "maxLevel": 5,
+    "hp0": 15.0,
+    "hp": 15.0,
+    "hpInc": 5.0,
+    "damage0": 6.0,
+    "damage": 6.0,
+    "damageInc": 1.0,
+    "attackTicks": [8, 8],
+    "summonCooldownSeconds" : [60, 55]
+  }
+}
