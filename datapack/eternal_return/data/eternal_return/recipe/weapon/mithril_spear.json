@@ -3,14 +3,14 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_spear"
+      "minecraft:diamond_spear"
     ],
     [
       "minecraft:clay_ball"
     ]
   ],
   "result": {
-    "id": "minecraft:iron_spear",
+    "id": "minecraft:diamond_spear",
     "components": {
       "minecraft:lore": [
         {
