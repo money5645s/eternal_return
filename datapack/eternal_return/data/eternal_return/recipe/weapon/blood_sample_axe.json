@@ -3,7 +3,7 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_axe"
+      "minecraft:diamond_axe"
     ],
     [
       "minecraft:turtle_scute"
@@ -66,7 +66,7 @@
       ],
       "minecraft:custom_model_data": {
         "floats": [
-          4
+          5
         ],
         "strings": [
           "axe"

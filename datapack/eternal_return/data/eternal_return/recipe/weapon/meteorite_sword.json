@@ -3,7 +3,7 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:diamond_sword"
     ],
     [
       "minecraft:slime_ball"
@@ -81,7 +81,7 @@
       ],
       "minecraft:custom_model_data": {
         "floats": [
-          2
+          3
         ],
         "strings": [
           "sword"

@@ -3,7 +3,7 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_axe"
+      "minecraft:diamond_axe"
     ],
     [
       "minecraft:prismarine_shard"
@@ -73,7 +73,7 @@
       ],
       "minecraft:custom_model_data": {
         "floats": [
-          1
+          2
         ],
         "strings": [
           "axe"

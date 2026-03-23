@@ -3,7 +3,7 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:diamond_sword"
     ],
     [
       "minecraft:prismarine_shard"
@@ -74,7 +74,7 @@
       ],
       "minecraft:custom_model_data": {
         "floats": [
-          1
+          2
         ],
         "strings": [
           "sword"

@@ -3,7 +3,7 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:diamond_sword"
     ],
     [
       "minecraft:turtle_scute"
@@ -59,7 +59,7 @@
       ],
       "minecraft:custom_model_data": {
         "floats": [
-          4
+          5
         ],
         "strings": [
           "sword"

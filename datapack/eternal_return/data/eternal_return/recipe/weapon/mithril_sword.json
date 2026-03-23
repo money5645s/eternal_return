@@ -3,7 +3,7 @@
   "category": "equipment",
   "ingredients": [
     [
-      "minecraft:wooden_sword"
+      "minecraft:diamond_sword"
     ],
     [
       "minecraft:clay_ball"
@@ -66,7 +66,7 @@
       ],
       "minecraft:custom_model_data": {
         "floats": [
-          3
+          4
         ],
         "strings": [
           "sword"
