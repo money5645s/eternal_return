@@ -58,7 +58,8 @@ abstract class EREntity(
             entity.location.x, entity.location.y,entity.location.z,
             0.0, 0.0, 0.0 );
         transformHandle.actor = this;
-    }
+        lateinited = true;
+    }var lateinited : Boolean = false;
 
     init {
         //Monobehaviour 등록

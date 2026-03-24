@@ -8,6 +8,8 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.eternalreturn.ercharacter.CooldownContext
 import org.eternalreturn.ercharacter.ERCharacterSkillMonobehaviour
+import org.eternalreturn.ercharacter.datastructure.CoolTableSeconds
+import org.eternalreturn.ercharacter.datastructure.DamageTable
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erplayer.ERPlayer
@@ -16,14 +18,14 @@ import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 
 class Character_Fiora(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
-    override val activeCoolForEachLevel: LongArray = longArrayOf(30 * 20, 27 * 20, 24 * 20, 21 * 20, 8 * 20)
-    override val passiveCoolForEachLevel: LongArray = longArrayOf(0, 0, 0, 0, 0)
+    override val activeCoolForEachLevel = CoolTableSeconds(this::activeLevel, 30, 27, 24, 21, 8)
+    override val passiveCoolForEachLevel = CoolTableSeconds(this::passiveLevel, 0, 0, 0, 0, 0)
 
-    val activeDamageForEachLevel : DoubleArray = doubleArrayOf(3.0, 4.0, 5.0, 6.0, 8.0);
-    val toucheDamageForEachLevel : DoubleArray = doubleArrayOf(5.0, 6.0, 7.0, 8.0, 10.0);
+    val activeDamage = DamageTable(this::activeLevel, 3.0, 4.0, 5.0, 6.0, 8.0);
+    val toucheDamage = DamageTable(this::passiveLevel, 5.0, 6.0, 7.0, 8.0, 10.0);
 
-    val activeCooldownCtx = CooldownContext(activeCoolForEachLevel, this::activeLevel);
-    val passiveCooldownCtx = CooldownContext(passiveCoolForEachLevel, this::passiveLevel);
+    val activeCooldownCtx = CooldownContext(activeCoolForEachLevel);
+    val passiveCooldownCtx = CooldownContext(passiveCoolForEachLevel);
 
     init {
         this.ActiveCooldownSeconds = 3
@@ -58,8 +60,8 @@ class Active(activeContext : CooldownContext) :
             val distSqr = magnitudeSqr(victim.getPosition() - (fiora.getPosition() + fiora.getDirection() * 0.5));
             if(distSqr <= 2.5 * 2.5){
                 fiora.sendMessage("${victim.javaClass.simpleName}")
-                victim.damageForce(fiora.activeDamageForEachLevel[fiora.activeLevel], fiora, DamageType.PLAYER_ATTACK);
-                victim.submitEvent(ERToucheCountEvent(fiora, fiora.toucheDamageForEachLevel[fiora.passiveLevel]))
+                victim.damageForce(fiora.activeDamage.get(), fiora, DamageType.PLAYER_ATTACK);
+                victim.submitEvent(ERToucheCountEvent(fiora, fiora.toucheDamage.get()))
             }
         }
     }
@@ -67,10 +69,9 @@ class Active(activeContext : CooldownContext) :
 
 class Passive(activeContext : CooldownContext) :
     ERCharacterSkillMonobehaviour<EREntityAttackEvent, Character_Fiora>(activeContext, durationTicks = 0, "PCD") {
-    private var punchTimeMillis: Long = 0
 
     override fun skillStart(event: EREntityAttackEvent) {
-        event.victim.submitEvent(ERToucheCountEvent(player, player.toucheDamageForEachLevel[player.passiveLevel]))
+        event.victim.submitEvent(ERToucheCountEvent(player, player.toucheDamage.get()))
     }
 
     override fun skillUpdate(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {}

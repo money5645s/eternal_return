@@ -4,18 +4,15 @@ import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 import org.bukkit.Sound
+import org.eternalreturn.ercharacter.CooldownContext
+import org.eternalreturn.ercharacter.ERCharacterSkillMonobehaviour
 
-class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
+class Active(cooldownContext: CooldownContext) : ERCharacterSkillMonobehaviour<CharacterSwapHandEvent, Character_Yuki>(cooldownContext, durationTicks = 5 * 20, "ACD") {
     private var skillActiveTick: Long = 0
     private val durationMillis: Long = 5000
 
-    override fun start(event: CharacterSwapHandEvent) {
-        val yuki = actor as Character_Yuki
-
-        if(erCharacter.activeCooldown > 0 || erCharacter.activeLevel == 0){
-            stopMonobehav();
-            return;
-        }
+    override fun skillStart(event: CharacterSwapHandEvent) {
+        val yuki = player
 
         if (yuki.isActiveSkill) return
 
@@ -23,25 +20,12 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         yuki.isActiveSkill = true
 
         player.sendMessage("§f[유키] §b머리치기 준비!")
-        player.playSound(player.location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
+        player.player.playSound(player.location, Sound.BLOCK_SNOW_BREAK, 1f, 1.5f)
     }
 
-    override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
-        val yuki = actor as Character_Yuki
-
-        if (!yuki.isActiveSkill) {
-            stopMonobehav()
-            return
-        }
-
-        val currentTime = System.currentTimeMillis()
-
-        if (currentTime - skillActiveTick >= durationMillis || !yuki.isActiveSkill) {
-            yuki.isActiveSkill = false
-
-            // 쿨타임 등록
-            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
-            stopMonobehav()
+    override fun skillUpdate(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
+        if(t == 100){
+            player.isActiveSkill = false;
         }
     }
 }

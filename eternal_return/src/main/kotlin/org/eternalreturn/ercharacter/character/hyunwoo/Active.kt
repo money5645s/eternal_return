@@ -71,7 +71,7 @@ class Active(
 
                 if(down < 0 && up > 0){
 
-                    val dmg = player.activeWallslamDamageForEachLevel[player.activeLevel];
+                    val dmg = player.activeWallslamDamage.get();
                     victim.sumbitMonobehav(WallSlamDetector(dmg, player, dx, 0.0, dz, 100L, durationTicks))
 
                 }

@@ -38,10 +38,13 @@ abstract class ERHitboxEntity( // extends MonobehaviourActor()
      * 해당 객체를 소유하고 있는 EREngine의 삭제 리스트에 해당 객체를 삽입한다.
      * */
     override fun remove(){
-        //println("remove() : current referenceCount == $referenceCount")
-        if(referenceCount == 0)return;
+        if(referenceCount == 0) {
+            return;
+        }
         super.remove();
-        erEngine.addRemoveList(this);
+        if(lateinited){
+            erEngine.addRemoveList(this);
+        }
     }
 
     init {

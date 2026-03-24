@@ -31,7 +31,7 @@ class Passive(
 
         if (count >= 5) {
             // 5회 타격 시 체력 3 회복 (2가 하트 1칸이므로 3은 하트 1.5칸)
-            val health = bukkitAttacker.health + hyunwoo.passiveHealingForEachLevel[hyunwoo.passiveLevel];
+            val health = bukkitAttacker.health + hyunwoo.passiveHealing.get();
             // 최대 체력을 넘지 않도록 설정
             val maxHealth = bukkitAttacker.getAttribute(Attribute.MAX_HEALTH)!!.value;
             bukkitAttacker.health = min(health, maxHealth);

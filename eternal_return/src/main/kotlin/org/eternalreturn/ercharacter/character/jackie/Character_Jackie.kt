@@ -5,13 +5,14 @@ import org.eternalreturn.ercharacter.character.jackie.Active
 import org.eternalreturn.ercharacter.character.jackie.Attack
 import org.eternalreturn.ercharacter.character.jackie.Passive
 import org.eternalreturn.ercharacter.ERCharacter
+import org.eternalreturn.ercharacter.datastructure.CoolTableSeconds
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
 
 class Character_Jackie(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     var isBloodSweep: Boolean = false
-    override val activeCoolForEachLevel: LongArray = longArrayOf(40 * 20, 37 * 20, 34 * 20, 31 * 20, 25 * 20)
-    override val passiveCoolForEachLevel: LongArray = longArrayOf(0, 0, 0, 0, 0)
+    override val activeCoolForEachLevel  = CoolTableSeconds(this::activeLevel, 40, 37, 34, 31, 25)
+    override val passiveCoolForEachLevel = CoolTableSeconds(this::activeLevel, 0, 0, 0, 0, 0)
 
     init {
         this.ActiveCooldownSeconds = 8

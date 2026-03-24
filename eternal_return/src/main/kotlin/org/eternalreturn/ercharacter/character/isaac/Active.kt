@@ -44,7 +44,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
         if (currentTime - skillActiveTick > durationMillis || !isaac.isActiveSkill) {
             isaac.isActiveSkill = false
 
-            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel] * 20;
+            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel.get();
 
             player.sendMessage("§7[아이작] 스킬 상태가 종료되었습니다.")
             stopMonobehav()

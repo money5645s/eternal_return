@@ -2,9 +2,6 @@ package org.eternalreturn.system;
 
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Locale;
-import java.util.UUID;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -12,9 +9,6 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.injector.netty.channel.NettyChannelInjector;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
 import org.eternalreturn.eranimal.manager.ERAnimalManager;
 import org.eternalreturn.util.AJEntity.AJEntityListener;
 import org.eternalreturn.util.AJEntity.AJEntityManager;
@@ -72,25 +66,6 @@ public final class PluginInstance extends JavaPlugin{
 
         //로드 종료 시 로그
         dfLogUTF8("이터널 리턴 플러그인 구동 준비 완료!");
-
-        ConfigurationSection section = getConfig().getConfigurationSection("hotkeys");
-        if (section == null) return;
-
-        for (String key : section.getKeys(false)) {
-            ConfigurationSection s = section.getConfigurationSection(key);
-            if (s == null || !s.getBoolean("enabled", true)) continue;
-            String command = s.getString("command", "");
-            String executor = s.getString("executor", "player").toLowerCase();
-        }
-
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, PacketType.Play.Client.ADVANCEMENTS) {
-            @Override
-            public void onPacketReceiving(PacketEvent event) {
-                event.getPlayer().sendMessage("OPEN!");
-                event.setCancelled(true);
-                Bukkit.getScheduler().runTaskLater(PluginInstance.getServerInstance(), () -> {}, 1L);
-            }
-        });
 
     }
 

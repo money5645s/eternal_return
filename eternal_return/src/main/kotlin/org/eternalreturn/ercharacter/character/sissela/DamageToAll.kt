@@ -28,7 +28,7 @@ class DamageToAll : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             stopMonobehav();
             return;
         }
-        erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
+        erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel.get();
 
         val orangeLightBeamParticle = Particle.DUST.builder()
             .location(sissela.location)
@@ -55,7 +55,7 @@ class DamageToAll : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                     orangeLightBeamParticle.location(world, x, y + dy, z).spawn();
                 }
 
-                victim.damageForce(sissela.activeExtraDamageForEachLevel[sissela.activeLevel], sissela, DamageType.PLAYER_ATTACK);
+                victim.damageForce(sissela.activeExtraDamage.get(), sissela, DamageType.PLAYER_ATTACK);
                 bukkitVictim.playSound(sisselaWitchMagicCastSound0, victim.entity)
                 bukkitVictim.playSound(sisselaWitchMagicCastSound1, victim.entity)
             }

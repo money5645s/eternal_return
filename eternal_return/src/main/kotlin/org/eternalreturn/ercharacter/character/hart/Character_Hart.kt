@@ -3,6 +3,8 @@ package org.eternalreturn.ercharacter.character.hart
 import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.CooldownContext
 import org.eternalreturn.ercharacter.ERCharacterSkillMonobehaviour
+import org.eternalreturn.ercharacter.datastructure.CoolTableSeconds
+import org.eternalreturn.ercharacter.datastructure.DamageTable
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erentity.events.EREntityEvent
@@ -12,17 +14,16 @@ import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class Character_Hart(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     var stack: Int = 0
-    override val activeCoolForEachLevel: LongArray = longArrayOf(15 * 20, 14 * 20, 13 * 20, 13 * 20, 12 * 20)
-    override val passiveCoolForEachLevel: LongArray = longArrayOf(20 * 20, 18 * 20, 16 * 20, 14 * 20, 10 * 20)
+    override val activeCoolForEachLevel  = CoolTableSeconds(this::activeLevel, 15, 14, 13, 13, 12)
+    override val passiveCoolForEachLevel = CoolTableSeconds(this::passiveLevel, 20, 18, 16, 14, 10)
 
-    val passiveExtraDamageForEachLevel = doubleArrayOf(5.0 ,7.0 ,9.0, 11.0 , 15.0)
-    //val activeExtraDamageForEachLevel = doubleArrayOf(5.0 ,7.0 ,9.0, 11.0 , 15.0)
+    val passiveDamage = DamageTable(this::passiveLevel, 5.0, 7.0, 9.0, 11.0, 15.0)
 
     init {
         this.ActiveCooldownSeconds = 5
         this.PassiveCooldownSeconds = 8
-        registerMonobehaviour(Active(CooldownContext(activeCoolForEachLevel, this::activeLevel)))
-        registerMonobehaviour(Passive(CooldownContext(passiveCoolForEachLevel, this::passiveLevel)))
+        registerMonobehaviour(Active(CooldownContext(activeCoolForEachLevel)))
+        registerMonobehaviour(Passive(CooldownContext(passiveCoolForEachLevel)))
     }
 
     override val name: String
@@ -58,7 +59,7 @@ class PassiveTimerEvent(val damage : Double, val player: ERPlayer) : EREntityEve
 class Passive(cooldownCtx : CooldownContext) : ERCharacterSkillMonobehaviour<EREntityAttackEvent, Character_Hart>(cooldownCtx, durationTicks = 0, "PCD") {
 
     override fun skillStart(event: EREntityAttackEvent) {
-        event.victim.submitEvent(PassiveTimerEvent(player.passiveExtraDamageForEachLevel[player.passiveLevel], player))
+        event.victim.submitEvent(PassiveTimerEvent(player.passiveDamage.get(), player))
     }
 
     override fun skillUpdate(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {}

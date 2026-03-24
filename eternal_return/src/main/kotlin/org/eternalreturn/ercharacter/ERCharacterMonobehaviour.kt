@@ -2,6 +2,7 @@ package org.eternalreturn.ercharacter
 
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.datastructure.CoolTableSeconds
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.erentity.events.EREntityEvent
 import org.eternalreturn.erplayer.ERPlayer
@@ -21,12 +22,12 @@ abstract class ERCharacterMonobehaviour<T : EREntityEvent> : EREntityMonobehavio
  *
  * */
 class CooldownContext(
-    @JvmField val cooldownListForEachLevel : LongArray,
-    val getLevel : ()->Int //getter 함수를 넣으면 된다. --> this::level
+    @JvmField val cooldownListForEachLevel : CoolTableSeconds,
 ){
+    inline val level : Int get() = cooldownListForEachLevel.getLevel()
     @JvmField var cooldown : Long = 0;
     fun resetCooldown(){
-        cooldown = cooldownListForEachLevel[getLevel()];
+        cooldown = cooldownListForEachLevel.get()
         //println("currentLevel = ${getLevel()}, cooldown = ${cooldown}, cooldown = ${cooldownListForEachLevel[getLevel()]}")
     }
 }
@@ -44,7 +45,7 @@ abstract class ERCharacterSkillMonobehaviour<T : EREntityEvent, E : ERCharacter>
     val objToMonitor = Bukkit.getScoreboardManager().mainScoreboard.getObjective(scoreboardNameToMonitor)
 
     override fun start(event: T) {
-        if(cooldownCtx.cooldown > 0 || cooldownCtx.getLevel() == -1){
+        if(cooldownCtx.cooldown > 0 || cooldownCtx.level == -1){
             stopMonobehav();
             return;
         }

@@ -106,7 +106,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                 //player.sendMessage("재사용")
                 jan.SkillReuse = 0
                 jan.StackSkill = false
-                erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
+                erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel.get();
             }
         }
     }

@@ -4,6 +4,8 @@ import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.CooldownContext
 import org.eternalreturn.ercharacter.ERCharacterSkillMonobehaviour
+import org.eternalreturn.ercharacter.datastructure.CoolTableSeconds
+import org.eternalreturn.ercharacter.datastructure.DamageTable
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erentity.events.EREntityBurnEvent
@@ -16,16 +18,14 @@ import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class Character_Adriana(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
 
-    override val activeCoolForEachLevel: LongArray = longArrayOf(30 * 20, 28 * 20, 26 * 20, 24 * 20, 20 * 20) //get from json
-    override val passiveCoolForEachLevel: LongArray = longArrayOf(5 * 20, 4 * 20, 3 * 20, 2 * 20, 100) //get from json
+    override val activeCoolForEachLevel = CoolTableSeconds( this::activeLevel, 30, 28, 26, 24, 20)
+    override val passiveCoolForEachLevel = CoolTableSeconds( this::passiveLevel, 5, 4, 3, 2, 1)
 
-    val fireFootprintDamageList : DoubleArray = doubleArrayOf(1.0, 2.0, 2.0, 3.0, 3.0);
-    val fireFootprintDamage : Double get() = fireFootprintDamageList[this.activeLevel - 1];
-    val fireDurationList : LongArray = longArrayOf(4 * 20, 5 * 20, 6 * 20, 7 * 20, 8 * 20)
-    val fireDuration : Long get() = fireDurationList[this.passiveLevel - 1];
+    val fireFootprintDamage = DamageTable(this::activeLevel, 1.0, 2.0, 2.0, 3.0, 3.0, 4.0);
+    val fireDuration = CoolTableSeconds(this::activeLevel, 4, 5, 6, 7, 8, 9);
 
-    val activeCooldownCtx = CooldownContext(activeCoolForEachLevel, this::activeLevel);
-    val passiveCooldownCtx = CooldownContext(passiveCoolForEachLevel, this::passiveLevel);
+    val activeCooldownCtx = CooldownContext(activeCoolForEachLevel);
+    val passiveCooldownCtx = CooldownContext(passiveCoolForEachLevel);
 
     init {
         this.ActiveCooldownSeconds = 5
@@ -55,7 +55,7 @@ class Active(activeCooldownCtx : CooldownContext) :
 
         val burningGroundEntity = BurningGroundVirtualEntity(dpEngine, player,
             Location(player.player.world, pos.x(), pos.y(), pos.z()),
-            System.currentTimeMillis(), player.fireFootprintDamage, player.fireDuration)
+            System.currentTimeMillis(), player.fireFootprintDamage.get(), player.fireDuration.get())
 
         dpEngine.monobehaviourModule.register(burningGroundEntity);
         burningGroundEntity.submitEvent(LetsBurnEvent()); //태우기 실행

@@ -48,7 +48,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             stack()
 
             // 쿨타임 등록
-            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
+            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel.get();
             stopMonobehav()
         }
     }

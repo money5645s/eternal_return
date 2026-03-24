@@ -2,11 +2,11 @@ package org.eternalreturn.util.dpengine.physics
 
 import it.unimi.dsi.fastutil.ints.IntArrayList
 
-open class SoAModule(size : Int) {
+open class SoAModule(val arrSize : Int) {
 
-    val dense = IntArray(size); // denseID --f--> entityID
-    val sparse = IntArray(size) { -1 }; //entityID --f--> denseID
-    val generation = IntArray(size) { 0 };
+    val dense = IntArray(arrSize); // denseID --f--> entityID
+    val sparse = IntArray(arrSize) { -1 }; //entityID --f--> denseID
+    val generation = IntArray(arrSize) { 0 };
 
     /**
      * 엔티티 핸들의 인덱스를 발행하는 함수
@@ -21,8 +21,10 @@ open class SoAModule(size : Int) {
             // therefore n1->next == n0 관계가 성립
             id = lastRemovedEntityID;
             lastRemovedEntityID = sparse[lastRemovedEntityID];
-        }else{
+        }else if(arrSize - 1 > lastSparseIdx){
             id = lastSparseIdx++;//same as -> id=lastIdx; lastIdx++;
+        }else{
+            throw IndexOutOfBoundsException("너무 많은 객체 > ${arrSize} 를 생성하려 하고 있습니다! 해당 객체 부터는 물리 연산에 포함되지 않습니다!")
         }
         return id;
     }
@@ -48,14 +50,17 @@ open class SoAModule(size : Int) {
         //dense[sparse[e]] == e
         //따라서 dense[i] == e, sparse[e] == i
         //즉 연결리스트의 배열적 진화형 정도라고 생각하면 될 듯.
+        try{
+            val entityId = allocID();
+            val i = lastDenseIdx;
 
-        val entityId = allocID();
-        val i = lastDenseIdx;
-
-        dense[i] = entityId;
-        sparse[entityId] = i;
-        lastDenseIdx++;
-        return Triple(entityId, i, generation[entityId]);
+            dense[i] = entityId;
+            sparse[entityId] = i;
+            lastDenseIdx++;
+            return Triple(entityId, i, generation[entityId]);
+        }catch (e : IndexOutOfBoundsException){
+            return Triple(-1, -1, -1);
+        }
         //return Handle(entityId, generation[entityId]); //generation까지 같이 반환해야 handle이 됨
     }
 
@@ -73,8 +78,7 @@ open class SoAModule(size : Int) {
         //예외처리
         if(entityId >= lastSparseIdx) throw RuntimeException("삭제할 핸들의 아이디가 저장된 엔티티 수보다 큽니다.");
         if(generation[entityId] != handle.generation) {
-            println("")
-            throw RuntimeException("세대가 다릅니다. 즉 이미 삭제된 개체입니다. ID : $entityId")
+            throw RuntimeException("세대가 다릅니다. 즉 이미 삭제된 개체입니다. ID : $entityId, ${handle.actor?.javaClass}")
         }
 
         val rmvDenseIdx = sparse[entityId]

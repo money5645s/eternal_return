@@ -52,9 +52,9 @@ public class ERCommand implements CommandExecutor {
         if(!(sender instanceof Player)){
             sender.sendMessage("Only players can use this command");
         }
+        var engine = PluginInstance.getEREngine();
 
         Player p = (Player)sender;
-        Set<String> tagSet = p.getScoreboardTags();
 
         if(args[0].equalsIgnoreCase("ch")) {
             if (args.length < 2) {
@@ -62,7 +62,6 @@ public class ERCommand implements CommandExecutor {
                 return true;
             }
 
-            var engine = PluginInstance.getEREngine();
 
             String charName = args[1].toLowerCase();
             ERCharacter character = null;
@@ -115,12 +114,20 @@ public class ERCommand implements CommandExecutor {
             return true;
         }
         else if(args.length == 1 && args[0].equalsIgnoreCase("dummy")){
-            
-            var engine = PluginInstance.getEREngine();
             var erPlayer = (ERPlayer)engine.getEREntity(p);
             Entity dummy = p.getWorld().spawnEntity(p.getLocation(), EntityType.VILLAGER);
             engine.registerBukkitActor(dummy, new ERDummy(engine, dummy));
             p.sendMessage("Dummy set");
+        }
+        else if(args.length == 1 && args[0].equalsIgnoreCase("test")){
+            var character0 = new Character_Adriana(engine, p);
+            var character1 = new Character_Adriana(engine, p);
+            engine.registerBukkitActor(p, character0);
+            engine.registerBukkitActor(p, character1);
+            Bukkit.getScheduler().runTaskLater(PluginInstance.getServerInstance(), ()->{
+                character0.remove();
+                character1.remove();
+            }, 1L);
         }
 
         return false;

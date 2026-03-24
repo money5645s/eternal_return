@@ -14,7 +14,7 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
             stopMonobehav();
             return;
         }
-        erCharacter.passiveCooldown = erCharacter.passiveCoolForEachLevel[erCharacter.passiveLevel];
+        erCharacter.passiveCooldown = erCharacter.passiveCoolForEachLevel.get();
 
         if((actor as Character_LiDailin).isDrunk){
             event.victim.submitEvent(LiDailinPassiveTimerEvent(erPlayer))

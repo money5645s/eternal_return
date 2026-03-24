@@ -12,6 +12,7 @@ class EnhanceStatByDay : ERAnimalMonobehaviour<StatEnhanceEvent>() {
 
     }
 
+
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
 
         val animal = actor as ERAnimal
@@ -30,9 +31,13 @@ class EnhanceStatByDay : ERAnimalMonobehaviour<StatEnhanceEvent>() {
             if(curDay > animal.maxLevel){
                 animal.level = animal.maxLevel;
             }
-
-            animal.hpMax = animal.hp0 + animal.hpInc * (animal.level - 1);
             animal.damage = animal.damage0 + animal.damageInc * (animal.level - 1);
+
+            if(animal.hpMax == animal.hp){
+                animal.hpMax = animal.hp0 + animal.hpInc * (animal.level - 1);
+                animal.hp = animal.hpMax
+            }
+
             animal.updateHPBar();
 
             if(animal.level == animal.maxLevel){

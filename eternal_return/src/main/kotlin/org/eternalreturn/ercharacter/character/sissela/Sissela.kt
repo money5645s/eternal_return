@@ -1,15 +1,18 @@
 package org.eternalreturn.ercharacter.character.sissela
 
 import org.bukkit.entity.Player
+import org.eternalreturn.ercharacter.datastructure.CoolTableSeconds
+import org.eternalreturn.ercharacter.datastructure.DamageTable
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
 
 class Sissela(engine : EREngine, player : Player) : ERPlayer(player, engine) {
 
-    override val activeCoolForEachLevel: LongArray = longArrayOf(60 * 20, 55 * 20, 50 * 20, 45 * 20, 40 * 20)
-    override val passiveCoolForEachLevel: LongArray = longArrayOf(0, 0, 0, 0, 0)
 
-    val activeExtraDamageForEachLevel : DoubleArray = doubleArrayOf(4.0 ,6.0 ,8.0, 10.0, 12.0)
+    override val activeCoolForEachLevel  = CoolTableSeconds(this::activeLevel, 60, 55, 50, 45, 40)
+    override val passiveCoolForEachLevel = CoolTableSeconds(this::activeLevel, 0, 0, 0, 0, 0)
+
+    val activeExtraDamage = DamageTable(this::activeLevel, 4.0 ,6.0 ,8.0, 10.0, 12.0)
 
     init {
         this.ActiveCooldownSeconds = 60

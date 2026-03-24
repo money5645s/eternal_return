@@ -22,24 +22,9 @@ import org.eternalreturn.util.dpengine.physics.TransformSoA
 import org.eternalreturn.util.dpengine.physics.UniformGrid
 import java.util.concurrent.CompletableFuture
 
-/**
- * Bukkit 객체들과 유연하게 상호작용하기위한 엔진
- */
-class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSize) {
+open class DPhysicsEngine(bufferSize : Int = 512) : DPEngine(bufferSize){
 
-    init{
-        val scheduler = Bukkit.getScheduler();
-        scheduler.runTaskTimer(plugin, Runnable{this.update()}, 0, 1);
-
-    }
-
-    val areaSystem: ERAreaSystem = ERAreaSystem()
-
-    /**
-     * EREntity들을 쿼리하기 위한 해시맵
-     */
-    private val erEntityMap = HashMap<Entity, EREntity>();
-
+    class EventCmd(val actor : MonobehaviourActor, val event : MonobehaviourEvent);
     /**
      * 플레이어들을 따로 업데이트하기 위한 리스트
      * 뷰로써 동작한다.
@@ -54,10 +39,15 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
     val projectileList : List<ERProjectile> get() = projectile.curQueue;
 
     init {
-        this.monobehaviourModule.registerUpdateView(players);
         this.monobehaviourModule.registerUpdateView(entities);
         this.monobehaviourModule.registerUpdateView(projectile);
+        this.monobehaviourModule.registerUpdateView(players);
     }
+
+    /**
+     * EREntity들을 쿼리하기 위한 해시맵
+     */
+    private val erEntityMap = HashMap<Entity, EREntity>();
 
     /**
      * SoA ECS
@@ -95,7 +85,6 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
         }
     }
 
-    class EventCmd(val actor : MonobehaviourActor, val event : MonobehaviourEvent);
     val eventCommandQueue = ArrayDeque<EventCmd>();
     private fun updatePhysicsModule() {
         cachingTransformSoAFromBukkit();
@@ -152,6 +141,20 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
         }
     }
 
+    override fun update(){
+
+        val physicsFuture = CompletableFuture.runAsync { updatePhysicsModule(); }
+        monobehaviourModule.consumeEvents();
+        monobehaviourModule.updateMonobehaviours();
+        physicsFuture.join();
+
+        applyVelocities();
+        flushCommandQueue();
+        removeAllDisabledEREntity();
+        monobehaviourModule.monobehaviourActorList.update();
+
+    }
+
     /**
      * 일괄삭제 함수.
      * */
@@ -162,21 +165,89 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
             }
         }
         for(actorToRemove in removeList){
+            //println("${actorToRemove.javaClass.simpleName} 삭제 시도...")
+            try{
+                val erEntity = actorToRemove;
+                val transformHandle = erEntity.transformHandle;
+                transformSoA.remove(transformHandle); transformHandle.actor = null;
 
-            val erEntity = actorToRemove;
-            val transformHandle = erEntity.transformHandle;
-            transformSoA.remove(transformHandle); transformHandle.actor = null;
-
-            if(erEntity is ERHitboxEntity){ //ERHitboxEntity라면
-                val obbHandle = erEntity.obbHandle;
-                orientedBoxSoA.remove(obbHandle); obbHandle.actor = null;
+                if(erEntity is ERHitboxEntity){ //ERHitboxEntity라면
+                    val obbHandle = erEntity.obbHandle;
+                    orientedBoxSoA.remove(obbHandle); obbHandle.actor = null;
+                }
+            }catch(e : RuntimeException){
+                println("${actorToRemove.javaClass.simpleName}의 삭제 중 예외가 발생하였습니다.");
+                e.printStackTrace();
             }
-
             //println("[SoA REMOVE] ${this.javaClass.simpleName} T${transformHandle.entityID} O${obbHandle.entityID}")
-
         }
         removeList.clear();
     }
+
+    /**
+     * 제거될 EREntity들의 리스트. removeAll() 함수 호출 시 일괄 삭제됨.
+     * */
+    private val removeList = ArrayList<EREntity>();
+    fun addRemoveList(erEntity: EREntity){
+        //println("${erEntity.javaClass.simpleName} 이 removeList에 추가되었습니다.")
+        removeList.add(erEntity);
+    }
+
+    /**
+     * Entity를 통해서 MonobehaviourActor를 접근하기 위해 필요한 함수
+     *
+     * 그냥 객체 생성 시에는 getEREntity()를 호출하여도 값은 얻을 수 없음.
+     *
+     * Actor의 레퍼런스 카운터를 올리지 않음.
+     */
+    fun registerBukkitActor(entity: Entity, actor: EREntity) {
+        if(erEntityMap.contains(entity)){
+            val oldEREntity = erEntityMap[entity]!!;
+            oldEREntity.remove();
+        }
+
+        erEntityMap[entity] = actor;
+        try {
+            entities.add(actor);
+            if (entity is Player && actor is ERPlayer) {
+                players.add(actor);
+            }
+        } catch (e: DeadActorException) {
+            e.printStackTrace()
+        }
+
+    }
+
+    /**
+     * 해당 Entity 객체에 맞는 EREntity(extends from MonobehaviourActor)를 반환함.
+     * 해당 객체가 더 이상 쓰이지 않는 객체인 경우 (isAlive() == false) 조회할 시점에서 제거함.
+     */
+    fun getEREntity(entity: Entity): EREntity? {
+        val erEntity : EREntity? = erEntityMap[entity]
+        if(erEntity == null){
+            return null;
+        }
+        if (!erEntity.isAlive()) {
+            erEntityMap.remove(entity, erEntity);
+            return null;
+        }
+        return erEntity
+    }
+}
+
+
+/**
+ * Bukkit 객체들과 유연하게 상호작용하기위한 엔진
+ */
+class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPhysicsEngine(bufferSize) {
+
+    init{
+        val scheduler = Bukkit.getScheduler();
+        scheduler.runTaskTimer(plugin, Runnable{this.update()}, 0, 1);
+
+    }
+
+    val areaSystem: ERAreaSystem = ERAreaSystem()
 
     @Volatile
     private var day = 0;
@@ -212,67 +283,11 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPEngine(bufferSiz
             areaSystem.allowToSummonOmegaOnDay3()
         }
 
-        val physicsFuture = CompletableFuture.runAsync { updatePhysicsModule(); }
-        monobehaviourModule.consumeEvents();
-        monobehaviourModule.updateMonobehaviours();
-        physicsFuture.join();
-
-        applyVelocities();
-        flushCommandQueue();
-        removeAllDisabledEREntity();
-        monobehaviourModule.monobehaviourActorList.update();
+        super.update();
 
     }
 
-    /**
-     * 제거될 EREntity들의 리스트. removeAll() 함수 호출 시 일괄 삭제됨.
-     * */
-    private val removeList = ArrayList<EREntity>();
-    fun addRemoveList(erEntity: EREntity){
-        removeList.add(erEntity);
-    }
 
-    /**
-     * Entity를 통해서 MonobehaviourActor를 접근하기 위해 필요한 함수
-     * 일반 registerMonobehaviourActor를 통해 등록 시 Entity를 통해 접근이 불가해짐.
-     */
-    fun registerBukkitActor(entity: Entity, actor: EREntity) {
-        if(erEntityMap.contains(entity)){
-            val oldEREntity = erEntityMap[entity]!!;
-            oldEREntity.remove();
-            //println("Map disabled : {${entity.javaClass.simpleName}, ${oldEREntity.javaClass.simpleName}}")
-        }
-
-        erEntityMap[entity] = actor;
-        try {
-            entities.add(actor);
-            if (entity is Player && actor is ERPlayer) {
-                players.add(actor);
-            }
-        } catch (e: DeadActorException) {
-            e.printStackTrace()
-        }
-
-
-        //println("Map added : {${entity.javaClass.simpleName}, ${actor.javaClass.simpleName}}")
-
-    }
-
-    /**
-     * 해당 Entity 객체에 맞는 EREntity(extends from MonobehaviourActor)를 반환함.
-     * 해당 객체가 더 이상 쓰이지 않는 객체인 경우 (isAlive() == false) 조회할 시점에서 제거함.
-     */
-    fun getEREntity(entity: Entity): EREntity? {
-        val erEntity : EREntity? = erEntityMap[entity]
-        if(erEntity == null){
-            return null;
-        }
-        if (!erEntity.isAlive()) {
-            erEntityMap.remove(entity, erEntity);
-            return null;
-        }
-        return erEntity
-    }
 
 
 

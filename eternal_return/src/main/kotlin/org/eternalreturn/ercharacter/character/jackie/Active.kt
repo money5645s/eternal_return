@@ -45,7 +45,7 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
             isActive = false // 상태 종료
             (actor as Character_Jackie).isBloodSweep = false
             // 쿨타임 등록
-            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
+            erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel.get();
             stopMonobehav()
         }
     }

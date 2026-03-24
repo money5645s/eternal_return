@@ -11,6 +11,7 @@ import org.eternalreturn.erentity.ERHitboxEntity
 import org.eternalreturn.erentity.events.EREntityRayCastEvent
 import org.eternalreturn.projectile.ERProjectile
 import org.eternalreturn.projectile.events.ProjectileRayCastEvent
+import org.eternalreturn.system.DPhysicsEngine
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
@@ -332,7 +333,7 @@ class OrientedBoxSoA(
     }
 
 
-    fun rayCastSoA(eventCommandQueue : ArrayDeque<EREngine.EventCmd>, raySoA : RaySoA){
+    fun rayCastSoA(eventCommandQueue : ArrayDeque<DPhysicsEngine.EventCmd>, raySoA : RaySoA){
 
         val lastRay = raySoA.lastRay;
         val posX = raySoA.posX;
@@ -379,10 +380,10 @@ class OrientedBoxSoA(
 
                     //이벤트를 전달한다.
                     if(shooter is EREntity){ //광선을 쏜 개체가 EREntity라면
-                        eventCommandQueue.addLast(EREngine.EventCmd(shooter, EREntityRayCastEvent(shooter,hitActorList)))
+                        eventCommandQueue.addLast(DPhysicsEngine.EventCmd(shooter, EREntityRayCastEvent(shooter,hitActorList)))
                     }else if(shooter is ERProjectile){
                         //광선을 쏜 개체가 Projectile이라면
-                        eventCommandQueue.addLast(EREngine.EventCmd(shooter, ProjectileRayCastEvent(shooter, hitActorList)))
+                        eventCommandQueue.addLast(DPhysicsEngine.EventCmd(shooter, ProjectileRayCastEvent(shooter, hitActorList)))
                     }
                 }
             }

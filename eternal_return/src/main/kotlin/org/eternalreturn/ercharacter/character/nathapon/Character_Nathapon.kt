@@ -4,13 +4,14 @@ import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.character.nathapon.Active
 import org.eternalreturn.ercharacter.character.nathapon.Passive
 import org.eternalreturn.ercharacter.ERCharacter
+import org.eternalreturn.ercharacter.datastructure.CoolTableSeconds
 import org.eternalreturn.erplayer.ERPlayer
 import org.eternalreturn.system.EREngine
 
 class Character_Nathapon(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
     // 플레이어별 공격 횟수를 저장하는 맵
-    override val activeCoolForEachLevel: LongArray = longArrayOf(8, 8, 8, 8, 8)
-    override val passiveCoolForEachLevel: LongArray = longArrayOf(8, 8, 8, 8, 8)
+    override val activeCoolForEachLevel  = CoolTableSeconds(this::activeLevel, 25, 24, 23, 22, 20)
+    override val passiveCoolForEachLevel = CoolTableSeconds(this::activeLevel, 10, 10, 10, 10, 10)
     init {
         this.ActiveCooldownSeconds = 8
         this.PassiveCooldownSeconds = 8

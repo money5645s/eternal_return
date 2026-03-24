@@ -14,16 +14,20 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
     private val reloadDuration: Long = 2000 // 2초
     private var punchTimeMillis: Long = 0
 
+    var nextAttackTick : Long = 0;
+
     override fun start(event: EREntityAttackEvent) {
         // 자바 클래스인 Character_Yuki로 형변환
         val yuki = actor as Character_Yuki
         val victim = event.victim
 
-        if(erCharacter.passiveCooldown > 0 || erCharacter.passiveLevel == 0){
+        val currentTime = System.currentTimeMillis();
+        if(currentTime < nextAttackTick || erCharacter.passiveLevel == -1){
             stopMonobehav();
             return;
         }
-        erCharacter.passiveCooldown = erCharacter.passiveCoolForEachLevel[erCharacter.passiveLevel];
+        nextAttackTick = currentTime + erCharacter.passiveCoolForEachLevel.get() * 50;
+
 
 
         // 1. 재봉 중이면 공격 취소
@@ -37,16 +41,16 @@ class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
             yuki.buttonCount--
 
             punchTimeMillis = System.currentTimeMillis() + 500
-            victim.damageForce(yuki.passiveExtraDamageForEachLevel[yuki.passiveLevel], yuki, DamageType.PLAYER_ATTACK)
+            victim.damageForce(yuki.passiveExtraDamageForEachLevel.get(), yuki, DamageType.PLAYER_ATTACK)
 
             player.sendMessage("§f[유키] §b완벽한 옷매무새: §f남은 단추 (${yuki.buttonCount}/4)")
             player.playSound(player.location, Sound.ENTITY_ITEM_BREAK, 1f, 1.8f)
 
             if (yuki.isActiveSkill) {
                 player.sendMessage("§f[유키] 머리!")
-                victim.damageForce(yuki.activeExtraDamageForEachLevel[yuki.activeLevel], yuki, DamageType.PLAYER_ATTACK)
+                victim.damageForce(yuki.activeExtraDamageForEachLevel.get(), yuki, DamageType.PLAYER_ATTACK)
                 event.victim.submitEvent(EREntityStunEvent(1 * 20))
-                erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel[erCharacter.activeLevel];
+                erCharacter.activeCooldown = erCharacter.activeCoolForEachLevel.get();
                 yuki.isActiveSkill = false
             }
 
