@@ -5,10 +5,10 @@ import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.CooldownContext
 import org.eternalreturn.ercharacter.datastructure.CoolTableSeconds
 import org.eternalreturn.ercharacter.datastructure.DamageTable
-import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.erplayer.DPlayer
 import org.eternalreturn.system.EREngine
 
-class Character_Yuki(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
+class Character_Yuki(erEngine : EREngine, player: Player) : DPlayer(player, erEngine) {
     var buttonCount: Int = 4
     var isReloading: Boolean = false
     var isActiveSkill: Boolean = false

@@ -9,14 +9,14 @@ import org.eternalreturn.ercharacter.datastructure.DamageTable
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erentity.events.EREntityBurnEvent
-import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.erplayer.DPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 
 
 
-class Character_Adriana(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
+class Character_Adriana(erEngine : EREngine, player: Player) : DPlayer(player, erEngine) {
 
     override val activeCoolForEachLevel = CoolTableSeconds( this::activeLevel, 30, 28, 26, 24, 20)
     override val passiveCoolForEachLevel = CoolTableSeconds( this::passiveLevel, 5, 4, 3, 2, 1)

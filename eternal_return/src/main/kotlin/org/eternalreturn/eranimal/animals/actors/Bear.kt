@@ -1,12 +1,11 @@
 package org.eternalreturn.eranimal.animals.actors
 
-import org.bukkit.Location
 import org.eternalreturn.eranimal.ERAJEntity
-import org.eternalreturn.eranimal.ERAnimal
+import org.eternalreturn.eranimal.DPAnimal
 import org.eternalreturn.system.EREngine
 
 class Bear(engine: EREngine, erAjEntity: ERAJEntity) :
-    ERAnimal(engine, erAjEntity, 1.5, 1.5, 2.5, 0.0, -1.0, 0.0) {
+    DPAnimal(engine, erAjEntity, 1.5, 1.5, 2.5, 0.0, -1.0, 0.0) {
 
 
     init {

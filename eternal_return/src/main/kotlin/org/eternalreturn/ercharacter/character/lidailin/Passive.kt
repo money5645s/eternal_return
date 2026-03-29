@@ -3,7 +3,7 @@ package org.eternalreturn.ercharacter.character.lidailin
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.character.lidailin.event.LiDailinPassiveTimerEvent
 import org.eternalreturn.erentity.events.EREntityAttackEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 class Passive : ERCharacterMonobehaviour<EREntityAttackEvent>() {
     private var punchTimeMillis: Long = 0

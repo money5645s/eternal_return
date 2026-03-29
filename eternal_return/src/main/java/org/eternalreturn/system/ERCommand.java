@@ -12,28 +12,17 @@ import org.eternalreturn.ercharacter.character.nathapon.Character_Nathapon;
 import org.eternalreturn.ercharacter.character.rio.Rio;
 import org.eternalreturn.ercharacter.character.sissela.Sissela;
 import org.eternalreturn.ercharacter.character.yuki.Character_Yuki;
-import org.eternalreturn.ercharacter.ERCharacter;
-import org.eternalreturn.ercharacter.event.CharacterParabolicFlyEvent;
-import org.eternalreturn.erentity.ERDummy;
-import org.eternalreturn.erplayer.ERPlayer;
-import org.eternalreturn.util.AJEntity.AJEntityManager;
+import org.eternalreturn.ercharacter.DPCharacter;
+import org.eternalreturn.erentity.DPDummy;
+import org.eternalreturn.erplayer.DPlayer;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.EnchantmentStorageMeta;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.ScoreboardManager;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Set;
 
 public class ERCommand implements CommandExecutor {
 
@@ -64,7 +53,7 @@ public class ERCommand implements CommandExecutor {
 
 
             String charName = args[1].toLowerCase();
-            ERCharacter character = null;
+            DPCharacter character = null;
             // 입력된 이름에 따라 캐릭터 인스턴스 생성
             switch (charName) {
                 case "lidailin":
@@ -114,9 +103,9 @@ public class ERCommand implements CommandExecutor {
             return true;
         }
         else if(args.length == 1 && args[0].equalsIgnoreCase("dummy")){
-            var erPlayer = (ERPlayer)engine.getEREntity(p);
+            var erPlayer = (DPlayer)engine.getEREntity(p);
             Entity dummy = p.getWorld().spawnEntity(p.getLocation(), EntityType.VILLAGER);
-            engine.registerBukkitActor(dummy, new ERDummy(engine, dummy));
+            engine.registerBukkitActor(dummy, new DPDummy(engine, dummy));
             p.sendMessage("Dummy set");
         }
         else if(args.length == 1 && args[0].equalsIgnoreCase("test")){

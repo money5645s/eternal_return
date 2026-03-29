@@ -3,10 +3,10 @@ package org.eternalreturn.ercharacter.character.sissela
 import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.datastructure.CoolTableSeconds
 import org.eternalreturn.ercharacter.datastructure.DamageTable
-import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.erplayer.DPlayer
 import org.eternalreturn.system.EREngine
 
-class Sissela(engine : EREngine, player : Player) : ERPlayer(player, engine) {
+class Sissela(engine : EREngine, player : Player) : DPlayer(player, engine) {
 
 
     override val activeCoolForEachLevel  = CoolTableSeconds(this::activeLevel, 60, 55, 50, 45, 40)

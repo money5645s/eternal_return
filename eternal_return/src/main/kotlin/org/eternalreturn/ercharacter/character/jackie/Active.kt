@@ -4,7 +4,7 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     private var skillActiveTick: Long = 0

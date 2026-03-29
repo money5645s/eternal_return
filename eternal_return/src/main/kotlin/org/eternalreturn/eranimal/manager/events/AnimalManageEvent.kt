@@ -1,5 +1,5 @@
 package org.eternalreturn.eranimal.manager.events
 
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 class AnimalManageEvent() : MonobehaviourEvent

@@ -4,11 +4,11 @@ import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.World
-import org.eternalreturn.projectile.ERProjectile
+import org.dpengine.monobehaviour.Monobehaviour
+import org.dpengine.monobehaviour.MonobehaviourEvent
+import org.eternalreturn.projectile.DProjectile
 import org.eternalreturn.projectile.events.ProjectileInitEvent
 import org.eternalreturn.system.PluginInstance
-import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class ProjectileFlight : Monobehaviour<ProjectileInitEvent>(){
 
@@ -17,7 +17,7 @@ class ProjectileFlight : Monobehaviour<ProjectileInitEvent>(){
 
     var life : Long = 0;
     override fun start(event: ProjectileInitEvent) {
-        val projectile = actor as ERProjectile;
+        val projectile = actor as DProjectile;
         life = System.currentTimeMillis() + 1000 * 20; //20초 날아간다
         startPoint.x = projectile.x;
         startPoint.y = projectile.y;
@@ -25,7 +25,7 @@ class ProjectileFlight : Monobehaviour<ProjectileInitEvent>(){
     }
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
-        val projectile = actor as ERProjectile;
+        val projectile = actor as DProjectile;
 
         if(life < System.currentTimeMillis()){
             projectile.remove();

@@ -1,6 +1,6 @@
 kotlin version: 2.1.0
 error message: org.jetbrains.kotlin.backend.common.BackendException: Backend Internal error: Exception during IR lowering
-File being compiled: E:/EWorkspace/git/eternal_return/eternal_return/src/main/kotlin/org/eternalreturn/ercharacter/ERCharacter.kt
+File being compiled: E:/EWorkspace/git/eternal_return/eternal_return/src/main/kotlin/org/eternalreturn/ercharacter/DPCharacter.kt
 The root cause java.lang.RuntimeException was thrown at: org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:48)
 	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException(CodegenUtil.kt:253)
 	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException$default(CodegenUtil.kt:236)
@@ -51,44 +51,44 @@ The root cause java.lang.RuntimeException was thrown at: org.jetbrains.kotlin.ba
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
 Caused by: java.lang.RuntimeException: Exception while generating code for:
-CONSTRUCTOR visibility:public <> (player:org.bukkit.entity.Player) returnType:org.eternalreturn.ercharacter.ERCharacter [primary]
+CONSTRUCTOR visibility:public <> (player:org.bukkit.entity.Player) returnType:org.eternalreturn.ercharacter.DPCharacter [primary]
   VALUE_PARAMETER name:player index:0 type:org.bukkit.entity.Player
   BLOCK_BODY
-    DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (collider: org.eternalreturn.util.dpengine.geometry.Collider, entity: org.bukkit.entity.Entity) [primary] declared in org.eternalreturn.erentity.EREntity'
+    DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (collider: org.eternalreturn.util.dpengine.geometry.Collider, entity: org.bukkit.entity.Entity) [primary] declared in org.eternalreturn.erentity.DPEntity'
       collider: CALL 'public final fun createOrientedBox (location: org.bukkit.Location, halfX: kotlin.Double, halfY: kotlin.Double, halfZ: kotlin.Double): org.eternalreturn.util.dpengine.geometry.OrientedBox [fake_override] declared in org.eternalreturn.system.EREngine' type=org.eternalreturn.util.dpengine.geometry.OrientedBox origin=null
         $this: CALL 'public open fun getEREngine (): @[FlexibleNullability] org.eternalreturn.system.EREngine? declared in org.eternalreturn.system.PluginInstance' type=@[FlexibleNullability] org.eternalreturn.system.EREngine? origin=null
         location: BLOCK type=org.bukkit.Location origin=null
           VAR IR_TEMPORARY_VARIABLE name:tmp0 type:kotlin.Any? [val]
             CALL 'public abstract fun getLocation (): @[EnhancedNullability] org.bukkit.Location [fake_override] declared in org.bukkit.entity.Player' type=@[EnhancedNullability] org.bukkit.Location origin=GET_PROPERTY
-              $this: GET_VAR 'player: org.bukkit.entity.Player declared in org.eternalreturn.ercharacter.ERCharacter.<init>' type=org.bukkit.entity.Player origin=null
+              $this: GET_VAR 'player: org.bukkit.entity.Player declared in org.eternalreturn.ercharacter.DPCharacter.<init>' type=org.bukkit.entity.Player origin=null
           CALL 'public final fun checkNotNullExpressionValue (value: kotlin.Any?, expression: kotlin.String): kotlin.Unit declared in kotlin.jvm.internal.Intrinsics' type=kotlin.Unit origin=null
-            value: GET_VAR 'val tmp0: kotlin.Any? [val] declared in org.eternalreturn.ercharacter.ERCharacter.<init>' type=kotlin.Any? origin=null
+            value: GET_VAR 'val tmp0: kotlin.Any? [val] declared in org.eternalreturn.ercharacter.DPCharacter.<init>' type=kotlin.Any? origin=null
             expression: CONST String type=kotlin.String value="getLocation(...)"
-          GET_VAR 'val tmp0: kotlin.Any? [val] declared in org.eternalreturn.ercharacter.ERCharacter.<init>' type=kotlin.Any? origin=null
+          GET_VAR 'val tmp0: kotlin.Any? [val] declared in org.eternalreturn.ercharacter.DPCharacter.<init>' type=kotlin.Any? origin=null
         halfX: CONST Double type=kotlin.Double value=0.5
         halfY: CONST Double type=kotlin.Double value=1.5
         halfZ: CONST Double type=kotlin.Double value=0.5
-      entity: GET_VAR 'player: org.bukkit.entity.Player declared in org.eternalreturn.ercharacter.ERCharacter.<init>' type=org.bukkit.entity.Player origin=null
+      entity: GET_VAR 'player: org.bukkit.entity.Player declared in org.eternalreturn.ercharacter.DPCharacter.<init>' type=org.bukkit.entity.Player origin=null
     BLOCK type=kotlin.Unit origin=null
       SET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:player type:org.bukkit.entity.Player visibility:private [final]' type=kotlin.Unit origin=INITIALIZE_FIELD
-        receiver: GET_VAR '<this>: org.eternalreturn.ercharacter.ERCharacter declared in org.eternalreturn.ercharacter.ERCharacter' type=org.eternalreturn.ercharacter.ERCharacter origin=null
-        value: GET_VAR 'player: org.bukkit.entity.Player declared in org.eternalreturn.ercharacter.ERCharacter.<init>' type=org.bukkit.entity.Player origin=INITIALIZE_PROPERTY_FROM_PARAMETER
+        receiver: GET_VAR '<this>: org.eternalreturn.ercharacter.DPCharacter declared in org.eternalreturn.ercharacter.DPCharacter' type=org.eternalreturn.ercharacter.DPCharacter origin=null
+        value: GET_VAR 'player: org.bukkit.entity.Player declared in org.eternalreturn.ercharacter.DPCharacter.<init>' type=org.bukkit.entity.Player origin=INITIALIZE_PROPERTY_FROM_PARAMETER
       SET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:ActiveCooldownSeconds type:kotlin.Long visibility:public' type=kotlin.Unit origin=INITIALIZE_FIELD
-        receiver: GET_VAR '<this>: org.eternalreturn.ercharacter.ERCharacter declared in org.eternalreturn.ercharacter.ERCharacter' type=org.eternalreturn.ercharacter.ERCharacter origin=null
+        receiver: GET_VAR '<this>: org.eternalreturn.ercharacter.DPCharacter declared in org.eternalreturn.ercharacter.DPCharacter' type=org.eternalreturn.ercharacter.DPCharacter origin=null
         value: CONST Long type=kotlin.Long value=0
       SET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:PassiveCooldownSeconds type:kotlin.Long visibility:public' type=kotlin.Unit origin=INITIALIZE_FIELD
-        receiver: GET_VAR '<this>: org.eternalreturn.ercharacter.ERCharacter declared in org.eternalreturn.ercharacter.ERCharacter' type=org.eternalreturn.ercharacter.ERCharacter origin=null
+        receiver: GET_VAR '<this>: org.eternalreturn.ercharacter.DPCharacter declared in org.eternalreturn.ercharacter.DPCharacter' type=org.eternalreturn.ercharacter.DPCharacter origin=null
         value: CONST Long type=kotlin.Long value=0
       SET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:cooldown type:org.eternalreturn.ercharacter.SkillCooldown visibility:private' type=kotlin.Unit origin=INITIALIZE_FIELD
-        receiver: GET_VAR '<this>: org.eternalreturn.ercharacter.ERCharacter declared in org.eternalreturn.ercharacter.ERCharacter' type=org.eternalreturn.ercharacter.ERCharacter origin=null
+        receiver: GET_VAR '<this>: org.eternalreturn.ercharacter.DPCharacter declared in org.eternalreturn.ercharacter.DPCharacter' type=org.eternalreturn.ercharacter.DPCharacter origin=null
         value: CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in org.eternalreturn.ercharacter.SkillCooldown' type=org.eternalreturn.ercharacter.SkillCooldown origin=null
       BLOCK type=kotlin.Unit origin=SYNTHESIZED_INIT_BLOCK
         ERROR_CALL 'Unresolved reference: R|org/eternalreturn/erentity/EREntity.entity|' type=IrErrorType([Error type: Unresolved type for <error>])
-        CALL 'protected final fun registerMonobehaviour (monobehaviour: org.eternalreturn.util.dpengine.behaviour.Monobehaviour<*>): kotlin.Unit [fake_override] declared in org.eternalreturn.ercharacter.ERCharacter' type=kotlin.Unit origin=null
-          $this: GET_VAR '<this>: org.eternalreturn.ercharacter.ERCharacter declared in org.eternalreturn.ercharacter.ERCharacter' type=org.eternalreturn.ercharacter.ERCharacter origin=null
+        CALL 'protected final fun registerMonobehaviour (monobehaviour: org.eternalreturn.util.dpengine.behaviour.Monobehaviour<*>): kotlin.Unit [fake_override] declared in org.eternalreturn.ercharacter.DPCharacter' type=kotlin.Unit origin=null
+          $this: GET_VAR '<this>: org.eternalreturn.ercharacter.DPCharacter declared in org.eternalreturn.ercharacter.DPCharacter' type=org.eternalreturn.ercharacter.DPCharacter origin=null
           monobehaviour: CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in org.eternalreturn.ercharacter.globalmonobehav.PlayerRayCastingByLeftClicking' type=org.eternalreturn.ercharacter.globalmonobehav.PlayerRayCastingByLeftClicking origin=null
-        CALL 'protected final fun registerMonobehaviour (monobehaviour: org.eternalreturn.util.dpengine.behaviour.Monobehaviour<*>): kotlin.Unit [fake_override] declared in org.eternalreturn.ercharacter.ERCharacter' type=kotlin.Unit origin=null
-          $this: GET_VAR '<this>: org.eternalreturn.ercharacter.ERCharacter declared in org.eternalreturn.ercharacter.ERCharacter' type=org.eternalreturn.ercharacter.ERCharacter origin=null
+        CALL 'protected final fun registerMonobehaviour (monobehaviour: org.eternalreturn.util.dpengine.behaviour.Monobehaviour<*>): kotlin.Unit [fake_override] declared in org.eternalreturn.ercharacter.DPCharacter' type=kotlin.Unit origin=null
+          $this: GET_VAR '<this>: org.eternalreturn.ercharacter.DPCharacter declared in org.eternalreturn.ercharacter.DPCharacter' type=org.eternalreturn.ercharacter.DPCharacter origin=null
           monobehaviour: CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in org.eternalreturn.ercharacter.globalmonobehav.PlayerRayCastingMeleeAttack' type=org.eternalreturn.ercharacter.globalmonobehav.PlayerRayCastingMeleeAttack origin=null
 
 	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:48)

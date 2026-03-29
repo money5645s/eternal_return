@@ -8,11 +8,11 @@ import org.eternalreturn.ercharacter.datastructure.DamageTable
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.erentity.events.EREntityAttackEvent
 import org.eternalreturn.erentity.events.EREntityEvent
-import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.erplayer.DPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
-class Character_Hart(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
+class Character_Hart(erEngine : EREngine, player: Player) : DPlayer(player, erEngine) {
     var stack: Int = 0
     override val activeCoolForEachLevel  = CoolTableSeconds(this::activeLevel, 15, 14, 13, 13, 12)
     override val passiveCoolForEachLevel = CoolTableSeconds(this::passiveLevel, 20, 18, 16, 14, 10)
@@ -55,7 +55,7 @@ class Active(cooldownCtx : CooldownContext) : ERCharacterSkillMonobehaviour<Char
 
 }
 
-class PassiveTimerEvent(val damage : Double, val player: ERPlayer) : EREntityEvent
+class PassiveTimerEvent(val damage : Double, val player: DPlayer) : EREntityEvent
 class Passive(cooldownCtx : CooldownContext) : ERCharacterSkillMonobehaviour<EREntityAttackEvent, Character_Hart>(cooldownCtx, durationTicks = 0, "PCD") {
 
     override fun skillStart(event: EREntityAttackEvent) {

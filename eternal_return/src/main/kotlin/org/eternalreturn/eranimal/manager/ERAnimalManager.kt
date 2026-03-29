@@ -1,7 +1,6 @@
 package org.eternalreturn.eranimal.manager
 
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.entity.Display
@@ -11,13 +10,13 @@ import org.eternalreturn.area.AreaNode
 import org.eternalreturn.eranimal.AreaERAnimalInfo
 import org.eternalreturn.eranimal.ERAJEntity
 import org.eternalreturn.eranimal.ERAJEntityLoader
-import org.eternalreturn.eranimal.ERAnimal
+import org.eternalreturn.eranimal.DPAnimal
 import org.eternalreturn.eranimal.manager.behavs.*
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.system.PluginInstance
 import org.eternalreturn.util.AJEntity.AJEntityManager
-import org.eternalreturn.util.dpengine.DPEngine
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
+import org.dpengine.DPEngine
+import org.dpengine.monobehaviour.MonobehaviourActor
 import java.io.File
 
 /**
@@ -53,7 +52,7 @@ class ERAnimalManager(
 
     val textDisplayList = ArrayList<TextDisplayer>()
 
-    val erAnimalMap = HashMap<ERAJEntity, ERAnimal>()
+    val erAnimalMap = HashMap<ERAJEntity, DPAnimal>()
 
     var px: Double = 0.0
     var py: Double = 0.0
@@ -144,7 +143,7 @@ class ERAnimalManager(
 
         @JvmStatic
         fun loadMobStats(json: String): Map<String, AnimalStat> {
-            val type = object : TypeToken<Map<String, AnimalStat>>() {}.type
+            val type = object : com.google.gson.reflect.TypeToken<Map<String, AnimalStat>>() {}.type
             return Gson().fromJson(json, type)
         }
 

@@ -1,15 +1,15 @@
 package org.eternalreturn.ercharacter.character.isaac
 import org.eternalreturn.ercharacter.character.isaac.event.PassiveCountEvent
 import org.eternalreturn.erentity.EREntityMonobehaviour
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
 import org.bukkit.damage.DamageType
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
-import org.eternalreturn.erentity.EREntity
-import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.erentity.DPEntity
+import org.eternalreturn.erplayer.DPlayer
 
 /**
  * 이거는 EREntity에게 적용되는 Monobehaviour입니다.
@@ -24,9 +24,9 @@ class PassiveCount : EREntityMonobehaviour<PassiveCountEvent>() {
 
     override fun start(event: PassiveCountEvent) {
 
-        val player : ERPlayer = event.player;
+        val player : DPlayer = event.player;
         val playerBukkit : Player = player.player
-        val victim : EREntity =  erEntity
+        val victim : DPEntity =  DPEntity
 
         if(count >= 2) {
             //playerBukkit.sendMessage("§f[아이작] 착취 발동");

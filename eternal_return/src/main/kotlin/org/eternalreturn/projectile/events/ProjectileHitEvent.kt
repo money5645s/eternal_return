@@ -1,7 +1,7 @@
 package org.eternalreturn.projectile.events
 
-import org.eternalreturn.erentity.EREntity
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
+import org.eternalreturn.erentity.DPEntity
 
-class ProjectileHitEvent(val closestTarget: EREntity) : MonobehaviourEvent {
+class ProjectileHitEvent(val closestTarget: DPEntity) : MonobehaviourEvent {
 }

@@ -4,7 +4,7 @@ import org.bukkit.Location
 import org.bukkit.Particle
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.erentity.events.EREntityEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 class ToucheEffectStartEvent(val durationTicks : Long, val count : Int) : EREntityEvent;
 
@@ -26,7 +26,7 @@ class ToucheEffect : EREntityMonobehaviour<ToucheEffectStartEvent>(){
             if(event != null){
                 count = event.count;
             }
-            drawParticles(erEntity.location, count);
+            drawParticles(DPEntity.location, count);
             return;
         }
         stopMonobehav();

@@ -5,7 +5,7 @@ import org.bukkit.Particle
 import org.bukkit.damage.DamageType
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 class DamageToAll : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
 

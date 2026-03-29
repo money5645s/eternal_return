@@ -2,7 +2,7 @@ package org.eternalreturn.ercharacter.character.lidailin
 
 import org.eternalreturn.ercharacter.character.lidailin.event.DrunkTimerEvent
 import org.eternalreturn.erentity.EREntityMonobehaviour
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 // 취기 클래스
 class DrunkTimer : EREntityMonobehaviour<DrunkTimerEvent>() {

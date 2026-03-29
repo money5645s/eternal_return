@@ -1,6 +1,6 @@
 kotlin version: 2.1.0
 error message: org.jetbrains.kotlin.backend.common.BackendException: Backend Internal error: Exception during IR lowering
-File being compiled: E:/EWorkspace/git/eternal_return/eternal_return/src/main/kotlin/org/EternalReturn/ERCharacter/ERCharacter.kt
+File being compiled: E:/EWorkspace/git/eternal_return/eternal_return/src/main/kotlin/org/EternalReturn/ERCharacter/DPCharacter.kt
 The root cause java.lang.RuntimeException was thrown at: org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:48)
 	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException(CodegenUtil.kt:253)
 	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException$default(CodegenUtil.kt:236)

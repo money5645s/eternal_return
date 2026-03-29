@@ -5,15 +5,15 @@ import org.bukkit.Sound
 import org.bukkit.damage.DamageType
 import org.eternalreturn.ercharacter.character.lidailin.event.LiDailinPassiveTimerEvent
 import org.eternalreturn.erentity.EREntityMonobehaviour
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 import kotlin.properties.Delegates
-import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.erplayer.DPlayer
 
 // 만취 했을 때 평타 2번 때리는 클래스
 class LiDailinPassiveTimer : EREntityMonobehaviour<LiDailinPassiveTimerEvent>(){
 
     var tick = 0;
-    var attacker: ERPlayer by Delegates.notNull()
+    var attacker: DPlayer by Delegates.notNull()
 
     override fun start(event: LiDailinPassiveTimerEvent) {
         tick = 0
@@ -22,7 +22,7 @@ class LiDailinPassiveTimer : EREntityMonobehaviour<LiDailinPassiveTimerEvent>(){
 
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
-        val victim = erEntity
+        val victim = DPEntity
         val bukkitEntity = victim.entity;
         val world = bukkitEntity.world
         val player = attacker.player

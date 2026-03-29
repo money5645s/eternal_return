@@ -1,15 +1,15 @@
 package org.eternalreturn.eranimal.manager.behavs
 
 import net.kyori.adventure.text.Component
+import org.dpengine.monobehaviour.Monobehaviour
 import org.eternalreturn.eranimal.ERAJEntity
-import org.eternalreturn.eranimal.ERAnimal
+import org.eternalreturn.eranimal.DPAnimal
 import org.eternalreturn.eranimal.animals.actors.*
 import org.eternalreturn.eranimal.manager.ERAnimalManager
 import org.eternalreturn.eranimal.manager.events.AnimalManageEvent
 import org.eternalreturn.eranimal.manager.events.RemoveAllERAnimals
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 
 class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>() {
@@ -202,7 +202,7 @@ class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>()
     /**
      * 소환된 ERAJEntity에 맞는 ERAnimal객체를 생성하는 함수
      * */
-    private fun createAnimal(erAJAnimal : ERAJEntity) : ERAnimal{
+    private fun createAnimal(erAJAnimal : ERAJEntity) : DPAnimal{
         val erAJAnimalLoc = erAJAnimal.spawnLocation;
         val newAnimal = when (erAJAnimal.name) {
             "animal_alpha" -> Alpha(dpEngine as EREngine, erAJAnimal);

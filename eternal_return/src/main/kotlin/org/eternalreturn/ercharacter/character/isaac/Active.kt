@@ -2,7 +2,7 @@ package org.eternalreturn.ercharacter.character.isaac
 
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 import org.bukkit.Sound
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType

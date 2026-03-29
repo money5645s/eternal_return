@@ -1,12 +1,12 @@
 package org.eternalreturn.eranimal.manager.behavs
 
+import org.dpengine.monobehaviour.Monobehaviour
 import org.eternalreturn.eranimal.manager.ERAnimalManager
 import org.eternalreturn.eranimal.manager.events.AnimalManageEvent
 import org.eternalreturn.eranimal.manager.events.DetectingPlayerEvent
 import org.eternalreturn.eranimal.manager.events.RemoveAllERAnimals
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 /**
  * 해당 영역 (보다 좀 더 큰 범위 내에) 플레이어가 존재하는 경우 해당 위치의 야생동물을 플레이어한테 보여줄 지 결정한다.

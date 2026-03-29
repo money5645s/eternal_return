@@ -3,7 +3,7 @@ package org.eternalreturn.ercharacter.character.jackie
 import org.bukkit.Sound
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.erentity.events.EREntityAttackEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 class Attack : ERCharacterMonobehaviour<EREntityAttackEvent>() {
 

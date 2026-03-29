@@ -3,3 +3,4 @@
 /DProxy/.kotlin/
 /DProxy/build/
 /DProxy/gradle/
+*.log

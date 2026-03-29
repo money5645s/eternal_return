@@ -1,6 +1,6 @@
 package org.eternalreturn.erentity.events
 
-import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.erentity.DPEntity
 
-class EREntityDamagedEvent(val attacker : EREntity) : EREntityEvent{
+class EREntityDamagedEvent(val attacker : DPEntity) : EREntityEvent{
 }

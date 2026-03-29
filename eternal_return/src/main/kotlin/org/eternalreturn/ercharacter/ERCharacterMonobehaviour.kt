@@ -5,14 +5,14 @@ import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.datastructure.CoolTableSeconds
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.erentity.events.EREntityEvent
-import org.eternalreturn.erplayer.ERPlayer
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.eternalreturn.erplayer.DPlayer
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 abstract class ERCharacterMonobehaviour<T : EREntityEvent> : EREntityMonobehaviour<T>() {
-    val erCharacter: ERCharacter
-        get() = actor as ERCharacter
-    val erPlayer: ERPlayer
-        get() = actor as ERPlayer
+    val erCharacter: DPCharacter
+        get() = actor as DPCharacter
+    val erPlayer: DPlayer
+        get() = actor as DPlayer
     val player: Player
         get() = erPlayer.entity as Player
 }
@@ -33,7 +33,7 @@ class CooldownContext(
 }
 
 
-abstract class ERCharacterSkillMonobehaviour<T : EREntityEvent, E : ERCharacter>(
+abstract class ERCharacterSkillMonobehaviour<T : EREntityEvent, E : DPCharacter>(
     val cooldownCtx : CooldownContext, val durationTicks : Long, val scoreboardNameToMonitor : String = "UNNAMED"
 ) : EREntityMonobehaviour<T>(){
 

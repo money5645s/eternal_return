@@ -4,9 +4,9 @@ import org.bukkit.Sound
 import org.eternalreturn.ercharacter.CooldownContext
 import org.eternalreturn.ercharacter.ERCharacterSkillMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
-import org.eternalreturn.erentity.ERHitboxEntity
+import org.eternalreturn.erentity.DPHitboxEntity
 import org.eternalreturn.erentity.events.EREntityEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 import kotlin.math.max
 
 /**
@@ -58,7 +58,7 @@ class Active(
         val rvec = direction.rotXZ(-30.0);
 
         for(victim in erEngine.entityList){
-            if(victim !is ERHitboxEntity || victim === player) continue;
+            if(victim !is DPHitboxEntity || victim === player) continue;
 
             val victimRadius = max(victim.obbHalfZ, victim.obbHalfX);
 

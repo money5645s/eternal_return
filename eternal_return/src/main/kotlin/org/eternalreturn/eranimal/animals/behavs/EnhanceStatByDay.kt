@@ -1,9 +1,9 @@
 package org.eternalreturn.eranimal.animals.behavs
 
-import org.eternalreturn.eranimal.ERAnimal
+import org.eternalreturn.eranimal.DPAnimal
 import org.eternalreturn.eranimal.ERAnimalMonobehaviour
 import org.eternalreturn.eranimal.animals.events.StatEnhanceEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 class EnhanceStatByDay : ERAnimalMonobehaviour<StatEnhanceEvent>() {
 
@@ -15,7 +15,7 @@ class EnhanceStatByDay : ERAnimalMonobehaviour<StatEnhanceEvent>() {
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
 
-        val animal = actor as ERAnimal
+        val animal = actor as DPAnimal
 
         if(animal.aJEntity.name == "animal_alpha"){
             animal.level = 2;

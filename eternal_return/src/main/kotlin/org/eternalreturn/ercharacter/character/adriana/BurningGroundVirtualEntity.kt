@@ -4,16 +4,16 @@ import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.World
 import org.eternalreturn.erentity.events.EREntityBurnEvent
-import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.erplayer.DPlayer
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.DPEngine
-import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourActor
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.DPEngine
+import org.dpengine.monobehaviour.Monobehaviour
+import org.dpengine.monobehaviour.MonobehaviourActor
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 class BurningGroundVirtualEntity(
     dpEngine: DPEngine,
-    val caster: ERPlayer,
+    val caster: DPlayer,
     val location: Location,
     val startTime: Long,
     val damage: Double,

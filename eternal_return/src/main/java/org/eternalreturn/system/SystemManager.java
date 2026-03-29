@@ -1,7 +1,6 @@
 package org.eternalreturn.system;
 
-import org.eternalreturn.erplayer.ERPlayer;
-import org.eternalreturn.util.itemUtill.CustomModelData;
+import org.eternalreturn.erplayer.DPlayer;
 import org.eternalreturn.util.itemUtill.CustomModelDataManager;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -9,14 +8,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 //싱글톤 객체
 public class SystemManager {
 
     private static SystemManager instance;
-    private static HashMap<Player, ERPlayer> erPlayerHashMap;
-    private static List<ERPlayer> erPlayerList;
+    private static HashMap<Player, DPlayer> erPlayerHashMap;
+    private static List<DPlayer> erPlayerList;
     private static CustomModelDataManager CustomModelDataManager;
 
 
@@ -34,7 +32,7 @@ public class SystemManager {
     }
 
     //getter
-    public static ERPlayer getERPlayer(Player player){ //Player 객체를 이용해서 ERPlayer 객체 불러오기
+    public static DPlayer getERPlayer(Player player){ //Player 객체를 이용해서 DPlayer 객체 불러오기
         return erPlayerHashMap.get(player);
     }
 
@@ -45,7 +43,7 @@ public class SystemManager {
         return instance;
     }
 
-    public static @NotNull HashMap<Player, ERPlayer> getERPlayerHashMap(){
+    public static @NotNull HashMap<Player, DPlayer> getERPlayerHashMap(){
         return erPlayerHashMap;
     }
 

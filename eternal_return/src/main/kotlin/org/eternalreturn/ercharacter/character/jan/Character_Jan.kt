@@ -2,10 +2,10 @@ package org.eternalreturn.ercharacter.character.jan
 
 import org.bukkit.entity.Player
 import org.eternalreturn.ercharacter.datastructure.CoolTableSeconds
-import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.erplayer.DPlayer
 import org.eternalreturn.system.EREngine
 
-class Character_Jan(erEngine : EREngine, player: Player) : ERPlayer(player, erEngine) {
+class Character_Jan(erEngine : EREngine, player: Player) : DPlayer(player, erEngine) {
     var Stack: Int = 0
     var StackSkill: Boolean = false
     var SkillReuse: Int = 0

@@ -1,9 +1,9 @@
 package org.eternalreturn.ercharacter.globalmonobehav
 
 import org.bukkit.Bukkit
+import org.dpengine.monobehaviour.MonobehaviourEvent
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterRunTimerEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
 
 class ERCharacterUpdate : ERCharacterMonobehaviour<CharacterRunTimerEvent>() {
 

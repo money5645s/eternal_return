@@ -3,13 +3,13 @@ package org.eternalreturn.ercharacter.character.fiora
 import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
 import org.bukkit.damage.DamageType
-import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.erentity.DPEntity
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.erentity.events.EREntityEvent
-import org.eternalreturn.erplayer.ERPlayer
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.eternalreturn.erplayer.DPlayer
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
-class ERToucheCountEvent(val player: ERPlayer, val damage : Double) : EREntityEvent
+class ERToucheCountEvent(val player: DPlayer, val damage : Double) : EREntityEvent
 
 /**
  * 이거는 EREntity에게 적용되는 Monobehaviour입니다.
@@ -24,7 +24,7 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
 
     override fun start(event: ERToucheCountEvent) {
 
-        val victim = this.actor as EREntity
+        val victim = this.actor as DPEntity
         /**
          * CraftPlayer
          * */
@@ -51,7 +51,7 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
             count ++;
             startTime = System.currentTimeMillis();
             //player.sendMessage("카운트 : $count");
-            erEntity.submitEvent(ToucheEffectStartEvent(durationTicks, count));
+            DPEntity.submitEvent(ToucheEffectStartEvent(durationTicks, count));
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_CHIME, 1f, 1f + (count * 0.2f))
             stopMonobehav();
             return;
@@ -61,7 +61,7 @@ class ToucheCount : EREntityMonobehaviour<ERToucheCountEvent>() {
             //player.sendMessage("카운트 : $count");
             player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_CHIME, 1f, 1f + (count * 0.2f))
             startTime = System.currentTimeMillis();
-            erEntity.submitEvent(ToucheEffectStartEvent(durationTicks, count));
+            DPEntity.submitEvent(ToucheEffectStartEvent(durationTicks, count));
             stopMonobehav();
             return;
         }

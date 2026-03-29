@@ -2,7 +2,7 @@ package org.eternalreturn.ercharacter.character.jackie
 
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.event.CharacterKillEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.potion.PotionEffect

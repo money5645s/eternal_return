@@ -3,26 +3,7 @@ package org.eternalreturn.system;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.eternalreturn.ercharacter.ERCharacter;
-import org.eternalreturn.ercharacter.character.adriana.Character_Adriana;
-import org.eternalreturn.ercharacter.character.fiora.Character_Fiora;
-import org.eternalreturn.ercharacter.character.hart.Character_Hart;
-import org.eternalreturn.ercharacter.character.hyunwoo.Character_Hyunwoo;
-import org.eternalreturn.ercharacter.character.isaac.Character_Isaac;
-import org.eternalreturn.ercharacter.character.jackie.Character_Jackie;
-import org.eternalreturn.ercharacter.character.jan.Character_Jan;
-import org.eternalreturn.ercharacter.character.lidailin.Character_LiDailin;
-import org.eternalreturn.ercharacter.character.nathapon.Character_Nathapon;
-import org.eternalreturn.ercharacter.character.sissela.Sissela;
-import org.eternalreturn.ercharacter.character.yuki.Character_Yuki;
-import org.eternalreturn.erentity.ERDummy;
-import org.eternalreturn.erplayer.ERPlayer;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Set;
 
 public class SetCommand implements CommandExecutor {
 

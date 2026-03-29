@@ -1,23 +1,23 @@
 package org.eternalreturn.erentity
 
-import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.monobehaviour.Monobehaviour
 import org.bukkit.entity.Entity
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.Monobehaviour
+import org.dpengine.monobehaviour.MonobehaviourEvent
+import org.eternalreturn.system.EREngine
 
 abstract class EREntityMonobehaviour<T : MonobehaviourEvent>() : Monobehaviour<T>() {
 
-    fun getEREntity() : EREntity{
-        return actor as EREntity
+    fun getEREntity() : DPEntity{
+        return actor as DPEntity
     }
 
-    val erEntity : EREntity
+    val DPEntity : DPEntity
         get() {
-            return actor as EREntity;
+            return actor as DPEntity;
         }
 
     val entity: Entity
-        get() = (super.actor as EREntity).entity
+        get() = (super.actor as DPEntity).entity
 
     fun isNotEnd(startTimeMillis: Long, durationTicks: Long): Boolean {
         return System.currentTimeMillis() - startTimeMillis < durationTicks * 50

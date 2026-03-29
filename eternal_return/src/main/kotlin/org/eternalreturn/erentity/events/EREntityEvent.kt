@@ -1,5 +1,5 @@
 package org.eternalreturn.erentity.events
 
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 interface EREntityEvent : MonobehaviourEvent

@@ -8,14 +8,14 @@ import org.bukkit.damage.DamageType
 import org.bukkit.entity.LivingEntity
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
-import org.eternalreturn.eranimal.ERAnimal
+import org.eternalreturn.eranimal.DPAnimal
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.ercharacter.character.jan.event.JanActiveTimerEvent
 import org.eternalreturn.ercharacter.character.jan.event.JanPassiveTimerEvent
 import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent
 import org.eternalreturn.erentity.events.EREntityStunEvent
-import org.eternalreturn.erplayer.ERPlayer
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.eternalreturn.erplayer.DPlayer
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
     override fun start(event: CharacterSwapHandEvent) {
@@ -77,8 +77,8 @@ class Active : ERCharacterMonobehaviour<CharacterSwapHandEvent>() {
                 // 4. 공격 적용
                 victim.damageForce(0.0, jan, DamageType.PLAYER_ATTACK);
                 val bukkitEntity = when(victim){
-                    is ERPlayer -> victim.player
-                    is ERAnimal -> victim.aJEntity.actor
+                    is DPlayer -> victim.player
+                    is DPAnimal -> victim.aJEntity.actor
                     else -> victim.entity
                 };
 

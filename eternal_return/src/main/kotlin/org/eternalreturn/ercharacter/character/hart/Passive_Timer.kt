@@ -4,8 +4,8 @@ import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.eternalreturn.erentity.EREntityMonobehaviour
-import org.eternalreturn.erplayer.ERPlayer
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.eternalreturn.erplayer.DPlayer
+import org.dpengine.monobehaviour.MonobehaviourEvent
 import kotlin.properties.Delegates
 
 /**
@@ -14,7 +14,7 @@ import kotlin.properties.Delegates
 class Passive_Timer : EREntityMonobehaviour<PassiveTimerEvent>(){
 
     var tick = 0;
-    var attacker: ERPlayer by Delegates.notNull()
+    var attacker: DPlayer by Delegates.notNull()
     var attackerBukkit : Player by Delegates.notNull()
     var damage = 0.0
 
@@ -29,7 +29,7 @@ class Passive_Timer : EREntityMonobehaviour<PassiveTimerEvent>(){
 
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>, MonobehaviourEvent>) {
-        val victimEREntity = this.erEntity;
+        val victimEREntity = this.DPEntity;
         val victimBukkit = victimEREntity.entity
         val player = attacker
         val loc = victimBukkit.location

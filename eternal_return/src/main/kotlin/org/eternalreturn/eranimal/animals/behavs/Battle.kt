@@ -5,14 +5,14 @@ import org.bukkit.damage.DamageType
 import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Husk
-import org.eternalreturn.eranimal.ERAnimal
+import org.eternalreturn.eranimal.DPAnimal
 import org.eternalreturn.eranimal.ERAnimalMonobehaviour
 import org.eternalreturn.eranimal.animals.events.GetBackEvent
-import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.erentity.DPEntity
 import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.system.EREngine
 import org.eternalreturn.system.PluginInstance
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
 
@@ -31,7 +31,7 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
     var speed : Double = 0.0;
 
     override fun start(event: EREntityDamagedEvent) {
-        val erAnimal = actor as ERAnimal;
+        val erAnimal = actor as DPAnimal;
         val ajEntity = erAnimal.aJEntity;
         if (!ajEntity.isShown()) return
 
@@ -58,8 +58,8 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
 
         val engine = dpEngine as EREngine;
-        val erAnimal = this.actor as ERAnimal;
-        val ajEntity = (this.actor as ERAnimal).aJEntity;
+        val erAnimal = this.actor as DPAnimal;
+        val ajEntity = (this.actor as DPAnimal).aJEntity;
 
         if(!ajEntity.isShown){
             ajEntity.stopAnim();
@@ -140,15 +140,15 @@ class Battle : ERAnimalMonobehaviour<EREntityDamagedEvent>() {
 
 
     fun move(){
-        val erEntity = (this.actor as ERAnimal);
+        val erEntity = (this.actor as DPAnimal);
         val ajEntity = erEntity.aJEntity
         ajEntity.playAnimForce("move")
     }
 
     var attackAnimTick = 0;
-    fun attack(target : EREntity){
+    fun attack(target : DPEntity){
 
-        val erEntity = (this.actor as ERAnimal);
+        val erEntity = (this.actor as DPAnimal);
         val ajEntity = erEntity.aJEntity
 
         if(!ajEntity.isPlaying("attack")){

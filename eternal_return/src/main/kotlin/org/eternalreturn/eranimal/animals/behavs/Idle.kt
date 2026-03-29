@@ -1,11 +1,11 @@
 package org.eternalreturn.eranimal.animals.behavs
 
-import org.eternalreturn.eranimal.ERAnimal
+import org.eternalreturn.eranimal.DPAnimal
 import org.eternalreturn.eranimal.ERAnimalMonobehaviour
 import org.eternalreturn.eranimal.animals.events.IdleEvent
 import org.eternalreturn.erentity.events.EREntityDamagedEvent
 import org.eternalreturn.system.EREngine
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 class Idle : ERAnimalMonobehaviour<IdleEvent>() {
     override fun start(event: IdleEvent) {
@@ -14,7 +14,7 @@ class Idle : ERAnimalMonobehaviour<IdleEvent>() {
 
     override fun update(eventMap: Map<Class<out MonobehaviourEvent>,MonobehaviourEvent>) {
 
-        val animal = actor as ERAnimal;
+        val animal = actor as DPAnimal;
         val ajEntity = animal.aJEntity;
         //플레이어에게 공격받았을 경우
         if(eventMap[EREntityDamagedEvent::class.java] != null){

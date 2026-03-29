@@ -1,6 +1,6 @@
 package org.eternalreturn.ercharacter.event
 
-import org.eternalreturn.erplayer.ERPlayer
+import org.eternalreturn.erplayer.DPlayer
 
 
-class CharacterSwapHandEvent(var player: ERPlayer) : CharacterEvent
+class CharacterSwapHandEvent(var player: DPlayer) : CharacterEvent

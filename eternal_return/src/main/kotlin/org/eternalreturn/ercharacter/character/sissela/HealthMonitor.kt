@@ -6,7 +6,7 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
 import org.eternalreturn.erentity.EREntityMonobehavCreatedEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 
 /**
  * 체력에 따라 로직을 진행하는 패시브

@@ -1,6 +1,5 @@
 package org.eternalreturn.ercharacter.event
 
-import org.eternalreturn.eranimal.ERAnimal
-import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.eranimal.DPAnimal
 
-class CharacterKillAnimalEvent(val victim : ERAnimal) : CharacterEvent
+class CharacterKillAnimalEvent(val victim : DPAnimal) : CharacterEvent

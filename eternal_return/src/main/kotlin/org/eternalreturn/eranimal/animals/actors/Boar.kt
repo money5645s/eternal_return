@@ -1,13 +1,11 @@
 package org.eternalreturn.eranimal.animals.actors
 
-import org.bukkit.Location
 import org.eternalreturn.eranimal.ERAJEntity
-import org.eternalreturn.eranimal.ERAnimal
-import org.eternalreturn.eranimal.manager.ERAnimalManager
+import org.eternalreturn.eranimal.DPAnimal
 import org.eternalreturn.system.EREngine
 
 class Boar(engine: EREngine, erAjEntity: ERAJEntity) :
-    ERAnimal(engine, erAjEntity, 1.0, 1.0, 2.0, 0.0, -1.0, 0.0) {
+    DPAnimal(engine, erAjEntity, 1.0, 1.0, 2.0, 0.0, -1.0, 0.0) {
     init {
         this.aJEntity.registerAnimation("ready",    2.0)
         this.aJEntity.registerAnimation("attack",   3.0)

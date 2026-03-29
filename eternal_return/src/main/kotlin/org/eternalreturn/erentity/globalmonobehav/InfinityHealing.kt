@@ -2,7 +2,7 @@ package org.eternalreturn.erentity.globalmonobehav
 
 import org.eternalreturn.erentity.EREntityMonobehaviour
 import org.eternalreturn.erentity.events.EREntityDamagedEvent
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 import org.bukkit.entity.LivingEntity
 
 class InfinityHealing : EREntityMonobehaviour<EREntityDamagedEvent>() {

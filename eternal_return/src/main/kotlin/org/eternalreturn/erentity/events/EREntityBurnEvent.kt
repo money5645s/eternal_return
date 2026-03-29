@@ -1,6 +1,6 @@
 package org.eternalreturn.erentity.events
 
-import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.erentity.DPEntity
 
-class EREntityBurnEvent(val attacker : EREntity, val ticks : Long) : EREntityEvent {
+class EREntityBurnEvent(val attacker : DPEntity, val ticks : Long) : EREntityEvent {
 }

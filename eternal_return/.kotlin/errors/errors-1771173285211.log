@@ -1,6 +1,6 @@
 kotlin version: 2.1.0
 error message: org.jetbrains.kotlin.backend.common.BackendException: Backend Internal error: Exception during IR lowering
-File being compiled: E:/EWorkspace/git/eternal_return/eternal_return/src/main/kotlin/org/eternalreturn/erentity/ERDummy.kt
+File being compiled: E:/EWorkspace/git/eternal_return/eternal_return/src/main/kotlin/org/eternalreturn/erentity/DPDummy.kt
 The root cause java.lang.RuntimeException was thrown at: org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:48)
 	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException(CodegenUtil.kt:253)
 	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException$default(CodegenUtil.kt:236)
@@ -51,10 +51,10 @@ The root cause java.lang.RuntimeException was thrown at: org.jetbrains.kotlin.ba
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
 Caused by: java.lang.RuntimeException: Exception while generating code for:
-CONSTRUCTOR visibility:public <> (entity:org.bukkit.entity.Entity) returnType:org.eternalreturn.erentity.ERDummy [primary]
+CONSTRUCTOR visibility:public <> (entity:org.bukkit.entity.Entity) returnType:org.eternalreturn.erentity.DPDummy [primary]
   VALUE_PARAMETER name:entity index:0 type:org.bukkit.entity.Entity
   BLOCK_BODY
-    DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (collider: org.eternalreturn.util.dpengine.geometry.Collider, entity: org.bukkit.entity.Entity) [primary] declared in org.eternalreturn.erentity.EREntity'
+    DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> (collider: org.eternalreturn.util.dpengine.geometry.Collider, entity: org.bukkit.entity.Entity) [primary] declared in org.eternalreturn.erentity.DPEntity'
       collider: CALL 'public final fun createCylinder (line: org.eternalreturn.util.dpengine.geometry.InfStraightLine, height: kotlin.Double, radius: kotlin.Double): org.eternalreturn.util.dpengine.geometry.Cylinder [fake_override] declared in org.eternalreturn.system.EREngine' type=org.eternalreturn.util.dpengine.geometry.Cylinder origin=null
         $this: CALL 'public open fun getEREngine (): @[FlexibleNullability] org.eternalreturn.system.EREngine? declared in org.eternalreturn.system.PluginInstance' type=@[FlexibleNullability] org.eternalreturn.system.EREngine? origin=null
         line: CALL 'public final fun createInfStrightLine (dirX: kotlin.Double, dirY: kotlin.Double, dirZ: kotlin.Double, posX: kotlin.Double, posY: kotlin.Double, posZ: kotlin.Double): org.eternalreturn.util.dpengine.geometry.InfStraightLine [fake_override] declared in org.eternalreturn.system.EREngine' type=org.eternalreturn.util.dpengine.geometry.InfStraightLine origin=null
@@ -64,16 +64,16 @@ CONSTRUCTOR visibility:public <> (entity:org.bukkit.entity.Entity) returnType:or
           dirZ: CONST Double type=kotlin.Double value=0.0
           posX: CALL 'public open fun getX (): kotlin.Double declared in org.bukkit.Location' type=kotlin.Double origin=GET_PROPERTY
             $this: CALL 'public abstract fun getLocation (): @[EnhancedNullability] org.bukkit.Location declared in org.bukkit.entity.Entity' type=@[EnhancedNullability] org.bukkit.Location origin=GET_PROPERTY
-              $this: GET_VAR 'entity: org.bukkit.entity.Entity declared in org.eternalreturn.erentity.ERDummy.<init>' type=org.bukkit.entity.Entity origin=null
+              $this: GET_VAR 'entity: org.bukkit.entity.Entity declared in org.eternalreturn.erentity.DPDummy.<init>' type=org.bukkit.entity.Entity origin=null
           posY: CALL 'public open fun getY (): kotlin.Double declared in org.bukkit.Location' type=kotlin.Double origin=GET_PROPERTY
             $this: CALL 'public abstract fun getLocation (): @[EnhancedNullability] org.bukkit.Location declared in org.bukkit.entity.Entity' type=@[EnhancedNullability] org.bukkit.Location origin=GET_PROPERTY
-              $this: GET_VAR 'entity: org.bukkit.entity.Entity declared in org.eternalreturn.erentity.ERDummy.<init>' type=org.bukkit.entity.Entity origin=null
+              $this: GET_VAR 'entity: org.bukkit.entity.Entity declared in org.eternalreturn.erentity.DPDummy.<init>' type=org.bukkit.entity.Entity origin=null
           posZ: CALL 'public open fun getZ (): kotlin.Double declared in org.bukkit.Location' type=kotlin.Double origin=GET_PROPERTY
             $this: CALL 'public abstract fun getLocation (): @[EnhancedNullability] org.bukkit.Location declared in org.bukkit.entity.Entity' type=@[EnhancedNullability] org.bukkit.Location origin=GET_PROPERTY
-              $this: GET_VAR 'entity: org.bukkit.entity.Entity declared in org.eternalreturn.erentity.ERDummy.<init>' type=org.bukkit.entity.Entity origin=null
+              $this: GET_VAR 'entity: org.bukkit.entity.Entity declared in org.eternalreturn.erentity.DPDummy.<init>' type=org.bukkit.entity.Entity origin=null
         height: CONST Double type=kotlin.Double value=1.0
         radius: CONST Double type=kotlin.Double value=3.0
-      entity: GET_VAR 'entity: org.bukkit.entity.Entity declared in org.eternalreturn.erentity.ERDummy.<init>' type=org.bukkit.entity.Entity origin=null
+      entity: GET_VAR 'entity: org.bukkit.entity.Entity declared in org.eternalreturn.erentity.DPDummy.<init>' type=org.bukkit.entity.Entity origin=null
     BLOCK type=kotlin.Unit origin=null
       BLOCK type=kotlin.Unit origin=SYNTHESIZED_INIT_BLOCK
         ERROR_CALL 'Unresolved reference: R|org/eternalreturn/erentity/EREntity.entity|' type=IrErrorType([Error type: Unresolved type for <error>])

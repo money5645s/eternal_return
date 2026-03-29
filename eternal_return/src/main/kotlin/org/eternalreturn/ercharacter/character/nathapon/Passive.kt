@@ -1,7 +1,7 @@
 package org.eternalreturn.ercharacter.character.nathapon
 
 import org.eternalreturn.ercharacter.ERCharacterMonobehaviour
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.dpengine.monobehaviour.MonobehaviourEvent
 import org.bukkit.entity.LivingEntity
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType

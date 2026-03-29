@@ -4,21 +4,21 @@ import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
 import org.eternalreturn.ercharacter.CooldownContext
 import org.eternalreturn.ercharacter.ERCharacterSkillMonobehaviour
-import org.eternalreturn.erentity.EREntity
+import org.eternalreturn.erentity.DPEntity
 import org.eternalreturn.erentity.events.EREntityAttackEvent
-import org.eternalreturn.erplayer.ERPlayer
-import org.eternalreturn.util.dpengine.monobehaviour.MonobehaviourEvent
+import org.eternalreturn.erplayer.DPlayer
+import org.dpengine.monobehaviour.MonobehaviourEvent
 import kotlin.math.min
 
 class Passive(
     cooldownContext : CooldownContext
 ) : ERCharacterSkillMonobehaviour<EREntityAttackEvent, Character_Hyunwoo>(cooldownContext, 0, "PCD") {
-    private val hitCountMap = HashMap<EREntity, Int>()
+    private val hitCountMap = HashMap<DPEntity, Int>()
 
     override fun skillStart(event: EREntityAttackEvent) {
 
         val victim = event.victim;
-        val attacker = event.attacker as ERPlayer;
+        val attacker = event.attacker as DPlayer;
         val bukkitAttacker = attacker.player;
         val hyunwoo = player;
 
