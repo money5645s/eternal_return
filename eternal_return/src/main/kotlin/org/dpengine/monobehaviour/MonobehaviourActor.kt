@@ -49,6 +49,7 @@ abstract class MonobehaviourActor(
      * */
     open fun remove(){
         this.referenceCount = 0;
+        monobehaviourModule.monobehaviourActorList.setModified();
     }
     fun refer(){
         this.referenceCount++;

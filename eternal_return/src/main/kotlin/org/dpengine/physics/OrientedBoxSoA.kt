@@ -7,7 +7,7 @@ import it.unimi.dsi.fastutil.longs.LongArrayList
 import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Particle
-import org.dpengine.DPhysicsEngine
+import org.dpengine.DPhysicsBukkitEngine
 import org.dpengine.monobehaviour.MonobehaviourActor
 import org.eternalreturn.erentity.DPEntity
 import org.eternalreturn.erentity.DPHitboxEntity
@@ -348,7 +348,7 @@ class OrientedBoxSoA(
     }
 
 
-    fun rayCastSoA(eventCommandQueue : ArrayDeque<DPhysicsEngine.EventCmd>, raySoA : RaySoA){
+    fun rayCastSoA(eventCommandQueue : ArrayDeque<DPhysicsBukkitEngine.EventCmd>, raySoA : RaySoA){
 
         val lastRay = raySoA.lastRay;
         val posX = raySoA.posX;
@@ -411,10 +411,10 @@ class OrientedBoxSoA(
 
             //이벤트를 전달한다.
             if(actorWhoShoot is DPEntity){ //광선을 쏜 개체가 EREntity라면
-                eventCommandQueue.addLast(DPhysicsEngine.EventCmd(actorWhoShoot, EREntityRayCastEvent(actorWhoShoot,hitActorList)))
+                eventCommandQueue.addLast(DPhysicsBukkitEngine.EventCmd(actorWhoShoot, EREntityRayCastEvent(actorWhoShoot,hitActorList)))
             }else if(actorWhoShoot is DProjectile){
                 //광선을 쏜 개체가 Projectile이라면
-                eventCommandQueue.addLast(DPhysicsEngine.EventCmd(actorWhoShoot, ProjectileRayCastEvent(actorWhoShoot, hitActorList)))
+                eventCommandQueue.addLast(DPhysicsBukkitEngine.EventCmd(actorWhoShoot, ProjectileRayCastEvent(actorWhoShoot, hitActorList)))
             }
         }
     }

@@ -1,6 +1,6 @@
 package org.eternalreturn.projectile
 
-import org.dpengine.DPhysicsEngine
+import org.dpengine.DPhysicsBukkitEngine
 import org.eternalreturn.erplayer.DPlayer
 import org.eternalreturn.projectile.events.ProjectileInitEvent
 import org.eternalreturn.projectile.globalmonobehav.ProjectileFlight
@@ -9,7 +9,7 @@ import org.eternalreturn.system.EREngine
 import org.dpengine.monobehaviour.MonobehaviourActor
 
 class DProjectile(
-    engine : DPhysicsEngine,
+    engine : DPhysicsBukkitEngine,
     var x : Double, var y : Double, var z : Double,
     var dx : Double, var dy : Double, var dz : Double,
     val owner : DPlayer

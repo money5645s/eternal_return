@@ -2,13 +2,11 @@ package org.eternalreturn.system
 
 
 import org.bukkit.Bukkit
-import org.bukkit.Chunk
-import org.bukkit.block.Block
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.scoreboard.Objective
-import org.dpengine.DPhysicsEngine
+import org.dpengine.DPhysicsBukkitEngine
 import org.dpengine.datastructure.DeadActorException
 import org.dpengine.datastructure.UpdateView
 import org.eternalreturn.area.ERAreaSystem
@@ -17,7 +15,7 @@ import org.eternalreturn.erplayer.DPlayer
 
 
 
-class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPhysicsEngine(bufferSize) {
+class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPhysicsBukkitEngine(bufferSize) {
 
 
     /**

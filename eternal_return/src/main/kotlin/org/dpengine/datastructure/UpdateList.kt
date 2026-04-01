@@ -17,6 +17,7 @@ class UpdateList<E : MonobehaviourActor> : UpdateContainer<E>() {
     override fun add(obj : E){
         waitListToInsert.add(obj);
         obj.refer();
+        isModified = true;
     }
 
     /**
@@ -29,11 +30,20 @@ class UpdateList<E : MonobehaviourActor> : UpdateContainer<E>() {
         viewList.add(view);
     }
 
+
+    private var isModified : Boolean = true; //이렇게 안 하면 initialize 자체가 안 됨
+    fun setModified(){
+        isModified = true;
+    }
     /**
      * Override된 기능. 원래의 update를 실행 후 종속된 View들의 컨테이너들도 함께 업데이트한다.
      * Update-propagate 기능임. 주의 : Thread-safe하지 않음.
      * */
     override fun update(){
+
+        if(!isModified)return;
+
+        isModified = false;
         super.update();
         for(view in viewList){
             view.update();

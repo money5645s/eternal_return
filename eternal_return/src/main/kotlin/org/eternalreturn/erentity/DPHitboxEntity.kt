@@ -1,16 +1,14 @@
 package org.eternalreturn.erentity
 
 import org.bukkit.entity.Entity
-import org.dpengine.DPhysicsEngine
+import org.dpengine.DPhysicsBukkitEngine
 import org.eternalreturn.erentity.globalmonobehav.EntityRayCastingMeleeAttack
-import org.dpengine.physics.Handle
-import kotlin.properties.Delegates
 
 /**
  * DPEntity 중 유효한 Hitbox를 가져야 하는 Entity인 경우
  * */
 abstract class DPHitboxEntity( // extends MonobehaviourActor()
-    engine: DPhysicsEngine,
+    engine: DPhysicsBukkitEngine,
     entity: Entity,
     val obbHalfX: Double, val obbHalfY: Double, val obbHalfZ: Double,
     val obbLocX: Double, val obbLocY: Double, val obbLocZ: Double

@@ -1,13 +1,12 @@
 package org.dpengine.physics
 
-import org.dpengine.DPhysicsEngine
-import org.eternalreturn.system.EREngine
+import org.dpengine.DPhysicsBukkitEngine
 import org.dpengine.monobehaviour.MonobehaviourActor
 import kotlin.math.cos
 import kotlin.math.sin
 
 class RaySoA(
-    val erEngine: DPhysicsEngine,
+    val erEngine: DPhysicsBukkitEngine,
     bufferSize : Int) {
 
     val posX = DoubleArray(bufferSize);// 레이캐스팅용 객체

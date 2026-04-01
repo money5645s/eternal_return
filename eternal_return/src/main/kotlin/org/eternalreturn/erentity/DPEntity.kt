@@ -8,7 +8,7 @@ import org.bukkit.damage.DamageType
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.util.Vector
-import org.dpengine.DPhysicsEngine
+import org.dpengine.DPhysicsBukkitEngine
 import org.dpengine.monobehaviour.MonobehaviourActor
 import org.eternalreturn.ercharacter.character.fiora.ToucheCount
 import org.eternalreturn.ercharacter.character.fiora.ToucheEffect
@@ -33,7 +33,7 @@ class EREntityMonobehavCreatedEvent : EREntityEvent
  * 자신의 위치를 저장하는 Handle을 소유한다.
  */
 abstract class DPEntity(
-    engine : DPhysicsEngine,
+    engine : DPhysicsBukkitEngine,
     val entity : Entity
 ) : MonobehaviourActor(engine){
 

@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture
 /**
  * Bukkit 객체들과 유연하게 상호작용하기위한 엔진
  */
-open class DPhysicsEngine(bufferSize : Int = 512) : DPEngine(bufferSize){
+open class DPhysicsBukkitEngine(bufferSize : Int = 512) : DPEngine(bufferSize){
 
     val entities = UpdateView<DPEntity>();
     val entityList : List<DPEntity> get() = entities.curQueue;
