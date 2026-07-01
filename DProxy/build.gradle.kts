@@ -2,8 +2,8 @@ import org.jetbrains.gradle.ext.settings
 import org.jetbrains.gradle.ext.taskTriggers
 
 plugins {
-    kotlin("jvm") version "2.1.0"
-    kotlin("kapt") version "2.1.0"
+    kotlin("jvm") version "2.4.0"
+    kotlin("kapt") version "2.4.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("eclipse")
     id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.8"
@@ -23,7 +23,7 @@ repositories {
 dependencies {
     compileOnly("com.velocitypowered:velocity-api:3.5.0-SNAPSHOT")
     kapt("com.velocitypowered:velocity-api:3.5.0-SNAPSHOT")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.1.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.4.0")
 }
 
 tasks {
@@ -31,7 +31,7 @@ tasks {
         // Configure the Velocity version for our task.
         // This is the only required configuration besides applying the plugin.
         // Your plugin's jar (or shadowJar if present) will be used automatically.
-        velocityVersion("3.4.0-SNAPSHOT")
+        velocityVersion("3.5.0-SNAPSHOT")
     }
 }
 
@@ -59,7 +59,7 @@ project.eclipse.synchronizationTasks(generateTemplates)
 
 tasks.jar {
     archiveFileName.set("dproxy.jar")
-    destinationDirectory.set(file("E:/EWorkspace/ETERNAL_RETURN/velocityproxy/plugins"))
+    destinationDirectory.set(file("E:\\EWorkspace\\2026\\moneyProj\\TestVelocity\\plugins"))
     manifest {attributes("Main-Class" to "org.danpung.dproxy.Dproxy")}
     from({
         configurations.runtimeClasspath.get().map {

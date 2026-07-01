@@ -6,9 +6,6 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 import org.bukkit.scoreboard.Objective
-import org.dpengine.DPhysicsBukkitEngine
-import org.dpengine.datastructure.DeadActorException
-import org.dpengine.datastructure.UpdateView
 import org.eternalreturn.area.ERAreaSystem
 import org.eternalreturn.erentity.DPEntity
 import org.eternalreturn.erplayer.DPlayer
@@ -44,7 +41,10 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPhysicsBukkitEngi
     var dayScoreboard : Objective? = null;
     var summonAlpha = false;
     var summonOmega = false;
+
     override fun update(){
+
+        
 
         if(dayScoreboard == null){
             dayScoreboard = Bukkit.getScoreboardManager().mainScoreboard.getObjective("time");
@@ -67,7 +67,12 @@ class EREngine(val plugin : Plugin, bufferSize : Int = 512) : DPhysicsBukkitEngi
             areaSystem.allowToSummonOmegaOnDay3()
         }
 
+        val t = System.currentTimeMillis();
         super.update();
+        val newT = System.currentTimeMillis() - t;
+        if(newT > 20){
+            println("스파이크 감지됨 : $newT ms")
+        }
 
     }
 

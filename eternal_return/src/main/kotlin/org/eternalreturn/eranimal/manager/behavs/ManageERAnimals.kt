@@ -2,14 +2,16 @@ package org.eternalreturn.eranimal.manager.behavs
 
 import net.kyori.adventure.text.Component
 import org.dpengine.monobehaviour.Monobehaviour
-import org.eternalreturn.eranimal.ERAJEntity
+import org.dpengine.monobehaviour.MonobehaviourEvent
 import org.eternalreturn.eranimal.DPAnimal
+import org.eternalreturn.eranimal.ERAJEntity
 import org.eternalreturn.eranimal.animals.actors.*
 import org.eternalreturn.eranimal.manager.ERAnimalManager
-import org.eternalreturn.eranimal.manager.events.AnimalManageEvent
 import org.eternalreturn.eranimal.manager.events.RemoveAllERAnimals
 import org.eternalreturn.system.EREngine
-import org.dpengine.monobehaviour.MonobehaviourEvent
+
+
+class AnimalManageEvent() : MonobehaviourEvent
 
 
 class ManageERAnimals(val animalSize : Int) : Monobehaviour<AnimalManageEvent>() {

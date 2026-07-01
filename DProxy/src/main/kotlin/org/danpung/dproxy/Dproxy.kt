@@ -2,6 +2,7 @@ package org.danpung.dproxy;
 
 import com.google.inject.Inject
 import com.velocitypowered.api.event.Subscribe
+import com.velocitypowered.api.event.connection.PluginMessageEvent
 import com.velocitypowered.api.event.player.PlayerChooseInitialServerEvent
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent
 import com.velocitypowered.api.event.proxy.server.ServerRegisteredEvent
@@ -16,7 +17,8 @@ import java.net.InetSocketAddress
 @Plugin(id = "dproxy", name = "Dproxy", version = BuildConstants.VERSION)
 class Dproxy @Inject constructor(
     val proxy: ProxyServer,
-    val logger: Logger) {
+    val logger: Logger
+) {
 
 
     init{
@@ -33,6 +35,13 @@ class Dproxy @Inject constructor(
     fun onPlayerConnected(e : PlayerChooseInitialServerEvent){
         //e.player.createConnectionRequest(serverList[0]);
         logger.info(e.initialServer.get().serverInfo.name);
+    }
+
+    @Subscribe
+    fun onPluginMessageFromPlayer(e : PluginMessageEvent){
+        
+
+
     }
 
 

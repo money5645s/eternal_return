@@ -2,22 +2,24 @@ package org.eternalreturn.system;
 
 import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
 import org.bukkit.GameMode;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.eternalreturn.ercharacter.event.*;
-import org.eternalreturn.erentity.DPEntity;
-import org.eternalreturn.erplayer.DPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.eternalreturn.ercharacter.event.CharacterKillEvent;
+import org.eternalreturn.ercharacter.event.CharacterLeftClickEvent;
+import org.eternalreturn.ercharacter.event.CharacterShootProjectileEvent;
+import org.eternalreturn.ercharacter.event.CharacterSwapHandEvent;
+import org.eternalreturn.erentity.DPEntity;
+import org.eternalreturn.erplayer.DPlayer;
 
 public class ERListener implements Listener {
-
-
 
 
     @EventHandler

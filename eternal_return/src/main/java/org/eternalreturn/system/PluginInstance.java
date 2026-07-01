@@ -1,26 +1,22 @@
 package org.eternalreturn.system;
 
 
-import java.io.UnsupportedEncodingException;
-
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.events.PacketEvent;
-import org.eternalreturn.eranimal.manager.ERAnimalManager;
-import org.eternalreturn.util.AJEntity.AJEntityListener;
-import org.eternalreturn.util.AJEntity.AJEntityManager;
+import kr.toxicity.model.api.bukkit.BetterModelBukkit;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.eternalreturn.eranimal.manager.ERAnimalManager;
+import org.eternalreturn.util.AJEntity.AJEntityListener;
+import org.eternalreturn.util.AJEntity.AJEntityManager;
+
+import java.io.UnsupportedEncodingException;
 
 public final class PluginInstance extends JavaPlugin{
 
     private static PluginInstance serverInstance;
     private static AJEntityManager ajEntityManager;
     private static SystemManager systemManager;
+    private static BetterModelBukkit betterModelPlatform;
 
     /**
      * 나중에 병렬처리를 위해 List<>로 관리할 수도 있음.
@@ -62,7 +58,10 @@ public final class PluginInstance extends JavaPlugin{
         pm.registerEvents(new AJEntityListener(), this);
         loadCommands();
 
+        betterModelPlatform = BetterModelBukkit.platform();
+
         Bukkit.getScheduler().runTaskTimer(this, ajEntityManager,0, 1);
+
 
         //로드 종료 시 로그
         dfLogUTF8("이터널 리턴 플러그인 구동 준비 완료!");
@@ -72,8 +71,8 @@ public final class PluginInstance extends JavaPlugin{
 
         //커맨드 로드용. 너무 길어질 것 같아서 미리 뺐음
     private void loadCommands() {
-        getCommand("er").setExecutor(new ERCommand());
-        getCommand("set").setExecutor(new SetCommand());
+        this.getCommand("er").setExecutor(new ERCommand());
+        this.getCommand("set").setExecutor(new SetCommand());
     }
 
     @Override

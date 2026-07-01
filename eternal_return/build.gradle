@@ -1,7 +1,9 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '2.1.0'
+    id 'org.jetbrains.kotlin.jvm' version '2.3.10'
+    //id("com.gradleup.shadow") version "9.4.1"
 }
+
 
 group = 'eternal_return'
 version = '1.0-SNAPSHOT'
@@ -17,16 +19,23 @@ repositories {
         url = "https://oss.sonatype.org/content/groups/public/"
     }
 
+    flatDir{
+        dirs 'libs'
+    }
+
 }
 
+
+
 dependencies {
+    implementation files('libs/dpengine.jar')
 
     compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
     compileOnly 'net.dmulloy2:ProtocolLib:5.4.0'
+    compileOnly 'io.github.toxicity188:bettermodel-bukkit-api:2.2.0'
 
     //코틀린 스탠다드 라이브러리
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.0"
-
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
     implementation "it.unimi.dsi:fastutil:8.5.15"
     implementation 'com.google.code.gson:gson:2.10.1'
 }
@@ -59,12 +68,20 @@ processResources {
     }
 }
 
+
+
+
 jar{
     archiveFileName = 'eternal_return.jar'
     destinationDirectory = file("E:/EWorkspace/ETERNAL_RETURN/battleroyal/plugins")
     manifest{
         attributes 'Main-Class': 'eternal_return.system.PluginInstance'
     }
-    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

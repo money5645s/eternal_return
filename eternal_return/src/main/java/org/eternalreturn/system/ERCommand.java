@@ -1,5 +1,18 @@
 package org.eternalreturn.system;
 
+import kr.toxicity.model.api.BetterModel;
+import kr.toxicity.model.api.animation.AnimationModifier;
+import kr.toxicity.model.api.bukkit.platform.BukkitAdapter;
+import kr.toxicity.model.api.tracker.DummyTracker;
+import kr.toxicity.model.api.tracker.TrackerUpdateAction;
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.eternalreturn.ercharacter.DPCharacter;
 import org.eternalreturn.ercharacter.character.adriana.Character_Adriana;
 import org.eternalreturn.ercharacter.character.fiora.Character_Fiora;
 import org.eternalreturn.ercharacter.character.hart.Character_Hart;
@@ -12,28 +25,12 @@ import org.eternalreturn.ercharacter.character.nathapon.Character_Nathapon;
 import org.eternalreturn.ercharacter.character.rio.Rio;
 import org.eternalreturn.ercharacter.character.sissela.Sissela;
 import org.eternalreturn.ercharacter.character.yuki.Character_Yuki;
-import org.eternalreturn.ercharacter.DPCharacter;
 import org.eternalreturn.erentity.DPDummy;
 import org.eternalreturn.erplayer.DPlayer;
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class ERCommand implements CommandExecutor {
 
-    public ERCommand(){
-        __init();
-    }
-
-
-    private void __init(){
-
-    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -109,14 +106,22 @@ public class ERCommand implements CommandExecutor {
             p.sendMessage("Dummy set");
         }
         else if(args.length == 1 && args[0].equalsIgnoreCase("test")){
-            var character0 = new Character_Adriana(engine, p);
-            var character1 = new Character_Adriana(engine, p);
-            engine.registerBukkitActor(p, character0);
-            engine.registerBukkitActor(p, character1);
-            Bukkit.getScheduler().runTaskLater(PluginInstance.getServerInstance(), ()->{
-                character0.remove();
-                character1.remove();
-            }, 1L);
+
+            var loc = BukkitAdapter.adapt(p.getLocation());
+            var player = BukkitAdapter.adapt(p);
+
+            DummyTracker tracker = BetterModel.model("wolf")
+                    .map(r -> r.create(loc))
+                    .orElse(null);
+
+            tracker.spawn(player);
+            tracker.animate("move", AnimationModifier.DEFAULT);
+
+            Bukkit.getScheduler().runTaskTimer(engine.getPlugin(), ()->{
+                tracker.location(tracker.location().add(0,0,0.1));
+                tracker.update(TrackerUpdateAction.moveDuration(1));
+            }, 0, 1);
+
         }
 
         return false;

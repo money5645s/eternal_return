@@ -3,8 +3,6 @@ package org.eternalreturn.eranimal.manager.behavs
 import org.dpengine.monobehaviour.Monobehaviour
 import org.dpengine.monobehaviour.MonobehaviourEvent
 import org.eternalreturn.eranimal.manager.ERAnimalManager
-import org.eternalreturn.eranimal.manager.events.AnimalManageEvent
-import org.eternalreturn.eranimal.manager.events.DetectingPlayerEvent
 
 class WaitForSummoningEvent() : MonobehaviourEvent
 
